@@ -1,0 +1,1 @@
+grails refresh-dependencies --include-source --include-javadoc dependencies.xml

@@ -1,0 +1,10 @@
+
+grails refresh-dependencies --include-source
+
+
+
+http://grails.org/plugin/eclipse-scripts
+grails integrate-with --eclipse
+grails compile
+grails download-sources-and-javadocs
+grails sts-link-sources-and-javadocs
