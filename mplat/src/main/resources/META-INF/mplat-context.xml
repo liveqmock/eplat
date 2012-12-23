@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd" default-autowire="byName">
+
+	<!-- ================================================= -->
+	<!-- 静态资源 -->
+	<!-- ================================================= -->
+
+	<!-- ================================================= -->
+	<!-- 参数配置 -->
+	<!-- ================================================= -->
+	<context:property-placeholder file-encoding="UTF-8" location="/WEB-INF/config/system-config.xml" />
+
+	<!-- ================================================= -->
+	<!-- 自动扫描 -->
+	<!-- ================================================= -->
+	<context:component-scan base-package="com.atom.ebank.*" />
+
+	<!-- ================================================= -->
+	<!-- 基于注解控制器映射 -->
+	<!-- ================================================= -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="com.atom.ebank.web.interceptor.FastContextInterceptor" />
+				<bean class="com.atom.ebank.web.interceptor.FastLocaleInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- MVC方法注解 -->
+	<!-- ================================================= -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="com.atom.core.converter.HttpMessageConverterJSON" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<!-- ================================================= -->
+	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="prefix" value="" />
+		<property name="suffix" value=".ftl" />
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="requestContextAttribute" value="RCXT" />
+	</bean>
+
+	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/templates" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="tag_syntax">auto_detect</prop>
+				<prop key="template_update_delay">5</prop>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<prop key="url_escaping_charset">UTF-8</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="boolean_format">true,false</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="time_format">HH:mm:ss</prop>
+				<prop key="number_format">0.######</prop>
+				<prop key="whitespace_stripping">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- 上传文件 -->
+	<!-- ================================================= -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" /><!-- 100MB -->
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- 异常处理器 -->
+	<!-- ================================================= -->
+	<!-- <bean name="exceptionResolver" class="com.aptech.atom.web.shared.exception.WebExceptionResolver" /> -->
+
+	<!-- ================================================= -->
+	<!-- 国际化资源 -->
+	<!-- ================================================= -->
+	<bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/WEBX-INF/atom-msgs</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="60" />
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- Velocity服务配置 -->
+	<!-- ================================================= -->
+	<!-- <bean id="velocityService" class="com.aptech.atom.common.service.VelocityService"> <property name="resourceLoaderPath" value="/WEB-INF/templates/public/" /> </bean> -->
+
+	<!-- ================================================= -->
+	<!-- Email服务配置 -->
+	<!-- ================================================= -->
+	<!-- <bean id="emailService" class="com.aptech.atom.common.service.support.EmailServiceImpl"> <property name="host" value="${email.host}" /> <property name="port" value="${email.port}" /> <property name="fromName" value="${email.from.name}" /> <property name="fromEmail" value="${email.from.email}" /> <property name="connectTimeout" value="${email.connect.timeout}" /> <property name="sendTimeout" value="${email.send.timeout}" /> <property name="property"> <props> <prop key="MyName">The God</prop> </props> </property> </bean> -->
+
+	<!-- ================================================= -->
+	<!-- 属性编辑器配置 -->
+	<!-- ================================================= -->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date">
+					<bean class="com.atom.core.DatePropertyEditor" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>
