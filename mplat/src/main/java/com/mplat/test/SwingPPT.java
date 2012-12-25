@@ -3,6 +3,7 @@
  */
 package com.mplat.test;
 
+import com.mplat.io.UnicodeInputStream;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -96,7 +97,8 @@ public class SwingPPT {
 
             public void actionPerformed(ActionEvent event) {
                 try {
-                    InputStream is = new FileInputStream("D:/CodeSVN/apteck/dataplatform/share/mbill/商户对账中心-相关业务分享.ppt");
+                    String CHAR_SET = "UTF-8";
+                    InputStream is = new UnicodeInputStream(new FileInputStream("D:/CodeSVN/apteck/dataplatform/share/mbill/商户对账中心-相关业务分享.ppt"), CHAR_SET);
                     SlideShow ppt = new SlideShow(is);
                     is.close();
 

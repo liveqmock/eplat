@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>系统参数配置</comment>
+
+	<!-- ================================ -->
+	<!-- JDBC配置 -->
+	<!-- ================================ -->
+	<!--
+	<entry key="jdbc.catg">MySQL</entry>
+	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
+	<entry key="jdbc.url">jdbc:mysql://127.0.01:3306/ebank?useUnicode=true&amp;characterEncoding=UTF8</entry>
+	-->
+	<entry key="jdbc.catg">SQLite</entry>
+	<entry key="jdbc.driver">org.sqlite.JDBC</entry>
+	<entry key="jdbc.url">jdbc:sqlite:c:/test.db</entry>
+	<entry key="jdbc.user">ebank</entry>
+	<entry key="jdbc.passwd">ebank</entry>
+
+</properties>
