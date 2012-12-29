@@ -10,13 +10,12 @@ import java.sql.Connection;
  * @author shizihu
  */
 public interface JdbcMgt {
-    
-    public void initialize();
-    
+
+    public void initialize() throws Exception;
+
     public boolean shutdown();
-    
+
     public Connection fetchConnection();
-    
+
     public boolean freeConnection(Connection conn);
-    
 }

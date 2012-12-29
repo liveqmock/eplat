@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.IOUtils;
 
 /**
- *
  * @author shizihu
  */
 public final class ConfigUtils {
@@ -83,4 +82,5 @@ public final class ConfigUtils {
     public static String findConfigPath() {
         return findValue(Constants.ROOT_PATH_KEY) + "/config";
     }
+
 }

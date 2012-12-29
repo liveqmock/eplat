@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>系统参数配置</comment>
+
+	<!-- ================================ -->
+	<!-- JDBC配置 -->
+	<!-- ================================ -->
+	<entry key="SYSTEM-NAME">MPLAT</entry>
+
+</properties>
