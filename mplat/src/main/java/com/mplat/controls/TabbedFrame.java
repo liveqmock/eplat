@@ -4,8 +4,11 @@
  */
 package com.mplat.controls;
 
+import com.mplat.MplatMain;
 import com.mplat.util.ConfigUtils;
 import com.mplat.util.UIUtils;
+import java.awt.Dialog;
+import java.awt.Frame;
 import javax.swing.JDialog;
 
 /**
@@ -18,10 +21,10 @@ public class TabbedFrame extends javax.swing.JFrame {
      */
     public TabbedFrame() {
         initComponents();
-        
+
         jTabbedPane2.addTab("tabMain", new MainPanel());
-        
-        if(!ConfigUtils.isAdmin()) {
+
+        if (!ConfigUtils.isAdmin()) {
             this.menuMgt.setVisible(false);
         }
     }
@@ -42,13 +45,17 @@ public class TabbedFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        menuFile = new javax.swing.JMenu();
+        menuItemExit = new javax.swing.JMenuItem();
+        menuFunc = new javax.swing.JMenu();
+        menuItemPPT = new javax.swing.JMenuItem();
         menuMgt = new javax.swing.JMenu();
         menuItemUserMgt = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        menuAbout = new javax.swing.JMenu();
+        menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("医疗模拟人（单机版V1.0.1.20121226）");
 
         jButton5.setText("jButton5");
 
@@ -111,11 +118,29 @@ public class TabbedFrame extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("tab2", jPanel3);
 
-        jMenu1.setText("File");
-        menuBar.add(jMenu1);
+        menuFile.setText("文件");
 
-        jMenu2.setText("Edit");
-        menuBar.add(jMenu2);
+        menuItemExit.setText("退出系统");
+        menuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExitActionPerformed(evt);
+            }
+        });
+        menuFile.add(menuItemExit);
+
+        menuBar.add(menuFile);
+
+        menuFunc.setText("功能");
+
+        menuItemPPT.setText("播放PPT教程");
+        menuItemPPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPPTActionPerformed(evt);
+            }
+        });
+        menuFunc.add(menuItemPPT);
+
+        menuBar.add(menuFunc);
 
         menuMgt.setText("管理");
 
@@ -129,8 +154,17 @@ public class TabbedFrame extends javax.swing.JFrame {
 
         menuBar.add(menuMgt);
 
-        jMenu4.setText("jMenu4");
-        menuBar.add(jMenu4);
+        menuAbout.setText("关于");
+
+        menuItemAbout.setText("关于本系统");
+        menuItemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAboutActionPerformed(evt);
+            }
+        });
+        menuAbout.add(menuItemAbout);
+
+        menuBar.add(menuAbout);
 
         setJMenuBar(menuBar);
 
@@ -158,19 +192,42 @@ public class TabbedFrame extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_onMenuItemUserMgtActionPerformed
 
+    private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExitActionPerformed
+        boolean exit = UIUtils.confirm(this, "退出", "你确定要退出系统吗？");
+        if (exit) {
+            MplatMain.exitSystem();
+        }
+    }//GEN-LAST:event_menuItemExitActionPerformed
+
+    private void menuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAboutActionPerformed
+        Dialog dialog = new AboutDialog(this, true);
+        UIUtils.center(dialog);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuItemAboutActionPerformed
+
+    private void menuItemPPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPPTActionPerformed
+        Dialog dialog = new PPTShowDialog(this, true, "tstppt");
+        UIUtils.maxSize(dialog);
+        UIUtils.center(dialog);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuItemPPTActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JMenu menuAbout;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuFunc;
+    private javax.swing.JMenuItem menuItemAbout;
+    private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemPPT;
     private javax.swing.JMenuItem menuItemUserMgt;
     private javax.swing.JMenu menuMgt;
     // End of variables declaration//GEN-END:variables

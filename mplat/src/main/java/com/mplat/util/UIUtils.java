@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -55,6 +56,15 @@ public class UIUtils {
     }
 
     /**
+     * 设置组件为80%
+     */
+    public static final void maxSize(Component component) {
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension size = new Dimension((int) (screen.getWidth() * 0.8), (int) (screen.getHeight() * 0.8));
+        component.setSize(size);
+    }
+
+    /**
      * 设置组件为全屏
      */
     public static final void fullScreen(Component component) {
@@ -62,5 +72,13 @@ public class UIUtils {
         Dimension size = new Dimension((int) screen.getWidth(), (int) screen.getHeight() - 50);
         component.setSize(size);
         component.setLocation(0, 0);
+    }
+
+    /**
+     * 是否确定
+     */
+    public static final boolean confirm(Component component, String title, String msg) {
+        int rtn = JOptionPane.showConfirmDialog(component, msg, title, JOptionPane.OK_CANCEL_OPTION);
+        return (rtn == JOptionPane.OK_OPTION);
     }
 }

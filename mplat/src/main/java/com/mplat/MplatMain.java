@@ -129,4 +129,12 @@ public class MplatMain {
 
         MplatContextHolder.testMessage();
     }
+    
+    /**
+     * 退出系统
+     */
+    public static void exitSystem() {
+        System.exit(0);
+    }
+    
 }

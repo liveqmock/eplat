@@ -9,7 +9,6 @@ import com.mplat.orm.dto.UserInfoDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -50,13 +49,10 @@ public class UserMgtDialog extends javax.swing.JDialog {
             }
         });
         
-        DefaultTableModel model = new DefaultTableModel(new String[]{"用户名"}, 0);
         List<UserInfoDTO> users = DAO.getUserDAO().seleteAll();
+        DefaultTableModel model = new DefaultTableModel(new String[]{"用户名"}, users.size());
         for (int i = 0; i < users.size(); i++) {
             UserInfoDTO user = users.get(i);
-            Vector data = new Vector();
-            data.add(user.getUserName());
-            // model.addRow(new String[]{user.getUserName()});
             model.setValueAt(user, i, 0);
         }
         this.tableUserInfos.setModel(model);
@@ -146,6 +142,7 @@ public class UserMgtDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("用户信息管理");
+        setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("用户名");
@@ -192,6 +189,7 @@ public class UserMgtDialog extends javax.swing.JDialog {
             }
         });
         tableUserInfos.setColumnSelectionAllowed(true);
+        tableUserInfos.setRowHeight(20);
         tableUserInfos.getTableHeader().setReorderingAllowed(false);
         tableUserInfos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
