@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author shizihu
@@ -81,6 +82,14 @@ public final class ConfigUtils {
      */
     public static String findConfigPath() {
         return findValue(Constants.ROOT_PATH_KEY) + "/config";
+    }
+    
+    /**
+     * 是否为管理员
+     */
+    public static boolean isAdmin() {
+        String userName = findValue(Constants.LOGIN_USER_KEY);
+        return StringUtils.equals(userName, JdbcUtils.USER_ADMIN);
     }
 
 }

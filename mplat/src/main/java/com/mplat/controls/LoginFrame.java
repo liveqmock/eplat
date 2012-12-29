@@ -6,9 +6,13 @@ package com.mplat.controls;
 
 import com.mplat.orm.dao.DAO;
 import com.mplat.orm.dto.UserInfoDTO;
+import com.mplat.util.ConfigUtils;
+import com.mplat.util.Constants;
+import com.mplat.util.JdbcUtils;
 import com.mplat.util.UIUtils;
 import java.awt.Color;
-import javax.swing.JOptionPane;
+import java.awt.Frame;
+import javax.swing.SwingUtilities;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -23,6 +27,9 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+        
+        this.userName.setText(JdbcUtils.USER_ADMIN);
+        this.password.setText(JdbcUtils.USER_PASSWD);
     }
 
     /**
@@ -139,7 +146,18 @@ public class LoginFrame extends javax.swing.JFrame {
             this.msgText.setForeground(Color.RED);
             this.msgText.setText("登录失败~");
         } else {
-            JOptionPane.showMessageDialog(this, "登录成功！");
+            // JOptionPane.showMessageDialog(this, "登录成功！");
+            ConfigUtils.setValue(Constants.LOGIN_USER_KEY, userNameValue);
+            
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    Frame main = new TabbedFrame();
+                    UIUtils.fullScreen(main);
+                    main.setVisible(true);
+                }
+            });
+
+            this.dispose();
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -158,7 +176,6 @@ public class LoginFrame extends javax.swing.JFrame {
         this.msgText.setForeground(Color.BLACK);
         this.msgText.setText(this.msgTextValue);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSubmit;

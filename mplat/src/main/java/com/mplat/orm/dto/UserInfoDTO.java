@@ -12,6 +12,10 @@ public class UserInfoDTO {
     private String userName;
     private String password;
 
+    public String toString() {
+        return this.userName;
+    }
+
     public String getUserName() {
         return userName;
     }

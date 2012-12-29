@@ -25,8 +25,20 @@ public class SQLUtils {
         return findSQL("selectUserInfoByName");
     }
     
+    public static final String selectUserInfoAllSQL() {
+        return findSQL("selectUserInfoAll");
+    }
+    
     public static final String insertUserInfoSQL() {
         return findSQL("insertUserInfo");
+    }
+    
+    public static final String updateUserInfoSQL() {
+        return findSQL("updateUserInfo");
+    }
+    
+    public static final String deleteUserInfoSQL() {
+        return findSQL("deleteUserInfo");
     }
     
 }

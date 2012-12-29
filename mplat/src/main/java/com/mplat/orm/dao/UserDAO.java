@@ -6,6 +6,7 @@ package com.mplat.orm.dao;
 
 import com.mplat.jdbc.JdbcMgt;
 import com.mplat.orm.dto.UserInfoDTO;
+import java.util.List;
 
 /**
  * @author Kitty
@@ -21,6 +22,11 @@ public abstract class UserDAO {
      * 是否存在用户
      */
     public abstract UserInfoDTO select(String userName);
+    
+    /**
+     * 查询所有用户
+     */
+    public abstract List<UserInfoDTO> seleteAll();
 
     /**
      * 新增用户

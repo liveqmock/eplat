@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import javax.swing.UIManager;
 
 /**
- *
  * @author Kitty
  */
 public class UIUtils {
@@ -25,9 +24,9 @@ public class UIUtils {
         } catch (Exception e) {
             LogUtils.error("设置系统UI异常!", e);
         }
-        
+
         Font font = new Font("宋体", Font.PLAIN, 13);
-        
+
         String[] names = new String[]{"ToolTip.font", "Table.font", "TableHeader.font",
             "ComboBox.font", "TextField.font", "PasswordField.font", "TextArea.font",
             "TextPane.font", "EditorPane.font", "FormattedTextField.font", "Button.font",
@@ -36,7 +35,7 @@ public class UIUtils {
             "TabbedPane.font", "MenuBar.font", "Menu.font", "MenuItem.font", "PopupMenu.font",
             "CheckBoxMenuItem.font", "RadioButtonMenuItem.font", "Spinner.font", "Tree.font",
             "ToolBar.font", "OptionPane.messageFont", "OptionPane.buttonFont"};
-        
+
         for (String name : names) {
             UIManager.put(name, font);
         }
@@ -48,10 +47,20 @@ public class UIUtils {
     public static final void center(Component component) {
         Dimension size = component.getSize();
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        
+
         int x = (int) (screen.getWidth() - size.getWidth()) / 2;
         int y = (int) (screen.getHeight() - size.getHeight()) / 2;
-        
+
         component.setLocation(x, y);
+    }
+
+    /**
+     * 设置组件为全屏
+     */
+    public static final void fullScreen(Component component) {
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension size = new Dimension((int) screen.getWidth(), (int) screen.getHeight() - 50);
+        component.setSize(size);
+        component.setLocation(0, 0);
     }
 }

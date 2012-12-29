@@ -20,4 +20,9 @@ public abstract class Constants {
      */
     public static final String ROOT_PATH_KEY = "SYS-ROOT-PATH";
     
+    /**
+     * 当前登录用户名
+     */
+    public static final String LOGIN_USER_KEY = "LOGIN-USER-KEY";
+    
 }

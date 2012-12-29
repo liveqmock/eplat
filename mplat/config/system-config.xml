@@ -16,15 +16,27 @@
     <!-- JDBC数据表 -->
     <!-- ================================ -->
     <entry key="DDL-adm_user_info">
-        CREATE TABLE adm_user_info(user_name, user_passwd)
+        CREATE TABLE adm_user_info(user_name VARCHAR(64) PRIMARY KEY, user_passwd VARCHAR(64))
     </entry>
     
     <entry key="SQL-selectUserInfoByName">
         SELECT * FROM adm_user_info WHERE user_name=?
     </entry>
     
+    <entry key="SQL-selectUserInfoAll">
+        SELECT * FROM adm_user_info
+    </entry>
+    
     <entry key="SQL-insertUserInfo">
         INSERT INTO adm_user_info VALUES(?, ?)
+    </entry>
+    
+    <entry key="SQL-updateUserInfo">
+        UPDATE adm_user_info SET user_name=?, user_passwd=?
+    </entry>
+    
+    <entry key="SQL-deleteUserInfo">
+        DELETE FROM adm_user_info WHERE user_name=?
     </entry>
 
 </properties>

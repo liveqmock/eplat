@@ -14,6 +14,8 @@ import com.mplat.util.SQLUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Kitty
@@ -39,7 +41,7 @@ public class SQLiteUserDAO extends UserDAO {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userName);
             rs = pstmt.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 user = new UserInfoDTO();
                 user.setUserName(rs.getString(DBFields.USER_INFO_USER_NAME));
                 user.setPassword(rs.getString(DBFields.USERA_INFO_USER_PASSWD));
@@ -55,6 +57,35 @@ public class SQLiteUserDAO extends UserDAO {
         return user;
     }
 
+    public List<UserInfoDTO> seleteAll() {
+        List<UserInfoDTO> users = new ArrayList<UserInfoDTO>();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            String sql = SQLUtils.selectUserInfoAllSQL();
+            conn = this.jdbcMgt.fetchConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                UserInfoDTO user = new UserInfoDTO();
+                user.setUserName(rs.getString(DBFields.USER_INFO_USER_NAME));
+                user.setPassword(rs.getString(DBFields.USERA_INFO_USER_PASSWD));
+                
+                users.add(user);
+            }
+        } catch (Exception e) {
+            LogUtils.error("查询所有用户异常.", e);
+        } finally {
+            JdbcUtils.close(rs);
+            JdbcUtils.close(pstmt);
+            this.jdbcMgt.freeConnection(conn);
+        }
+
+        return users;
+    }
+
     /**
      * 新增用户
      */
@@ -62,12 +93,12 @@ public class SQLiteUserDAO extends UserDAO {
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
-            String sql = SQLUtils.findUserInfoDDL();
+            String sql = SQLUtils.insertUserInfoSQL();
             conn = this.jdbcMgt.fetchConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getUserName());
             pstmt.setString(2, user.getPassword());
-            
+
             pstmt.execute();
             return true;
         } catch (Exception e) {
@@ -76,7 +107,7 @@ public class SQLiteUserDAO extends UserDAO {
             JdbcUtils.close(pstmt);
             this.jdbcMgt.freeConnection(conn);
         }
-        
+
         return false;
     }
 
@@ -84,6 +115,24 @@ public class SQLiteUserDAO extends UserDAO {
      * 更新用户
      */
     public boolean update(UserInfoDTO user) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            String sql = SQLUtils.updateUserInfoSQL();
+            conn = this.jdbcMgt.fetchConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user.getUserName());
+            pstmt.setString(2, user.getPassword());
+
+            pstmt.execute();
+            return true;
+        } catch (Exception e) {
+            LogUtils.error("更新用户异常, User[" + user + "].", e);
+        } finally {
+            JdbcUtils.close(pstmt);
+            this.jdbcMgt.freeConnection(conn);
+        }
+
         return false;
     }
 
@@ -91,6 +140,23 @@ public class SQLiteUserDAO extends UserDAO {
      * 删除用户
      */
     public boolean delete(String userName) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            String sql = SQLUtils.deleteUserInfoSQL();
+            conn = this.jdbcMgt.fetchConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userName);
+
+            pstmt.execute();
+            return true;
+        } catch (Exception e) {
+            LogUtils.error("删除用户异常, UserName[" + userName + "].", e);
+        } finally {
+            JdbcUtils.close(pstmt);
+            this.jdbcMgt.freeConnection(conn);
+        }
+
         return false;
     }
 
