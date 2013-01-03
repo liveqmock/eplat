@@ -22,9 +22,9 @@
         <property name="userInfoDAO" ref="userInfoDAO" />
         <property name="tables">
             <map>
-                <entry key="adm_user_info" value="${DDL-adm_user_info}" />
-                <entry key="adm_exam_info" value="${DDL-adm_exam_info}" />
-                <entry key="adm_exam_item" value="${DDL-adm_exam_item}" />
+                <entry key="mplat_user_info" value="${DDL-mplat_user_info}" />
+                <entry key="mplat_exam_info" value="${DDL-mplat_exam_info}" />
+                <entry key="mplat_exam_item" value="${DDL-mplat_exam_item}" />
             </map>
         </property>
     </bean>

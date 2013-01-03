@@ -9,6 +9,7 @@ import com.mplat.mgt.UserMgt;
 import com.mplat.mgt.dto.UserInfoDTO;
 import com.mplat.mgt.utils.UserConverter;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,11 +18,17 @@ import org.springframework.stereotype.Component;
 @Component("userMgt")
 public class UserMgtImpl implements UserMgt {
 
+    private static final Logger logger = Logger.getLogger(UserMgt.class);
     private UserInfoDAO userInfoDAO;
 
     public long create(UserInfoDTO user) {
-        UserInfoDO srcObj = UserConverter.convert(user);
-        return this.userInfoDAO.insert(srcObj);
+        try {
+            UserInfoDO srcObj = UserConverter.convert(user);
+            return this.userInfoDAO.insert(srcObj);
+        } catch (Exception e) {
+            logger.error("[用户]-增加用户异常, User[" + user + "].", e);
+            return -1L;
+        }
     }
 
     public List<UserInfoDTO> findAll() {
@@ -35,14 +42,24 @@ public class UserMgtImpl implements UserMgt {
     }
 
     public boolean update(UserInfoDTO user) {
-        UserInfoDO srcObj = UserConverter.convert(user);
-        int count = this.userInfoDAO.update(srcObj);
-        return (count > 0);
+        try {
+            UserInfoDO srcObj = UserConverter.convert(user);
+            int count = this.userInfoDAO.update(srcObj);
+            return (count > 0);
+        } catch (Exception e) {
+            logger.error("[用户]-更新用户异常, User[" + user + "].", e);
+            return false;
+        }
     }
 
     public boolean remove(String usrName) {
-        int count = this.userInfoDAO.delete(usrName);
-        return (count > 0);
+        try {
+            int count = this.userInfoDAO.delete(usrName);
+            return (count > 0);
+        } catch (Exception e) {
+            logger.error("[用户]-删除用户异常, User[" + usrName + "].", e);
+            return false;
+        }
     }
 
     // ~~~~~~~ 依赖注入 ~~~~~~~~~ //

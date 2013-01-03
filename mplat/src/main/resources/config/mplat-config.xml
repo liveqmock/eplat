@@ -23,7 +23,7 @@
     <!-- ================================ -->
     <!-- JDBC数据表 -->
     <!-- ================================ -->
-    <entry key="DDL-adm_user_info">
+    <entry key="DDL-mplat_user_info">
         CREATE TABLE mplat_user_info(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             usr_name VARCHAR(64) UNIQUE,
@@ -31,15 +31,15 @@
         )
     </entry>
     
-    <entry key="DDL-adm_exam_info">
-        CREATE TABLE adm_exam_info(
+    <entry key="DDL-mplat_exam_info">
+        CREATE TABLE mplat_exam_info(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title VARCHAR(1024),
             rgt_no VARCHAR(64)
         )
     </entry>
-    <entry key="DDL-adm_exam_item">
-        CREATE TABLE adm_exam_item(
+    <entry key="DDL-mplat_exam_item">
+        CREATE TABLE mplat_exam_item(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             no VARCHAR(64),
             exam_id INTEGER,

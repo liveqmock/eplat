@@ -27,9 +27,10 @@
     <!-- ============================================= -->
     <!-- mapped statement for IbatisUserInfoDAO.insert -->
     <insert id="MS-USER-INFO-INSERT">
-    <![CDATA[
-        insert /*MS-MDATASYNC-USER-INFO-INSERT*/ into mplat_user_info(id,usr_name,usr_passwd) values (NULL, #usrName#, #usrPasswd#)
-    ]]>
+        INSERT /*MS-MDATASYNC-USER-INFO-INSERT*/ INTO mplat_user_info(id, usr_name, usr_passwd) VALUES(NULL, #usrName#, #usrPasswd#)
+            <selectKey resultClass="long" keyProperty="id"> 
+                SELECT LAST_INSERT_ROWID() 
+            </selectKey>
     </insert>
 
     <!-- mapped statement for IbatisUserInfoDAO.findAll -->

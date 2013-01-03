@@ -5,8 +5,11 @@
 package com.mplat.controls;
 
 import com.mplat.context.MplatContextHolder;
+import com.mplat.controls.ui.UserTableCellRenderer;
 import com.mplat.mgt.UserMgt;
 import com.mplat.mgt.dto.UserInfoDTO;
+import com.mplat.util.UIUtils;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -14,9 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -27,6 +28,7 @@ public class UserMgtDialog extends javax.swing.JDialog {
 
     private UserMgt userMgt;
     private JPopupMenu popupMenu;
+    private int selectedRowIndex = -1;
 
     /**
      * Creates new form UserMgtDialog
@@ -43,33 +45,45 @@ public class UserMgtDialog extends javax.swing.JDialog {
         this.initPopupMenu();
     }
 
-    private void initUserTable() {
-        this.tableUserInfos.setDefaultRenderer(TableColumn.class, new DefaultTableCellRenderer() {
-            protected void setValue(Object value) {
-                if (value != null && (value instanceof UserInfoDTO)) {
-                    setText(((UserInfoDTO) value).getUsrName());
-                } else {
-                    setValue(value);
-                }
-            }
-        });
+    public void initUserTable() {
+        for (int i = 0; i <= 1; i++) {
+            this.tableUserInfos.getColumnModel().getColumn(i).setCellRenderer(new UserTableCellRenderer(i));
+        }
+
+        DefaultTableModel model = (DefaultTableModel) this.tableUserInfos.getModel();
+        int rowCnt = model.getRowCount();
+        for (int i = 0; i < rowCnt; i++) {
+            model.removeRow(0);
+        }
 
         List<UserInfoDTO> users = this.userMgt.findAll();
-        DefaultTableModel model = new DefaultTableModel(new String[]{"用户名"}, users.size());
+        model.setRowCount(users.size());
+        // model = new DefaultTableModel(new String[]{"ID", "用户名"}, users.size());
         for (int i = 0; i < users.size(); i++) {
             UserInfoDTO user = users.get(i);
-            model.setValueAt(user, i, 0);
+            this.tableUserInfos.setValueAt(user, i, 0);
+            this.tableUserInfos.setValueAt(user, i, 1);
         }
-        this.tableUserInfos.setModel(model);
+
+        // tableUserInfos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        // tableUserInfos.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private void initPopupMenu() {
         this.popupMenu = new JPopupMenu();
 
+        JMenuItem createMenuItem = new JMenuItem("增加用户");
         JMenuItem updateMenuItem = new JMenuItem("修改密码");
         JMenuItem deleteMenuItem = new JMenuItem("删除用户");
+        this.popupMenu.add(createMenuItem);
         this.popupMenu.add(updateMenuItem);
         this.popupMenu.add(deleteMenuItem);
+
+        createMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                onCreateMenuItemEvent(evt);
+            }
+        });
 
         updateMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -80,49 +94,55 @@ public class UserMgtDialog extends javax.swing.JDialog {
         deleteMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 onDeleteMenuItemEvent(evt);
-                initUserTable();
             }
         });
     }
 
+    private void onCreateMenuItemEvent(ActionEvent evt) {
+        Dialog dialog = new UserCreateDialog(this, true);
+        UIUtils.center(dialog);
+        dialog.setVisible(true);
+    }
+
     private void onUpdateMenuItemEvent(ActionEvent evt) {
-        String userName = this.findSelectedUserName(evt);
-        if (StringUtils.isBlank(userName)) {
-            JOptionPane.showMessageDialog(this, "用户名为空，请选择用户！", "错误提示", JOptionPane.ERROR_MESSAGE);
+        UserInfoDTO user = this.findSelectedUser(evt);
+        if (user == null) {
+            UIUtils.alert(this, "错误", "用户为空，请选择用户！");
             return;
         }
 
-        this.textUpdateUserName.setText(userName);
+        Dialog dialog = new UserUpdateDialog(this, true, user);
+        UIUtils.center(dialog);
+        dialog.setVisible(true);
     }
 
     private void onDeleteMenuItemEvent(ActionEvent evt) {
-        String userName = this.findSelectedUserName(evt);
-        if (StringUtils.isBlank(userName)) {
-            JOptionPane.showMessageDialog(this, "用户名为空，请选择用户！", "错误提示", JOptionPane.ERROR_MESSAGE);
+        UserInfoDTO user = this.findSelectedUser(evt);
+        if (user == null) {
+            UIUtils.alert(this, "错误", "用户为空，请选择用户！");
             return;
         }
 
-        boolean rtn = this.userMgt.remove(userName);
+        boolean rtn = this.userMgt.remove(user.getUsrName());
         if (rtn) {
-            JOptionPane.showMessageDialog(this, "删除用户成功！", "成功提示", JOptionPane.INFORMATION_MESSAGE);
+            UIUtils.info(this, "成功提示", "删除用户成功！");
+            this.initUserTable();
         } else {
-            JOptionPane.showMessageDialog(this, "删除用户失败，请重新输入！", "失败提示", JOptionPane.ERROR_MESSAGE);
+            UIUtils.alert(this, "失败提示", "删除用户失败，请重新输入！");
         }
     }
 
-    private String findSelectedUserName(ActionEvent evt) {
-        int rowIdx = this.tableUserInfos.getSelectedRow();
-        int colIdx = this.tableUserInfos.getSelectedColumn();
-        if (rowIdx < 0 || colIdx < 0) {
-            return StringUtils.EMPTY;
+    private UserInfoDTO findSelectedUser(ActionEvent evt) {
+        if (this.selectedRowIndex < 0) {
+            return null;
         }
 
-        Object value = this.tableUserInfos.getModel().getValueAt(rowIdx, colIdx);
+        Object value = this.tableUserInfos.getModel().getValueAt(this.selectedRowIndex, 0);
         if (value == null || !(value instanceof UserInfoDTO)) {
-            return StringUtils.EMPTY;
+            return null;
         }
 
-        return ((UserInfoDTO) value).getUsrName();
+        return (UserInfoDTO) value;
     }
 
     /**
@@ -132,16 +152,6 @@ public class UserMgtDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        textCreateUserName = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        textCreatePassword = new javax.swing.JPasswordField();
-        btnCreateUser = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        textUpdateUserName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        textUpdatePassword = new javax.swing.JPasswordField();
-        btnUpdatePwd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableUserInfos = new javax.swing.JTable();
 
@@ -149,51 +159,29 @@ public class UserMgtDialog extends javax.swing.JDialog {
         setTitle("用户信息管理");
         setResizable(false);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("用户名");
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("密码");
-
-        btnCreateUser.setText("增加用户");
-        btnCreateUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateUserActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("用户名");
-
-        textUpdateUserName.setEnabled(false);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("密码");
-
-        btnUpdatePwd.setText("修改密码");
-        btnUpdatePwd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdatePwdActionPerformed(evt);
-            }
-        });
-
         tableUserInfos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null}
+
             },
             new String [] {
-                "用户名"
+                "ID", "用户名"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.Long.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        tableUserInfos.setColumnSelectionAllowed(true);
         tableUserInfos.setRowHeight(20);
         tableUserInfos.getTableHeader().setReorderingAllowed(false);
         tableUserInfos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -202,123 +190,30 @@ public class UserMgtDialog extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tableUserInfos);
-        tableUserInfos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableUserInfos.getColumnModel().getColumn(0).setMaxWidth(120);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textCreateUserName))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textUpdateUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textCreatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textUpdatePassword)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCreateUser)
-                    .addComponent(btnUpdatePwd))
-                .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textCreateUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(textCreatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCreateUser))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(textUpdateUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(textUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdatePwd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
-        String userName = this.textCreateUserName.getText();
-        if (StringUtils.isBlank(userName)) {
-            JOptionPane.showMessageDialog(this, "用户名为空，请重新输入！", "错误提示", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String password = this.textCreatePassword.getText();
-
-        UserInfoDTO user = new UserInfoDTO();
-        user.setUsrName(userName);
-        user.setUsrPasswd(password);
-        long rtn = this.userMgt.create(user);
-        if (rtn > 0) {
-            JOptionPane.showMessageDialog(this, "用户增加成功！", "成功提示", JOptionPane.INFORMATION_MESSAGE);
-            initUserTable();
-        } else {
-            JOptionPane.showMessageDialog(this, "用户增加失败，请重新输入！", "失败提示", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnCreateUserActionPerformed
-
-    private void btnUpdatePwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePwdActionPerformed
-        String userName = this.textUpdateUserName.getText();
-        if (StringUtils.isBlank(userName)) {
-            JOptionPane.showMessageDialog(this, "请选择用户名！", "错误提示", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String password = this.textCreatePassword.getText();
-
-        UserInfoDTO user = new UserInfoDTO();
-        user.setUsrName(userName);
-        user.setUsrPasswd(password);
-        boolean rtn = this.userMgt.update(user);
-        if (rtn) {
-            JOptionPane.showMessageDialog(this, "密码修改成功！", "成功提示", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "密码修改失败，请重新输入！", "失败提示", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnUpdatePwdActionPerformed
-
     private void onUserTableMousePressedEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onUserTableMousePressedEvent
         if (SwingUtilities.isRightMouseButton(evt)) {
+            this.selectedRowIndex = evt.getY() / this.tableUserInfos.getRowHeight();
             this.popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_onUserTableMousePressedEvent
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreateUser;
-    private javax.swing.JButton btnUpdatePwd;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableUserInfos;
-    private javax.swing.JPasswordField textCreatePassword;
-    private javax.swing.JTextField textCreateUserName;
-    private javax.swing.JPasswordField textUpdatePassword;
-    private javax.swing.JTextField textUpdateUserName;
     // End of variables declaration//GEN-END:variables
 }

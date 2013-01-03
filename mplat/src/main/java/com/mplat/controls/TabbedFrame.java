@@ -207,7 +207,7 @@ public class TabbedFrame extends javax.swing.JFrame {
 
     private void menuItemPPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPPTActionPerformed
         Dialog dialog = new PPTShowDialog(this, true, "tstppt");
-        UIUtils.maxSize(dialog);
+        UIUtils.defaultSize(dialog);
         UIUtils.center(dialog);
         dialog.setVisible(true);
     }//GEN-LAST:event_menuItemPPTActionPerformed

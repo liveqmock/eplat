@@ -7,6 +7,7 @@ package com.mplat.util;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -46,21 +47,26 @@ public class UIUtils {
      * 设置组件位置为显示器中间
      */
     public static final void center(Component component) {
-        Dimension size = component.getSize();
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = component.getSize();
 
-        int x = (int) (screen.getWidth() - size.getWidth()) / 2;
-        int y = (int) (screen.getHeight() - size.getHeight()) / 2;
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
 
-        component.setLocation(x, y);
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+
+        component.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
     }
 
     /**
      * 设置组件为80%
      */
-    public static final void maxSize(Component component) {
+    public static final void defaultSize(Component component) {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension size = new Dimension((int) (screen.getWidth() * 0.8), (int) (screen.getHeight() * 0.8));
+        Dimension size = new Dimension((int) (screen.getWidth() * 2 / 3), (int) (screen.getHeight() * 0.8));
         component.setSize(size);
     }
 
@@ -68,10 +74,25 @@ public class UIUtils {
      * 设置组件为全屏
      */
     public static final void fullScreen(Component component) {
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension size = new Dimension((int) screen.getWidth(), (int) screen.getHeight() - 50);
-        component.setSize(size);
-        component.setLocation(0, 0);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = component.getSize();
+
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+
+        component.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+    }
+
+    /**
+     * 设置组件为全屏
+     */
+    public static final void fullScreen(Frame frame) {
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -80,5 +101,19 @@ public class UIUtils {
     public static final boolean confirm(Component component, String title, String msg) {
         int rtn = JOptionPane.showConfirmDialog(component, msg, title, JOptionPane.OK_CANCEL_OPTION);
         return (rtn == JOptionPane.OK_OPTION);
+    }
+
+    /**
+     * 弹出提示
+     */
+    public static final void info(Component component, String title, String msg) {
+        JOptionPane.showMessageDialog(component, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * 弹出警告
+     */
+    public static final void alert(Component component, String title, String msg) {
+        JOptionPane.showMessageDialog(component, msg, title, JOptionPane.ERROR_MESSAGE);
     }
 }
