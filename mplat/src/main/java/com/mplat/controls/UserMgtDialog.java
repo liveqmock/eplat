@@ -4,8 +4,9 @@
  */
 package com.mplat.controls;
 
-import com.mplat.orm.dao.DAO;
-import com.mplat.orm.dto.UserInfoDTO;
+import com.mplat.context.MplatContextHolder;
+import com.mplat.mgt.UserMgt;
+import com.mplat.mgt.dto.UserInfoDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class UserMgtDialog extends javax.swing.JDialog {
 
+    private UserMgt userMgt;
     private JPopupMenu popupMenu;
 
     /**
@@ -31,6 +33,9 @@ public class UserMgtDialog extends javax.swing.JDialog {
      */
     public UserMgtDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+
+        this.userMgt = MplatContextHolder.findUserMgt();
+
         initComponents();
 
         this.initUserTable();
@@ -42,14 +47,14 @@ public class UserMgtDialog extends javax.swing.JDialog {
         this.tableUserInfos.setDefaultRenderer(TableColumn.class, new DefaultTableCellRenderer() {
             protected void setValue(Object value) {
                 if (value != null && (value instanceof UserInfoDTO)) {
-                    setText(((UserInfoDTO)value).getUserName());
+                    setText(((UserInfoDTO) value).getUsrName());
                 } else {
                     setValue(value);
                 }
             }
         });
-        
-        List<UserInfoDTO> users = DAO.getUserDAO().seleteAll();
+
+        List<UserInfoDTO> users = this.userMgt.findAll();
         DefaultTableModel model = new DefaultTableModel(new String[]{"用户名"}, users.size());
         for (int i = 0; i < users.size(); i++) {
             UserInfoDTO user = users.get(i);
@@ -97,7 +102,7 @@ public class UserMgtDialog extends javax.swing.JDialog {
             return;
         }
 
-        boolean rtn = DAO.getUserDAO().delete(userName);
+        boolean rtn = this.userMgt.remove(userName);
         if (rtn) {
             JOptionPane.showMessageDialog(this, "删除用户成功！", "成功提示", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -117,7 +122,7 @@ public class UserMgtDialog extends javax.swing.JDialog {
             return StringUtils.EMPTY;
         }
 
-        return ((UserInfoDTO) value).getUserName();
+        return ((UserInfoDTO) value).getUsrName();
     }
 
     /**
@@ -266,10 +271,10 @@ public class UserMgtDialog extends javax.swing.JDialog {
         String password = this.textCreatePassword.getText();
 
         UserInfoDTO user = new UserInfoDTO();
-        user.setUserName(userName);
-        user.setPassword(password);
-        boolean rtn = DAO.getUserDAO().create(user);
-        if (rtn) {
+        user.setUsrName(userName);
+        user.setUsrPasswd(password);
+        long rtn = this.userMgt.create(user);
+        if (rtn > 0) {
             JOptionPane.showMessageDialog(this, "用户增加成功！", "成功提示", JOptionPane.INFORMATION_MESSAGE);
             initUserTable();
         } else {
@@ -287,9 +292,9 @@ public class UserMgtDialog extends javax.swing.JDialog {
         String password = this.textCreatePassword.getText();
 
         UserInfoDTO user = new UserInfoDTO();
-        user.setUserName(userName);
-        user.setPassword(password);
-        boolean rtn = DAO.getUserDAO().update(user);
+        user.setUsrName(userName);
+        user.setUsrPasswd(password);
+        boolean rtn = this.userMgt.update(user);
         if (rtn) {
             JOptionPane.showMessageDialog(this, "密码修改成功！", "成功提示", JOptionPane.INFORMATION_MESSAGE);
         } else {

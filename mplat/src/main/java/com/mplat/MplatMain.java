@@ -19,7 +19,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author shizihu
@@ -125,7 +125,7 @@ public class MplatMain {
         String config = ConfigUtils.findConfigPath();
         String path = FilenameUtils.normalize(config + "/mplat-context.xml");
 
-        new FileSystemXmlApplicationContext(path);
+        new ClassPathXmlApplicationContext("classpath*:/META-INF/spring/*.xml");
 
         MplatContextHolder.testMessage();
     }

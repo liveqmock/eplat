@@ -4,8 +4,8 @@
  */
 package com.mplat.controls;
 
-import com.mplat.orm.dao.DAO;
-import com.mplat.orm.dto.UserInfoDTO;
+import com.mplat.context.MplatContextHolder;
+import com.mplat.mgt.dto.UserInfoDTO;
 import com.mplat.util.ConfigUtils;
 import com.mplat.util.Constants;
 import com.mplat.util.JdbcUtils;
@@ -141,8 +141,8 @@ public class LoginFrame extends javax.swing.JFrame {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         String userNameValue = StringUtils.trim(this.userName.getText());
         String passwordValue = StringUtils.trim(this.password.getText());
-        UserInfoDTO user = DAO.getUserDAO().select(userNameValue);
-        if (user == null || !StringUtils.equals(user.getPassword(), passwordValue)) {
+        UserInfoDTO user = MplatContextHolder.findUserMgt().findByName(userNameValue);
+        if (user == null || !StringUtils.equals(user.getUsrPasswd(), passwordValue)) {
             this.msgText.setForeground(Color.RED);
             this.msgText.setText("登录失败~");
         } else {

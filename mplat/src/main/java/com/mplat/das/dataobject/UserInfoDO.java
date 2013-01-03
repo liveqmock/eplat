@@ -11,11 +11,11 @@ package com.mplat.das.dataobject;
 public class UserInfoDO extends BaseDO {
     private static final long serialVersionUID = 741231858441822688L;
 
-	/** id	column:id */
+	/** column:id */
 	private long id;
-	/** 用户名	column:usr_name */
+	/** column:usr_name */
 	private String usrName;
-	/** 用户密码	column:usr_passwd */
+	/** column:usr_passwd */
 	private String usrPasswd;
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //

@@ -4,22 +4,43 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd" default-autowire="byName">
 
     <!-- ================================================= -->
+    <!-- 参数配置 -->
+    <!-- ================================================= -->
+    <context:property-placeholder file-encoding="UTF-8" location="/config/mplat-config.xml" />
+    
+    <!-- ================================================= -->
     <!-- 上下文 -->
     <!-- ================================================= -->
     <bean class="com.mplat.context.MplatContextHolder" />
     
     <!-- ================================================= -->
-    <!-- 参数配置 -->
+    <!-- 数据初始化 -->
     <!-- ================================================= -->
-    <context:property-placeholder file-encoding="UTF-8" location="./config/system-config.xml" />
-
+    <bean class="com.mplat.context.MplatDataHelper">
+        <property name="jdbcCatg" value="${jdbc.catg}" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="userInfoDAO" ref="userInfoDAO" />
+        <property name="tables">
+            <map>
+                <entry key="adm_user_info" value="${DDL-adm_user_info}" />
+                <entry key="adm_exam_info" value="${DDL-adm_exam_info}" />
+                <entry key="adm_exam_item" value="${DDL-adm_exam_item}" />
+            </map>
+        </property>
+    </bean>
+    
+    <!-- ================================================= -->
+	<!-- 自动扫描 -->
+	<!-- ================================================= -->
+	<context:component-scan base-package="com.mplat.mgt.*" />
+    
     <!-- ================================================= -->
     <!-- 国际化资源 -->
     <!-- ================================================= -->
     <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>./config/i18n/mplat-msgs</value>
+                <value>/config/i18n/mplat-msgs</value>
             </list>
         </property>
         <property name="defaultEncoding" value="UTF-8" />
@@ -27,18 +48,7 @@
     </bean>
 
     <!-- ================================================= -->
-    <!-- DAO配置 -->
+    <!-- 业务服务配置 -->
     <!-- ================================================= -->
-    <!--
-    <bean class="com.mplat.orm.dao.DAO">
-        <property name="userDAO">
-            <bean class="com.mplat.orm.dao.support.SQLiteUserDAO">
-                <property name="jdbcMgt">
-                    <bean class="com.mplat.jdbc.support.SQLiteJdbcMgt" init-method="initialize" destroy-method="shutdown" />
-                </property>
-            </bean>
-        </property>
-    </bean>
-    -->
     
 </beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>系统参数配置</comment>
+
+    <!-- ================================ -->
+    <!-- JDBC配置 -->
+    <!-- ================================ -->
+    <entry key="jdbc.catg">SQLite</entry>
+    <entry key="jdbc.driver">org.sqlite.JDBC</entry>
+    <entry key="jdbc.url">jdbc:sqlite:c:/eplat-mplat.db</entry>
+    <entry key="jdbc.user"></entry>
+    <entry key="jdbc.passwd"></entry>
+    <!---->
+    <!--
+    <entry key="jdbc.catg">MySQL</entry>
+    <entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
+    <entry key="jdbc.url">jdbc:mysql://127.0.01:3306/mplat?useUnicode=true&amp;characterEncoding=UTF8</entry>
+    <entry key="jdbc.user">mplat</entry>
+    <entry key="jdbc.passwd">mplat</entry>
+    -->
+    
+    <!-- ================================ -->
+    <!-- JDBC数据表 -->
+    <!-- ================================ -->
+    <entry key="DDL-adm_user_info">
+        CREATE TABLE mplat_user_info(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usr_name VARCHAR(64) UNIQUE,
+            usr_passwd VARCHAR(64)
+        )
+    </entry>
+    
+    <entry key="DDL-adm_exam_info">
+        CREATE TABLE adm_exam_info(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title VARCHAR(1024),
+            rgt_no VARCHAR(64)
+        )
+    </entry>
+    <entry key="DDL-adm_exam_item">
+        CREATE TABLE adm_exam_item(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            no VARCHAR(64),
+            exam_id INTEGER,
+            text varchar(1024)
+        )
+    </entry>
+
+</properties>

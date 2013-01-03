@@ -17,7 +17,13 @@
             <artifactId>spring-orm</artifactId>
             <version>3.1.2.RELEASE</version>
         </dependency>
-
+        
+        <dependency>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-sqlmap</artifactId>
+            <version>2.3.4.726</version>
+        </dependency>
+            
         <!-- ======================================== -->
         <!-- POI-PPT相关依赖 -->
         <!-- ======================================== -->
@@ -28,12 +34,17 @@
         </dependency>
         
         <!-- ======================================== -->
-        <!-- SQLite相关依赖 -->
+        <!-- JDBC数据库依赖 -->
         <!-- ======================================== -->
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.16</version>
         </dependency>
             
         <!-- ======================================== -->

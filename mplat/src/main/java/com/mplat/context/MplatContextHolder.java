@@ -4,7 +4,7 @@
  */
 package com.mplat.context;
 
-import java.util.Locale;
+import com.mplat.mgt.UserMgt;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
@@ -35,6 +35,15 @@ public class MplatContextHolder implements ApplicationContextAware {
         
         //String msg = _context.getMessage("SYSTEM-NAME", null, Locale.CHINESE);
         //System.out.println("++++++++++++++++++++++++++" + msg);
+    }
+    
+    /**
+     * 用户管理器
+     */
+    public static final UserMgt findUserMgt() {
+        Assert.notNull(_context, "应用上下文对象为NULL.");
+        
+        return _context.getBean(UserMgt.class);
     }
     
 }

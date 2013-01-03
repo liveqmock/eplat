@@ -25,6 +25,13 @@
     <!-- ============================================= -->
     <!-- mapped statements for IbatisUserInfoDAO -->
     <!-- ============================================= -->
+    <!-- mapped statement for IbatisUserInfoDAO.insert -->
+    <insert id="MS-USER-INFO-INSERT">
+    <![CDATA[
+        insert /*MS-MDATASYNC-USER-INFO-INSERT*/ into mplat_user_info(id,usr_name,usr_passwd) values (NULL, #usrName#, #usrPasswd#)
+    ]]>
+    </insert>
+
     <!-- mapped statement for IbatisUserInfoDAO.findAll -->
     <select id="MS-USER-INFO-FIND-ALL" resultMap="RM-USER-INFO" >
     <![CDATA[
@@ -32,13 +39,25 @@
     ]]>
     </select>
 
-    <!-- mapped statement for IbatisUserInfoDAO.updatePasswd -->
-    <update id="MS-USER-INFO-UPDATE-PASSWD" >
-        UPDATE /*MS-MDATASYNC-USER-INFO-UPDATE-PASSWD*/ 	   			mplat_user_info
-			SET
-				usr_passwd=#usrPasswd#
-			WHERE
-				usr_name=#usrName#
+    <!-- mapped statement for IbatisUserInfoDAO.findByName -->
+    <select id="MS-USER-INFO-FIND-BY-NAME" resultMap="RM-USER-INFO" >
+    <![CDATA[
+        select /*MS-MDATASYNC-USER-INFO-FIND-BY-NAME*/ * from mplat_user_info where (usr_name = #value#)
+    ]]>
+    </select>
+
+    <!-- mapped statement for IbatisUserInfoDAO.update -->
+    <update id="MS-USER-INFO-UPDATE" >
+    <![CDATA[
+        update /*MS-MDATASYNC-USER-INFO-UPDATE*/ mplat_user_info set usr_passwd=#usrPasswd# where (usr_name = #usrName#)
+    ]]>
     </update>
+
+    <!-- mapped statement for IbatisUserInfoDAO.delete -->
+    <delete id="MS-USER-INFO-DELETE" >
+    <![CDATA[
+        delete /*MS-MDATASYNC-USER-INFO-DELETE*/ from mplat_user_info where (usr_name = #value#)
+    ]]>
+    </delete>
 
 </sqlMap>
