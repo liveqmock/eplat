@@ -29,6 +29,7 @@
     <!-- ================================================= -->
     <!-- DAO配置 -->
     <!-- ================================================= -->
+    <!--
     <bean class="com.mplat.orm.dao.DAO">
         <property name="userDAO">
             <bean class="com.mplat.orm.dao.support.SQLiteUserDAO">
@@ -38,5 +39,6 @@
             </bean>
         </property>
     </bean>
+    -->
     
 </beans>
