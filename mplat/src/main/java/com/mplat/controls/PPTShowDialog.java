@@ -43,7 +43,7 @@ public class PPTShowDialog extends javax.swing.JDialog {
         this.ppt = ppt;
 
         String root = ConfigUtils.findRootPath();
-        this.path = FilenameUtils.normalizeNoEndSeparator(root + "/ppts/" + this.ppt);
+        this.path = FilenameUtils.normalizeNoEndSeparator(root + "/files/ppts/" + this.ppt);
 
         String tot = FilenameUtils.normalizeNoEndSeparator(this.path + "/tot.map");
         this.pptMap = new PPTMapDTO(tot);

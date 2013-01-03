@@ -18,10 +18,13 @@ public class JdbcUtils {
      */
     public static final String USER_ADMIN = "admin";
     public static final String USER_PASSWD = "888888";
+    
     /**
      * 数据表名
      */
     public static final String TB_USER_INFO = "adm_user_info";
+    public static final String TB_EXAM_INFO = "adm_exam_info";
+    public static final String TB_EXAM_ITEM = "adm_exam_item";
 
     /**
      * 关闭数据库Connection

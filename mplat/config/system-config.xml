@@ -18,25 +18,63 @@
     <entry key="DDL-adm_user_info">
         CREATE TABLE adm_user_info(user_name VARCHAR(64) PRIMARY KEY, user_passwd VARCHAR(64))
     </entry>
-    
     <entry key="SQL-selectUserInfoByName">
         SELECT * FROM adm_user_info WHERE user_name=?
     </entry>
-    
     <entry key="SQL-selectUserInfoAll">
         SELECT * FROM adm_user_info
     </entry>
-    
     <entry key="SQL-insertUserInfo">
         INSERT INTO adm_user_info VALUES(?, ?)
     </entry>
-    
     <entry key="SQL-updateUserInfo">
         UPDATE adm_user_info SET user_name=?, user_passwd=?
     </entry>
-    
     <entry key="SQL-deleteUserInfo">
         DELETE FROM adm_user_info WHERE user_name=?
+    </entry>
+    
+    <entry key="DDL-adm_exam_info">
+        CREATE TABLE adm_exam_info(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title VARCHAR(1024),
+            rgt_no VARCHAR(64)
+        )
+    </entry>
+    <entry key="DDL-adm_exam_item">
+        CREATE TABLE adm_exam_item(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            no VARCHAR(64),
+            exam_id INTEGER,
+            text varchar(1024)
+        )
+    </entry>
+    <entry key="SQL-selectExamInfo">
+        SELECT * FROM adm_exam_info WHERE id=?
+    </entry>
+    <entry key="SQL-selectExamItemByExam">
+        SELECT * FROM adm_exam_item WHERE exam_id=?
+    </entry>
+    <entry key="SQL-selectExamInfoAll">
+        SELECT * FROM adm_exam_info
+    </entry>
+    <entry key="SQL-insertExamInfo">
+        INSERT INTO adm_exam_info VALUES(NULL, ?, ?)
+    </entry>
+    <entry key="SQL-insertExamItem">
+        INSERT INTO adm_exam_item VALUES(NULL, ?, ?, ?)
+    </entry>
+    <entry key="SQL-updateExamInfo">
+        UPDATE adm_exam_info SET title=?, rgt_no=? WHERE id=?
+    </entry>
+    <entry key="SQL-updateExamItem">
+        UPDATE adm_exam_item SET no=?, text=? WHERE id=?
+    </entry>
+    <entry key="SQL-deleteExamInfo">
+        DELETE FROM adm_exam_info WHERE id=?
+    </entry>
+    <entry key="SQL-deleteExamItemByExam">
+        DELETE FROM adm_exam_item WHERE exam_id=?
     </entry>
 
 </properties>

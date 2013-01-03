@@ -5,7 +5,7 @@
     <artifactId>mplat</artifactId>
     <packaging>jar</packaging>
     <version>1.0.1</version>
-    <name>mplat</name>
+    <name>eplat-mplat</name>
     <description>mplat</description>
 
     <dependencies>
@@ -14,10 +14,10 @@
         <!-- ======================================== -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-orm</artifactId>
             <version>3.1.2.RELEASE</version>
         </dependency>
-                    
+
         <!-- ======================================== -->
         <!-- POI-PPT相关依赖 -->
         <!-- ======================================== -->
@@ -73,6 +73,11 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.3</version>
         </dependency>
         
     </dependencies>
