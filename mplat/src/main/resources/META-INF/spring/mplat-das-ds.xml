@@ -27,15 +27,20 @@
         </property>
     </bean>
     
-    <!-- Spring提供的iBatis的SqlMap配置-->
-    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-        <property name="configLocation" value="WEB-INF/sql-map-config.xml"/>
+    <!-- ===================================== -->
+    <!-- iBatis的SqlMap配置 -->
+    <!-- ===================================== -->
+    <bean id="baseSqlMapClientDAO" abstract="true">
         <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <!-- DAO定义-->
-    <bean id="productDao"class="org.springframework.samples.jpetstore.dao.ibatis.SqlMapProductDao">
-        <property name="sqlMapClient" ref="sqlMapClient"/>
+        <property name="sqlMapClient">
+            <bean class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+                <property name="configLocations">
+                    <list>
+                        <value>classpath:/sqlmap/mplat-sqlmap-auto-config.xml</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
     </bean>
 
 </beans>

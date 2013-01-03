@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<!-- ==========================================================  -->
+<!-- Configuration for ibatis sqlmap mapping.                    -->
+<!-- ==========================================================  -->
+
+<!-- ============================================================================= -->
+<!-- @author obullxl@gmail.com -->
+<!-- ============================================================================= -->
+
+<sqlMap namespace="mplat">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+
+    <!-- result maps for database table mplat_user_info -->
+    <resultMap id="RM-USER-INFO" class="com.mplat.das.dataobject.UserInfoDO">
+        <result property="id" column="id" javaType="long" jdbcType="BIGINT" nullValue="0"/>
+        <result property="usrName" column="usr_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="usrPasswd" column="usr_passwd" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!-- ============================================= -->
+    <!-- mapped statements for IbatisUserInfoDAO -->
+    <!-- ============================================= -->
+    <!-- mapped statement for IbatisUserInfoDAO.findAll -->
+    <select id="MS-USER-INFO-FIND-ALL" resultMap="RM-USER-INFO" >
+    <![CDATA[
+        select /*MS-MDATASYNC-USER-INFO-FIND-ALL*/ * from mplat_user_info
+    ]]>
+    </select>
+
+    <!-- mapped statement for IbatisUserInfoDAO.updatePasswd -->
+    <update id="MS-USER-INFO-UPDATE-PASSWD" >
+        UPDATE /*MS-MDATASYNC-USER-INFO-UPDATE-PASSWD*/ 	   			mplat_user_info
+			SET
+				usr_passwd=#usrPasswd#
+			WHERE
+				usr_name=#usrName#
+    </update>
+
+</sqlMap>
