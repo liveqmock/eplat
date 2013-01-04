@@ -22,10 +22,16 @@
         <property name="userInfoDAO" ref="userInfoDAO" />
         <property name="tables">
             <map>
+                <entry key="mplat_mutex_ticket" value="${DDL-mplat_mutex_ticket}" />
                 <entry key="mplat_user_info" value="${DDL-mplat_user_info}" />
                 <entry key="mplat_exam_info" value="${DDL-mplat_exam_info}" />
                 <entry key="mplat_exam_item" value="${DDL-mplat_exam_item}" />
             </map>
+        </property>
+        <property name="updates">
+            <list>
+                <value>${DML-mplat_mutex_ticket}</value>
+            </list>
         </property>
     </bean>
     

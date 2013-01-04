@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mplat.controls.dto;
+package com.mplat.mgt.dto;
 
+import com.atom.core.lang.ToString;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -13,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * @author Kitty
  */
-public class PPTMapDTO {
+public class PPTMapDTO extends ToString {
 
     public static final String NAME = "name";
     public static final String FEXT = "fext";

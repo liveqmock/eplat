@@ -4,7 +4,7 @@
  */
 package com.mplat.controls;
 
-import com.mplat.controls.dto.PPTMapDTO;
+import com.mplat.mgt.dto.PPTMapDTO;
 import com.mplat.util.ConfigUtils;
 import com.mplat.util.FileUtils;
 import java.awt.Dimension;

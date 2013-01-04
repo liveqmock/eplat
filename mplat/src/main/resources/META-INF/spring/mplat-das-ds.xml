@@ -42,5 +42,29 @@
             </bean>
         </property>
     </bean>
+    
+    <!-- ===================================== -->
+	<!-- 通用ID配置 -->
+	<!-- ===================================== -->
+	<bean id="parentMutexTicket" abstract="true">
+		<property name="ticketDAO">
+			<bean class="com.atom.core.ticket.support.DefaultTicketDAO">
+				<property name="dataSource" ref="dataSource" />
+				<property name="retryTimes" value="50" />
+				<property name="step" value="100" />
+				<property name="tableName" value="mplat_mutex_ticket" />
+				<property name="nameColumnName" value="name" />
+				<property name="valueColumnName" value="value" />
+				<property name="stampColumnName" value="stamp" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 用户ID配置 -->
+	<!-- ===================================== -->
+	<bean id="userInfoTicket" class="com.atom.core.ticket.support.DefaultMutexTicket" parent="parentMutexTicket">
+		<property name="name" value="USER-INFO-ID" />
+	</bean>
 
 </beans>

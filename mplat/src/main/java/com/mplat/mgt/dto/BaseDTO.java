@@ -3,16 +3,13 @@
  */
 package com.mplat.mgt.dto;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import com.atom.core.lang.ToString;
 
 /**
  * @author obullxl@gmail.com
  */
-public abstract class BaseDTO {
+public abstract class BaseDTO extends ToString {
 
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
+    public abstract long getId();
     
 }

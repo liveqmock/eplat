@@ -15,17 +15,18 @@ import org.apache.commons.lang.StringUtils;
 public class UserUpdateDialog extends javax.swing.JDialog {
 
     private UserMgt userMgt;
+    private String userName;
     private UserInfoDTO user;
     private UserMgtDialog userMgtDialog;
 
     /**
      * Creates new form UserUpdateDialog
      */
-    public UserUpdateDialog(UserMgtDialog parent, boolean modal, UserInfoDTO user) {
+    public UserUpdateDialog(UserMgtDialog parent, boolean modal, String userName) {
         super(parent, modal);
 
         this.userMgtDialog = parent;
-        this.user = user;
+        this.userName = userName;
         this.userMgt = MplatContextHolder.findUserMgt();
 
         initComponents();
@@ -34,6 +35,7 @@ public class UserUpdateDialog extends javax.swing.JDialog {
     }
 
     private void initUserUpdate() {
+        this.user = this.userMgt.findByName(this.userName);
         this.txtUserID.setText(String.valueOf(this.user.getId()));
         this.txtUsrName.setText(this.user.getUsrName());
         this.txtUsrPasswd.setText(this.user.getUsrPasswd());
@@ -132,8 +134,8 @@ public class UserUpdateDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        UserInfoDTO user = this.initUserInfo();
-        boolean rtn = this.userMgt.update(user);
+        this.initUserInfo();
+        boolean rtn = this.userMgt.update(this.user);
         if (rtn) {
             UIUtils.info(this, "成功提示", "用户更新成功！");
             this.userMgtDialog.initUserTable();
@@ -147,9 +149,8 @@ public class UserUpdateDialog extends javax.swing.JDialog {
         this.txtUsrPasswd.setText(StringUtils.EMPTY);
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private UserInfoDTO initUserInfo() {
+    private void initUserInfo() {
         this.user.setUsrPasswd(this.txtUsrPasswd.getText());
-        return this.user;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

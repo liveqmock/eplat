@@ -26,11 +26,13 @@ public class MplatDataHelper implements InitializingBean {
     private static final String USER_ADMIN_PASSWD = "888888";
     private String jdbcCatg;
     private Map<String, String> tables;
+    private List<String> updates;
     private DataSource dataSource;
     private UserInfoDAO userInfoDAO;
 
     public void afterPropertiesSet() throws Exception {
-        this.initTables();
+        // this.initTables();
+        // this.initUpdates();
         this.initUserInfo();
     }
 
@@ -63,6 +65,30 @@ public class MplatDataHelper implements InitializingBean {
         }
     }
 
+    private void initUpdates() throws Exception {
+        Connection conn = this.dataSource.getConnection();
+        try {
+            for (String update : this.updates) {
+                String[] sqls = StringUtils.split(StringUtils.trimToEmpty(update), ";");
+                if (sqls == null) {
+                    continue;
+                }
+
+                for (String sql : sqls) {
+                    Statement stmt = null;
+                    try {
+                        stmt = conn.createStatement();
+                        stmt.execute(sql);
+                    } finally {
+                        JdbcUtils.close(stmt);
+                    }
+                }
+            }
+        } finally {
+            JdbcUtils.close(conn);
+        }
+    }
+
     private void initUserInfo() throws Exception {
         UserInfoDO admin = this.userInfoDAO.findByName(USER_ADMIN_NAME);
         if (admin == null) {
@@ -81,6 +107,10 @@ public class MplatDataHelper implements InitializingBean {
 
     public void setTables(Map<String, String> tables) {
         this.tables = tables;
+    }
+
+    public void setUpdates(List<String> updates) {
+        this.updates = updates;
     }
 
     public void setDataSource(DataSource dataSource) {
