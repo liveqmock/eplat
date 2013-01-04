@@ -2,7 +2,7 @@
  * aBoy.com Inc.
  * Copyright (c) 2004-2012 All Rights Reserved.
  */
-package com.atom.core;
+package com.atom.core.lang;
 
 import java.io.Serializable;
 
@@ -22,19 +22,19 @@ import java.io.Serializable;
  * <pre><![CDATA[
  *   // 创建一个翻页器，可以在此指定每页显示几项，也可以以后再指定。
  *   // 如果没有指定，则使用默认值每页最多显示10项。
- *   Paginator pg = new Paginator();        // 或 new Paginator(itemsPerPage);
+ *   Paginator pg = new Paginator();        // 或 new Paginator(pageSize);
  * 
  *   // 告诉我总共有几项。如果给的数字小于0，就看作0。
- *   pg.setItems(123);
+ *   pg.setTotalCount(123);
  * 
  *   // 如果不知道有几项，可以这样。
- *   pg.setItems(Paginator.UNKNOWN_ITEMS);
+ *   pg.setTotalCount(Paginator.UNKNOWN_ITEMS);
  * 
  *   // 现在默认当前页是第一页，但你可以改变它。
- *   pg.setPage(3);                         // 这样当前页就是3了，不用担心页数会超过总页数。
+ *   pg.setPageNo(3);                         // 这样当前页就是3了，不用担心页数会超过总页数。
  * 
  *   // 现在你可以得到各种数据了。
- *   int currentPage = pg.getPage();        // 得到当前页
+ *   int pageNo = pg.getPageNo();        // 得到当前页
  *   int totalPages  = pg.getPages();       // 总共有几页
  *   int totalItems  = pg.getItems();       // 总共有几项
  *   int beginIndex  = pg.getBeginIndex();  // 得到当前页第一项的序号(从1开始数的)
@@ -75,21 +75,21 @@ import java.io.Serializable;
  * @version $Id: Paginator.java, 2012-8-18 下午1:19:27 Exp $
  */
 public final class Paginator implements Serializable {
-    private static final long serialVersionUID       = 6070606014966643877L;
+    private static final long serialVersionUID    = 6070606014966643877L;
 
     /** 每页默认的项数(10)。 */
-    public static final int   DEFAULT_ITEMS_PER_PAGE = 10;
+    public static final int   DEFAULT_PAGE_SIZE   = 10;
 
     /** 滑动窗口默认的大小(7)。 */
-    public static final int   DEFAULT_SLIDER_SIZE    = 7;
+    public static final int   DEFAULT_SLIDER_SIZE = 7;
 
     /** 表示项数未知(<code>Integer.MAX_VALUE</code>)。 */
-    public static final int   UNKNOWN_ITEMS          = Integer.MAX_VALUE;
+    public static final int   UNKNOWN_ITEMS       = Integer.MAX_VALUE;
 
     // 状态量
-    private int               page;                                         // 当前页码。(1-based)
-    private int               items;                                        // 总共项数
-    private int               itemsPerPage;                                 // 每页项数。
+    private int               pageNo;                                    // 当前页码。(1-based)
+    private int               pageSize;                                  // 每页项数。
+    private int               totalCount;                                // 总共项数
 
     /**
      * 创建一个分页器，初始项数为无限大<code>UNKNOWN_ITEMS</code>，默认每页显示<code>10</code>项。
@@ -103,20 +103,20 @@ public final class Paginator implements Serializable {
      *
      * @param itemsPerPage 每页项数。
      */
-    public Paginator(int itemsPerPage) {
-        this(itemsPerPage, UNKNOWN_ITEMS);
+    public Paginator(int pageSize) {
+        this(pageSize, UNKNOWN_ITEMS);
     }
 
     /**
      * 创建一个分页器，初始项数为无限大<code>UNKNOWN_ITEMS</code>，指定每页项数。
      *
-     * @param itemsPerPage 每页项数。
+     * @param pageSize 每页项数。
      * @param items 总项数
      */
-    public Paginator(int itemsPerPage, int items) {
-        this.items = (items >= 0) ? items : 0;
-        this.itemsPerPage = (itemsPerPage > 0) ? itemsPerPage : DEFAULT_ITEMS_PER_PAGE;
-        this.page = calcPage(0);
+    public Paginator(int pageSize, int items) {
+        this.totalCount = (items >= 0) ? items : 0;
+        this.pageSize = (pageSize > 0) ? pageSize : DEFAULT_PAGE_SIZE;
+        this.pageNo = calcPage(0);
     }
 
     /**
@@ -125,7 +125,7 @@ public final class Paginator implements Serializable {
      * @return 总页数
      */
     public int getPages() {
-        return (int) Math.ceil((double) items / itemsPerPage);
+        return (int) Math.ceil((double) totalCount / pageSize);
     }
 
     /**
@@ -133,8 +133,8 @@ public final class Paginator implements Serializable {
      *
      * @return 当前页
      */
-    public int getPage() {
-        return page;
+    public int getPageNo() {
+        return pageNo;
     }
 
     /**
@@ -144,8 +144,8 @@ public final class Paginator implements Serializable {
      *
      * @return 设置后的当前页
      */
-    public int setPage(int page) {
-        return (this.page = calcPage(page));
+    public int setPageNo(int page) {
+        return (this.pageNo = calcPage(page));
     }
 
     /**
@@ -153,8 +153,8 @@ public final class Paginator implements Serializable {
      *
      * @return 总项数
      */
-    public int getItems() {
-        return items;
+    public int getTotalCount() {
+        return totalCount;
     }
 
     /**
@@ -164,10 +164,10 @@ public final class Paginator implements Serializable {
      *
      * @return 设置以后的总项数
      */
-    public int setItems(int items) {
-        this.items = (items >= 0) ? items : 0;
-        setPage(page);
-        return this.items;
+    public int setTotalCount(int items) {
+        this.totalCount = (items >= 0) ? items : 0;
+        setPageNo(pageNo);
+        return this.totalCount;
     }
 
     /**
@@ -175,8 +175,8 @@ public final class Paginator implements Serializable {
      *
      * @return 每页项数
      */
-    public int getItemsPerPage() {
-        return itemsPerPage;
+    public int getPageSize() {
+        return pageSize;
     }
 
     /**
@@ -186,16 +186,16 @@ public final class Paginator implements Serializable {
      *
      * @return 设置后的每页项数
      */
-    public int setItemsPerPage(int itemsPerPage) {
-        int tmp = this.itemsPerPage;
+    public int setPageSize(int itemsPerPage) {
+        int tmp = this.pageSize;
 
-        this.itemsPerPage = (itemsPerPage > 0) ? itemsPerPage : DEFAULT_ITEMS_PER_PAGE;
+        this.pageSize = (itemsPerPage > 0) ? itemsPerPage : DEFAULT_PAGE_SIZE;
 
-        if (page > 0) {
-            setPage((int) (((double) (page - 1) * tmp) / this.itemsPerPage) + 1);
+        if (pageNo > 0) {
+            setPageNo((int) (((double) (pageNo - 1) * tmp) / this.pageSize) + 1);
         }
 
-        return this.itemsPerPage;
+        return this.pageSize;
     }
 
     /**
@@ -204,7 +204,7 @@ public final class Paginator implements Serializable {
      * @return 偏移量
      */
     public int getOffset() {
-        return (page > 0) ? (itemsPerPage * (page - 1)) : 0;
+        return (pageNo > 0) ? (pageSize * (pageNo - 1)) : 0;
     }
 
     /**
@@ -213,8 +213,8 @@ public final class Paginator implements Serializable {
      * @return 当前页的长度
      */
     public int getLength() {
-        if (page > 0) {
-            return Math.min(itemsPerPage * page, items) - (itemsPerPage * (page - 1));
+        if (pageNo > 0) {
+            return Math.min(pageSize * pageNo, totalCount) - (pageSize * (pageNo - 1));
         } else {
             return 0;
         }
@@ -226,8 +226,8 @@ public final class Paginator implements Serializable {
      * @return 起始序号
      */
     public int getBeginIndex() {
-        if (page > 0) {
-            return (itemsPerPage * (page - 1)) + 1;
+        if (pageNo > 0) {
+            return (pageSize * (pageNo - 1)) + 1;
         } else {
             return 0;
         }
@@ -239,8 +239,8 @@ public final class Paginator implements Serializable {
      * @return 末项序号
      */
     public int getEndIndex() {
-        if (page > 0) {
-            return Math.min(itemsPerPage * page, items);
+        if (pageNo > 0) {
+            return Math.min(pageSize * pageNo, totalCount);
         } else {
             return 0;
         }
@@ -254,7 +254,7 @@ public final class Paginator implements Serializable {
      * @return 指定项所在的页
      */
     public int setItem(int itemOffset) {
-        return setPage((itemOffset / itemsPerPage) + 1);
+        return setPageNo((itemOffset / pageSize) + 1);
     }
 
     /**
@@ -281,7 +281,7 @@ public final class Paginator implements Serializable {
      * @return 前一页页码
      */
     public int getPreviousPage() {
-        return calcPage(page - 1);
+        return calcPage(pageNo - 1);
     }
 
     /**
@@ -292,7 +292,7 @@ public final class Paginator implements Serializable {
      * @return 前n页页码
      */
     public int getPreviousPage(int n) {
-        return calcPage(page - n);
+        return calcPage(pageNo - n);
     }
 
     /**
@@ -301,7 +301,7 @@ public final class Paginator implements Serializable {
      * @return 后一页页码
      */
     public int getNextPage() {
-        return calcPage(page + 1);
+        return calcPage(pageNo + 1);
     }
 
     /**
@@ -312,7 +312,7 @@ public final class Paginator implements Serializable {
      * @return 后n页页码
      */
     public int getNextPage(int n) {
-        return calcPage(page + n);
+        return calcPage(pageNo + n);
     }
 
     /**
@@ -323,7 +323,7 @@ public final class Paginator implements Serializable {
      * @return boolean  是否为禁止的页码
      */
     public boolean isDisabledPage(int page) {
-        return ((page < 1) || (page > getPages()) || (page == this.page));
+        return ((page < 1) || (page > getPages()) || (page == this.pageNo));
     }
 
     /**
@@ -355,7 +355,7 @@ public final class Paginator implements Serializable {
             }
 
             int[] slider = new int[width];
-            int first = page - ((width - 1) / 2);
+            int first = pageNo - ((width - 1) / 2);
 
             if (first < 1) {
                 first = 1;
@@ -412,7 +412,7 @@ public final class Paginator implements Serializable {
         StringBuffer sb = new StringBuffer("Paginator: page ");
 
         if (getPages() < 1) {
-            sb.append(getPage());
+            sb.append(getPageNo());
         } else {
             int[] slider = getSlider();
 
@@ -430,10 +430,10 @@ public final class Paginator implements Serializable {
         }
 
         sb.append(" of ").append(getPages()).append(",\n");
-        sb.append("    Showing items ").append(getBeginIndex()).append(" to ").append(getEndIndex()).append(" (total ").append(getItems()).append(" items), ");
+        sb.append("    Showing items ").append(getBeginIndex()).append(" to ").append(getEndIndex()).append(" (total ").append(getTotalCount()).append(" items), ");
         sb.append("offset=").append(getOffset()).append(", length=").append(getLength());
 
         return sb.toString();
     }
-    
+
 }

@@ -2,7 +2,7 @@
  * aBoy.com Inc.
  * Copyright (c) 2004-2012 All Rights Reserved.
  */
-package com.atom.core;
+package com.atom.core.lang;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

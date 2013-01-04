@@ -74,6 +74,12 @@
             <version>3.2.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.7</version>
+			<scope>provided</scope>
+		</dependency>
         
         <!-- ======================================== -->
 		<!-- JUnit测试依赖 -->
