@@ -6,6 +6,20 @@
     <!-- ====================================== -->
     <!--  DAO配置 -->
     <!-- ====================================== -->
+    <bean id="examInfoDAO" class="com.mplat.das.ibatis.IbatisExamInfoDAO" parent="baseSqlMapClientDAO">
+    	<property name="mutexTicket">
+			<bean class="com.atom.core.ticket.support.DefaultMutexTicket" parent="baseMutexTicket">
+				<property name="name" value="TB-ExamInfo-ID" />
+			</bean>
+    	</property>    </bean>
+    
+    <bean id="examItemDAO" class="com.mplat.das.ibatis.IbatisExamItemDAO" parent="baseSqlMapClientDAO">
+    	<property name="mutexTicket">
+			<bean class="com.atom.core.ticket.support.DefaultMutexTicket" parent="baseMutexTicket">
+				<property name="name" value="TB-ExamItem-ID" />
+			</bean>
+    	</property>    </bean>
+    
     <bean id="userInfoDAO" class="com.mplat.das.ibatis.IbatisUserInfoDAO" parent="baseSqlMapClientDAO">
     	<property name="mutexTicket">
 			<bean class="com.atom.core.ticket.support.DefaultMutexTicket" parent="baseMutexTicket">

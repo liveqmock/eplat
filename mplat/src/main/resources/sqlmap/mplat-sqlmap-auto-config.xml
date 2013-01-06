@@ -3,5 +3,7 @@
 <sqlMapConfig>
     <settings cacheModelsEnabled="true" enhancementEnabled="false" lazyLoadingEnabled="false" maxRequests="3000" maxSessions="3000" maxTransactions="3000" useStatementNamespaces="false"/>    
     <sqlMap resource="sqlmap/mplat/mplat-common-sqlmapping.xml"/>
+    <sqlMap resource="sqlmap/mplat/ExamInfo-sqlmapping.xml"/>
+    <sqlMap resource="sqlmap/mplat/ExamItem-sqlmapping.xml"/>
     <sqlMap resource="sqlmap/mplat/UserInfo-sqlmapping.xml"/>
 </sqlMapConfig>

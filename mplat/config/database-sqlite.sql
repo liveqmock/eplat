@@ -5,7 +5,9 @@ CREATE TABLE mplat_mutex_ticket (
     value BIGINT,
     stamp BIGINT
 );
-INSERT INTO mplat_mutex_ticket VALUES('USER-INFO-ID', 0, 0);
+INSERT INTO mplat_mutex_ticket VALUES('TB-UserInfo-ID', 0, 0);
+INSERT INTO mplat_mutex_ticket VALUES('TB-ExamInfo-ID', 0, 0);
+INSERT INTO mplat_mutex_ticket VALUES('TB-ExamItem-ID', 0, 0);
 
 DROP TABLE IF EXISTS mplat_user_info;
 CREATE TABLE mplat_user_info (

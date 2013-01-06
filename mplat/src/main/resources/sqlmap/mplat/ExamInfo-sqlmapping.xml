@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<!-- ==========================================================  -->
+<!-- Configuration for ibatis sqlmap mapping.                    -->
+<!-- ==========================================================  -->
+
+<!-- ============================================================================= -->
+<!-- @author obullxl@gmail.com -->
+<!-- ============================================================================= -->
+
+<sqlMap namespace="mplat">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+    
+    <!-- result maps for database table mplat_exam_info -->
+    <resultMap id="RM-EXAM-INFO" class="com.mplat.das.dataobject.ExamInfoDO">
+        <result property="id" column="id" javaType="long" jdbcType="BIGINT" nullValue="0"/>
+        <result property="title" column="title" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="rgtNo" column="rgt_no" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+	<!-- ============================================= -->
+    <!-- Public SQLS                                   -->
+    <!-- ============================================= -->
+
+    <!-- ============================================= -->
+    <!-- mapped statements for IbatisExamInfoDAO -->
+    <!-- ============================================= -->
+    
+    <!-- mapped statement for IbatisExamInfoDAO.insert -->
+    <insert id="MS-EXAM-INFO-INSERT">
+    <![CDATA[
+        insert /*MS-MPLAT-EXAM-INFO-INSERT*/ into mplat_exam_info(id,title,rgt_no) values (#id#, #title#, #rgtNo#)
+    ]]>
+    </insert>
+
+    <!-- mapped statement for IbatisExamInfoDAO.find -->
+    <select id="MS-EXAM-INFO-FIND" resultMap="RM-EXAM-INFO" >
+    <![CDATA[
+        select /*MS-MPLAT-EXAM-INFO-FIND*/ * from mplat_exam_info where (id = #value#)
+    ]]>
+    </select>
+
+    <!-- mapped statement for IbatisExamInfoDAO.findAll -->
+    <select id="MS-EXAM-INFO-FIND-ALL" resultMap="RM-EXAM-INFO" >
+    <![CDATA[
+        select /*MS-MPLAT-EXAM-INFO-FIND-ALL*/ * from mplat_exam_info
+    ]]>
+    </select>
+
+    <!-- mapped statement for IbatisExamInfoDAO.update -->
+    <update id="MS-EXAM-INFO-UPDATE" >
+    <![CDATA[
+        update /*MS-MPLAT-EXAM-INFO-UPDATE*/ mplat_exam_info set title=#title#, rgt_no=#rgtNo# where (id = #id#)
+    ]]>
+    </update>
+
+    <!-- mapped statement for IbatisExamInfoDAO.delete -->
+    <delete id="MS-EXAM-INFO-DELETE" >
+    <![CDATA[
+        delete /*MS-MPLAT-EXAM-INFO-DELETE*/ from mplat_exam_info where (id = #value#)
+    ]]>
+    </delete>
+
+</sqlMap>

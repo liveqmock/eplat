@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<!-- ==========================================================  -->
+<!-- Configuration for ibatis sqlmap mapping.                    -->
+<!-- ==========================================================  -->
+
+<!-- ============================================================================= -->
+<!-- @author obullxl@gmail.com -->
+<!-- ============================================================================= -->
+
+<sqlMap namespace="mplat">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+    
+    <!-- result maps for database table mplat_exam_item -->
+    <resultMap id="RM-EXAM-ITEM" class="com.mplat.das.dataobject.ExamItemDO">
+        <result property="id" column="id" javaType="long" jdbcType="BIGINT" nullValue="0"/>
+        <result property="no" column="no" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="exmId" column="exm_id" javaType="int" jdbcType="INT" nullValue="0"/>
+        <result property="text" column="text" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+	<!-- ============================================= -->
+    <!-- Public SQLS                                   -->
+    <!-- ============================================= -->
+
+    <!-- ============================================= -->
+    <!-- mapped statements for IbatisExamItemDAO -->
+    <!-- ============================================= -->
+    
+    <!-- mapped statement for IbatisExamItemDAO.insert -->
+    <insert id="MS-EXAM-ITEM-INSERT">
+    <![CDATA[
+        insert /*MS-MPLAT-EXAM-ITEM-INSERT*/ into mplat_exam_item(id,no,exm_id,text) values (#id#, #no#, #exmId#, #text#)
+    ]]>
+    </insert>
+
+    <!-- mapped statement for IbatisExamItemDAO.find -->
+    <select id="MS-EXAM-ITEM-FIND" resultMap="RM-EXAM-ITEM" >
+    <![CDATA[
+        select /*MS-MPLAT-EXAM-ITEM-FIND*/ * from mplat_exam_item where (id = #value#)
+    ]]>
+    </select>
+
+    <!-- mapped statement for IbatisExamItemDAO.findAll -->
+    <select id="MS-EXAM-ITEM-FIND-ALL" resultMap="RM-EXAM-ITEM" >
+    <![CDATA[
+        select /*MS-MPLAT-EXAM-ITEM-FIND-ALL*/ * from mplat_exam_item
+    ]]>
+    </select>
+
+    <!-- mapped statement for IbatisExamItemDAO.findByExam -->
+    <select id="MS-EXAM-ITEM-FIND-BY-EXAM" resultMap="RM-EXAM-ITEM" >
+    <![CDATA[
+        select /*MS-MPLAT-EXAM-ITEM-FIND-BY-EXAM*/ * from mplat_exam_item where (exm_id = #value#)
+    ]]>
+    </select>
+
+    <!-- mapped statement for IbatisExamItemDAO.update -->
+    <update id="MS-EXAM-ITEM-UPDATE" >
+    <![CDATA[
+        update /*MS-MPLAT-EXAM-ITEM-UPDATE*/ mplat_exam_item set no=#no#, exm_id=#exmId#, text=#text# where (id = #id#)
+    ]]>
+    </update>
+
+    <!-- mapped statement for IbatisExamItemDAO.delete -->
+    <delete id="MS-EXAM-ITEM-DELETE" >
+    <![CDATA[
+        delete /*MS-MPLAT-EXAM-ITEM-DELETE*/ from mplat_exam_item where (id = #value#)
+    ]]>
+    </delete>
+
+    <!-- mapped statement for IbatisExamItemDAO.deleteByExam -->
+    <delete id="MS-EXAM-ITEM-DELETE-BY-EXAM" >
+    <![CDATA[
+        delete /*MS-MPLAT-EXAM-ITEM-DELETE-BY-EXAM*/ from mplat_exam_item where (exm_id = #value#)
+    ]]>
+    </delete>
+
+</sqlMap>
