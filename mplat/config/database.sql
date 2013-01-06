@@ -16,7 +16,7 @@ INSERT INTO mplat_mutex_ticket VALUES('USER-INFO-ID', 0, 0);
 
 drop table if exists mplat_user_info;
 CREATE TABLE mplat_user_info (
-    id bigint primary key auto_increment,
+    id bigint primary key,
     usr_name varchar(128) unique COMMENT '用户名',
     usr_passwd varchar(256) COMMENT '用户密码'
 )Engine=InnoDB DEFAULT CHARSET=UTF8 COMMENT '用户信息';

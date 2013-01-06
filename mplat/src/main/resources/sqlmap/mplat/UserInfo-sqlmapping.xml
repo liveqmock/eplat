@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="GB2312" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <!-- ==========================================================  -->
@@ -13,7 +13,7 @@
     <!-- ============================================= -->
     <!-- RESULT MAPS                                   -->
     <!-- ============================================= -->
-
+    
     <!-- result maps for database table mplat_user_info -->
     <resultMap id="RM-USER-INFO" class="com.mplat.das.dataobject.UserInfoDO">
         <result property="id" column="id" javaType="long" jdbcType="BIGINT" nullValue="0"/>
@@ -22,42 +22,77 @@
     </resultMap>
 
 
+	<!-- ============================================= -->
+    <!-- Public SQLS                                   -->
+    <!-- ============================================= -->
+	<sql id="abc">
+		abc
+	</sql>
+
+	<sql id="abcefg">
+	<![CDATA[
+		abcefg<efg & abcefg>abc
+	]]>
+	</sql>
+
+
     <!-- ============================================= -->
     <!-- mapped statements for IbatisUserInfoDAO -->
     <!-- ============================================= -->
+    
     <!-- mapped statement for IbatisUserInfoDAO.insert -->
     <insert id="MS-USER-INFO-INSERT">
-        INSERT /*MS-MDATASYNC-USER-INFO-INSERT*/ INTO mplat_user_info(id, usr_name, usr_passwd) VALUES(NULL, #usrName#, #usrPasswd#)
-            <selectKey resultClass="long" keyProperty="id"> 
-                SELECT LAST_INSERT_ROWID() 
-            </selectKey>
+    <![CDATA[
+        insert /*MS-MPLAT-USER-INFO-INSERT*/ into mplat_user_info(id,usr_name,usr_passwd) values (#id#, #usrName#, #usrPasswd#)
+    ]]>
     </insert>
+
+    <!-- mapped statement for IbatisUserInfoDAO.find -->
+    <select id="MS-USER-INFO-FIND" resultMap="RM-USER-INFO" >
+    <![CDATA[
+        select /*MS-MPLAT-USER-INFO-FIND*/ * from mplat_user_info where (id = #value#)
+    ]]>
+    </select>
 
     <!-- mapped statement for IbatisUserInfoDAO.findAll -->
     <select id="MS-USER-INFO-FIND-ALL" resultMap="RM-USER-INFO" >
     <![CDATA[
-        select /*MS-MDATASYNC-USER-INFO-FIND-ALL*/ * from mplat_user_info
+        select /*MS-MPLAT-USER-INFO-FIND-ALL*/ * from mplat_user_info
     ]]>
     </select>
 
     <!-- mapped statement for IbatisUserInfoDAO.findByName -->
     <select id="MS-USER-INFO-FIND-BY-NAME" resultMap="RM-USER-INFO" >
     <![CDATA[
-        select /*MS-MDATASYNC-USER-INFO-FIND-BY-NAME*/ * from mplat_user_info where (usr_name = #value#)
+        select /*MS-MPLAT-USER-INFO-FIND-BY-NAME*/ * from mplat_user_info where (usr_name = #value#)
     ]]>
     </select>
 
     <!-- mapped statement for IbatisUserInfoDAO.update -->
     <update id="MS-USER-INFO-UPDATE" >
     <![CDATA[
-        update /*MS-MDATASYNC-USER-INFO-UPDATE*/ mplat_user_info set usr_passwd=#usrPasswd# where (usr_name = #usrName#)
+        update /*MS-MPLAT-USER-INFO-UPDATE*/ mplat_user_info set usr_passwd=#usrPasswd# where (id = #id#)
+    ]]>
+    </update>
+
+    <!-- mapped statement for IbatisUserInfoDAO.updateByName -->
+    <update id="MS-USER-INFO-UPDATE-BY-NAME" >
+    <![CDATA[
+        update /*MS-MPLAT-USER-INFO-UPDATE-BY-NAME*/ mplat_user_info set usr_passwd=#usrPasswd# where (usr_name = #usrName#)
     ]]>
     </update>
 
     <!-- mapped statement for IbatisUserInfoDAO.delete -->
     <delete id="MS-USER-INFO-DELETE" >
     <![CDATA[
-        delete /*MS-MDATASYNC-USER-INFO-DELETE*/ from mplat_user_info where (usr_name = #value#)
+        delete /*MS-MPLAT-USER-INFO-DELETE*/ from mplat_user_info where (id = #value#)
+    ]]>
+    </delete>
+
+    <!-- mapped statement for IbatisUserInfoDAO.deleteByName -->
+    <delete id="MS-USER-INFO-DELETE-BY-NAME" >
+    <![CDATA[
+        delete /*MS-MPLAT-USER-INFO-DELETE-BY-NAME*/ from mplat_user_info where (usr_name = #value#)
     ]]>
     </delete>
 

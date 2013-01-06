@@ -19,7 +19,7 @@ public interface UserInfoDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>insert into mplat_user_info(id,usr_name,usr_passwd) values (NULL, ?, ?)</tt>
+	 *  <tt>insert into mplat_user_info(id,usr_name,usr_passwd) values (?, ?, ?)</tt>
 	 *
 	 *	@param userInfo
 	 *	@return long
@@ -27,6 +27,20 @@ public interface UserInfoDAO extends BaseDAO {
 	 */	 
     @SuppressWarnings("unchecked")
     public long insert(UserInfoDO userInfo) throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>mplat_user_info</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from mplat_user_info where (id = ?)</tt>
+	 *
+	 *	@param id
+	 *	@return List<UserInfoDO>
+	 *	@throws DataAccessException
+	 */	 
+    @SuppressWarnings("unchecked")
+    public List<UserInfoDO> find(long id) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>mplat_user_info</tt> for records.
@@ -60,7 +74,7 @@ public interface UserInfoDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>update mplat_user_info set usr_passwd=? where (usr_name = ?)</tt>
+	 *  <tt>update mplat_user_info set usr_passwd=? where (id = ?)</tt>
 	 *
 	 *	@param userInfo
 	 *	@return int
@@ -68,6 +82,34 @@ public interface UserInfoDAO extends BaseDAO {
 	 */	 
     @SuppressWarnings("unchecked")
     public int update(UserInfoDO userInfo) throws DataAccessException;
+
+	/**
+	 *  Update DB table <tt>mplat_user_info</tt>.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>update mplat_user_info set usr_passwd=? where (usr_name = ?)</tt>
+	 *
+	 *	@param userInfo
+	 *	@return int
+	 *	@throws DataAccessException
+	 */	 
+    @SuppressWarnings("unchecked")
+    public int updateByName(UserInfoDO userInfo) throws DataAccessException;
+
+	/**
+	 *  Delete records from DB table <tt>mplat_user_info</tt>.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>delete from mplat_user_info where (id = ?)</tt>
+	 *
+	 *	@param id
+	 *	@return int
+	 *	@throws DataAccessException
+	 */	 
+    @SuppressWarnings("unchecked")
+    public int delete(long id) throws DataAccessException;
 
 	/**
 	 *  Delete records from DB table <tt>mplat_user_info</tt>.
@@ -81,6 +123,6 @@ public interface UserInfoDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public int delete(String usrName) throws DataAccessException;
+    public int deleteByName(String usrName) throws DataAccessException;
 
 }

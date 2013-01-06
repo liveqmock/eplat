@@ -54,7 +54,7 @@ public class UserMgtImpl implements UserMgt {
 
     public boolean remove(String usrName) {
         try {
-            int count = this.userInfoDAO.delete(usrName);
+            int count = this.userInfoDAO.deleteByName(usrName);
             return (count > 0);
         } catch (Exception e) {
             logger.error("[用户]-删除用户异常, User[" + usrName + "].", e);
