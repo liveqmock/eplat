@@ -3,8 +3,11 @@
  */
 package com.mplat.test;
 
+import com.mplat.util.SPortUtils;
+import com.mplat.util.UIUtils;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import javax.comm.CommPortIdentifier;
 import javax.comm.SerialPort;
 import javax.comm.SerialPortEvent;
@@ -17,11 +20,22 @@ public class CommMain {
 
     public static void main(String[] args) {
         try {
-            CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier("COM1");
-            SerialPort sport = (SerialPort) portId.open("test", 2000);
-            System.out.println("串口 " + sport.getName() + " 连接成功");
+            List<String> pnames = SPortUtils.findSerialPortNames();
             
-            final SerialPort sp = sport;
+            if(pnames.isEmpty()) {
+                UIUtils.initSystemUI();
+                UIUtils.alert(null, "错误提示", "没有找到可用的串口，请检查串口是否连接正常~");
+                return;
+            }
+            
+            for(String pname : pnames) {
+                System.out.println("串口可以使用：" + pname);
+            }
+
+            CommPortIdentifier comport = CommPortIdentifier.getPortIdentifier(pnames.get(0));
+            final SerialPort sport = (SerialPort) comport.open("MPLAT", SPortUtils.OPEN_TIMEOUT);
+            System.out.println("串口 " + sport.getName() + " 连接成功");
+
             sport.setSerialPortParams(2400, SerialPort.DATABITS_8, SerialPort.STOPBITS_2, SerialPort.PARITY_NONE);
             OutputStream os = sport.getOutputStream();
             sport.notifyOnDataAvailable(true);
@@ -32,11 +46,11 @@ public class CommMain {
                     InputStream is = null;
                     StringBuffer msgBuffer = new StringBuffer();
                     try {
-                        is = sp.getInputStream();
+                        is = sport.getInputStream();
                     } catch (Exception h) {
                         h.printStackTrace();
                     }
-                    
+
                     int newData = 0;
                     switch (e.getEventType()) {
                         case SerialPortEvent.DATA_AVAILABLE:
@@ -54,7 +68,7 @@ public class CommMain {
                                     f.printStackTrace();
                                 }
                             }
-                            
+
                             try {
                                 System.out.println("Resultis:" + Double.valueOf(msgBuffer.toString()));
                             } catch (Exception b) {
@@ -62,7 +76,7 @@ public class CommMain {
                             } finally {
                                 try {
                                     is.close();
-                                    sp.close();
+                                    sport.close();
                                 } catch (Exception c) {
                                     c.printStackTrace();
                                 }
