@@ -18,7 +18,11 @@ import org.springframework.stereotype.Component;
 @Component("userMgt")
 public class UserMgtImpl implements UserMgt {
 
+    /**
+     * logger
+     */
     private static final Logger logger = Logger.getLogger(UserMgt.class);
+    
     private UserInfoDAO userInfoDAO;
 
     public long create(UserInfoDTO user) {

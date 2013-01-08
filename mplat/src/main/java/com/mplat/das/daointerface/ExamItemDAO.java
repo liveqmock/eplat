@@ -67,7 +67,7 @@ public interface ExamItemDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public List<ExamItemDO> findByExam(int exmId) throws DataAccessException;
+    public List<ExamItemDO> findByExam(long exmId) throws DataAccessException;
 
 	/**
 	 *  Update DB table <tt>mplat_exam_item</tt>.

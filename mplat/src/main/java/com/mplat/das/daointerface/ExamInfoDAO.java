@@ -40,7 +40,7 @@ public interface ExamInfoDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public List<ExamInfoDO> find(long id) throws DataAccessException;
+    public ExamInfoDO find(long id) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>mplat_exam_info</tt> for records.

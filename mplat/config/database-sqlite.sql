@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS mplat_exam_item;
 CREATE TABLE mplat_exam_item(
     id BIGINT PRIMARY KEY,
     no VARCHAR(64),
-    exm_id INTEGER,
+    exm_id BIGINT,
     text VARCHAR(1024),
     UNIQUE(no, exm_id)
 );
