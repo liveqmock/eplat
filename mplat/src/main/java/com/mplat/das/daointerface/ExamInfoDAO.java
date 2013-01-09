@@ -36,7 +36,7 @@ public interface ExamInfoDAO extends BaseDAO {
 	 *  <tt>select * from mplat_exam_info where (id = ?)</tt>
 	 *
 	 *	@param id
-	 *	@return List<ExamInfoDO>
+	 *	@return ExamInfoDO
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")

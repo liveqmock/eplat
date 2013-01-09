@@ -36,11 +36,11 @@ public interface ExamItemDAO extends BaseDAO {
 	 *  <tt>select * from mplat_exam_item where (id = ?)</tt>
 	 *
 	 *	@param id
-	 *	@return List<ExamItemDO>
+	 *	@return ExamItemDO
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public List<ExamItemDO> find(long id) throws DataAccessException;
+    public ExamItemDO find(long id) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>mplat_exam_item</tt> for records.
@@ -109,6 +109,6 @@ public interface ExamItemDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public int deleteByExam(int exmId) throws DataAccessException;
+    public int deleteByExam(long exmId) throws DataAccessException;
 
 }

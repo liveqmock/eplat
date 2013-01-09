@@ -16,7 +16,7 @@ public class ExamItemDO extends BaseDO {
 	/** column:no */
 	private String no;
 	/** column:exm_id */
-	private int exmId;
+	private long exmId;
 	/** column:text */
 	private String text;
 
@@ -38,11 +38,11 @@ public class ExamItemDO extends BaseDO {
 		this.no = no;
 	}
 
-	public int getExmId() {
+	public long getExmId() {
 		return exmId;
 	}
 
-	public void setExmId(int exmId) {
+	public void setExmId(long exmId) {
 		this.exmId = exmId;
 	}
 

@@ -16,14 +16,7 @@ import org.springframework.stereotype.Component;
  * @author obullxl@gmail.com
  */
 @Component("userMgt")
-public class UserMgtImpl implements UserMgt {
-
-    /**
-     * logger
-     */
-    private static final Logger logger = Logger.getLogger(UserMgt.class);
-    
-    private UserInfoDAO userInfoDAO;
+public class UserMgtImpl extends BaseMgtImpl implements UserMgt {
 
     public long create(UserInfoDTO user) {
         try {
@@ -66,8 +59,4 @@ public class UserMgtImpl implements UserMgt {
         }
     }
 
-    // ~~~~~~~ 依赖注入 ~~~~~~~~~ //
-    public void setUserInfoDAO(UserInfoDAO userInfoDAO) {
-        this.userInfoDAO = userInfoDAO;
-    }
 }

@@ -61,6 +61,19 @@ public class ExamConverter {
 
         return dstObj;
     }
+    
+    public static List<ExamItemDTO> convertItems(List<ExamItemDO> srcObjs) {
+        if (srcObjs == null) {
+            return null;
+        }
+
+        List<ExamItemDTO> dstObjs = new ArrayList<ExamItemDTO>();
+        for(ExamItemDO srcObj : srcObjs) {
+            dstObjs.add(convert(srcObj));
+        }
+
+        return dstObjs;
+    }
 
     public static ExamItemDO convert(ExamItemDTO srcObj) {
         if (srcObj == null) {

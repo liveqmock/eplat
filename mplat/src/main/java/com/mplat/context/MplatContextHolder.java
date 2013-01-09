@@ -4,6 +4,7 @@
  */
 package com.mplat.context;
 
+import com.mplat.mgt.ExamMgt;
 import com.mplat.mgt.UserMgt;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -35,6 +36,15 @@ public class MplatContextHolder implements ApplicationContextAware {
         
         //String msg = _context.getMessage("SYSTEM-NAME", null, Locale.CHINESE);
         //System.out.println("++++++++++++++++++++++++++" + msg);
+    }
+    
+    /**
+     * 试题管理器
+     */
+    public static final ExamMgt findExamMgt() {
+        Assert.notNull(_context, "应用上下文对象为NULL.");
+        
+        return _context.getBean(ExamMgt.class);
     }
     
     /**

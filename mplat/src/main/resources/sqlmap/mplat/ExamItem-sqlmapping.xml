@@ -18,7 +18,7 @@
     <resultMap id="RM-EXAM-ITEM" class="com.mplat.das.dataobject.ExamItemDO">
         <result property="id" column="id" javaType="long" jdbcType="BIGINT" nullValue="0"/>
         <result property="no" column="no" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="exmId" column="exm_id" javaType="int" jdbcType="INT" nullValue="0"/>
+        <result property="exmId" column="exm_id" javaType="long" jdbcType="BIGINT" nullValue="0"/>
         <result property="text" column="text" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -53,7 +53,7 @@
     </select>
 
     <!-- mapped statement for IbatisExamItemDAO.findByExam -->
-    <select id="MS-EXAM-ITEM-FIND-BY-EXAM" resultMap="RM-EXAM-ITEM" >
+    <select id="MS-EXAM-ITEM-FIND-BY-EXAM" resultMap="RM-EXAM-ITEM"  parameterClass = "long" >
     <![CDATA[
         select /*MS-MPLAT-EXAM-ITEM-FIND-BY-EXAM*/ * from mplat_exam_item where (exm_id = #value#)
     ]]>

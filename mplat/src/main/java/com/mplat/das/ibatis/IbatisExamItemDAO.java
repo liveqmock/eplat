@@ -37,14 +37,14 @@ package com.mplat.das.ibatis;import org.springframework.orm.ibatis.support.Sql
 	 *  <tt>select * from mplat_exam_item where (id = ?)</tt>
 	 *
 	 *	@param id
-	 *	@return List<ExamItemDO>
+	 *	@return ExamItemDO
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public List<ExamItemDO> find(long id) throws DataAccessException {
+    public ExamItemDO find(long id) throws DataAccessException {
         Long param = new Long(id);
 
-        return getSqlMapClientTemplate().queryForList("MS-EXAM-ITEM-FIND", param);
+        return (ExamItemDO) getSqlMapClientTemplate().queryForObject("MS-EXAM-ITEM-FIND", param);
 
     }		/**
 	 *  Query DB table <tt>mplat_exam_item</tt> for records.
@@ -73,8 +73,8 @@ package com.mplat.das.ibatis;import org.springframework.orm.ibatis.support.Sql
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public List<ExamItemDO> findByExam(int exmId) throws DataAccessException {
-        Integer param = new Integer(exmId);
+    public List<ExamItemDO> findByExam(long exmId) throws DataAccessException {
+        Long param = new Long(exmId);
 
         return getSqlMapClientTemplate().queryForList("MS-EXAM-ITEM-FIND-BY-EXAM", param);
 
@@ -125,8 +125,8 @@ package com.mplat.das.ibatis;import org.springframework.orm.ibatis.support.Sql
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
-    public int deleteByExam(int exmId) throws DataAccessException {
-        Integer param = new Integer(exmId);
+    public int deleteByExam(long exmId) throws DataAccessException {
+        Long param = new Long(exmId);
 
         return getSqlMapClientTemplate().delete("MS-EXAM-ITEM-DELETE-BY-EXAM", param);
     }}

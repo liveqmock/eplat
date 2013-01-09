@@ -1,35 +1,9 @@
 /**
  * obullxl@gmail.com
  */
-package com.mplat.das.ibatis;
-
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-
-import com.mplat.das.daointerface.ExamInfoDAO;
-
-// auto generated imports
-import com.mplat.das.dataobject.ExamInfoDO;
-import org.springframework.dao.DataAccessException;
-import java.util.List;
-import com.mplat.das.dataobject.ExamInfoDO;
-
-import com.atom.core.ticket.MutexTicket;
-import com.atom.core.ticket.TicketException;
-
-/**
- * An ibatis based implementation of dao interface <tt>com.mplat.das.daointerface.ExamInfoDAO</tt>.
- *
+package com.mplat.das.ibatis;import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;import com.mplat.das.daointerface.ExamInfoDAO;// auto generated importsimport com.mplat.das.dataobject.ExamInfoDO;import org.springframework.dao.DataAccessException;import java.util.List;import com.mplat.das.dataobject.ExamInfoDO;import com.atom.core.ticket.MutexTicket;import com.atom.core.ticket.TicketException;/** * An ibatis based implementation of dao interface <tt>com.mplat.das.daointerface.ExamInfoDAO</tt>. *
  * @author obullxl@gmail.com
- */
-public class IbatisExamInfoDAO extends SqlMapClientDaoSupport implements ExamInfoDAO {
-	/** TicketID */
-	private MutexTicket mutexTicket;
-	
-	public void setMutexTicket(MutexTicket mutexTicket) {
-		this.mutexTicket = mutexTicket;
-	}
-
-	/**
+ */public class IbatisExamInfoDAO extends SqlMapClientDaoSupport implements ExamInfoDAO {	/** TicketID */	private MutexTicket mutexTicket;		public void setMutexTicket(MutexTicket mutexTicket) {		this.mutexTicket = mutexTicket;	}	/**
 	 *  Insert one <tt>ExamInfoDO</tt> object to DB table <tt>mplat_exam_info</tt>, return primary key
 	 *
 	 *  <p>
@@ -55,9 +29,7 @@ public class IbatisExamInfoDAO extends SqlMapClientDaoSupport implements ExamInf
         getSqlMapClientTemplate().insert("MS-EXAM-INFO-INSERT", examInfo);
 
         return examInfo.getId();
-    }	
-
-	/**
+    }		/**
 	 *  Query DB table <tt>mplat_exam_info</tt> for records.
 	 *
 	 *  <p>
@@ -65,18 +37,16 @@ public class IbatisExamInfoDAO extends SqlMapClientDaoSupport implements ExamInf
 	 *  <tt>select * from mplat_exam_info where (id = ?)</tt>
 	 *
 	 *	@param id
-	 *	@return List<ExamInfoDO>
+	 *	@return ExamInfoDO
 	 *	@throws DataAccessException
 	 */	 
     @SuppressWarnings("unchecked")
     public ExamInfoDO find(long id) throws DataAccessException {
         Long param = new Long(id);
 
-        return getSqlMapClientTemplate().queryObject("MS-EXAM-INFO-FIND", param);
+        return (ExamInfoDO) getSqlMapClientTemplate().queryForObject("MS-EXAM-INFO-FIND", param);
 
-    }	
-
-	/**
+    }		/**
 	 *  Query DB table <tt>mplat_exam_info</tt> for records.
 	 *
 	 *  <p>
@@ -91,9 +61,7 @@ public class IbatisExamInfoDAO extends SqlMapClientDaoSupport implements ExamInf
 
         return getSqlMapClientTemplate().queryForList("MS-EXAM-INFO-FIND-ALL", null);
 
-    }	
-
-	/**
+    }		/**
 	 *  Update DB table <tt>mplat_exam_info</tt>.
 	 *
 	 *  <p>
@@ -112,9 +80,7 @@ public class IbatisExamInfoDAO extends SqlMapClientDaoSupport implements ExamInf
 
 
         return getSqlMapClientTemplate().update("MS-EXAM-INFO-UPDATE", examInfo);
-    }	
-
-	/**
+    }		/**
 	 *  Delete records from DB table <tt>mplat_exam_info</tt>.
 	 *
 	 *  <p>
@@ -130,6 +96,4 @@ public class IbatisExamInfoDAO extends SqlMapClientDaoSupport implements ExamInf
         Long param = new Long(id);
 
         return getSqlMapClientTemplate().delete("MS-EXAM-INFO-DELETE", param);
-    }
-
-}
+    }}
