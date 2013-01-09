@@ -25,6 +25,14 @@ public class ExamItemDTO extends BaseDTO {
      */
     private String text;
 
+    public ExamItemDTO() {
+    }
+
+    public ExamItemDTO(String no, String text) {
+        this.no = no;
+        this.text = text;
+    }
+
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
     public long getId() {
         return id;

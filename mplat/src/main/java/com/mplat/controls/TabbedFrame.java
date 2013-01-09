@@ -51,6 +51,7 @@ public class TabbedFrame extends javax.swing.JFrame {
         menuItemPPT = new javax.swing.JMenuItem();
         menuMgt = new javax.swing.JMenu();
         menuItemUserMgt = new javax.swing.JMenuItem();
+        menuItemExamMgt = new javax.swing.JMenuItem();
         menuAbout = new javax.swing.JMenu();
         menuItemAbout = new javax.swing.JMenuItem();
 
@@ -152,6 +153,14 @@ public class TabbedFrame extends javax.swing.JFrame {
         });
         menuMgt.add(menuItemUserMgt);
 
+        menuItemExamMgt.setText("试题管理");
+        menuItemExamMgt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExamMgtActionPerformed(evt);
+            }
+        });
+        menuMgt.add(menuItemExamMgt);
+
         menuBar.add(menuMgt);
 
         menuAbout.setText("关于");
@@ -212,6 +221,13 @@ public class TabbedFrame extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_menuItemPPTActionPerformed
 
+    private void menuItemExamMgtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExamMgtActionPerformed
+        JDialog dialog = new ExamMgtDialog(this, true);
+        UIUtils.defaultSize(dialog);
+        UIUtils.center(dialog);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuItemExamMgtActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -226,6 +242,7 @@ public class TabbedFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuFunc;
     private javax.swing.JMenuItem menuItemAbout;
+    private javax.swing.JMenuItem menuItemExamMgt;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemPPT;
     private javax.swing.JMenuItem menuItemUserMgt;

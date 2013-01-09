@@ -11,8 +11,6 @@ import com.mplat.util.UIUtils;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,8 +20,6 @@ import javax.swing.table.DefaultTableModel;
 public class UserMgtDialog extends javax.swing.JDialog {
 
     private UserMgt userMgt;
-    private JPopupMenu popupMenu;
-    private int selectedRowIndex = -1;
 
     /**
      * Creates new form UserMgtDialog
@@ -36,17 +32,9 @@ public class UserMgtDialog extends javax.swing.JDialog {
         initComponents();
 
         this.initUserTable();
-
-        this.initPopupMenu();
     }
 
     public void initUserTable() {
-        /*
-        for (int i = 0; i <= 1; i++) {
-            this.tableUserInfos.getColumnModel().getColumn(i).setCellRenderer(new UserTableCellRenderer(i));
-        }
-        */
-
         DefaultTableModel model = (DefaultTableModel) this.tableUserInfos.getModel();
         int rowCnt = model.getRowCount();
         for (int i = 0; i < rowCnt; i++) {
@@ -61,90 +49,7 @@ public class UserMgtDialog extends javax.swing.JDialog {
             this.tableUserInfos.setValueAt(user.getId(), i, 0);
             this.tableUserInfos.setValueAt(user.getUsrName(), i, 1);
         }
-
-        // tableUserInfos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        // tableUserInfos.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-
-    private void initPopupMenu() {
-        /*
-        this.popupMenu = new JPopupMenu();
-
-        JMenuItem createMenuItem = new JMenuItem("增加用户");
-        JMenuItem updateMenuItem = new JMenuItem("修改密码");
-        JMenuItem deleteMenuItem = new JMenuItem("删除用户");
-        this.popupMenu.add(createMenuItem);
-        this.popupMenu.add(updateMenuItem);
-        this.popupMenu.add(deleteMenuItem);
-
-        createMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                onCreateMenuItemEvent(evt);
-            }
-        });
-
-        updateMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                onUpdateMenuItemEvent(evt);
-            }
-        });
-
-        deleteMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                onDeleteMenuItemEvent(evt);
-            }
-        });
-        */
-    }
-
-    /*
-    private void onCreateMenuItemEvent(ActionEvent evt) {
-        Dialog dialog = new UserCreateDialog(this, true);
-        UIUtils.center(dialog);
-        dialog.setVisible(true);
-    }
-
-    private void onUpdateMenuItemEvent(ActionEvent evt) {
-        UserInfoDTO user = this.findSelectedUser(evt);
-        if (user == null) {
-            UIUtils.alert(this, "错误", "用户为空，请选择用户！");
-            return;
-        }
-
-        Dialog dialog = new UserUpdateDialog(this, true, user);
-        UIUtils.center(dialog);
-        dialog.setVisible(true);
-    }
-
-    private void onDeleteMenuItemEvent(ActionEvent evt) {
-        UserInfoDTO user = this.findSelectedUser(evt);
-        if (user == null) {
-            UIUtils.alert(this, "错误", "用户为空，请选择用户！");
-            return;
-        }
-
-        boolean rtn = this.userMgt.remove(user.getUsrName());
-        if (rtn) {
-            UIUtils.info(this, "成功提示", "删除用户成功！");
-            this.initUserTable();
-        } else {
-            UIUtils.alert(this, "失败提示", "删除用户失败，请重新输入！");
-        }
-    }
-
-    private UserInfoDTO findSelectedUser(ActionEvent evt) {
-        if (this.selectedRowIndex < 0) {
-            return null;
-        }
-
-        Object value = this.tableUserInfos.getModel().getValueAt(this.selectedRowIndex, 0);
-        if (value == null || !(value instanceof UserInfoDTO)) {
-            return null;
-        }
-
-        return (UserInfoDTO) value;
-    }
-    */
     
     private String findSelectedUserName(ActionEvent evt) {
         int row = this.tableUserInfos.getSelectedRow();
@@ -202,11 +107,6 @@ public class UserMgtDialog extends javax.swing.JDialog {
         });
         tableUserInfos.setRowHeight(20);
         tableUserInfos.getTableHeader().setReorderingAllowed(false);
-        tableUserInfos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                onUserTableMousePressedEvent(evt);
-            }
-        });
         jScrollPane1.setViewportView(tableUserInfos);
         tableUserInfos.getColumnModel().getColumn(0).setMaxWidth(120);
 
@@ -259,13 +159,6 @@ public class UserMgtDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void onUserTableMousePressedEvent(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onUserTableMousePressedEvent
-        if (SwingUtilities.isRightMouseButton(evt)) {
-            this.selectedRowIndex = evt.getY() / this.tableUserInfos.getRowHeight();
-            this.popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_onUserTableMousePressedEvent
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         Dialog dialog = new UserCreateDialog(this, true);

@@ -20,28 +20,54 @@ import org.springframework.transaction.support.TransactionCallback;
 @Component("examMgt")
 public class ExamMgtImpl extends BaseMgtImpl implements ExamMgt {
 
+    /*
+     public long createExamInfo(final ExamInfoDTO exam) {
+     long id = -1;
+     try {
+     id = this.transactionTemplate.execute(new TransactionCallback<Long>() {
+     public Long doInTransaction(TransactionStatus status) {
+     // 试题
+     ExamInfoDO examObj = ExamConverter.convert(exam);
+     long exmId = examInfoDAO.insert(examObj);
+     exam.setId(exmId);
+
+     // 选项
+     for (ExamItemDTO item : exam.getItems()) {
+     item.setExmId(exmId);
+     ExamItemDO itemObj = ExamConverter.convert(item);
+     long itmId = examItemDAO.insert(itemObj);
+     item.setId(itmId);
+     }
+
+     // 试题ID
+     return exmId;
+     }
+     });
+     } catch (Exception e) {
+     logger.error("保存试题异常, ExamInfo[" + exam + "].", e);
+     }
+
+     return id;
+     }
+     */
     public long createExamInfo(final ExamInfoDTO exam) {
-        long id = -1;
+        long id = 1L;
         try {
-            id = this.transactionTemplate.execute(new TransactionCallback<Long>() {
-                public Long doInTransaction(TransactionStatus status) {
-                    // 试题
-                    ExamInfoDO examObj = ExamConverter.convert(exam);
-                    long exmId = examInfoDAO.insert(examObj);
-                    exam.setId(exmId);
+            // 试题
+            ExamInfoDO examObj = ExamConverter.convert(exam);
+            long exmId = examInfoDAO.insert(examObj);
+            exam.setId(exmId);
 
-                    // 选项
-                    for (ExamItemDTO item : exam.getItems()) {
-                        item.setExmId(exmId);
-                        ExamItemDO itemObj = ExamConverter.convert(item);
-                        long itmId = examItemDAO.insert(itemObj);
-                        item.setId(itmId);
-                    }
+            // 选项
+            for (ExamItemDTO item : exam.getItems()) {
+                item.setExmId(exmId);
+                ExamItemDO itemObj = ExamConverter.convert(item);
+                long itmId = examItemDAO.insert(itemObj);
+                item.setId(itmId);
+            }
 
-                    // 试题ID
-                    return exmId;
-                }
-            });
+            // 试题ID
+            id = exmId;
         } catch (Exception e) {
             logger.error("保存试题异常, ExamInfo[" + exam + "].", e);
         }
@@ -94,7 +120,7 @@ public class ExamMgtImpl extends BaseMgtImpl implements ExamMgt {
         } catch (Exception e) {
             logger.error("删除试题异常, ID[" + id + "].", e);
         }
-        
+
         return rtn;
     }
 
@@ -123,5 +149,4 @@ public class ExamMgtImpl extends BaseMgtImpl implements ExamMgt {
 
         return dstObjs;
     }
-    
 }

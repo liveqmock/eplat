@@ -1,20 +1,47 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * obullxl@gmail.com
  */
 package com.mplat.controls;
 
+import com.mplat.context.MplatContextHolder;
+import com.mplat.mgt.ExamMgt;
+import com.mplat.mgt.dto.ExamInfoDTO;
+import com.mplat.util.UIUtils;
+import java.awt.Dialog;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
- * @author Administrator
+ * @author obullxl@gmail.com
  */
 public class ExamMgtDialog extends javax.swing.JDialog {
 
+    private ExamMgt examMgt;
+    
     /**
      * Creates new form ExamMgtDialog
      */
     public ExamMgtDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.examMgt = MplatContextHolder.findExamMgt();
         initComponents();
+        this.initExamTable();
+    }
+    
+    public void initExamTable() {
+        DefaultTableModel model = (DefaultTableModel) this.tableExamInfos.getModel();
+        int rowCnt = model.getRowCount();
+        for (int i = 0; i < rowCnt; i++) {
+            model.removeRow(0);
+        }
+
+        List<ExamInfoDTO> exams = this.examMgt.findExamInfos();
+        model.setRowCount(exams.size());
+        for (int i = 0; i < exams.size(); i++) {
+            ExamInfoDTO exam = exams.get(i);
+            this.tableExamInfos.setValueAt(exam.getId(), i, 0);
+            this.tableExamInfos.setValueAt(exam.getTitle(), i, 1);
+        }
     }
 
     /**
@@ -77,9 +104,10 @@ public class ExamMgtDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tableExamInfos.setRowHeight(20);
         tableExamInfos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableExamInfos);
-        tableExamInfos.getColumnModel().getColumn(0).setMaxWidth(120);
+        tableExamInfos.getColumnModel().getColumn(0).setMaxWidth(150);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,7 +139,9 @@ public class ExamMgtDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
+        Dialog dialog = new ExamCreateDialog(this, true);
+        UIUtils.center(dialog);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -122,47 +152,6 @@ public class ExamMgtDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExamMgtDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExamMgtDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExamMgtDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExamMgtDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ExamMgtDialog dialog = new ExamMgtDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;

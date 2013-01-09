@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * obullxl@gmail.com
  */
 package com.mplat.mgt;
 

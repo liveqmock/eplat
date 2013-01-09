@@ -50,8 +50,8 @@
 		<property name="ticketDAO">
 			<bean class="com.atom.core.ticket.support.DefaultTicketDAO">
 				<property name="dataSource" ref="dataSource" />
-				<property name="retryTimes" value="50" />
-				<property name="step" value="100" />
+				<property name="retryTimes" value="10" />
+				<property name="step" value="10" />
 				<property name="tableName" value="mplat_mutex_ticket" />
 				<property name="nameColumnName" value="name" />
 				<property name="valueColumnName" value="value" />
