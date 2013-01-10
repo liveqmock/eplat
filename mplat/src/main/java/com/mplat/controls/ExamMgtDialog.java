@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class ExamMgtDialog extends javax.swing.JDialog {
 
     private ExamMgt examMgt;
-    
+
     /**
      * Creates new form ExamMgtDialog
      */
@@ -27,7 +27,7 @@ public class ExamMgtDialog extends javax.swing.JDialog {
         initComponents();
         this.initExamTable();
     }
-    
+
     public void initExamTable() {
         DefaultTableModel model = (DefaultTableModel) this.tableExamInfos.getModel();
         int rowCnt = model.getRowCount();
@@ -42,6 +42,23 @@ public class ExamMgtDialog extends javax.swing.JDialog {
             this.tableExamInfos.setValueAt(exam.getId(), i, 0);
             this.tableExamInfos.setValueAt(exam.getTitle(), i, 1);
         }
+    }
+
+    private long findExamID() {
+        long id = -1L;
+        int row = this.tableExamInfos.getSelectedRow();
+        if (row < 0) {
+            UIUtils.alert(this, "错误提示", "请选择一个试题！");
+            return id;
+        } else {
+            id = Long.valueOf(String.valueOf(this.tableExamInfos.getValueAt(row, 0)));
+        }
+
+        if (id < 0) {
+            UIUtils.alert(this, "错误提示", "请选择一个试题！");
+        }
+
+        return id;
     }
 
     /**
@@ -145,13 +162,35 @@ public class ExamMgtDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        long id = this.findExamID();
+        if (id < 0) {
+            return;
+        }
+
+        Dialog dialog = new ExamUpdateDialog(this, true, id);
+        UIUtils.center(dialog);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
+        long id = this.findExamID();
+        if (id < 0) {
+            return;
+        }
 
+        boolean cfm = UIUtils.confirm(this, "确认提示", "你确定要删除试题[" + id + "]吗？");
+        if (!cfm) {
+            return;
+        }
+
+        boolean rtn = this.examMgt.removeExamInfo(id);
+        if (rtn) {
+            UIUtils.info(this, "成功提示", "删除试题成功！");
+            this.initExamTable();
+        } else {
+            UIUtils.alert(this, "失败提示", "删除试题失败！");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;

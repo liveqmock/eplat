@@ -15,8 +15,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ExamCreateDialog extends javax.swing.JDialog {
 
-    private ExamMgt examMgt;
-    private ExamMgtDialog examMgtDialog;
+    private final ExamMgt examMgt;
+    private final ExamMgtDialog examMgtDialog;
 
     /**
      * Creates new form ExamCreateDialog
@@ -187,9 +187,8 @@ public class ExamCreateDialog extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cboxRgtNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnClear)
-                        .addComponent(btnCreate)))
+                    .addComponent(btnCreate)
+                    .addComponent(btnClear))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -217,11 +216,12 @@ public class ExamCreateDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void clearInputForm() {
-        this.txtTitle.setText(StringUtils.EMPTY);
-        this.txtItemA.setText(StringUtils.EMPTY);
-        this.txtItemB.setText(StringUtils.EMPTY);
-        this.txtItemC.setText(StringUtils.EMPTY);
-        this.txtItemD.setText(StringUtils.EMPTY);
+        String text = StringUtils.EMPTY;
+        this.txtTitle.setText(text);
+        this.txtItemA.setText(text);
+        this.txtItemB.setText(text);
+        this.txtItemC.setText(text);
+        this.txtItemD.setText(text);
     }
     
     private ExamInfoDTO initExamInfo() {

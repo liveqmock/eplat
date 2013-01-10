@@ -50,13 +50,13 @@ public class UserMgtDialog extends javax.swing.JDialog {
             this.tableUserInfos.setValueAt(user.getUsrName(), i, 1);
         }
     }
-    
+
     private String findSelectedUserName(ActionEvent evt) {
         int row = this.tableUserInfos.getSelectedRow();
-        if(row < 0) {
+        if (row < 0) {
             return null;
         }
-        
+
         Object value = this.tableUserInfos.getValueAt(row, 1);
         if (value == null) {
             return null;
@@ -185,6 +185,11 @@ public class UserMgtDialog extends javax.swing.JDialog {
             return;
         }
 
+        boolean cfm = UIUtils.confirm(this, "确认提示", "你确定要删除用户[" + usrName + "]吗？");
+        if (!cfm) {
+            return;
+        }
+
         boolean rtn = this.userMgt.remove(usrName);
         if (rtn) {
             UIUtils.info(this, "成功提示", "删除用户成功！");
@@ -193,7 +198,6 @@ public class UserMgtDialog extends javax.swing.JDialog {
             UIUtils.alert(this, "失败提示", "删除用户失败，请重新输入！");
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnRemove;

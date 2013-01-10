@@ -75,27 +75,53 @@ public class ExamMgtImpl extends BaseMgtImpl implements ExamMgt {
         return id;
     }
 
+    /*
+     public boolean updateExamInfo(final ExamInfoDTO exam) {
+     boolean rtn = false;
+     try {
+     rtn = this.transactionTemplate.execute(new TransactionCallback<Boolean>() {
+     public Boolean doInTransaction(TransactionStatus status) {
+     // 试题
+     ExamInfoDO examObj = ExamConverter.convert(exam);
+     examInfoDAO.update(examObj);
+
+     // 删除选项
+     examItemDAO.deleteByExam(exam.getId());
+
+     // 增加选项
+     for (ExamItemDTO item : exam.getItems()) {
+     ExamItemDO itemObj = ExamConverter.convert(item);
+     examItemDAO.insert(itemObj);
+     }
+
+     return true;
+     }
+     });
+     } catch (Exception e) {
+     logger.error("更新试题异常, ExamInfo[" + exam + "].", e);
+     }
+
+     return rtn;
+     }
+     */
     public boolean updateExamInfo(final ExamInfoDTO exam) {
         boolean rtn = false;
         try {
-            rtn = this.transactionTemplate.execute(new TransactionCallback<Boolean>() {
-                public Boolean doInTransaction(TransactionStatus status) {
-                    // 试题
-                    ExamInfoDO examObj = ExamConverter.convert(exam);
-                    examInfoDAO.update(examObj);
+            // 试题
+            ExamInfoDO examObj = ExamConverter.convert(exam);
+            examInfoDAO.update(examObj);
 
-                    // 删除选项
-                    examItemDAO.deleteByExam(exam.getId());
+            // 删除选项
+            examItemDAO.deleteByExam(exam.getId());
 
-                    // 增加选项
-                    for (ExamItemDTO item : exam.getItems()) {
-                        ExamItemDO itemObj = ExamConverter.convert(item);
-                        examItemDAO.insert(itemObj);
-                    }
+            // 增加选项
+            for (ExamItemDTO item : exam.getItems()) {
+                ExamItemDO itemObj = ExamConverter.convert(item);
+                examItemDAO.insert(itemObj);
+            }
 
-                    return true;
-                }
-            });
+            // 成功
+            rtn = true;
         } catch (Exception e) {
             logger.error("更新试题异常, ExamInfo[" + exam + "].", e);
         }
@@ -106,17 +132,13 @@ public class ExamMgtImpl extends BaseMgtImpl implements ExamMgt {
     public boolean removeExamInfo(final long id) {
         boolean rtn = false;
         try {
-            rtn = this.transactionTemplate.execute(new TransactionCallback<Boolean>() {
-                public Boolean doInTransaction(TransactionStatus status) {
-                    // 删除选项
-                    examItemDAO.deleteByExam(id);
-
-                    // 删除试题
-                    examInfoDAO.delete(id);
-
-                    return true;
-                }
-            });
+            // 删除选项
+            examItemDAO.deleteByExam(id);
+            // 删除试题
+            examInfoDAO.delete(id);
+            
+            // 成功
+            rtn = true;
         } catch (Exception e) {
             logger.error("删除试题异常, ID[" + id + "].", e);
         }
