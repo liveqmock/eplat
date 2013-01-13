@@ -73,7 +73,7 @@ public abstract class BaseStore<T extends ID> implements Store<T> {
             }
         } catch (Exception e) {
             rtn = false;
-            LogUtils.error(this.clazz() + "实始化数据存储异常.", e);
+            LogUtils.error(this.clazz() + "初始化数据存储异常.", e);
         } finally {
             this.lock.writeLock().unlock();
         }

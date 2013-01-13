@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="loginPane" prefHeight="202.0" prefWidth="291.0" xmlns:fx="http://javafx.com/fxml" fx:controller="mplat.uijfx.login.LoginController">
+  <children>
+    <Label fx:id="lblLoginTop" layoutX="0.0" layoutY="2.0" maxWidth="290.0" minWidth="290.0" prefHeight="38.0" prefWidth="290.0" style="" styleClass="" text="" textFill="#100033" />
+    <Label fx:id="lblUserName" layoutX="14.0" layoutY="49.0" text="用户名：" />
+    <TextField fx:id="txtUserName" layoutX="71.0" layoutY="49.0" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+    <Label fx:id="lblPasswd" layoutX="26.0" layoutY="85.0" text="密码：" />
+    <PasswordField id="txtPasswd" fx:id="txtUserPasswd" layoutX="71.0" layoutY="79.0" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+    <Button layoutX="221.0" layoutY="115.0" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onMouseClicked="onClearAction" text="清除" />
+    <Button layoutX="151.0" layoutY="115.0" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onMouseClicked="onLoginAction" text="登录" />
+    <Label layoutX="14.0" layoutY="164.0" text="下位机：" />
+    <ComboBox fx:id="cboxPorts" layoutX="71.0" layoutY="161.0" maxWidth="200.0" minWidth="200.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="项 1" />
+          <String fx:value="项 2" />
+          <String fx:value="项 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Label fx:id="lblLoginTitle" layoutX="14.0" layoutY="14.0" text="登录系统" />
+  </children>
+</AnchorPane>

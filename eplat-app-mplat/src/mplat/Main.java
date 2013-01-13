@@ -26,7 +26,7 @@ public class Main extends Application {
         CfgUtils.findConfigPath();
         StoreFactory.get().initStores();
 
-        StageUtils.findController(LoginController.class, UISize.toMaxSize()).initComponents(stage);
+        StageUtils.findController(LoginController.class, LoginController.findSize()).initComponents(stage);
     }
 
     @Override

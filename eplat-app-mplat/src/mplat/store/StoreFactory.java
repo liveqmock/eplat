@@ -19,7 +19,7 @@ public class StoreFactory {
         return factory;
     }
 
-    public StoreFactory() {
+    private StoreFactory() {
         this.examStore = new ExamStore();
         this.userStore = new UserStore();
     }
