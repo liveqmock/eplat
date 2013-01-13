@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="atom.jfxml.UserMgtController">
+  <children>
+    <TableView fx:id="tabUsers" editable="false" layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+      <columns>
+        <TableColumn editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="ID" fx:id="colUserID" />
+        <TableColumn editable="false" maxWidth="50000.0" minWidth="200.0" prefWidth="478.0" text="用户名" fx:id="colUserName" />
+      </columns>
+    </TableView>
+  </children>
+</AnchorPane>

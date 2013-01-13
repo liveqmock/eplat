@@ -22,7 +22,7 @@
             <artifactId>atom-core-ticket</artifactId>
             <version>1.0.1</version>
         </dependency>
-        
+
         <!-- ======================================== -->
         <!-- SpringMVC相关依赖 -->
         <!-- ======================================== -->
@@ -31,13 +31,13 @@
             <artifactId>spring-orm</artifactId>
             <version>3.1.2.RELEASE</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.apache.ibatis</groupId>
             <artifactId>ibatis-sqlmap</artifactId>
             <version>2.3.4.726</version>
         </dependency>
-            
+
         <!-- ======================================== -->
         <!-- POI-PPT相关依赖 -->
         <!-- ======================================== -->
@@ -46,7 +46,7 @@
             <artifactId>poi-scratchpad</artifactId>
             <version>3.9</version>
         </dependency>
-        
+
         <!-- ======================================== -->
         <!-- JDBC数据库依赖 -->
         <!-- ======================================== -->
@@ -60,7 +60,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.16</version>
         </dependency>
-            
+
         <!-- ======================================== -->
         <!-- Apache Commons相关依赖 -->
         <!-- ======================================== -->
@@ -104,7 +104,7 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.8.3</version>
         </dependency>
-        
+
         <!-- ======================================== -->
         <!-- 测试相关依赖 -->
         <!-- ======================================== -->
@@ -136,9 +136,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <encoding>UTF-8</encoding>
+                    <includes>
+                        <include>**/*.css</include>
+                        <include>**/*.xml</include>
+                        <include>**/*.fxml</include>
+                        <include>**/*.properties</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>
