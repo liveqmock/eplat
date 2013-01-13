@@ -11,13 +11,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import mplat.uijfx.ViewComponent;
+import mplat.uijfx.UIComponent;
 
 /**
  *
  * @author Administrator
  */
-public class LoginController implements Initializable, ViewComponent {
+public class LoginController implements Initializable, UIComponent {
 
     @FXML
     private Label label;

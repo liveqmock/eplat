@@ -16,7 +16,7 @@
             </extension>
         </buildExtensions>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
-            <name>atom-eplat-mplat</name>
+            <name>eplat-app-mplat</name>
             <explicit-platform explicit-source-supported="true"/>
             <source-roots>
                 <root id="src.dir"/>
@@ -25,8 +25,5 @@
                 <root id="test.src.dir"/>
             </test-roots>
         </data>
-        <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
-            <definitions>E:\mvnrepo\nblibraries.properties</definitions>
-        </libraries>
     </configuration>
 </project>
