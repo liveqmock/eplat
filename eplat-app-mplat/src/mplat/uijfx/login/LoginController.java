@@ -15,8 +15,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import mplat.mgt.MgtFactory;
+import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.UIComponent;
+import mplat.uijfx.utils.Alert;
+import mplat.utils.LogUtils;
 import mplat.utils.UISize;
+import mplat.utils.UserHolder;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -53,7 +58,19 @@ public class LoginController implements Initializable, UIComponent {
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-        System.out.println("You clicked me!");
+        String userName = this.txtUserName.getText();
+        String userPasswd = this.txtUserPasswd.getText();
+        int portNameIdx = this.cboxPorts.getSelectionModel().getSelectedIndex();
+
+        UserInfoDTO user = MgtFactory.get().getUserMgt().tryLogin(userName, userPasswd);
+        if (user == null) {
+            LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
+            // this.lblLoginTitle.setText("用户不存在或密码错误，请重新输入！");
+            Alert.alert();
+        } else {
+            UserHolder.set(user);
+            LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
+        }
     }
 
     public static UISize findSize() {
@@ -61,6 +78,9 @@ public class LoginController implements Initializable, UIComponent {
     }
 
     public boolean initComponents(Stage stage) {
+        // this.lblLoginTop.setMinWidth(stage.getWidth());
+        // this.lblLoginTop.setStyle("-fx-background-color:rgb(255, 255, 255, 0.4)");
+
         stage.setTitle("用户登录");
         stage.setResizable(false);
 

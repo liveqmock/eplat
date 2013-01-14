@@ -12,8 +12,8 @@ import mplat.store.impl.UserStore;
 public class StoreFactory {
 
     private static final StoreFactory factory = new StoreFactory();
-    private final Store examStore;
-    private final Store userStore;
+    private final ExamStore examStore;
+    private final UserStore userStore;
 
     public static final StoreFactory get() {
         return factory;
@@ -24,22 +24,22 @@ public class StoreFactory {
         this.userStore = new UserStore();
     }
 
-    public void initStores() {
+    public void init() {
         this.examStore.initStore();
         this.userStore.initStore();
 
     }
 
-    public void saveStores() {
+    public void stop() {
         this.examStore.saveStore();
         this.userStore.saveStore();
     }
 
-    public Store getExamStore() {
+    public ExamStore getExamStore() {
         return examStore;
     }
 
-    public Store getUserStore() {
+    public UserStore getUserStore() {
         return userStore;
     }
 }

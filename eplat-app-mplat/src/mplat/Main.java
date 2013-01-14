@@ -24,7 +24,7 @@ public class Main extends Application {
 
         CfgUtils.findRootPath();
         CfgUtils.findConfigPath();
-        StoreFactory.get().initStores();
+        StoreFactory.get().init();
 
         StageUtils.findController(LoginController.class, LoginController.findSize()).initComponents(stage);
     }
@@ -34,7 +34,7 @@ public class Main extends Application {
         DataMap.remove();
         StageHolder.remove();
 
-        StoreFactory.get().saveStores();
+        StoreFactory.get().stop();
 
         super.stop();
     }

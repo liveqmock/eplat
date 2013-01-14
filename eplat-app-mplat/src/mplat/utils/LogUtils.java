@@ -22,6 +22,19 @@ public class LogUtils {
         logger.log(Level.INFO, msg);
     }
 
+    public static void warn(String msg) {
+        err.println(msg);
+
+        logger.log(Level.WARNING, msg);
+    }
+
+    public static void warn(String msg, Throwable e) {
+        err.println(msg);
+        e.printStackTrace();
+
+        logger.log(Level.WARNING, msg, e);
+    }
+
     public static void error(String msg, Throwable e) {
         err.println(msg);
         e.printStackTrace();
