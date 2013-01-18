@@ -4,13 +4,14 @@
 package mplat.mgt.dto;
 
 import com.atom.core.lang.ToString;
+import com.atom.core.lang.ids.ID;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author obullxl@gmail.com
  */
-public class ExamInfoDTO extends ToString implements ID {
+public class ExamInfoDTO extends ToString implements ID<Long> {
 
     private long id;
     private String title;
@@ -18,11 +19,11 @@ public class ExamInfoDTO extends ToString implements ID {
     private List<ExamItemDTO> items;
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

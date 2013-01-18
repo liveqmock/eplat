@@ -3,15 +3,14 @@
  */
 package mplat;
 
+import com.atom.core.uijfx.utils.StageHolder;
+import com.atom.core.uijfx.utils.StageUtils;
+import com.atom.core.xstream.store.StoreFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import mplat.store.StoreFactory;
 import mplat.uijfx.login.LoginController;
 import mplat.utils.CfgUtils;
 import mplat.utils.DataMap;
-import mplat.utils.StageHolder;
-import mplat.utils.StageUtils;
-import mplat.utils.UISize;
 
 /**
  * @author obullxl@gmail.com
@@ -26,7 +25,7 @@ public class Main extends Application {
         CfgUtils.findConfigPath();
         StoreFactory.get().init();
 
-        StageUtils.findController(LoginController.class, LoginController.findSize()).initComponents(stage);
+        StageUtils.findController(LoginController.class, LoginController.findSize()).initViews(stage);
     }
 
     @Override

@@ -4,6 +4,10 @@
  */
 package mplat.uijfx.login;
 
+import com.atom.core.lang.user.UserHolder;
+import com.atom.core.lang.utils.LogUtils;
+import com.atom.core.uijfx.UISize;
+import com.atom.core.uijfx.UIView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -17,18 +21,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
-import mplat.uijfx.UIComponent;
 import mplat.uijfx.utils.Alert;
-import mplat.utils.LogUtils;
-import mplat.utils.UISize;
-import mplat.utils.UserHolder;
 import org.apache.commons.lang.StringUtils;
 
 /**
  *
  * @author Administrator
  */
-public class LoginController implements Initializable, UIComponent {
+public class LoginController implements Initializable, UIView {
+
+    private Stage stage;
 
     @FXML
     private AnchorPane loginPane;
@@ -68,16 +70,18 @@ public class LoginController implements Initializable, UIComponent {
             // this.lblLoginTitle.setText("用户不存在或密码错误，请重新输入！");
             Alert.alert();
         } else {
-            UserHolder.set(user);
+            UserHolder.set(user.toUser());
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
         }
     }
 
     public static UISize findSize() {
-        return UISize.toSize(290, 210);
+        return UISize.to(290, 210);
     }
 
-    public boolean initComponents(Stage stage) {
+    public boolean initViews(Stage stage) {
+        this.stage = stage;
+
         // this.lblLoginTop.setMinWidth(stage.getWidth());
         // this.lblLoginTop.setStyle("-fx-background-color:rgb(255, 255, 255, 0.4)");
 

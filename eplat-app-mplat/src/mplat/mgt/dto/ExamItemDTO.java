@@ -4,11 +4,12 @@
 package mplat.mgt.dto;
 
 import com.atom.core.lang.ToString;
+import com.atom.core.lang.ids.ID;
 
 /**
  * @author obullxl@gmail.com
  */
-public class ExamItemDTO extends ToString implements ID {
+public class ExamItemDTO extends ToString implements ID<Long> {
 
     private long id;
 
@@ -27,11 +28,11 @@ public class ExamItemDTO extends ToString implements ID {
     }
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

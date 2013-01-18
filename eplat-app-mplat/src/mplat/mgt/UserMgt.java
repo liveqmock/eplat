@@ -3,9 +3,9 @@
  */
 package mplat.mgt;
 
+import com.atom.core.xstream.store.StoreFactory;
 import mplat.mgt.dto.UserInfoDTO;
-import mplat.store.StoreFactory;
-import mplat.store.impl.UserStore;
+import mplat.store.UserStore;
 
 /**
  * @author obullxl@gmail.com
@@ -17,11 +17,15 @@ public class UserMgt {
     private static String U_NAME = "admin";
     private static String U_PASSWD = "888888";
 
+    private final UserStore userStore;
+
     public UserMgt() {
+        this.userStore = StoreFactory.get().findStore(UserStore.class);
+
         UserInfoDTO admin = this.tryLogin(U_NAME, U_PASSWD);
         if (admin == null) {
             admin = new UserInfoDTO(U_NAME, U_PASSWD);
-            boolean rtn = StoreFactory.get().getUserStore().create(admin);
+            boolean rtn = this.userStore.create(admin);
             if (!rtn) {
                 throw new RuntimeException("UserMgt初始化管理员异常!");
             }
@@ -33,7 +37,6 @@ public class UserMgt {
     }
 
     public UserInfoDTO tryLogin(String userName, String userPasswd) {
-        UserStore store = StoreFactory.get().getUserStore();
-        return store.tryLogin(userName, userPasswd);
+        return this.userStore.tryLogin(userName, userPasswd);
     }
 }

@@ -4,11 +4,13 @@
 package mplat.mgt.dto;
 
 import com.atom.core.lang.ToString;
+import com.atom.core.lang.ids.ID;
+import com.atom.core.lang.user.UserInfo;
 
 /**
  * @author obullxl@gmail.com
  */
-public class UserInfoDTO extends ToString implements ID {
+public class UserInfoDTO extends ToString implements ID<Long> {
 
     private long id;
     private String userName;
@@ -22,12 +24,21 @@ public class UserInfoDTO extends ToString implements ID {
         this.userPasswd = userPasswd;
     }
 
+    public UserInfo toUser() {
+        UserInfo user = new UserInfo();
+        user.setUserId(this.id);
+        user.setUserName(this.userName);
+        user.setUserPasswd(this.userPasswd);
+
+        return user;
+    }
+
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
