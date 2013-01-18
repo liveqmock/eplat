@@ -12,6 +12,7 @@ import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.UITipMsg;
 import com.atom.core.uijfx.UIView;
 import com.atom.core.uijfx.event.EventAdapter;
+import com.atom.core.uijfx.utils.StageUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -27,6 +28,7 @@ import javafx.stage.WindowEvent;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.utils.Alert;
+import mplat.uijfx.welcome.WelcomeController;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -63,7 +65,7 @@ public class LoginController implements Initializable, UIView {
     }
 
     @FXML
-    private void onLoginAction(ActionEvent event) {
+    private void onLoginAction(ActionEvent event) throws Exception {
         String userName = this.txtUserName.getText();
         String userPasswd = this.txtUserPasswd.getText();
         int portNameIdx = this.cboxPorts.getSelectionModel().getSelectedIndex();
@@ -82,6 +84,8 @@ public class LoginController implements Initializable, UIView {
         } else {
             UserHolder.set(user.toUser());
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
+
+            StageUtils.findController(WelcomeController.class, WelcomeController.findSize()).initViews(this.stage);
         }
     }
 
@@ -92,14 +96,9 @@ public class LoginController implements Initializable, UIView {
     public boolean initViews(Stage stage) {
         this.stage = stage;
 
-        // this.lblLoginTop.setMinWidth(stage.getWidth());
-        // this.lblLoginTop.setStyle("-fx-background-color:rgb(255, 255, 255, 0.4)");
-
-        stage.setTitle("用户登录");
-        stage.setResizable(false);
-
-        stage.show();
-
+        this.stage.setTitle("用户登录");
+        this.stage.setResizable(false);
+        this.stage.show();
         return true;
     }
 }
