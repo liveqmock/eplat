@@ -1,5 +1,13 @@
 <concurrent-hash-map>
   <entry>
+    <long>2</long>
+    <User>
+      <id>2</id>
+      <userName>aboy</userName>
+      <userPasswd>0</userPasswd>
+    </User>
+  </entry>
+  <entry>
     <long>1</long>
     <User>
       <id>1</id>
