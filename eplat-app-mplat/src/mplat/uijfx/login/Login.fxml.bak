@@ -80,6 +80,6 @@
     </GridPane>
   </left>
   <top>
-    <ImageView fx:id="imgLogo" fitHeight="70.0" fitWidth="713.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fitHeight="70.0" fitWidth="713.0" pickOnBounds="true" preserveRatio="true" />
   </top>
 </BorderPane>

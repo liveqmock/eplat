@@ -14,7 +14,7 @@
       <children>
         <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="1020.0" tabClosingPolicy="UNAVAILABLE">
           <tabs>
-            <Tab fx:id="tabWelcome" text="欢迎使用">
+            <Tab text="欢迎使用">
               <content>
                 <BorderPane fx:id="welcome" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1020.0">
                   <bottom>

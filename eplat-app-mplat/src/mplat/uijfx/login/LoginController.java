@@ -22,12 +22,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
+import mplat.uijfx.images.IMGS;
 import mplat.uijfx.utils.Alert;
+import mplat.uijfx.utils.SizeUtils;
 import mplat.uijfx.welcome.WelcomeController;
 import org.apache.commons.lang.StringUtils;
 
@@ -39,22 +42,29 @@ public class LoginController implements Initializable, UIView {
 
     private Stage stage;
     @FXML
-    private AnchorPane loginPane;
-    @FXML
-    private Label lblLoginTop;
-    @FXML
-    private Label lblLoginTitle;
+    private ImageView imgLogo;
     @FXML
     private TextField txtUserName;
     @FXML
     private PasswordField txtUserPasswd;
     @FXML
     private ComboBox cboxPorts;
+    @FXML
+    private HBox hboxTipMsg;
+    @FXML
+    private Label lblTipMsg;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.txtUserName.setPromptText("用户名");
         this.txtUserPasswd.setPromptText("密码");
+
+        this.txtUserName.setText("admin");
+        this.txtUserPasswd.setText("888888");
+
+        this.imgLogo.setImage(IMGS.findLoginLogo());
+
+        this.lblTipMsg.setText("请登录系统~");
     }
 
     @FXML
@@ -72,11 +82,11 @@ public class LoginController implements Initializable, UIView {
 
         UserInfoDTO user = MgtFactory.get().getUserMgt().tryLogin(userName, userPasswd);
         if (user == null) {
-            this.lblLoginTitle.setText("用户不存在或密码错误，请重新输入！");
+            this.lblTipMsg.setText("用户不存在或密码错误，请重新输入！");
             LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
             EventAdapter adapter = new EventAdapter() {
                 public void onHidden(WindowEvent evt) {
-                    lblLoginTitle.setText("用户登录");
+                    lblTipMsg.setText("用户登录");
                 }
             };
 
@@ -85,12 +95,8 @@ public class LoginController implements Initializable, UIView {
             UserHolder.set(user.toUser());
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
 
-            StageUtils.findController(WelcomeController.class, WelcomeController.findSize()).initViews(this.stage);
+            StageUtils.findController(WelcomeController.class, SizeUtils.findWelcomeSize()).initViews(this.stage);
         }
-    }
-
-    public static UISize findSize() {
-        return UISize.to(290, 210);
     }
 
     public boolean initViews(Stage stage) {

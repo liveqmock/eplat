@@ -24,6 +24,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import mplat.uijfx.images.IMGS;
 
 /**
  * @author obullxl@gmail.com
@@ -64,7 +65,7 @@ public class LoginView {
         this.borderPane = new BorderPane();
 
         // TOP
-        Image loginLogo = ImageHolder.get().findLoginLogo();
+        Image loginLogo = IMGS.findLoginLogo();
         this.borderPane.setTop(new ImageView(loginLogo));
 
         // Center

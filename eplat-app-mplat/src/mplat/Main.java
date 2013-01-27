@@ -9,6 +9,7 @@ import com.atom.core.xstream.store.StoreFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import mplat.uijfx.login.LoginController;
+import mplat.uijfx.utils.SizeUtils;
 import mplat.utils.CfgUtils;
 import mplat.utils.DataMap;
 
@@ -25,7 +26,8 @@ public class Main extends Application {
         CfgUtils.findConfigPath();
         StoreFactory.get().init();
 
-        StageUtils.findController(LoginController.class, LoginController.findSize()).initViews(stage);
+        StageUtils.findController(LoginController.class, SizeUtils.findLoginSize()).initViews(stage);
+        // LoginView.create(stage).initViews().show();
     }
 
     @Override
