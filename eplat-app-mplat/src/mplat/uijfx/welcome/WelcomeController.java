@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,6 +24,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mplat.uijfx.images.IMGS;
@@ -76,30 +78,95 @@ public class WelcomeController implements Initializable, UIView {
         this.btnXtkj.setText(null);
         this.btnXtkj.setGraphicTextGap(0);
         this.btnXtkj.setGraphic(new ImageView(this.findImgXtkj()));
+        this.onBtnOpacityOut(this.btnXtkj);
+
+        this.btnXtkj.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityIn(btnXtkj);
+            }
+        });
+
+        this.btnXtkj.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityOut(btnXtkj);
+            }
+        });
 
         // 专项技能训练
         this.btnZxjnxl.setTooltip(new Tooltip("专项技能训练"));
         this.btnZxjnxl.setText(null);
         this.btnZxjnxl.setGraphicTextGap(0);
         this.btnZxjnxl.setGraphic(new ImageView(this.findImgZxjnxl()));
+        this.onBtnOpacityOut(this.btnZxjnxl);
+
+        this.btnZxjnxl.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityIn(btnZxjnxl);
+            }
+        });
+
+        this.btnZxjnxl.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityOut(btnZxjnxl);
+            }
+        });
 
         // 专业急救案例训练
         this.btnZyjjalxl.setTooltip(new Tooltip("专业急救案例训练"));
         this.btnZyjjalxl.setText(StringUtils.EMPTY);
         this.btnZyjjalxl.setGraphicTextGap(0);
         this.btnZyjjalxl.setGraphic(new ImageView(this.findImgZyjjalxl()));
+        this.onBtnOpacityOut(this.btnZyjjalxl);
+
+        this.btnZyjjalxl.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityIn(btnZyjjalxl);
+            }
+        });
+
+        this.btnZyjjalxl.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityOut(btnZyjjalxl);
+            }
+        });
 
         // 专业急救案例考核
         this.btnZyjjalkh.setTooltip(new Tooltip("专业急救案例考核"));
         this.btnZyjjalkh.setText(StringUtils.EMPTY);
         this.btnZyjjalkh.setGraphicTextGap(0);
         this.btnZyjjalkh.setGraphic(new ImageView(this.findImgZyjjalkh()));
+        this.onBtnOpacityOut(this.btnZyjjalkh);
+
+        this.btnZyjjalkh.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityIn(btnZyjjalkh);
+            }
+        });
+
+        this.btnZyjjalkh.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityOut(btnZyjjalkh);
+            }
+        });
 
         // 系统功能
         this.btnXtgn.setTooltip(new Tooltip("系统功能"));
         this.btnXtgn.setText(StringUtils.EMPTY);
         this.btnXtgn.setGraphicTextGap(0);
         this.btnXtgn.setGraphic(new ImageView(this.findImgXtgn()));
+        this.onBtnOpacityOut(this.btnXtgn);
+
+        this.btnXtgn.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityIn(btnXtgn);
+            }
+        });
+
+        this.btnXtgn.addEventFilter(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent evt) {
+                onBtnOpacityOut(btnXtgn);
+            }
+        });
 
         // 退出系统
         this.btnExit.setTooltip(new Tooltip("退出系统"));
@@ -146,6 +213,20 @@ public class WelcomeController implements Initializable, UIView {
     @FXML
     public void onExitAction(ActionEvent evt) {
         this.onExitSystem();
+    }
+
+    /**
+     * 透明度-1.0
+     */
+    private void onBtnOpacityIn(Button btn) {
+        btn.setOpacity(1.0);
+    }
+
+    /**
+     * 透明度-0.5
+     */
+    private void onBtnOpacityOut(Button btn) {
+        btn.setOpacity(0.5);
     }
 
     // 图片信息
