@@ -1,0 +1,10 @@
+<concurrent-hash-map>
+  <entry>
+    <long>1</long>
+    <User>
+      <id>1</id>
+      <userName>admin</userName>
+      <userPasswd>888888</userPasswd>
+    </User>
+  </entry>
+</concurrent-hash-map>

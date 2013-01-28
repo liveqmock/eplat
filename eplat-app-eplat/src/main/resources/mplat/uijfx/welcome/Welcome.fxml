@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane fx:id="borderPane" prefHeight="750.0" prefWidth="1020.0" xmlns:fx="http://javafx.com/fxml" fx:controller="mplat.uijfx.welcome.WelcomeController">
+  <center>
+    <HBox fx:id="center" prefHeight="100.0" prefWidth="200.0">
+      <children>
+        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="1020.0" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+            <Tab fx:id="tabWelcome" text="欢迎使用">
+              <content>
+                <BorderPane fx:id="welcome" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1020.0">
+                  <bottom>
+                    <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" spacing="30.0">
+                      <children>
+                        <ImageView fx:id="imgCopyRgt" fitHeight="77.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" prefHeight="70.0" prefWidth="70.0" text="Button" />
+                      </children>
+                      <padding>
+                        <Insets right="20.0" />
+                      </padding>
+                      <BorderPane.margin>
+                        <Insets />
+                      </BorderPane.margin>
+                    </HBox>
+                  </bottom>
+                  <center>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                      <children>
+                        <Button fx:id="btnXtkj" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
+                        <Button fx:id="btnZxjnxl" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
+                        <Button fx:id="btnZyjjalxl" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
+                        <Button fx:id="btnZyjjalkh" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
+                        <Button fx:id="btnXtgn" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
+                      </children>
+                    </HBox>
+                  </center>
+                  <top>
+                    <HBox alignment="BOTTOM_CENTER" prefHeight="125.0" prefWidth="1020.0">
+                      <children>
+                        <ImageView fx:id="imgLogo" fitHeight="122.0" fitWidth="808.0" pickOnBounds="true" preserveRatio="true" />
+                      </children>
+                    </HBox>
+                  </top>
+                </BorderPane>
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </children>
+    </HBox>
+  </center>
+  <top>
+    <MenuBar fx:id="menuBar">
+      <menus>
+        <Menu mnemonicParsing="false" text="文件">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onMenuExit" text="退出" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="系统功能">
+          <items>
+            <Menu mnemonicParsing="false" text="系统课件">
+              <items>
+                <MenuItem mnemonicParsing="false" text="呼吸系统急诊" />
+                <MenuItem mnemonicParsing="false" text="被证实为室颤：用自动除颤器（AED）和CPR施救" />
+                <MenuItem mnemonicParsing="false" text="室颤/无脉搏室速" />
+                <MenuItem mnemonicParsing="false" text="无脉搏心电活动" />
+                <MenuItem mnemonicParsing="false" text="心室停搏" />
+                <MenuItem mnemonicParsing="false" text="急性冠状动脉综合征" />
+                <MenuItem mnemonicParsing="false" text="心动过缓" />
+                <MenuItem mnemonicParsing="false" text="不稳定性心动过速" />
+                <MenuItem mnemonicParsing="false" text="稳定性��动过速" />
+                <MenuItem mnemonicParsing="false" text="急性中风" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="专项技能训练">
+              <items>
+                <MenuItem mnemonicParsing="false" text="ACLS基础理论知识训练" />
+                <MenuItem mnemonicParsing="false" text="心律识别训练" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" text="心肺复苏急救训练" />
+                <MenuItem mnemonicParsing="false" text="插管训练" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" text="AED使用训练" />
+                <MenuItem mnemonicParsing="false" text="医用除颤仪使用训练" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" text="注射泵使用训练" />
+                <MenuItem mnemonicParsing="false" text="输液泵使用训练" />
+              </items>
+            </Menu>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="自设置场景操作" />
+            <Menu mnemonicParsing="false" text="专业急救案例训练">
+              <items>
+                <Menu mnemonicParsing="false" text="心脏停膊病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性心包填塞引起PEA" />
+                    <MenuItem mnemonicParsing="false" text="无脉搏心脏骤停-室颤" />
+                    <MenuItem mnemonicParsing="false" text="张力性气胸引起PEA" />
+                    <MenuItem mnemonicParsing="false" text="急性心肌梗死引起心动过��" />
+                    <MenuItem mnemonicParsing="false" text="肺栓塞引起PEA" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="心动过缓病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性心肌梗死引起心动过缓" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="心动过速病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-前间壁心梗" />
+                    <MenuItem mnemonicParsing="false" text="不稳定性心动过速" />
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-不稳定型心绞痛" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="胸痛病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-前间壁心梗" />
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-不稳定型心绞痛" />
+                    <MenuItem mnemonicParsing="false" text="肺栓塞引起PEA" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="中毒及服药过量病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性有机磷农药中毒" />
+                    <MenuItem mnemonicParsing="false" text="药物过量中毒-心律平" />
+                    <MenuItem mnemonicParsing="false" text="药物过量中毒-异搏定" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="代谢病及环境伤害病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="糖尿病酮症酸中毒" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="呼吸困难病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="支气管哮喘急性重度发作" />
+                    <MenuItem mnemonicParsing="false" text="气道异物梗阻" />
+                    <MenuItem mnemonicParsing="false" text="呼吸衰竭" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="颅脑损伤病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="硬膜外血肿" />
+                    <MenuItem mnemonicParsing="false" text="脑卒中" />
+                  </items>
+                </Menu>
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" text="自定义脚本..." />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="专业急救案例考核">
+              <items>
+                <Menu mnemonicParsing="false" text="心脏停膊病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性心包填塞引起PEA" />
+                    <MenuItem mnemonicParsing="false" text="无脉搏心脏骤停-室颤" />
+                    <MenuItem mnemonicParsing="false" text="张力性气胸引起PEA" />
+                    <MenuItem mnemonicParsing="false" text="急性心肌梗死引起心动过缓" />
+                    <MenuItem mnemonicParsing="false" text="肺栓塞引起PEA" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="心动过缓病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性心肌梗死引起心动过缓" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="心动过速病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-前间壁心梗" />
+                    <MenuItem mnemonicParsing="false" text="不稳定性心动过速" />
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-不稳定型心绞痛" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="胸痛病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-前间壁心梗" />
+                    <MenuItem mnemonicParsing="false" text="急性冠脉综合征-不稳定型心绞痛" />
+                    <MenuItem mnemonicParsing="false" text="肺栓塞引起PEA" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="中毒及服药过量病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="急性有机磷农药中毒" />
+                    <MenuItem mnemonicParsing="false" text="药物过量中毒-心律平" />
+                    <MenuItem mnemonicParsing="false" text="药物过量中毒-异搏定" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="代谢病及环境伤害病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="糖尿病酮症酸中毒" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="呼吸困难病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="支气管哮喘急性重度发作" />
+                    <MenuItem mnemonicParsing="false" text="气道异物梗阻" />
+                    <MenuItem mnemonicParsing="false" text="呼吸衰竭" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="颅脑损伤病例">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="硬膜外血肿" />
+                    <MenuItem mnemonicParsing="false" text="脑卒中" />
+                  </items>
+                </Menu>
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" text="自定义脚本..." />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" text="打开ACLS急救日志..." />
+              </items>
+            </Menu>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="ACLS脚本编辑软件" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="系统设置">
+          <items>
+            <MenuItem mnemonicParsing="false" text="配置..." />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="登录密码修改..." />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="帮助">
+          <items>
+            <MenuItem mnemonicParsing="false" text="使用帮助手册" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="关于..." />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
+</BorderPane>
