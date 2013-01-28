@@ -20,6 +20,7 @@ public class MbillDetail extends ToString {
     private Money charge = new Money(0, 0);
     private Money otherCharge = new Money(0, 0);
     private String memo;
+    private boolean check;
 
     public boolean isSame() {
         return this.getCharge().equals(this.getOtherCharge());
@@ -38,9 +39,9 @@ public class MbillDetail extends ToString {
 
         return txt.toString();
     }
-    
+
     public static String title() {
-        return "\t交易号,\t外部交易号,\t应收款,\t对方订单号,\t手续费,\t备注\r\n";
+        return "\t交易号,\t外部交易号,\t我方应收款,\t对方订单号,\t对方手续费,\t备注\r\n";
     }
 
     public String getTradeNo() {
@@ -97,5 +98,13 @@ public class MbillDetail extends ToString {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
     }
 }

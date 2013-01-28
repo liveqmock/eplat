@@ -90,7 +90,11 @@ public class ChargeFrame extends javax.swing.JFrame {
     private void showTipMsg(final String tipMsg) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                lblTipMsg.setText(tipMsg);
+                String msg = tipMsg;
+                if (!StringUtils.startsWith(tipMsg, " ")) {
+                    msg = tipMsg + "    ";
+                }
+                lblTipMsg.setText(msg);
             }
         });
     }
@@ -599,24 +603,28 @@ public class ChargeFrame extends javax.swing.JFrame {
                     item = new MbillDetail();
                     item.setOtherOutTradeNo(outTradeNo);
                     item.setOtherCharge(charge);
-                    item.setMemo("我方不存在明细");
+                    item.setMemo("我方缺少");
 
                     this.writer.writeDifferent(item.toBill());
-                    
+
                     // 下一行
                     values = reader.readNext();
                     continue;
                 }
 
+                item.setOtherOutTradeNo(outTradeNo);
                 item.setOtherCharge(charge);
 
                 // 打印日志
                 if (!item.isSame()) {
-                    item.setMemo("差异");
+                    item.setMemo("差异明细");
                     String msg = item.toBill();
                     LogUtils.info("[差异] " + msg);
                     this.writer.writeDifferent(msg);
                 }
+                
+                // 标记
+                item.setCheck(true);
 
                 // 下一行
                 values = reader.readNext();
@@ -629,11 +637,25 @@ public class ChargeFrame extends javax.swing.JFrame {
             LogUtils.error("读取对方对账文件异常！", e);
             return;
         }
+        
+        // 4. 记录我方明细
+        for(MbillDetail bill : this.tradeNoMap.values()) {
+            if(!bill.isCheck()) {
+                bill.setMemo("对方缺少");
+                
+                try {
+                this.writer.writeDifferent(bill.toBill());
+                } catch(Exception e) {
+                    this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
+                    LogUtils.error("记录对方缺少明细异常！", e);
+                }
+            }
+        }
 
-        // 4. 关闭写入流
+        // 5. 关闭写入流
         this.writer.finish();
 
-        this.showTipMsg("分析完成，请检查数据文件！");
+        this.showTipMsg("分析完成，请检查临时目录下的差异数据文件！");
     }//GEN-LAST:event_btnAnalyzeActionPerformed
 
     private boolean checkConfigs() {
