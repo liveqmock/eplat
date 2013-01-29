@@ -1,0 +1,8 @@
+
+CourseWare 系统课件
+TopicTrain 专项训练
+EmergeTrain 急救训练
+EmergeExam 急救考试
+SystemCfg 系统功能 
+
+GotoMain 返回主界面

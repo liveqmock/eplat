@@ -1,0 +1,5 @@
+
+.TopFrameView {
+	-fx-background-image: url('top-frame-view-bg.jpg');
+	-fx-background-repeat: repeat-x;
+}

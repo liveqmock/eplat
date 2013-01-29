@@ -3,16 +3,13 @@
  */
 package mplat.uijfx.welcome;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
@@ -33,48 +30,52 @@ import com.atom.core.uijfx.UIBtnMsg;
 import com.atom.core.uijfx.UIConfig;
 import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.UITipMsg;
-import com.atom.core.uijfx.UIView;
 import com.atom.core.uijfx.event.EventAdapter;
 
 /**
  * @author obullxl@gmail.com
  */
-public class Welcome2Controller implements Initializable, UIView {
+public class Welcome2Controller {
+    private static final UISize SIZE = UISize.to(1000, 750);
 
-    private Stage stage;
-    @FXML
-    private BorderPane borderPane;
-    @FXML
-    private MenuBar menuBar;
-    @FXML
-    private TabPane tabPane;
-    @FXML
-    private Tab tabWelcome;
-    @FXML
-    private BorderPane welcome;
-    @FXML
-    private ImageView imgLogo;
-    @FXML
-    private Button btnXtkj; // 系统课件
-    @FXML
-    private Button btnZxjnxl; // 专项技能训练
-    @FXML
-    private Button btnZyjjalxl; // 专业急救案例训练
-    @FXML
-    private Button btnZyjjalkh; // 专业急救案例考核
-    
-    @FXML
-    private Button btnXtgn; // 系统功能
-    @FXML
-    private ImageView imgXtgn;
-    
-    @FXML
-    private ImageView imgCopyRgt;
-    @FXML
-    private Button btnExit;
+    private Stage               stage;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    private BorderPane          viewRoot;
+    @FXML
+    private MenuBar             menuBar;
+    @FXML
+    private TabPane             tabPane;
+    @FXML
+    private Tab                 tabWelcome;
+    @FXML
+    private BorderPane          welcome;
+    @FXML
+    private ImageView           imgLogo;
+    @FXML
+    private Button              btnXtkj;                    // 系统课件
+    @FXML
+    private Button              btnZxjnxl;                  // 专项技能训练
+    @FXML
+    private Button              btnZyjjalxl;                // 专业急救案例训练
+    @FXML
+    private Button              btnZyjjalkh;                // 专业急救案例考核
+
+    @FXML
+    private Button              btnXtgn;                    // 系统功能
+    @FXML
+    private ImageView           imgXtgn;
+
+    @FXML
+    private ImageView           imgCopyRgt;
+    @FXML
+    private Button              btnExit;
+
+    /**
+     * 初始化
+     */
+    @FXML
+    public void initialize() {
         // Tab标签
         this.tabWelcome.setGraphic(new ImageView(this.findTabWelcome()));
 
@@ -176,10 +177,10 @@ public class Welcome2Controller implements Initializable, UIView {
                 onBtnOpacityOut(btnXtgn);
             }
         });
-        
+
         // 系统功能2
         this.imgXtgn.setImage(this.findImgXtgn());
-        
+
         this.imgXtgn.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
             public void handle(MouseEvent evt) {
                 onBtnOpacityIn(imgXtgn);
@@ -193,13 +194,13 @@ public class Welcome2Controller implements Initializable, UIView {
                 imgXtgn.setCursor(Cursor.DEFAULT);
             }
         });
-        
+
         this.imgXtgn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             public void handle(MouseEvent evt) {
                 Alert.alert(UIConfig.get());
             }
         });
-        
+
         // 退出系统
         this.btnExit.setTooltip(new Tooltip("退出系统"));
         this.btnExit.setText(StringUtils.EMPTY);
@@ -207,7 +208,9 @@ public class Welcome2Controller implements Initializable, UIView {
         this.btnExit.setGraphic(new ImageView(this.findImgExit()));
     }
 
-    @Override
+    /**
+     * 页面初始化
+     */
     public boolean initViews(Stage stage) {
         this.stage = stage;
 
@@ -215,8 +218,11 @@ public class Welcome2Controller implements Initializable, UIView {
         this.welcome.setStyle("-fx-background-image: url(\"welcome-background.jpg\")");
 
         this.stage.setTitle("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
-        this.stage.setResizable(false);
+
+        this.stage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
+        // this.stage.sizeToScene();
         this.stage.centerOnScreen();
+        this.stage.setResizable(false);
         this.stage.show();
 
         return true;
@@ -245,6 +251,11 @@ public class Welcome2Controller implements Initializable, UIView {
     @FXML
     public void onExitAction(ActionEvent evt) {
         this.onExitSystem();
+    }
+
+    @FXML
+    public void onGotoMainClickAction(MouseEvent evt) {
+        LogUtils.info(evt.getSource().toString());
     }
 
     /**

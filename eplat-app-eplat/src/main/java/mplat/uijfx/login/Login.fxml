@@ -9,7 +9,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefWidth="713.0" xmlns:fx="http://javafx.com/fxml" fx:controller="mplat.uijfx.login.LoginController">
+<BorderPane fx:id="viewRoot" prefWidth="713.0" xmlns:fx="http://javafx.com/fxml" fx:controller="mplat.uijfx.login.LoginController">
   <bottom>
     <HBox fx:id="hboxTipMsg" alignment="CENTER" prefHeight="30.0">
       <children>
@@ -37,8 +37,8 @@
         </HBox>
         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
           <children>
-            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginAction" prefHeight="25.0" prefWidth="80.0" text="登录" />
-            <Button fx:id="btnClear" mnemonicParsing="false" onAction="#onClearAction" prefHeight="25.0" prefWidth="80.0" text="清除" />
+            <Button mnemonicParsing="false" onAction="#onLoginAction" prefHeight="25.0" prefWidth="80.0" text="登录" />
+            <Button mnemonicParsing="false" onAction="#onClearAction" prefHeight="25.0" prefWidth="80.0" text="清除" />
           </children>
           <padding>
             <Insets />

@@ -4,17 +4,15 @@
  */
 package mplat.uijfx.login;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -22,8 +20,7 @@ import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.images.IMGS;
 import mplat.uijfx.utils.Alert;
-import mplat.uijfx.utils.SizeUtils;
-import mplat.uijfx.welcome.WelcomeController;
+import mplat.uijfx.welcome.Welcome2Controller;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -33,7 +30,6 @@ import com.atom.core.uijfx.UIBtnMsg;
 import com.atom.core.uijfx.UIConfig;
 import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.UITipMsg;
-import com.atom.core.uijfx.UIView;
 import com.atom.core.uijfx.event.EventAdapter;
 import com.atom.core.uijfx.utils.StageUtils;
 
@@ -41,24 +37,32 @@ import com.atom.core.uijfx.utils.StageUtils;
  *
  * @author Administrator
  */
-public class LoginController implements Initializable, UIView {
+public class LoginController {
+    private static final UISize SIZE = UISize.to(713, 235);
 
-    private Stage         stage;
-    @FXML
-    private ImageView     imgLogo;
-    @FXML
-    private TextField     txtUserName;
-    @FXML
-    private PasswordField txtUserPasswd;
-    @FXML
-    private ComboBox      cboxPorts;
-    @FXML
-    private HBox          hboxTipMsg;
-    @FXML
-    private Label         lblTipMsg;
+    private Stage               stage;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    private BorderPane          viewRoot;
+    
+    @FXML
+    private ImageView           imgLogo;
+    @FXML
+    private TextField           txtUserName;
+    @FXML
+    private PasswordField       txtUserPasswd;
+    @FXML
+    private ComboBox            cboxPorts;
+    @FXML
+    private HBox                hboxTipMsg;
+    @FXML
+    private Label               lblTipMsg;
+
+    /**
+     * 初始化
+     */
+    @FXML
+    private void initialize() {
         this.txtUserName.setPromptText("用户名");
         this.txtUserPasswd.setPromptText("密码");
 
@@ -68,6 +72,23 @@ public class LoginController implements Initializable, UIView {
         this.imgLogo.setImage(IMGS.findLoginLogo());
 
         this.lblTipMsg.setText("请登录系统~");
+    }
+    
+    /**
+     * 页面初始化
+     */
+    public boolean initViews(Stage stage) {
+        this.stage = stage;
+
+        this.stage.setTitle("用户登录");
+        
+        this.stage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
+        this.stage.sizeToScene();
+        this.stage.centerOnScreen();
+        this.stage.setResizable(false);
+        this.stage.show();
+        
+        return true;
     }
 
     @FXML
@@ -98,17 +119,9 @@ public class LoginController implements Initializable, UIView {
             UserHolder.set(user.toUser());
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
 
-            StageUtils.findController(WelcomeController.class, SizeUtils.findWelcomeSize()).initViews(this.stage);
-            // StageUtils.findController(Welcome2Controller.class, SizeUtils.findWelcomeSize()).initViews(this.stage);
+            // StageUtils.findController(WelcomeController.class).initViews(this.stage);
+            StageUtils.findController(Welcome2Controller.class).initViews(this.stage);
         }
     }
 
-    public boolean initViews(Stage stage) {
-        this.stage = stage;
-
-        this.stage.setTitle("用户登录");
-        this.stage.setResizable(false);
-        this.stage.show();
-        return true;
-    }
 }

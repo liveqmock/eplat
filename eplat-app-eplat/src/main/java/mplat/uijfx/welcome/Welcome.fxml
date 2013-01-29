@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<BorderPane fx:id="borderPane" prefHeight="750.0" prefWidth="1020.0" xmlns:fx="http://javafx.com/fxml" fx:controller="mplat.uijfx.welcome.Welcome2Controller">
+<BorderPane fx:id="viewRoot" prefHeight="750.0" prefWidth="1020.0" xmlns:fx="http://javafx.com/fxml" fx:controller="mplat.uijfx.welcome.WelcomeController">
   <center>
     <HBox fx:id="center" prefHeight="100.0" prefWidth="200.0">
       <children>
@@ -21,7 +21,7 @@
                     <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" spacing="30.0">
                       <children>
                         <ImageView fx:id="imgCopyRgt" fitHeight="77.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" prefHeight="70.0" prefWidth="70.0" text="Button" />
+                        <ImageView fx:id="btnExit" fitHeight="70.0" fitWidth="70.0" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onExitAction" pickOnBounds="true" preserveRatio="true" opacity="0.5" />
                       </children>
                       <padding>
                         <Insets right="20.0" />
@@ -34,12 +34,11 @@
                   <center>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                       <children>
-                        <Button fx:id="btnXtkj" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
-                        <Button fx:id="btnZxjnxl" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
-                        <Button fx:id="btnZyjjalxl" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
-                        <Button fx:id="btnZyjjalkh" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
-                        <Button fx:id="btnXtgn" mnemonicParsing="false" prefHeight="135.0" prefWidth="135.0" text="Button" />
-                        <ImageView fx:id="imgXtgn" fitHeight="135.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="btnXtkj" fitHeight="135.0" fitWidth="135.0" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" pickOnBounds="true" preserveRatio="true" opacity="0.5" />
+                        <ImageView fx:id="btnZxjnxl" fitHeight="135.0" fitWidth="135.0" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" pickOnBounds="true" preserveRatio="true" opacity="0.5" />
+                        <ImageView fx:id="btnZyjjalxl" fitHeight="135.0" fitWidth="135.0" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" pickOnBounds="true" preserveRatio="true" opacity="0.5" />
+                        <ImageView fx:id="btnZyjjalkh" fitHeight="135.0" fitWidth="135.0" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" pickOnBounds="true" preserveRatio="true" opacity="0.5" />
+                        <ImageView fx:id="btnXtgn" fitHeight="135.0" fitWidth="135.0" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" pickOnBounds="true" preserveRatio="true" opacity="0.5" />
                       </children>
                     </HBox>
                   </center>
