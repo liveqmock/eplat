@@ -1,0 +1,260 @@
+最近开发，遇到一问题，需要用applet来操作本地文件，在网上查了很多资料，研究了三天终于搞定了。做个总结，以便遇
+到相同问题的朋友可以做个参考。
+      正常来说applet是不能操作本地文件的，这是书上说的，其实这也就是java的安全策略，  Java应用程序环境的安全策略，详
+细说明了对于不同的代码所拥有的不同资源的许可，它由一个Policy对象来表达,Policy是什么？呵呵，一会再说，先别急。那么
+applet的安全策略就包括不能对本地文件的读和写。但我们可以自已来改变java的安全策略，这里也就是来改变applet的安全策略，
+那么我们用什么来改变java的安全策略呢，这就需要对jre的中配置文件来进行修改，这个文件就是 jre目录下的
+lib\security\java.security,   我们可以自已来创建一个安全策略文件，也是就一个扩展名为.policy的文件，在里面我们可以来
+写我们自已定义的安全策略，在java.security中，来引用这个文件就行了。policy文件具体怎么来写？java.security中怎么来引用
+？下面我会有具体的描述。
+      以上说了这个多，不得不提的一个东西就是java的数字签名，在网上找了下数字签名的概念。
+      数字签名：采用加密技术来实现对签名者身份的认证和数据的完整性。简单的说就是你签字的文件别人知道是你签的，并且知
+道这个文件是否被修改过。
+     我们可以通过 数字签名 applet的jar文档来实现控制的策略。
+
+     好了，以上都是理论，我们来实际的说下步骤，做个例子。
+
+1 我们先下写个applet，功能是读本地的一个文件。
+
+Java代码  收藏代码
+
+    package jcomponent;   
+    import java.awt.*;   
+    import java.awt.event.*;   
+    import java.applet.*;   
+    import java.io.*;   
+    public class FileReaderApplet extends Applet {   
+    boolean isStandalone = false;   
+    TextField fileNameField;   
+    TextArea fileArea;   
+    //  Get a parameter value   
+    public String getParameter(String key, String def) {   
+      return isStandalone ? System.getProperty(key, def)   
+        : (getParameter(key) != null ? getParameter(key) : def);   
+    }   
+    //  Construct the applet   
+    public FileReaderApplet() {   
+    }   
+    //  Initialize the applet   
+    public void init() {   
+      try {   
+       jbInit();   
+      } catch (Exception e) {   
+       e.printStackTrace();   
+      }   
+    }   
+    // Component initialization   
+    private void jbInit() throws Exception {   
+      this.setSize(new Dimension(400, 300));   
+      this.setLayout(new BorderLayout());   
+      Panel panel = new Panel();   
+      Label label = new Label("File Name");   
+      panel.add(label);   
+      fileNameField = new TextField(25);   
+      panel.add(fileNameField);   
+      Button b = new Button("Open File");   
+      b.addActionListener(new ActionListener() {   
+       public void actionPerformed(ActionEvent e) {   
+        loadFile(fileNameField.getText());   
+       }   
+      });   
+      panel.add(b);   
+      this.add(panel, BorderLayout.NORTH);   
+      fileArea = new TextArea();   
+      this.add(fileArea, BorderLayout.CENTER);   
+    }   
+    public void loadFile(String fileName) {   
+      try {   
+       BufferedReader reader = new BufferedReader(new FileReader(fileName));   
+       String context = new String();   
+       while ((context = reader.readLine()) != null) {   
+        fileArea.append(context + "/n");   
+       }   
+       reader.close();   
+      } catch (IOException ie) {   
+       fileArea.append(ie.getMessage());   
+      } catch (SecurityException se) {   
+       fileArea   
+         .append("because of security constraint ,it can not do that!");   
+      }   
+    }   
+    //  Get Applet information   
+    public String getAppletInfo() {   
+      return "This is an applet can read and write the local file system";   
+    }   
+    }   
+
+
+
+2  打包jar 文件
+Java代码  收藏代码
+
+    jar  -cvf  MyApplet.jar  jcomponent.FileReaderApplet   
+
+
+3 在test.html页面中加入applet
+  
+Java代码  收藏代码
+
+    ＜APPLET   
+    CODEBASE = "."   
+    CODE = "jcomponent.FileReaderApplet.class"   
+    ARCHIVE ="MyClass.jar"   
+    NAME = "TestApplet"   
+    WIDTH = 400   
+    HEIGHT = 300   
+    HSPACE = 0   
+    VSPACE = 0   
+    ALIGN = middle   
+    ＞   
+    ＜/APPLET＞   
+
+这里最好将<applet>标签转成<object>标签，用<object>的好处是，如果客户的机器中没有jre，那么applet是运行不了的，用的
+<object>标签后，可以自动下载jre安装到客户端，我感觉这个功能非常好。
+
+可通过HtmlConverter来转。
+HtmlConverter工具位于${java_home}/bin下
+
+在doc下进入html页面的相应目录， 输入
+   HtmlConverter test.html;
+这样就完成的转换
+转换后的页面变为
+Java代码  收藏代码
+
+     <!--"CONVERTED_APPLET"-->   
+    <!-- HTML CONVERTER -->   
+    <object   
+        classid = "clsid:CAFEEFAC-0015-0000-0000-ABCDEFFEDCBA"   
+        codebase = "http://java.sun.com/update/1.5.0/jinstall-1_5_0-windows-i586.cab#Version=1,5,0,0"   
+        WIDTH = 400 HEIGHT = 300 NAME = "TestApplet" ALIGN = middle VSPACE = 0 HSPACE = 0 >   
+        <PARAM NAME = CODE VALUE = "jcomponent.FileReaderApplet.class" >   
+        <PARAM NAME = CODEBASE VALUE = "." >   
+        <PARAM NAME = ARCHIVE VALUE = "MyApplet.jar" >   
+        <PARAM NAME = NAME VALUE = "TestApplet" >   
+        <param name = "type" value = "application/x-java-applet;jpi-version=1.5">   
+        <param name = "scriptable" value = "false">   
+        <comment>   
+    <embed   
+                type = "application/x-java-applet;jpi-version=1.5" \   
+                CODE = "jcomponent.FileReaderApplet.class" \   
+                JAVA_CODEBASE = "." \   
+                ARCHIVE = "MyApplet.jar" \   
+                NAME = "TestApplet" \   
+                WIDTH = 400 \   
+                HEIGHT = 300 \   
+                ALIGN = middle \   
+                VSPACE = 0 \   
+                HSPACE = 0   
+         scriptable = false   
+         pluginspage = "http://java.sun.com/products/plugin/index.html#download">   
+         <noembed>   
+                   
+                </noembed>   
+    </embed>   
+        </comment>   
+    </object>   
+    <!--   
+    <APPLET CODE = "jcomponent.FileReaderApplet.class" JAVA_CODEBASE = "." ARCHIVE = "MyApplet.jar" WIDTH = 400 HEIGHT =   
+    300 NAME = "TestApplet" ALIGN = middle VSPACE = 0 HSPACE = 0>   
+    </APPLET>   
+    -->   
+    <!--"END_CONVERTED_APPLET"-->   
+
+完成这个步骤后，这个Applet已经可以显示了。但是还不能读写本地的文件系统
+
+4 使用keytool工具生成密匙库
+keytool工具位于${java_home}/bin目录下
+在DOS窗口中执行命令：keytool -genkey -keystore mytest.store -alias fhx
+注意：mytest.store 是你的密匙库的名称，可以随意修改，后缀请不要修改！
+            fhx为别名，这个也可以改成自己的名称
+执行上述命令后，DOS窗口中会提示你输入keystore的密码、你的姓名、组织单位等等信息。这里要注意的是输入密码请记住，后面
+要用到的。在最后，我们输入y确认信息。然后再直接回车设置fhx的主密码和store密码一致即可！
+
+5 使用keytool工具导出签名时用到的证书
+在DOS窗口中执行命令：keytool -export -keystore mytest.store -alias fhx -file fhx.cert
+注意：mytest.store 就是第4步生成的密匙库名称
+            fhx 也是在第4步中我们指定的别名
+            fhx.cert 为我们生成的证书的名称，可以自己修改名称，注意后缀不要改
+
+命令执行成功，我们会在当前目录下找到一个fhx.cert文件，这个就是我们刚才生成的证书。
+
+6 使用jarsigner工具签名jar压缩文档
+jarsigner工具位于${java_home}/bin目录下；
+在当前DOS窗口中执行命令：jarsigner -keystore mytest.store MyApplet.jar fhx
+注意：mytest.store 就是我们在第4步中生成的密匙库名称
+            MyApplet.jar 就是我们这第2步压缩的jar文档
+            fhx 是提供者的名称，我们这里设置为我们的别名
+
+7 创建访问策略文件mytest.policy文件
+在当前目录下创建一个mytest.policy文件，其内容如下
+
+keystore "file:c: /test/mytest.store", "JKS";
+grant signedBy "fhx"
+{ permission java.io.FilePermission "<<ALL FILES>>", "read,write,delete";
+};
+
+这个文件的意思就是说让所有由fhx签名的applet都可以对本地的所有文件进行读,写，删除的操作
+
+修改${java.home}/jre/lib/security目录下的java.security，找到下面这两行：
+policy.url.1=file:${java.home}/lib/security/java.policy
+policy.url.2=file:${user.home}/.java.policy
+在下面添写第三行
+policy.url.3=file:c:/test/mytest.policy
+完成这个修改后我们在前面创建的applet.policy文件才有效。
+
+如果你要考虑在Internet上实现这个Applet，那么你也不需要在所有的客户端均做上面的步骤，你只需要在你的服务器上创建一个目
+录，例如c:/test，将这个目录映射为www.testApplet.com/admin。这里的www.testApplet.com是一个假定的网址，将mytest.cert、
+mytest.store、test.html、MyApplet.jar以及mytest.policy放在这个目录中，然后修改test.policy文件如下
+
+Java代码  收藏代码
+
+    keystore "http:// www.testApplet.com/test/mytest.store", "JKS";   
+    grant signedBy "fhx"   
+    { permission java.io.FilePermission "＜＜ALL FILES＞＞", "read";   
+    };   
+
+而每个客户端仅仅需要修改一下它们的${java.home}/jre/lib/security目录下的java.security文件如下：
+Java代码  收藏代码
+
+    policy.url.1=file:${java.home}/lib/security/java.policy   
+    policy.url.2=file:${user.home}/.java.policy   
+    policy.url.3= http:// www.testApplet.com/admin/mytest.policy   
+
+
+
+好了，现在你可以运行一下test.html看看效果了，在文本框中输入你的本地文件位置，然后点击 open File按钮，在下面的文件框
+中就会读出你的文件内容。
+
+下面还有段程序是读一个文件内容到另一个文件中，读写的功能都有了，你可以试下
+Java代码  收藏代码
+
+    import java.awt.*;   
+    import java.io.*;   
+    import java.applet.*;   
+    public class AppletFileInputStream extends Applet {   
+    byte buffer[] = new byte[5200];   
+    int m_bytes;   
+    TextArea hArea = new TextArea("", 20, 80);   
+    public void init() {   
+      this.add(hArea);   
+    }   
+    public void paint(Graphics g) {   
+      try {   
+       FileInputStream file1 = new FileInputStream( "d:/AppletFileInputStream.java");   
+       m_bytes = file1.read(buffer, 0, 5200);   
+       String hstr = new String(buffer, 0, 0, m_bytes);   
+       hArea.appendText(hstr);   
+       file1.close();   
+      } catch (Exception e) {   
+       hArea.appendText("read   err" + "\n");   
+      }   
+      try {   
+       FileOutputStream file2 = new FileOutputStream("d:/temp.txt");   
+       file2.write(buffer);   
+       file2.close();   
+      } catch (Exception e) {   
+       hArea.appendText("write   err" + "\n");   
+      }   
+    }   
+    }  
+	
