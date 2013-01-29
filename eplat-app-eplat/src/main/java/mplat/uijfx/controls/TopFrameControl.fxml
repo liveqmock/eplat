@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.*?>
 
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
-	<HBox fx:id="topFrame" alignment="CENTER_LEFT" prefHeight="120.0" spacing="10.0" styleClass="TopFrameView" xmlns:fx="http://javafx.com/fxml">
+	<HBox fx:id="topFrame" alignment="CENTER_LEFT" prefWidth="1000.0" prefHeight="120.0" spacing="10.0" styleClass="TopFrameView" xmlns:fx="http://javafx.com/fxml">
 		<children>
 			<ImageView fx:id="imgCourseWare" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
 				<image>
@@ -52,7 +52,7 @@
 			<Insets left="20.0" right="20.0" />
 		</padding>
 		<stylesheets>
-			<URL value="@../styles/TopFrameView.css" />
+			<URL value="@TopFrameView.css" />
 		</stylesheets>
 	</HBox>
 </fx:root>
