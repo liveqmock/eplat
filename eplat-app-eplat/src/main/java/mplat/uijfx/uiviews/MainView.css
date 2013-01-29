@@ -1,0 +1,6 @@
+
+.Welcome {
+	-fx-background-image: url('Welcome-BG.jpg');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center center;
+}
