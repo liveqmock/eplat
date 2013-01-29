@@ -1,0 +1,88 @@
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <version>2.3</version>
+    <executions>
+        <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <configuration>
+                <overWriteReleases>false</overWriteReleases>
+                <overWriteSnapshots>false</overWriteSnapshots>
+                <overWriteIfNewer>true</overWriteIfNewer>
+            </configuration>
+            <goals>
+                <goal>copy-dependencies</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+
+This will copy all of your dependencies into the 'target/dependency' directory. 
+
+Now you can start using the ant tasks provided with JFX. Use the JFX packaging guide (http://download.oracle.com/javafx/2.0/deployment/jfxpub-deployment.htm) to work out the parameters for all this but here's a simple example: 
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>1.6</version>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <configuration>
+                <target>
+ 
+                    <taskdef name="jfxdeploy"
+                             classname="com.sun.javafx.tools.ant.DeployFXTask"
+                             classpathref="maven.plugin.classpath"/>
+ 
+                    <taskdef name="jfxsignjar"
+                             classname="com.sun.javafx.tools.ant.FXSignJarTask"
+                             classpathref="maven.plugin.classpath"/>
+ 
+ 
+                    <jfxdeploy width="800" height="600"
+                               outdir="${project.build.directory}/deploy" outfile="${build.finalName}">
+                        <info title="${project.name}"/>
+                        <application name="${project.name}"
+                                     mainClass="com.zenjava.javafx.TestApp"/>
+                        <resources>
+                            <fileset dir="${project.build.directory}" includes="*.jar"/>
+                            <fileset dir="${project.build.directory}/dependency" includes="*.jar"/>
+                        </resources>
+                    </jfxdeploy>
+ 
+                    <-- you need to generate a key yourself, see here: http://download.oracle.com/javase/tutorial/security/toolsign/step3.html -->
+                    <jfxsignjar destdir="${project.build.directory}/deploy"
+                                keyStore="${project.basedir}/src/jnlp/keystore.jks"
+                                <-- use the details you used to create your key -->
+                                storePass="mypassword"
+                                alias="myalias"
+                                keyPass="mypassword">
+                        <fileset dir="${project.build.directory}/deploy" includes="*.jar"/>
+                    </jfxsignjar>
+ 
+                </target>
+            </configuration>
+            <goals>
+                <goal>run</goal>
+            </goals>
+        </execution>
+    </executions>
+ 
+    <!-- this gives the ant plugin access to the ant-javafx.jar so it can run the custom ant tasks defined in there -->
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.javafx</groupId>
+            <artifactId>javafx-ant</artifactId>
+            <version>2.0.beta</version>
+            <scope>system</scope>
+             <!-- change this to point to wherever you have installed JFX -->
+            <systemPath>C:/Program Files/oracle/jfx2.0/tools/ant-javafx.jar</systemPath>
+        </dependency>
+    </dependencies>
+</plugin>
+
+
+When you build now you will end up with a 'target/deploy' directory that includes all of the jars used by your project, all of them nicely signed, and you will get a jnlp file and a html file for starting it all up. Copy all this to your webserver (doesn't need to be a servlet engine, just a straight web server like Apache HTTP Server). You can configure all this using templates and paramaters to the ant commands, but use the JFX official ant docco for more info on this.
+
