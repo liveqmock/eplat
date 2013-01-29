@@ -4,17 +4,9 @@
  */
 package mplat.uijfx.login;
 
-import com.atom.core.lang.user.UserHolder;
-import com.atom.core.lang.utils.LogUtils;
-import com.atom.core.uijfx.UIBtnMsg;
-import com.atom.core.uijfx.UIConfig;
-import com.atom.core.uijfx.UISize;
-import com.atom.core.uijfx.UITipMsg;
-import com.atom.core.uijfx.UIView;
-import com.atom.core.uijfx.event.EventAdapter;
-import com.atom.core.uijfx.utils.StageUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +24,18 @@ import mplat.uijfx.images.IMGS;
 import mplat.uijfx.utils.Alert;
 import mplat.uijfx.utils.SizeUtils;
 import mplat.uijfx.welcome.WelcomeController;
+
 import org.apache.commons.lang.StringUtils;
+
+import com.atom.core.lang.user.UserHolder;
+import com.atom.core.lang.utils.LogUtils;
+import com.atom.core.uijfx.UIBtnMsg;
+import com.atom.core.uijfx.UIConfig;
+import com.atom.core.uijfx.UISize;
+import com.atom.core.uijfx.UITipMsg;
+import com.atom.core.uijfx.UIView;
+import com.atom.core.uijfx.event.EventAdapter;
+import com.atom.core.uijfx.utils.StageUtils;
 
 /**
  *
@@ -40,19 +43,19 @@ import org.apache.commons.lang.StringUtils;
  */
 public class LoginController implements Initializable, UIView {
 
-    private Stage stage;
+    private Stage         stage;
     @FXML
-    private ImageView imgLogo;
+    private ImageView     imgLogo;
     @FXML
-    private TextField txtUserName;
+    private TextField     txtUserName;
     @FXML
     private PasswordField txtUserPasswd;
     @FXML
-    private ComboBox cboxPorts;
+    private ComboBox      cboxPorts;
     @FXML
-    private HBox hboxTipMsg;
+    private HBox          hboxTipMsg;
     @FXML
-    private Label lblTipMsg;
+    private Label         lblTipMsg;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,6 +99,7 @@ public class LoginController implements Initializable, UIView {
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
 
             StageUtils.findController(WelcomeController.class, SizeUtils.findWelcomeSize()).initViews(this.stage);
+            // StageUtils.findController(Welcome2Controller.class, SizeUtils.findWelcomeSize()).initViews(this.stage);
         }
     }
 

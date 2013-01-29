@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://at.bestsolution.efxclipse.tooling.jdt/1.0" buildDirectory="${workspace}/eplat-app-eplat/build">
+<anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://at.bestsolution.efxclipse.tooling.jdt/1.0" buildDirectory="${workspace}/eplat-app-eplat/fxbuild">
   <deploy height="600" width="800">
     <application name="eplat-app-eplat" mainclass="mplat.Main" version="1.0.1"/>
     <info vendor="obullxl@gmail.com"/>

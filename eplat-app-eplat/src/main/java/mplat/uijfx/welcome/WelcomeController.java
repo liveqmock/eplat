@@ -3,6 +3,27 @@
  */
 package mplat.uijfx.welcome;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import mplat.uijfx.images.IMGS;
+import mplat.uijfx.utils.Alert;
+
 import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.UIBtnMsg;
 import com.atom.core.uijfx.UIConfig;
@@ -10,57 +31,44 @@ import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.UITipMsg;
 import com.atom.core.uijfx.UIView;
 import com.atom.core.uijfx.event.EventAdapter;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import mplat.uijfx.images.IMGS;
-import mplat.uijfx.utils.Alert;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author obullxl@gmail.com
  */
 public class WelcomeController implements Initializable, UIView {
 
-    private Stage stage;
+    public static final double OPACITY_ON  = 1.0;
+    public static final double OPACITY_OUT = 0.5;
+
+    private Stage              stage;
     @FXML
-    private BorderPane borderPane;
+    private BorderPane         borderPane;
     @FXML
-    private MenuBar menuBar;
+    private HBox               center;
     @FXML
-    private TabPane tabPane;
+    private MenuBar            menuBar;
     @FXML
-    private Tab tabWelcome;
+    private TabPane            tabPane;
     @FXML
-    private BorderPane welcome;
+    private Tab                tabWelcome;
     @FXML
-    private ImageView imgLogo;
+    private BorderPane         welcome;
     @FXML
-    private Button btnXtkj; // 系统课件
+    private ImageView          imgLogo;
     @FXML
-    private Button btnZxjnxl; // 专项技能训练
+    private ImageView          btnXtkj;          // 系统课件
     @FXML
-    private Button btnZyjjalxl; // 专业急救案例训练
+    private ImageView          btnZxjnxl;        // 专项技能训练
     @FXML
-    private Button btnZyjjalkh; // 专业急救案例考核
+    private ImageView          btnZyjjalxl;      // 专业急救案例训练
     @FXML
-    private Button btnXtgn; // 系统功能
+    private ImageView          btnZyjjalkh;      // 专业急救案例考核
     @FXML
-    private ImageView imgCopyRgt;
+    private ImageView          btnXtgn;          // 系统功能
     @FXML
-    private Button btnExit;
+    private ImageView          imgCopyRgt;
+    @FXML
+    private ImageView          btnExit;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,40 +80,28 @@ public class WelcomeController implements Initializable, UIView {
         this.imgCopyRgt.setImage(this.findImgCopy());
 
         // 系统课件
-        this.btnXtkj.setTooltip(new Tooltip("系统课件"));
-        this.btnXtkj.setText(null);
-        this.btnXtkj.setGraphicTextGap(0);
-        this.btnXtkj.setGraphic(new ImageView(this.findImgXtkj()));
+        this.btnXtkj.setImage(this.findImgXtkj());
+        this.chargeOpacity(btnXtkj, OPACITY_OUT);
 
         // 专项技能训练
-        this.btnZxjnxl.setTooltip(new Tooltip("专项技能训练"));
-        this.btnZxjnxl.setText(null);
-        this.btnZxjnxl.setGraphicTextGap(0);
-        this.btnZxjnxl.setGraphic(new ImageView(this.findImgZxjnxl()));
+        this.btnZxjnxl.setImage(this.findImgZxjnxl());
+        this.chargeOpacity(btnZxjnxl, OPACITY_OUT);
 
         // 专业急救案例训练
-        this.btnZyjjalxl.setTooltip(new Tooltip("专业急救案例训练"));
-        this.btnZyjjalxl.setText(StringUtils.EMPTY);
-        this.btnZyjjalxl.setGraphicTextGap(0);
-        this.btnZyjjalxl.setGraphic(new ImageView(this.findImgZyjjalxl()));
+        this.btnZyjjalxl.setImage(this.findImgZyjjalxl());
+        this.chargeOpacity(btnZyjjalxl, OPACITY_OUT);
 
         // 专业急救案例考核
-        this.btnZyjjalkh.setTooltip(new Tooltip("专业急救案例考核"));
-        this.btnZyjjalkh.setText(StringUtils.EMPTY);
-        this.btnZyjjalkh.setGraphicTextGap(0);
-        this.btnZyjjalkh.setGraphic(new ImageView(this.findImgZyjjalkh()));
+        this.btnZyjjalkh.setImage(this.findImgZyjjalkh());
+        this.chargeOpacity(btnZyjjalkh, OPACITY_OUT);
 
         // 系统功能
-        this.btnXtgn.setTooltip(new Tooltip("系统功能"));
-        this.btnXtgn.setText(StringUtils.EMPTY);
-        this.btnXtgn.setGraphicTextGap(0);
-        this.btnXtgn.setGraphic(new ImageView(this.findImgXtgn()));
+        this.btnXtgn.setImage(this.findImgXtgn());
+        this.chargeOpacity(btnXtgn, OPACITY_OUT);
 
         // 退出系统
-        this.btnExit.setTooltip(new Tooltip("退出系统"));
-        this.btnExit.setText(StringUtils.EMPTY);
-        this.btnExit.setGraphicTextGap(0);
-        this.btnExit.setGraphic(new ImageView(this.findImgExit()));
+        this.btnExit.setImage(this.findImgExit());
+        this.chargeOpacity(btnExit, OPACITY_OUT);
     }
 
     @Override
@@ -123,6 +119,30 @@ public class WelcomeController implements Initializable, UIView {
         return true;
     }
 
+    @FXML
+    public void onMouseOn(MouseEvent evt) {
+        Node node = (Node) evt.getSource();
+        node.setCursor(Cursor.HAND);
+        this.chargeOpacity(node, OPACITY_ON);
+    }
+
+    @FXML
+    public void onMouseOut(MouseEvent evt) {
+        Node node = (Node) evt.getSource();
+        node.setCursor(Cursor.DEFAULT);
+        this.chargeOpacity(node, OPACITY_OUT);
+    }
+
+    @FXML
+    public void onMenuExit(ActionEvent evt) {
+        this.onExitSystem();
+    }
+
+    @FXML
+    public void onExitAction(MouseEvent evt) {
+        this.onExitSystem();
+    }
+
     /**
      * 退出系统
      */
@@ -138,14 +158,11 @@ public class WelcomeController implements Initializable, UIView {
         Alert.alert(UIConfig.get().setSize(UISize.to(400, 300)).setTipMsg(UITipMsg.to("退出系统", "你确定要退出系统吗？")).setBtnMsg(UIBtnMsg.get().setSure("确定").setCancel("取消")).setAdapter(adapter));
     }
 
-    @FXML
-    public void onMenuExit(ActionEvent evt) {
-        this.onExitSystem();
-    }
-
-    @FXML
-    public void onExitAction(ActionEvent evt) {
-        this.onExitSystem();
+    /**
+     * 设置透明度
+     */
+    private void chargeOpacity(Node node, double value) {
+        node.setOpacity(value);
     }
 
     // 图片信息
