@@ -5,7 +5,7 @@ package mplat;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import mplat.uijfx.login.LoginController;
+import mplat.uijfx.uiviews.LoginController;
 import mplat.utils.CfgUtils;
 import mplat.utils.DataMap;
 

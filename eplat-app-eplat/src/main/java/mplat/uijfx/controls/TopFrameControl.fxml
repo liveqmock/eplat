@@ -15,27 +15,27 @@
 		<children>
 			<ImageView fx:id="imgCourseWare" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
 				<image>
-					<Image url="@../images/btn-xtkj.png" />
+					<Image url="@../images/btn-course-ware.png" />
 				</image>
 			</ImageView>
 			<ImageView fx:id="imgTopicTrain" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
 				<image>
-					<Image url="@../images/btn-zxjnxl.jpg" />
+					<Image url="@../images/btn-topic-train.jpg" />
 				</image>
 			</ImageView>
 			<ImageView fx:id="imgEmergeTrain" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
 				<image>
-					<Image url="@../images/btn-zyjjalxl.jpg" />
+					<Image url="@../images/btn-emerge-train.jpg" />
 				</image>
 			</ImageView>
 			<ImageView fx:id="imgEmergeExam" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
 				<image>
-					<Image url="@../images/btn-zyjjalkh.jpg" />
+					<Image url="@../images/btn-emerge-exam.jpg" />
 				</image>
 			</ImageView>
 			<ImageView fx:id="imgSystemCfg" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
 				<image>
-					<Image url="@../images/btn-xtgn.jpg" />
+					<Image url="@../images/btn-system-cfg.jpg" />
 				</image>
 			</ImageView>
 			<StackPane alignment="CENTER_RIGHT" prefHeight="120.0" HBox.hgrow="ALWAYS">

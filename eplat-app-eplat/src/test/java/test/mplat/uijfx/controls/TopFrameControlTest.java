@@ -16,7 +16,6 @@ import mplat.uijfx.controls.TopFrameEventProxy;
 import mplat.uijfx.utils.Alert;
 
 import com.atom.core.uijfx.UIConfig;
-import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.UITipMsg;
 
 /**
@@ -34,15 +33,13 @@ public class TopFrameControlTest extends Application {
      * @see javafx.application.Application#start(javafx.stage.Stage)
      */
     public void start(Stage stage) throws Exception {
-        TopFrameControl topFrame = new TopFrameControl();
-        topFrame.setSize(UISize.to(1500, 120));
-        
         TopFrameEventProxy eventProxy = new TopFrameEventProxy(){
             public void onCourseWareMouseClick(MouseEvent evt, ImageView image) {
                 Alert.alert(UIConfig.get().setTipMsg(UITipMsg.to("鼠标点击", "你点击了系统课件哦！！！")));
             }
         };
-        topFrame.setEventProxy(eventProxy);
+        
+        TopFrameControl topFrame = new TopFrameControl(eventProxy);
         
         BorderPane border = new BorderPane();
         border.setTop(topFrame);
@@ -51,7 +48,7 @@ public class TopFrameControlTest extends Application {
         root.getChildren().add(border);
         
         stage.setScene(new Scene(root));
-        stage.setWidth(1500);
+        stage.setWidth(1000);
         stage.setHeight(500);
         stage.show();
     }
