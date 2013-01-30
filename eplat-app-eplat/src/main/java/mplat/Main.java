@@ -4,7 +4,9 @@
 package mplat;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.LoginController;
 import mplat.utils.CfgUtils;
 import mplat.utils.DataMap;
@@ -26,6 +28,8 @@ public class Main extends Application {
         CfgUtils.findConfigPath();
         StoreFactory.get().init();
 
+        stage.getIcons().add(this.findIcomImage());
+        
         StageUtils.findController(LoginController.class).initViews(stage);
         // LoginView.create(stage).initViews().show();
     }
@@ -49,4 +53,12 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * 图片信息
+     */
+    private Image findIcomImage() {
+        return new Image(IMGS.class.getResourceAsStream("tab-welcome.jpg"), 16, 16, false, false);
+    }
+
 }

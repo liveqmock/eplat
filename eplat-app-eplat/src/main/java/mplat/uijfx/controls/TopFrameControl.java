@@ -6,10 +6,13 @@ package mplat.uijfx.controls;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import mplat.uijfx.uiviews.MainViewController;
+import mplat.uijfx.uiviews.ViewConstants;
 
 import com.atom.core.lang.utils.LogUtils;
 
@@ -38,13 +41,13 @@ public class TopFrameControl extends HBox {
     private ImageView                imgGotoMain;
 
     /** 事件代理器 */
-    private final TopFrameEventProxy eventProxy;
+    private final MainViewController parentView;
 
     /**
      * 初始化
      */
-    public TopFrameControl(final TopFrameEventProxy eventProxy) {
-        this.eventProxy = eventProxy;
+    public TopFrameControl(MainViewController parentView) {
+        this.parentView = parentView;
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -66,22 +69,18 @@ public class TopFrameControl extends HBox {
 
         if (node == this.imgCourseWare) {
             // 系统课件
-            this.eventProxy.onCourseWareMouseOn(evt, this.imgCourseWare);
         } else if (node == this.imgTopicTrain) {
             // 专项技能训练
-            this.eventProxy.onTopicTrainMouseOn(evt, this.imgTopicTrain);
         } else if (node == this.imgEmergeTrain) {
             // 专项急救案例训练
-            this.eventProxy.onEmergeTrainMouseOn(evt, this.imgEmergeTrain);
         } else if (node == this.imgEmergeExam) {
             // 专项急救案例考核
-            this.eventProxy.onEmergeExamMouseOn(evt, this.imgEmergeExam);
         } else if (node == this.imgSystemCfg) {
             // 系统功能
-            this.eventProxy.onSystemCfgMouseOn(evt, this.imgSystemCfg);
         } else if (node == this.imgGotoMain) {
-            // 系统功能
-            this.eventProxy.onGotoMainMouseOn(evt, this.imgGotoMain);
+            // 返回主界面
+            this.imgGotoMain.setCursor(Cursor.HAND);
+            this.imgGotoMain.setOpacity(ViewConstants.OPACITY_ON);
         }
     }
 
@@ -91,22 +90,18 @@ public class TopFrameControl extends HBox {
 
         if (node == this.imgCourseWare) {
             // 系统课件
-            this.eventProxy.onCourseWareMouseOut(evt, this.imgCourseWare);
         } else if (node == this.imgTopicTrain) {
             // 专项技能训练
-            this.eventProxy.onTopicTrainMouseOut(evt, this.imgTopicTrain);
         } else if (node == this.imgEmergeTrain) {
             // 专项急救案例训练
-            this.eventProxy.onEmergeTrainMouseOut(evt, this.imgEmergeTrain);
         } else if (node == this.imgEmergeExam) {
             // 专项急救案例考核
-            this.eventProxy.onEmergeExamMouseOut(evt, this.imgEmergeExam);
         } else if (node == this.imgSystemCfg) {
             // 系统功能
-            this.eventProxy.onSystemCfgMouseOut(evt, this.imgSystemCfg);
         } else if (node == this.imgGotoMain) {
-            // 系统功能
-            this.eventProxy.onGotoMainMouseOut(evt, this.imgGotoMain);
+            // 返回主界面
+            this.imgGotoMain.setCursor(Cursor.DEFAULT);
+            this.imgGotoMain.setOpacity(ViewConstants.OPACITY_OUT);
         }
     }
 
@@ -117,22 +112,27 @@ public class TopFrameControl extends HBox {
         if (node == this.imgCourseWare) {
             // 系统课件
             LogUtils.info("系统课件");
-            this.eventProxy.onCourseWareMouseClick(evt, this.imgCourseWare);
+            this.parentView.activeTab(ViewConstants.COURSE_WARE);
         } else if (node == this.imgTopicTrain) {
             // 专项技能训练
             LogUtils.info("专项技能训练");
+            this.parentView.activeTab(ViewConstants.TOPIC_TRAIN);
         } else if (node == this.imgEmergeTrain) {
             // 专项急救案例训练
             LogUtils.info("专项急救案例训练");
+            this.parentView.activeTab(ViewConstants.EMERGE_TRAIN);
         } else if (node == this.imgEmergeExam) {
             // 专项急救案例考核
             LogUtils.info("专项急救案例考核");
+            this.parentView.activeTab(ViewConstants.EMERGE_EXAM);
         } else if (node == this.imgSystemCfg) {
             // 系统功能
-            LogUtils.info("系统功能");
+            LogUtils.info("系统功能设置");
+            this.parentView.activeTab(ViewConstants.SYSTEM_CFG);
         } else if (node == this.imgGotoMain) {
-            // 系统功能
+            // 返回主页面
             LogUtils.info("返回主页面");
+            this.parentView.activeTab(ViewConstants.MAIN_VIEW);
         }
     }
 
@@ -140,12 +140,49 @@ public class TopFrameControl extends HBox {
      * 初始化
      */
     private void initViews() {
-        this.eventProxy.onCourseWareInit(this.imgCourseWare);
-        this.eventProxy.onTopicTrainInit(this.imgTopicTrain);
-        this.eventProxy.onEmergeTrainInit(this.imgEmergeTrain);
-        this.eventProxy.onEmergeExamInit(this.imgEmergeExam);
-        this.eventProxy.onSystemCfgInit(this.imgSystemCfg);
-        this.eventProxy.onGotoMainInit(this.imgGotoMain);
+        this.imgCourseWare.setUserData(ViewConstants.COURSE_WARE);
+        this.imgTopicTrain.setUserData(ViewConstants.TOPIC_TRAIN);
+        this.imgEmergeTrain.setUserData(ViewConstants.EMERGE_TRAIN);
+        this.imgEmergeExam.setUserData(ViewConstants.EMERGE_EXAM);
+        this.imgSystemCfg.setUserData(ViewConstants.SYSTEM_CFG);
+    }
+
+    // ~~~~~~~~ getters and setters ~~~~~~~~~ //
+
+    public HBox getTopFrame() {
+        return topFrame;
+    }
+
+    public void setTopFrame(HBox topFrame) {
+        this.topFrame = topFrame;
+    }
+
+    public ImageView getImgCourseWare() {
+        return imgCourseWare;
+    }
+
+    public ImageView getImgTopicTrain() {
+        return imgTopicTrain;
+    }
+
+    public ImageView getImgEmergeTrain() {
+        return imgEmergeTrain;
+    }
+
+    public ImageView getImgEmergeExam() {
+        return imgEmergeExam;
+    }
+
+    public ImageView getImgSystemCfg() {
+        return imgSystemCfg;
+    }
+
+    public ImageView getImgGotoMain() {
+        return imgGotoMain;
+    }
+
+    public MainViewController getParentView() {
+        return parentView;
     }
 
 }

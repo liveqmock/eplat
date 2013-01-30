@@ -13,27 +13,27 @@
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
 	<HBox fx:id="topFrame" alignment="CENTER_LEFT" prefWidth="1000.0" prefHeight="120.0" spacing="10.0" styleClass="TopFrameView" xmlns:fx="http://javafx.com/fxml">
 		<children>
-			<ImageView fx:id="imgCourseWare" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
+			<ImageView fx:id="imgCourseWare" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
 				<image>
 					<Image url="@../images/btn-course-ware.png" />
 				</image>
 			</ImageView>
-			<ImageView fx:id="imgTopicTrain" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
+			<ImageView fx:id="imgTopicTrain" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
 				<image>
 					<Image url="@../images/btn-topic-train.jpg" />
 				</image>
 			</ImageView>
-			<ImageView fx:id="imgEmergeTrain" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
+			<ImageView fx:id="imgEmergeTrain" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
 				<image>
 					<Image url="@../images/btn-emerge-train.jpg" />
 				</image>
 			</ImageView>
-			<ImageView fx:id="imgEmergeExam" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
+			<ImageView fx:id="imgEmergeExam" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
 				<image>
 					<Image url="@../images/btn-emerge-exam.jpg" />
 				</image>
 			</ImageView>
-			<ImageView fx:id="imgSystemCfg" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" onMouseClicked="#onMouseClick" opacity="0.5">
+			<ImageView fx:id="imgSystemCfg" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
 				<image>
 					<Image url="@../images/btn-system-cfg.jpg" />
 				</image>
