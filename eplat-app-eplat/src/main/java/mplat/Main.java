@@ -8,9 +8,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.LoginController;
-import mplat.utils.CfgUtils;
 import mplat.utils.DataMap;
 
+import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.uijfx.utils.StageHolder;
 import com.atom.core.uijfx.utils.StageUtils;
 import com.atom.core.xstream.store.StoreFactory;

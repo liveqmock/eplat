@@ -3,12 +3,14 @@
  */
 package mplat.store;
 
-import com.atom.core.xstream.store.BaseStore;
-import com.thoughtworks.xstream.XStream;
 import java.io.File;
+
 import mplat.mgt.dto.ExamInfoDTO;
 import mplat.mgt.dto.ExamItemDTO;
-import mplat.utils.CfgUtils;
+
+import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.xstream.store.BaseStore;
+import com.thoughtworks.xstream.XStream;
 
 /**
  * @author obullxl@gmail.com
@@ -18,7 +20,7 @@ public class ExamStore extends BaseStore<ExamInfoDTO> {
     public ExamStore() {
         String path = CfgUtils.findConfigPath() + "/store";
         File file = new File(path);
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.mkdirs();
         }
 
@@ -29,7 +31,7 @@ public class ExamStore extends BaseStore<ExamInfoDTO> {
     public void initExt() {
         String path = CfgUtils.findConfigPath() + "/store";
         File file = new File(path);
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.mkdirs();
         }
 
