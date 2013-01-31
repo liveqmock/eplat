@@ -35,7 +35,8 @@ public class DataMap {
     }
     private Map<String, Object> _data = new ConcurrentHashMap<>();
 
-    public <T extends Object> T get(String key) {
+    @SuppressWarnings("unchecked")
+    public <T> T get(String key) {
         return (T) _data.get(key);
     }
 
@@ -43,7 +44,8 @@ public class DataMap {
         _data.put(key, value);
     }
 
-    public <T extends Object> T remove(String key) {
+    @SuppressWarnings("unchecked")
+    public <T> T remove(String key) {
         return (T) _data.remove(key);
     }
 }

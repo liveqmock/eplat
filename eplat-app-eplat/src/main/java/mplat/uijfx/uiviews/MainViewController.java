@@ -23,15 +23,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.controls.TopFrameControl;
 import mplat.uijfx.images.IMGS;
 import mplat.uijfx.utils.Alert;
+import mplat.utils.UConst;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.UIBtnMsg;
 import com.atom.core.uijfx.UIConfig;
@@ -79,8 +79,9 @@ public class MainViewController {
     @FXML
     private void initialize() {
         // Tab标签
+        TabDataEnum tabdata = TabDataEnum.MAIN_VIEW;
         this.tabMain.setClosable(false);
-        this.tabMain.setUserData(ViewConstants.MAIN_VIEW);
+        this.tabMain.setUserData(tabdata);
         this.tabMain.setGraphic(new ImageView(this.findTabWelcome()));
     }
 
@@ -105,14 +106,14 @@ public class MainViewController {
     private void onMouseOn(MouseEvent evt) {
         Node node = (Node) evt.getSource();
         node.setCursor(Cursor.HAND);
-        this.chargeOpacity(node, ViewConstants.OPACITY_ON);
+        this.chargeOpacity(node, UConst.OPACITY_ON);
     }
 
     @FXML
     private void onMouseOut(MouseEvent evt) {
         Node node = (Node) evt.getSource();
         node.setCursor(Cursor.DEFAULT);
-        this.chargeOpacity(node, ViewConstants.OPACITY_OUT);
+        this.chargeOpacity(node, UConst.OPACITY_OUT);
     }
 
     @FXML
@@ -122,23 +123,23 @@ public class MainViewController {
         if (node == this.imgCourseWare) {
             // 系统课件
             LogUtils.info("系统课件");
-            this.activeTab(ViewConstants.COURSE_WARE);
+            this.activeTab(TabDataEnum.COURSE_WARE);
         } else if (node == this.imgTopicTrain) {
             // 专项技能训练
             LogUtils.info("专项技能训练");
-            this.activeTab(ViewConstants.TOPIC_TRAIN);
+            this.activeTab(TabDataEnum.TOPIC_TRAIN);
         } else if (node == this.imgEmergeTrain) {
             // 专项急救案例训练
             LogUtils.info("专项急救案例训练");
-            this.activeTab(ViewConstants.EMERGE_TRAIN);
+            this.activeTab(TabDataEnum.EMERGE_TRAIN);
         } else if (node == this.imgEmergeExam) {
             // 专项急救案例考核
             LogUtils.info("专项急救案例考核");
-            this.activeTab(ViewConstants.EMERGE_EXAM);
+            this.activeTab(TabDataEnum.EMERGE_EXAM);
         } else if (node == this.imgSystemCfg) {
             // 系统功能
             LogUtils.info("系统功能设置");
-            this.activeTab(ViewConstants.SYSTEM_CFG);
+            this.activeTab(TabDataEnum.SYSTEM_CFG);
         } else {
             // 未知
             LogUtils.error("未知的导航操作", new RuntimeException("未知的导航操作"));
@@ -160,9 +161,9 @@ public class MainViewController {
     /**
      * 根据用户数据查询TAB
      */
-    public Tab findTab(String userData) {
+    public Tab findTab(TabDataEnum tabdata) {
         for (Tab tab : this.tabPane.getTabs()) {
-            if (StringUtils.equalsIgnoreCase(ObjectUtils.toString(tab.getUserData()), userData)) {
+            if (StringUtils.equalsIgnoreCase(ObjectUtils.toString(tab.getUserData()), tabdata.code())) {
                 return tab;
             }
         }
@@ -173,18 +174,18 @@ public class MainViewController {
     /**
      * 激活TAB
      */
-    public void activeTab(String userData) {
-        if (StringUtils.equals(userData, ViewConstants.MAIN_VIEW)) {
+    public void activeTab(TabDataEnum tabdata) {
+        if (tabdata == TabDataEnum.MAIN_VIEW) {
             this.activeMainViewTab();
-        } else if (StringUtils.equals(userData, ViewConstants.COURSE_WARE)) {
+        } else if (tabdata == TabDataEnum.COURSE_WARE) {
             this.activeCourseWareTab();
-        } else if (StringUtils.equals(userData, ViewConstants.TOPIC_TRAIN)) {
+        } else if (tabdata == TabDataEnum.TOPIC_TRAIN) {
             this.activeTopicTrainTab();
-        } else if (StringUtils.equals(userData, ViewConstants.EMERGE_TRAIN)) {
+        } else if (tabdata == TabDataEnum.EMERGE_TRAIN) {
             this.activeEmergeTrainTab();
-        } else if (StringUtils.equals(userData, ViewConstants.EMERGE_EXAM)) {
+        } else if (tabdata == TabDataEnum.EMERGE_EXAM) {
             this.activeEmergeExamTab();
-        } else if (StringUtils.equals(userData, ViewConstants.SYSTEM_CFG)) {
+        } else if (tabdata == TabDataEnum.SYSTEM_CFG) {
             this.activeSystemCfgTab();
         }
     }
@@ -194,7 +195,7 @@ public class MainViewController {
      */
     private void activeMainViewTab() {
         // 查找
-        Tab tab = this.findTab(ViewConstants.MAIN_VIEW);
+        Tab tab = this.findTab(TabDataEnum.MAIN_VIEW);
         if (tab == null) {
             String msg = "主页面Tab不存在，请重新登录系统!";
             LogUtils.error(msg, new RuntimeException(msg));
@@ -209,28 +210,28 @@ public class MainViewController {
      * 激活“系统课件”TAB
      */
     private void activeCourseWareTab() {
-        String udata = ViewConstants.COURSE_WARE;
+        TabDataEnum tdata = TabDataEnum.COURSE_WARE;
         // 新建
-        Tab tab = this.findTab(udata);
+        Tab tab = this.findTab(tdata);
         if (tab == null) {
             BorderPane border = new BorderPane();
 
             // TOP
             TopFrameControl topCtrl = new TopFrameControl(this);
             ImageView spec = topCtrl.getImgCourseWare();
-            spec.setOpacity(ViewConstants.OPACITY_ON);
+            spec.setOpacity(UConst.OPACITY_ON);
             this.initTopFrameControl(topCtrl, spec);
             border.setTop(topCtrl);
 
             // Center
             WebView webView = new WebView();
             final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(udata));
+            webEngine.load(this.findHtmlUrl(tdata.code()));
             border.setCenter(webView);
 
-            tab = new Tab("系统课件");
+            tab = new Tab(tdata.desp());
             tab.setClosable(true);
-            tab.setUserData(udata);
+            tab.setUserData(tdata.code());
             tab.setGraphic(new ImageView(this.findTabCourseWare()));
             tab.setContent(border);
 
@@ -246,28 +247,28 @@ public class MainViewController {
      * 激活“专项技能训练”TAB
      */
     private void activeTopicTrainTab() {
-        String udata = ViewConstants.TOPIC_TRAIN;
+        TabDataEnum tdata = TabDataEnum.TOPIC_TRAIN;
         // 新建
-        Tab tab = this.findTab(udata);
+        Tab tab = this.findTab(tdata);
         if (tab == null) {
             BorderPane border = new BorderPane();
 
             // TOP
             TopFrameControl topCtrl = new TopFrameControl(this);
             ImageView spec = topCtrl.getImgTopicTrain();
-            spec.setOpacity(ViewConstants.OPACITY_ON);
+            spec.setOpacity(UConst.OPACITY_ON);
             this.initTopFrameControl(topCtrl, spec);
             border.setTop(topCtrl);
 
             // Center
             WebView webView = new WebView();
             final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(udata));
+            webEngine.load(this.findHtmlUrl(tdata.code()));
             border.setCenter(webView);
 
-            tab = new Tab("专项技能训练");
+            tab = new Tab(tdata.desp());
             tab.setClosable(true);
-            tab.setUserData(udata);
+            tab.setUserData(tdata.code());
             tab.setGraphic(new ImageView(this.findTabTopicTrain()));
             tab.setContent(border);
 
@@ -283,28 +284,28 @@ public class MainViewController {
      * 激活“专业急救训练”TAB
      */
     private void activeEmergeTrainTab() {
-        String udata = ViewConstants.EMERGE_TRAIN;
+        TabDataEnum tdata = TabDataEnum.EMERGE_TRAIN;
         // 新建
-        Tab tab = this.findTab(udata);
+        Tab tab = this.findTab(tdata);
         if (tab == null) {
             BorderPane border = new BorderPane();
 
             // TOP
             TopFrameControl topCtrl = new TopFrameControl(this);
             ImageView spec = topCtrl.getImgEmergeTrain();
-            spec.setOpacity(ViewConstants.OPACITY_ON);
+            spec.setOpacity(UConst.OPACITY_ON);
             this.initTopFrameControl(topCtrl, spec);
             border.setTop(topCtrl);
 
             // Center
             WebView webView = new WebView();
             final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(udata));
+            webEngine.load(this.findHtmlUrl(tdata.code()));
             border.setCenter(webView);
 
-            tab = new Tab("专项急救案例训练");
+            tab = new Tab(tdata.desp());
             tab.setClosable(true);
-            tab.setUserData(udata);
+            tab.setUserData(tdata.code());
             tab.setGraphic(new ImageView(this.findTabTopicTrain()));
             tab.setContent(border);
 
@@ -320,28 +321,28 @@ public class MainViewController {
      * 激活“专业急救考核”TAB
      */
     private void activeEmergeExamTab() {
-        String udata = ViewConstants.EMERGE_EXAM;
+        TabDataEnum tdata = TabDataEnum.EMERGE_EXAM;
         // 新建
-        Tab tab = this.findTab(udata);
+        Tab tab = this.findTab(tdata);
         if (tab == null) {
             BorderPane border = new BorderPane();
 
             // TOP
             TopFrameControl topCtrl = new TopFrameControl(this);
             ImageView spec = topCtrl.getImgEmergeExam();
-            spec.setOpacity(ViewConstants.OPACITY_ON);
+            spec.setOpacity(UConst.OPACITY_ON);
             this.initTopFrameControl(topCtrl, spec);
             border.setTop(topCtrl);
 
             // Center
             WebView webView = new WebView();
             final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(udata));
+            webEngine.load(this.findHtmlUrl(tdata.code()));
             border.setCenter(webView);
 
-            tab = new Tab("专项急救案例考核");
+            tab = new Tab(tdata.desp());
             tab.setClosable(true);
-            tab.setUserData(udata);
+            tab.setUserData(tdata.code());
             tab.setGraphic(new ImageView(this.findTabTopicTrain()));
             tab.setContent(border);
 
@@ -357,28 +358,28 @@ public class MainViewController {
      * 激活“系统功能”TAB
      */
     private void activeSystemCfgTab() {
-        String udata = ViewConstants.SYSTEM_CFG;
+        TabDataEnum tdata = TabDataEnum.SYSTEM_CFG;
         // 新建
-        Tab tab = this.findTab(udata);
+        Tab tab = this.findTab(tdata);
         if (tab == null) {
             BorderPane border = new BorderPane();
 
             // TOP
             TopFrameControl topCtrl = new TopFrameControl(this);
             ImageView spec = topCtrl.getImgSystemCfg();
-            spec.setOpacity(ViewConstants.OPACITY_ON);
+            spec.setOpacity(UConst.OPACITY_ON);
             this.initTopFrameControl(topCtrl, spec);
             border.setTop(topCtrl);
 
             // Center
             WebView webView = new WebView();
             final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(udata));
+            webEngine.load(this.findHtmlUrl(tdata.code()));
             border.setCenter(webView);
 
-            tab = new Tab("系统功能设置");
+            tab = new Tab(tdata.desp());
             tab.setClosable(true);
-            tab.setUserData(udata);
+            tab.setUserData(tdata.code());
             tab.setGraphic(new ImageView(this.findTabTopicTrain()));
             tab.setContent(border);
 
@@ -405,7 +406,7 @@ public class MainViewController {
                 public void handle(MouseEvent evt) {
                     img.setCursor(Cursor.HAND);
                     if (img != spec) {
-                        img.setOpacity(ViewConstants.OPACITY_ON);
+                        img.setOpacity(UConst.OPACITY_ON);
                     }
                 }
             });
@@ -415,7 +416,7 @@ public class MainViewController {
                 public void handle(MouseEvent evt) {
                     img.setCursor(Cursor.DEFAULT);
                     if (img != spec) {
-                        img.setOpacity(ViewConstants.OPACITY_OUT);
+                        img.setOpacity(UConst.OPACITY_OUT);
                     }
                 }
             });
@@ -424,7 +425,7 @@ public class MainViewController {
             img.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent evt) {
                     String udata = ObjectUtils.toString(img.getUserData());
-                    activeTab(udata);
+                    activeTab(TabDataEnum.findByCode(udata));
                 }
             });
         }
@@ -470,7 +471,8 @@ public class MainViewController {
      * HTML文件URL
      */
     private String findHtmlUrl(String name) {
-        return "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/" + name + ".html");
+        return "http://www.baidu.com";
+        // return "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/" + name + ".html");
     }
 
 }
