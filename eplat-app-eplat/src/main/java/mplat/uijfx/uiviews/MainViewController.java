@@ -26,12 +26,16 @@ import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.controls.TopFrameControl;
 import mplat.uijfx.images.IMGS;
+import mplat.uijfx.uiviews.views.BaseWebView;
+import mplat.uijfx.uiviews.views.CourseWareWebView;
 import mplat.uijfx.utils.Alert;
 import mplat.utils.UConst;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.UIBtnMsg;
 import com.atom.core.uijfx.UIConfig;
@@ -42,7 +46,7 @@ import com.atom.core.uijfx.event.EventAdapter;
 /**
  * @author obullxl@gmail.com
  */
-public class MainViewController {
+public final class MainViewController {
     /** 组件尺寸 */
     private static final UISize SIZE = UISize.to(1000, 705);
 
@@ -81,7 +85,7 @@ public class MainViewController {
         // Tab标签
         TabDataEnum tabdata = TabDataEnum.MAIN_VIEW;
         this.tabMain.setClosable(false);
-        this.tabMain.setUserData(tabdata);
+        this.tabMain.setUserData(tabdata.code());
         this.tabMain.setGraphic(new ImageView(this.findTabWelcome()));
     }
 
@@ -174,6 +178,16 @@ public class MainViewController {
     /**
      * 激活TAB
      */
+    public void activeTab(Tab tab) {
+        // 保存
+        this.tabPane.getTabs().add(tab);
+        // 激活
+        this.tabPane.getSelectionModel().select(tab);
+    }
+
+    /**
+     * 激活TAB
+     */
     public void activeTab(TabDataEnum tabdata) {
         if (tabdata == TabDataEnum.MAIN_VIEW) {
             this.activeMainViewTab();
@@ -224,10 +238,8 @@ public class MainViewController {
             border.setTop(topCtrl);
 
             // Center
-            WebView webView = new WebView();
-            final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(tdata.code()));
-            border.setCenter(webView);
+            BaseWebView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
+            border.setCenter(webView.findWebView());
 
             tab = new Tab(tdata.desp());
             tab.setClosable(true);
@@ -241,6 +253,10 @@ public class MainViewController {
 
         // 激活
         this.tabPane.getSelectionModel().select(tab);
+    }
+
+    public void onItemClickAction(String itemNo) {
+        System.out.println(itemNo + ": 我被点击了哦~~");
     }
 
     /**
@@ -471,8 +487,8 @@ public class MainViewController {
      * HTML文件URL
      */
     private String findHtmlUrl(String name) {
-        return "http://www.baidu.com";
-        // return "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/" + name + ".html");
+        // return "http://www.baidu.com";
+        return "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/" + name + ".html");
     }
 
 }

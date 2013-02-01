@@ -41,7 +41,7 @@ public class TopFrameControl extends HBox {
     @FXML
     private ImageView                imgGotoMain;
 
-    /** 事件代理器 */
+    /** 根组件 */
     private final MainViewController parentView;
 
     /**
