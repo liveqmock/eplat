@@ -4,14 +4,20 @@
  */
 package mplat.uijfx.uiviews.views;
 
+import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import mplat.uijfx.uiviews.MainViewController;
 
+import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+
+import com.atom.core.lang.utils.CfgUtils;
 
 /**
  * 系统课件
@@ -21,26 +27,52 @@ import org.w3c.dom.events.EventTarget;
  */
 public final class CourseWareWebView extends BaseWebView {
 
-    /** 根组件 */
-    private final MainViewController rootView;
-
     /**
      * CTOR
      */
     public CourseWareWebView(MainViewController rootView, String url) {
-        super(url);
-
-        this.rootView = rootView;
+        super(rootView, url);
     }
 
     /** 
-     * @see mplat.uijfx.uiviews.views.BaseWebView#onSuccessBodyLoad(javafx.scene.web.WebEngine)
+     * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad(javafx.scene.web.WebEngine)
      */
-    public void onSuccessBodyLoad(final WebEngine webEngine) {
+    public void onWebSuccessLoad(final WebEngine webEngine) {
         Document doc = webEngine.getDocument();
+        for (int i = 1; i <= 5; i++) {
+            // Element el = doc.getElementById("item_" + i);
+            // ((EventTarget) el).addEventListener("click", this.buildEventListener(i), false);
+        }
 
-        Element el = doc.getElementById("item_1");
-        ((EventTarget) el).addEventListener("click", new EventListener() {
+        Element el = doc.getElementById("btn_11B");
+        ((EventTarget) el).addEventListener("click", this.buildEventListener(), false);
+    }
+
+    /**
+     * 事件监听器
+     */
+    private EventListener buildEventListener() {
+        return new EventListener() {
+            public void handleEvent(Event evt) {
+                BorderPane border = new BorderPane();
+                WebView webView = new WebView();
+                webView.getEngine().load("file:///D:/ACLS8000/Resource/InterfaceIndex/%E6%80%A5%E6%80%A7%E5%BF%83%E5%8C%85%E5%A1%AB%E5%A1%9E%E5%BC%95%E8%B5%B7PEA.html");
+                border.setCenter(webView);
+                
+                Tab tab = new Tab("PPT");
+                tab.setClosable(true);
+                tab.setContent(border);
+
+                getRootView().activeTab(tab);
+            }
+        };
+    }
+    
+    /**
+     * 事件监听器
+     */
+    private EventListener buildEventListener(final int no) {
+        return new EventListener() {
             public void handleEvent(Event evt) {
                 /*
                 BorderPane border = new BorderPane();
@@ -54,9 +86,9 @@ public final class CourseWareWebView extends BaseWebView {
 
                 rootView.activeTab(tab);
                 */
-                System.out.println("哈哈~~~~");
+                System.out.println(no + ": 哈哈~~~~");
             }
-        }, false);
+        };
     }
 
 }

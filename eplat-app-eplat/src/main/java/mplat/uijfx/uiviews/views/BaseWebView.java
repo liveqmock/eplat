@@ -4,17 +4,12 @@
  */
 package mplat.uijfx.uiviews.views;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.events.Event;
-import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.EventTarget;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import mplat.uijfx.uiviews.MainViewController;
 
 /**
  * Web组件基类
@@ -22,7 +17,7 @@ import javafx.scene.web.WebView;
  * @author obullxl@gmail.com
  * @version $Id: BaseWebView.java, V1.0.1 2013-2-1 下午10:56:51 $
  */
-public abstract class BaseWebView {
+public abstract class BaseWebView extends BaseView {
 
     /** Web组件 */
     private final WebView webView;
@@ -30,30 +25,34 @@ public abstract class BaseWebView {
     /**
      * CTOR
      */
-    public BaseWebView(String url) {
+    public BaseWebView(MainViewController rootView, String url) {
+        super(rootView);
+        
         this.webView = new WebView();
         this.webView.getEngine().load(url);
 
         final WebEngine webEngine = this.webView.getEngine();
         webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+            @SuppressWarnings("rawtypes")
             public void changed(ObservableValue ov, State oldState, State newState) {
                 if (newState == State.SUCCEEDED) {
-                    onSuccessBodyLoad(webEngine);
+                    onWebSuccessLoad(webEngine);
                 }
             }
         });
     }
-
-    /**
-     * 获取当前组件
+    
+    /** 
+     * @see mplat.uijfx.uiviews.views.BaseView#findView()
      */
-    public WebView findWebView() {
+    @SuppressWarnings("unchecked")
+    public WebView findView() {
         return this.webView;
     }
 
     /**
      * 初始化事件
      */
-    protected abstract void onSuccessBodyLoad(final WebEngine webEngine);
+    protected abstract void onWebSuccessLoad(final WebEngine webEngine);
 
 }

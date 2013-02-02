@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.controls.TopFrameControl;
 import mplat.uijfx.images.IMGS;
-import mplat.uijfx.uiviews.views.BaseWebView;
+import mplat.uijfx.uiviews.views.BaseView;
 import mplat.uijfx.uiviews.views.CourseWareWebView;
 import mplat.uijfx.utils.Alert;
 import mplat.utils.UConst;
@@ -238,8 +238,8 @@ public final class MainViewController {
             border.setTop(topCtrl);
 
             // Center
-            BaseWebView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
-            border.setCenter(webView.findWebView());
+            BaseView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
+            border.setCenter((WebView) webView.findView());
 
             tab = new Tab(tdata.desp());
             tab.setClosable(true);
@@ -253,10 +253,6 @@ public final class MainViewController {
 
         // 激活
         this.tabPane.getSelectionModel().select(tab);
-    }
-
-    public void onItemClickAction(String itemNo) {
-        System.out.println(itemNo + ": 我被点击了哦~~");
     }
 
     /**
@@ -277,10 +273,8 @@ public final class MainViewController {
             border.setTop(topCtrl);
 
             // Center
-            WebView webView = new WebView();
-            final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(tdata.code()));
-            border.setCenter(webView);
+            BaseView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
+            border.setCenter((WebView) webView.findView());
 
             tab = new Tab(tdata.desp());
             tab.setClosable(true);
@@ -314,15 +308,13 @@ public final class MainViewController {
             border.setTop(topCtrl);
 
             // Center
-            WebView webView = new WebView();
-            final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(tdata.code()));
-            border.setCenter(webView);
+            BaseView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
+            border.setCenter((WebView) webView.findView());
 
             tab = new Tab(tdata.desp());
             tab.setClosable(true);
             tab.setUserData(tdata.code());
-            tab.setGraphic(new ImageView(this.findTabTopicTrain()));
+            tab.setGraphic(new ImageView(this.findTabEmergeTrain()));
             tab.setContent(border);
 
             // 保存
@@ -481,6 +473,10 @@ public final class MainViewController {
 
     private Image findTabTopicTrain() {
         return new Image(IMGS.class.getResourceAsStream("btn-topic-train.jpg"), 20, 20, false, false);
+    }
+    
+    private Image findTabEmergeTrain() {
+        return new Image(IMGS.class.getResourceAsStream("btn-emerge-train.jpg"), 20, 20, false, false);
     }
 
     /**
