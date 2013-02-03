@@ -4,14 +4,20 @@
  */
 package mplat.uijfx.uiviews.views;
 
+import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import mplat.uijfx.uiviews.MainViewController;
 
+import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+
+import com.atom.core.lang.utils.CfgUtils;
 
 /**
  * 专业案例训练
@@ -78,6 +84,26 @@ public final class EmergeTrainWebView extends BaseWebView<MainViewController> {
 
     private void onHandleEvent(Event evt, int ctg, int no) {
         System.out.println(ctg + "-" + no + ": 点击了~~~~~");
+
+        BorderPane border = new BorderPane();
+
+        // Center
+        BaseView<?, ?> webView = new CourseWareWebView(this.getRootView(), this.findHtmlUrl("PEA"));
+        border.setCenter((WebView) webView.findView());
+
+        Tab tab = new Tab("TEST");
+        tab.setClosable(true);
+        tab.setContent(border);
+
+        // 保存
+        this.getRootView().activeTab(tab);
+    }
+
+    /**
+     * HTML文件URL
+     */
+    private String findHtmlUrl(String name) {
+        return "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/" + name + ".html");
     }
 
 }

@@ -27,9 +27,6 @@ import com.atom.core.lang.utils.LogUtils;
 public class TopFrameControl extends HBox {
 
     @FXML
-    private HBox                     topFrame;
-
-    @FXML
     private ImageView                imgCourseWare;
     @FXML
     private ImageView                imgTopicTrain;
@@ -160,14 +157,6 @@ public class TopFrameControl extends HBox {
     }
 
     // ~~~~~~~~ getters and setters ~~~~~~~~~ //
-
-    public HBox getTopFrame() {
-        return topFrame;
-    }
-
-    public void setTopFrame(HBox topFrame) {
-        this.topFrame = topFrame;
-    }
 
     public ImageView getImgCourseWare() {
         return imgCourseWare;

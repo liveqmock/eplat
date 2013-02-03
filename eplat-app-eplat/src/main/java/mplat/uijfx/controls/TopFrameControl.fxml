@@ -7,10 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.HBox" fx:id="topFrame" alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="1500.0" spacing="10.0" styleClass="TopFrameView" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="javafx.scene.layout.HBox" alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="1500.0" spacing="10.0" styleClass="TopFrameView" xmlns:fx="http://javafx.com/fxml">
   <children>
     <ImageView fx:id="imgCourseWare" fitHeight="70.0" fitWidth="70.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>

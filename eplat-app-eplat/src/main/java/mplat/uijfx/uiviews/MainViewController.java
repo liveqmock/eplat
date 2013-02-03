@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -24,6 +23,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.controls.TopFrameControl;
+import mplat.uijfx.controls.TopMenuControl;
 import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.views.BaseView;
 import mplat.uijfx.uiviews.views.CourseWareWebView;
@@ -45,7 +45,6 @@ import com.atom.core.uijfx.UIConfig;
 import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.UITipMsg;
 import com.atom.core.uijfx.event.EventAdapter;
-import com.atom.core.uijfx.utils.StageUtils;
 
 /**
  * @author obullxl@gmail.com
@@ -55,12 +54,10 @@ public final class MainViewController {
     private static final UISize SIZE = UISize.to(1000, 705);
 
     private Stage               primaryStage;
+    private TopMenuControl      topMenuBar;
 
     @FXML
     private BorderPane          viewRoot;
-
-    @FXML
-    private MenuBar             menuBar;
 
     @FXML
     private TabPane             tabPane;
@@ -86,6 +83,11 @@ public final class MainViewController {
      */
     @FXML
     private void initialize() {
+        // 菜单
+        this.topMenuBar = new TopMenuControl(this);
+        this.viewRoot.setTop(this.topMenuBar);
+        // this.viewRoot.getTop().prefHeight(22.0);
+
         // Tab标签
         TabDataEnum tabdata = TabDataEnum.MAIN_VIEW;
         this.tabMain.setClosable(false);
@@ -100,7 +102,6 @@ public final class MainViewController {
         this.primaryStage = primaryStage;
 
         this.primaryStage.setTitle("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
-
         this.primaryStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
         // this.stage.sizeToScene();
         this.primaryStage.centerOnScreen();
@@ -151,20 +152,6 @@ public final class MainViewController {
         } else {
             // 未知
             LogUtils.error("未知的导航操作", new RuntimeException("未知的导航操作"));
-        }
-    }
-
-    @FXML
-    private void onMenuExit(ActionEvent evt) {
-        this.onExitSystem();
-    }
-
-    @FXML
-    private void onMenuAbout(ActionEvent evt) {
-        try {
-            StageUtils.findController(SystemAboutController.class).initViews(this.primaryStage);
-        } catch (Exception e) {
-            LogUtils.error("打开关于窗口异常！", e);
         }
     }
 

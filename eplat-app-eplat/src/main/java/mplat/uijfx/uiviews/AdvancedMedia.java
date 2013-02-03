@@ -46,6 +46,10 @@ import mplat.uijfx.images.IMGS;
  */
 public class AdvancedMedia extends Application {
     // private static final String        MEDIA_URL = "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
+    // private static final String        MEDIA_URL = "file:///E:/上海康人/flv/心包穿刺术.flv";
+    // private static final String        MEDIA_URL = "file:///E:/上海康人/MP4/视频01.mp4";
+    // private static final String        MEDIA_URL = "file:///E:/上海康人/MP4/视频3.mp4";
+    // private static final String        MEDIA_URL = "file:///E:/上海康人/MP4/视频4.mp4";
     private static final String        MEDIA_URL = "file:///E:/上海康人/MP4/视频5.mp4";
 
     private MediaPlayer                mediaPlayer;
@@ -117,25 +121,17 @@ public class AdvancedMedia extends Application {
 
         @Override
         protected void layoutChildren() {
-
             if (mediaView != null && getBottom() != null) {
-
                 mediaView.setFitWidth(getWidth());
-
                 mediaView.setFitHeight(getHeight() - getBottom().prefHeight(-1));
-
             }
 
             super.layoutChildren();
 
             if (mediaView != null && getCenter() != null) {
-
                 mediaView.setTranslateX((((Pane) getCenter()).getWidth() - mediaView.prefWidth(-1)) / 2);
-
                 mediaView.setTranslateY((((Pane) getCenter()).getHeight() - mediaView.prefHeight(-1)) / 2);
-
             }
-
         }
 
         @Override
@@ -285,14 +281,9 @@ public class AdvancedMedia extends Application {
             mediaBar.getChildren().add(timeSlider);
 
             // Play label
-
             playTime = LabelBuilder.create()
-
             //.prefWidth(130)
-
-                .minWidth(Control.USE_PREF_SIZE)
-
-                .build();
+                .minWidth(Control.USE_PREF_SIZE).build();
 
             mediaBar.getChildren().add(playTime);
 
@@ -354,52 +345,28 @@ public class AdvancedMedia extends Application {
             mediaBar.getChildren().add(buttonFullScreen);
 
             // Volume label
-
             Label volumeLabel = new Label("Vol");
-
             volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
-
             mediaBar.getChildren().add(volumeLabel);
 
             // Volume slider
-
-            volumeSlider = SliderBuilder.create()
-
-            .prefWidth(70)
-
-            .minWidth(30)
-
-            .maxWidth(Region.USE_PREF_SIZE)
-
-            .build();
+            volumeSlider = SliderBuilder.create().prefWidth(70).minWidth(30).maxWidth(Region.USE_PREF_SIZE).build();
 
             volumeSlider.valueProperty().addListener(new InvalidationListener() {
-
                 public void invalidated(Observable ov) {
-
                 }
-
             });
 
             volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-
-                @Override
                 public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
                     if (volumeSlider.isValueChanging()) {
-
                         mp.setVolume(volumeSlider.getValue() / 100.0);
-
                     }
-
                 }
-
             });
 
             mediaBar.getChildren().add(volumeSlider);
-
             setBottom(mediaBar);
-
         }
 
         protected void onFullScreen() {
@@ -419,91 +386,48 @@ public class AdvancedMedia extends Application {
         }
 
         protected void updateValues() {
-
             if (playTime != null && timeSlider != null && volumeSlider != null && duration != null) {
-
                 Platform.runLater(new Runnable() {
-
                     public void run() {
-
                         Duration currentTime = mp.getCurrentTime();
-
                         playTime.setText(formatTime(currentTime, duration));
-
                         timeSlider.setDisable(duration.isUnknown());
-
                         if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {
-
-                            timeSlider.setValue(currentTime.divide(duration).toMillis() * 100.0);
-
+                            timeSlider.setValue(currentTime.divide(duration.toMillis()).toMillis() * 100.0);
                         }
 
                         if (!volumeSlider.isValueChanging()) {
-
                             volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
-
                         }
-
                     }
-
                 });
-
             }
-
         }
 
         private String formatTime(Duration elapsed, Duration duration) {
-
             int intElapsed = (int) Math.floor(elapsed.toSeconds());
-
             int elapsedHours = intElapsed / (60 * 60);
-
             if (elapsedHours > 0) {
-
                 intElapsed -= elapsedHours * 60 * 60;
-
             }
 
             int elapsedMinutes = intElapsed / 60;
-
             int elapsedSeconds = intElapsed - elapsedHours * 60 * 60 - elapsedMinutes * 60;
-
             if (duration.greaterThan(Duration.ZERO)) {
-
                 int intDuration = (int) Math.floor(duration.toSeconds());
-
                 int durationHours = intDuration / (60 * 60);
-
                 if (durationHours > 0) {
-
                     intDuration -= durationHours * 60 * 60;
-
                 }
 
                 int durationMinutes = intDuration / 60;
-
                 int durationSeconds = intDuration - durationHours * 60 * 60 - durationMinutes * 60;
-
                 if (durationHours > 0) {
-
-                    return String.format("%d:%02d:%02d/%d:%02d:%02d",
-
-                    elapsedHours, elapsedMinutes, elapsedSeconds,
-
-                    durationHours, durationMinutes, durationSeconds);
-
+                    return String.format("%d:%02d:%02d/%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds, durationHours, durationMinutes, durationSeconds);
                 } else {
-
-                    return String.format("%02d:%02d/%02d:%02d",
-
-                    elapsedMinutes, elapsedSeconds,
-
-                    durationMinutes, durationSeconds);
-
+                    return String.format("%02d:%02d/%02d:%02d", elapsedMinutes, elapsedSeconds, durationMinutes, durationSeconds);
                 }
-
             } else {
-
                 if (elapsedHours > 0) {
                     return String.format("%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds);
                 } else {
