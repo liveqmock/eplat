@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
@@ -79,7 +80,14 @@
       </rowConstraints>
     </GridPane>
   </left>
+  <stylesheets>
+    <URL value="@Login.css" />
+  </stylesheets>
   <top>
-    <ImageView fx:id="imgLogo" fitHeight="70.0" fitWidth="713.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="imgLogo" fitHeight="70.0" fitWidth="713.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../images/login-logo.jpg" />
+      </image>
+    </ImageView>
   </top>
 </BorderPane>

@@ -20,7 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
@@ -28,6 +27,10 @@ import mplat.uijfx.controls.TopFrameControl;
 import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.views.BaseView;
 import mplat.uijfx.uiviews.views.CourseWareWebView;
+import mplat.uijfx.uiviews.views.EmergeExamWebView;
+import mplat.uijfx.uiviews.views.EmergeTrainWebView;
+import mplat.uijfx.uiviews.views.SystemCfgWebView;
+import mplat.uijfx.uiviews.views.TopicTrainWebView;
 import mplat.uijfx.utils.Alert;
 import mplat.utils.UConst;
 
@@ -189,214 +192,160 @@ public final class MainViewController {
      * 激活TAB
      */
     public void activeTab(TabDataEnum tabdata) {
-        if (tabdata == TabDataEnum.MAIN_VIEW) {
-            this.activeMainViewTab();
-        } else if (tabdata == TabDataEnum.COURSE_WARE) {
-            this.activeCourseWareTab();
-        } else if (tabdata == TabDataEnum.TOPIC_TRAIN) {
-            this.activeTopicTrainTab();
-        } else if (tabdata == TabDataEnum.EMERGE_TRAIN) {
-            this.activeEmergeTrainTab();
-        } else if (tabdata == TabDataEnum.EMERGE_EXAM) {
-            this.activeEmergeExamTab();
-        } else if (tabdata == TabDataEnum.SYSTEM_CFG) {
-            this.activeSystemCfgTab();
-        }
-    }
-
-    /**
-     * 激活“欢迎使用”TAB
-     */
-    private void activeMainViewTab() {
         // 查找
-        Tab tab = this.findTab(TabDataEnum.MAIN_VIEW);
-        if (tab == null) {
-            String msg = "主页面Tab不存在，请重新登录系统!";
-            LogUtils.error(msg, new RuntimeException(msg));
-            Alert.alert(UIConfig.get().setSize(UISize.to(400, 300)).setTipMsg(UITipMsg.to("系统异常", msg)));
-        } else {
+        Tab tab = this.findTab(tabdata);
+
+        if (tabdata == TabDataEnum.MAIN_VIEW) {
+            // 欢迎页面
+            if (tab == null) {
+                String msg = "主页面Tab不存在，请重新登录系统!";
+                LogUtils.error(msg, new RuntimeException(msg));
+                Alert.alert(UIConfig.get().setSize(UISize.to(400, 300)).setTipMsg(UITipMsg.to("系统异常", msg)));
+            } else {
+                // 激活
+                this.tabPane.getSelectionModel().select(tab);
+            }
+        } else if (tabdata == TabDataEnum.COURSE_WARE) {
+            // 系统课件
+            if (tab == null) {
+                BorderPane border = new BorderPane();
+
+                // TOP
+                TopFrameControl topCtrl = new TopFrameControl(this);
+                ImageView spec = topCtrl.getImgCourseWare();
+                spec.setOpacity(UConst.OPACITY_ON);
+                this.initTopFrameControl(topCtrl, spec);
+                border.setTop(topCtrl);
+
+                // Center
+                BaseView<?, ?> webView = new CourseWareWebView(this, this.findHtmlUrl(tabdata.code()));
+                border.setCenter((WebView) webView.findView());
+
+                tab = new Tab(tabdata.desp());
+                tab.setClosable(true);
+                tab.setUserData(tabdata.code());
+                tab.setGraphic(new ImageView(this.findTabCourseWare()));
+                tab.setContent(border);
+
+                // 保存
+                this.tabPane.getTabs().add(tab);
+            }
+
+            // 激活
+            this.tabPane.getSelectionModel().select(tab);
+        } else if (tabdata == TabDataEnum.TOPIC_TRAIN) {
+            // 专业急救训练
+            if (tab == null) {
+                BorderPane border = new BorderPane();
+
+                // TOP
+                TopFrameControl topCtrl = new TopFrameControl(this);
+                ImageView spec = topCtrl.getImgTopicTrain();
+                spec.setOpacity(UConst.OPACITY_ON);
+                this.initTopFrameControl(topCtrl, spec);
+                border.setTop(topCtrl);
+
+                // Center
+                BaseView<?, ?> webView = new TopicTrainWebView(this, this.findHtmlUrl(tabdata.code()));
+                border.setCenter((WebView) webView.findView());
+
+                tab = new Tab(tabdata.desp());
+                tab.setClosable(true);
+                tab.setUserData(tabdata.code());
+                tab.setGraphic(new ImageView(this.findTabTopicTrain()));
+                tab.setContent(border);
+
+                // 保存
+                this.tabPane.getTabs().add(tab);
+            }
+
+            // 激活
+            this.tabPane.getSelectionModel().select(tab);
+        } else if (tabdata == TabDataEnum.EMERGE_TRAIN) {
+            // 急救案例训练
+            if (tab == null) {
+                BorderPane border = new BorderPane();
+
+                // TOP
+                TopFrameControl topCtrl = new TopFrameControl(this);
+                ImageView spec = topCtrl.getImgEmergeTrain();
+                spec.setOpacity(UConst.OPACITY_ON);
+                this.initTopFrameControl(topCtrl, spec);
+                border.setTop(topCtrl);
+
+                // Center
+                BaseView<?, ?> webView = new EmergeTrainWebView(this, this.findHtmlUrl(tabdata.code()));
+                border.setCenter((WebView) webView.findView());
+
+                tab = new Tab(tabdata.desp());
+                tab.setClosable(true);
+                tab.setUserData(tabdata.code());
+                tab.setGraphic(new ImageView(this.findTabEmergeTrain()));
+                tab.setContent(border);
+
+                // 保存
+                this.tabPane.getTabs().add(tab);
+            }
+
+            // 激活
+            this.tabPane.getSelectionModel().select(tab);
+        } else if (tabdata == TabDataEnum.EMERGE_EXAM) {
+            // 急救案例考核
+            if (tab == null) {
+                BorderPane border = new BorderPane();
+
+                // TOP
+                TopFrameControl topCtrl = new TopFrameControl(this);
+                ImageView spec = topCtrl.getImgEmergeExam();
+                spec.setOpacity(UConst.OPACITY_ON);
+                this.initTopFrameControl(topCtrl, spec);
+                border.setTop(topCtrl);
+
+                // Center
+                BaseView<?, ?> webView = new EmergeExamWebView(this, this.findHtmlUrl(tabdata.code()));
+                border.setCenter((WebView) webView.findView());
+
+                tab = new Tab(tabdata.desp());
+                tab.setClosable(true);
+                tab.setUserData(tabdata.code());
+                tab.setGraphic(new ImageView(this.findTabEmergeExam()));
+                tab.setContent(border);
+
+                // 保存
+                this.tabPane.getTabs().add(tab);
+            }
+
+            // 激活
+            this.tabPane.getSelectionModel().select(tab);
+        } else if (tabdata == TabDataEnum.SYSTEM_CFG) {
+            // 系统功能设置
+            if (tab == null) {
+                BorderPane border = new BorderPane();
+
+                // TOP
+                TopFrameControl topCtrl = new TopFrameControl(this);
+                ImageView spec = topCtrl.getImgSystemCfg();
+                spec.setOpacity(UConst.OPACITY_ON);
+                this.initTopFrameControl(topCtrl, spec);
+                border.setTop(topCtrl);
+
+                // Center
+                BaseView<?, ?> webView = new SystemCfgWebView(this, this.findHtmlUrl(tabdata.code()));
+                border.setCenter((WebView) webView.findView());
+
+                tab = new Tab(tabdata.desp());
+                tab.setClosable(true);
+                tab.setUserData(tabdata.code());
+                tab.setGraphic(new ImageView(this.findTabSystemCfg()));
+                tab.setContent(border);
+
+                // 保存
+                this.tabPane.getTabs().add(tab);
+            }
+
             // 激活
             this.tabPane.getSelectionModel().select(tab);
         }
-    }
-
-    /**
-     * 激活“系统课件”TAB
-     */
-    private void activeCourseWareTab() {
-        TabDataEnum tdata = TabDataEnum.COURSE_WARE;
-        // 新建
-        Tab tab = this.findTab(tdata);
-        if (tab == null) {
-            BorderPane border = new BorderPane();
-
-            // TOP
-            TopFrameControl topCtrl = new TopFrameControl(this);
-            ImageView spec = topCtrl.getImgCourseWare();
-            spec.setOpacity(UConst.OPACITY_ON);
-            this.initTopFrameControl(topCtrl, spec);
-            border.setTop(topCtrl);
-
-            // Center
-            BaseView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
-            border.setCenter((WebView) webView.findView());
-
-            tab = new Tab(tdata.desp());
-            tab.setClosable(true);
-            tab.setUserData(tdata.code());
-            tab.setGraphic(new ImageView(this.findTabCourseWare()));
-            tab.setContent(border);
-
-            // 保存
-            this.tabPane.getTabs().add(tab);
-        }
-
-        // 激活
-        this.tabPane.getSelectionModel().select(tab);
-    }
-
-    /**
-     * 激活“专项技能训练”TAB
-     */
-    private void activeTopicTrainTab() {
-        TabDataEnum tdata = TabDataEnum.TOPIC_TRAIN;
-        // 新建
-        Tab tab = this.findTab(tdata);
-        if (tab == null) {
-            BorderPane border = new BorderPane();
-
-            // TOP
-            TopFrameControl topCtrl = new TopFrameControl(this);
-            ImageView spec = topCtrl.getImgTopicTrain();
-            spec.setOpacity(UConst.OPACITY_ON);
-            this.initTopFrameControl(topCtrl, spec);
-            border.setTop(topCtrl);
-
-            // Center
-            BaseView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
-            border.setCenter((WebView) webView.findView());
-
-            tab = new Tab(tdata.desp());
-            tab.setClosable(true);
-            tab.setUserData(tdata.code());
-            tab.setGraphic(new ImageView(this.findTabTopicTrain()));
-            tab.setContent(border);
-
-            // 保存
-            this.tabPane.getTabs().add(tab);
-        }
-
-        // 激活
-        this.tabPane.getSelectionModel().select(tab);
-    }
-
-    /**
-     * 激活“专业急救训练”TAB
-     */
-    private void activeEmergeTrainTab() {
-        TabDataEnum tdata = TabDataEnum.EMERGE_TRAIN;
-        // 新建
-        Tab tab = this.findTab(tdata);
-        if (tab == null) {
-            BorderPane border = new BorderPane();
-
-            // TOP
-            TopFrameControl topCtrl = new TopFrameControl(this);
-            ImageView spec = topCtrl.getImgEmergeTrain();
-            spec.setOpacity(UConst.OPACITY_ON);
-            this.initTopFrameControl(topCtrl, spec);
-            border.setTop(topCtrl);
-
-            // Center
-            BaseView webView = new CourseWareWebView(this, this.findHtmlUrl(tdata.code()));
-            border.setCenter((WebView) webView.findView());
-
-            tab = new Tab(tdata.desp());
-            tab.setClosable(true);
-            tab.setUserData(tdata.code());
-            tab.setGraphic(new ImageView(this.findTabEmergeTrain()));
-            tab.setContent(border);
-
-            // 保存
-            this.tabPane.getTabs().add(tab);
-        }
-
-        // 激活
-        this.tabPane.getSelectionModel().select(tab);
-    }
-
-    /**
-     * 激活“专业急救考核”TAB
-     */
-    private void activeEmergeExamTab() {
-        TabDataEnum tdata = TabDataEnum.EMERGE_EXAM;
-        // 新建
-        Tab tab = this.findTab(tdata);
-        if (tab == null) {
-            BorderPane border = new BorderPane();
-
-            // TOP
-            TopFrameControl topCtrl = new TopFrameControl(this);
-            ImageView spec = topCtrl.getImgEmergeExam();
-            spec.setOpacity(UConst.OPACITY_ON);
-            this.initTopFrameControl(topCtrl, spec);
-            border.setTop(topCtrl);
-
-            // Center
-            WebView webView = new WebView();
-            final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(tdata.code()));
-            border.setCenter(webView);
-
-            tab = new Tab(tdata.desp());
-            tab.setClosable(true);
-            tab.setUserData(tdata.code());
-            tab.setGraphic(new ImageView(this.findTabTopicTrain()));
-            tab.setContent(border);
-
-            // 保存
-            this.tabPane.getTabs().add(tab);
-        }
-
-        // 激活
-        this.tabPane.getSelectionModel().select(tab);
-    }
-
-    /**
-     * 激活“系统功能”TAB
-     */
-    private void activeSystemCfgTab() {
-        TabDataEnum tdata = TabDataEnum.SYSTEM_CFG;
-        // 新建
-        Tab tab = this.findTab(tdata);
-        if (tab == null) {
-            BorderPane border = new BorderPane();
-
-            // TOP
-            TopFrameControl topCtrl = new TopFrameControl(this);
-            ImageView spec = topCtrl.getImgSystemCfg();
-            spec.setOpacity(UConst.OPACITY_ON);
-            this.initTopFrameControl(topCtrl, spec);
-            border.setTop(topCtrl);
-
-            // Center
-            WebView webView = new WebView();
-            final WebEngine webEngine = webView.getEngine();
-            webEngine.load(this.findHtmlUrl(tdata.code()));
-            border.setCenter(webView);
-
-            tab = new Tab(tdata.desp());
-            tab.setClosable(true);
-            tab.setUserData(tdata.code());
-            tab.setGraphic(new ImageView(this.findTabTopicTrain()));
-            tab.setContent(border);
-
-            // 保存
-            this.tabPane.getTabs().add(tab);
-        }
-
-        // 激活
-        this.tabPane.getSelectionModel().select(tab);
     }
 
     // ~~~~~~~~ getters and setters ~~~~~~~~~ //
@@ -481,6 +430,14 @@ public final class MainViewController {
 
     private Image findTabEmergeTrain() {
         return new Image(IMGS.class.getResourceAsStream("btn-emerge-train.jpg"), 20, 20, false, false);
+    }
+
+    private Image findTabEmergeExam() {
+        return new Image(IMGS.class.getResourceAsStream("btn-emerge-exam.jpg"), 20, 20, false, false);
+    }
+
+    private Image findTabSystemCfg() {
+        return new Image(IMGS.class.getResourceAsStream("btn-system-cfg.jpg"), 20, 20, false, false);
     }
 
     /**

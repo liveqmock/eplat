@@ -39,9 +39,9 @@
     </ImageView>
     <StackPane alignment="CENTER_RIGHT" prefHeight="120.0" HBox.hgrow="ALWAYS">
       <children>
-        <ImageView fx:id="imgGotoMain" fitHeight="70.0" fitWidth="70.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="imgGotoMain" fitHeight="70.0" fitWidth="70.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@../images/return.gif" />
+            <Image url="@../images/btn-return-out.gif" />
           </image>
         </ImageView>
       </children>

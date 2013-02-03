@@ -8,12 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import mplat.mgt.enums.TabDataEnum;
+import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.MainViewController;
-import mplat.utils.UConst;
 
 import com.atom.core.lang.utils.LogUtils;
 
@@ -81,7 +82,7 @@ public class TopFrameControl extends HBox {
         } else if (node == this.imgGotoMain) {
             // 返回主界面
             this.imgGotoMain.setCursor(Cursor.HAND);
-            this.imgGotoMain.setOpacity(UConst.OPACITY_ON);
+            this.imgGotoMain.setImage(this.findGotoMainOn());
         }
     }
 
@@ -102,7 +103,7 @@ public class TopFrameControl extends HBox {
         } else if (node == this.imgGotoMain) {
             // 返回主界面
             this.imgGotoMain.setCursor(Cursor.DEFAULT);
-            this.imgGotoMain.setOpacity(UConst.OPACITY_OUT);
+            this.imgGotoMain.setImage(this.findGotoMainOut());
         }
     }
 
@@ -146,6 +147,16 @@ public class TopFrameControl extends HBox {
         this.imgEmergeTrain.setUserData(TabDataEnum.EMERGE_TRAIN.code());
         this.imgEmergeExam.setUserData(TabDataEnum.EMERGE_EXAM.code());
         this.imgSystemCfg.setUserData(TabDataEnum.SYSTEM_CFG.code());
+    }
+
+    // ~~~~~~~~ 图片信息 ~~~~~~~~~~~~~~~ //
+
+    private Image findGotoMainOn() {
+        return new Image(IMGS.class.getResourceAsStream("btn-return-on.gif"), 52, 52, false, false);
+    }
+
+    private Image findGotoMainOut() {
+        return new Image(IMGS.class.getResourceAsStream("btn-return-out.gif"), 52, 52, false, false);
     }
 
     // ~~~~~~~~ getters and setters ~~~~~~~~~ //

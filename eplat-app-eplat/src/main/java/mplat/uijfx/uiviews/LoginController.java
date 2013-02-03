@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
-import mplat.uijfx.images.IMGS;
 import mplat.uijfx.utils.Alert;
 
 import org.apache.commons.lang.StringUtils;
@@ -51,7 +50,7 @@ public class LoginController {
     @FXML
     private PasswordField       txtUserPasswd;
     @FXML
-    private ComboBox            cboxPorts;
+    private ComboBox<String>    cboxPorts;
     @FXML
     private HBox                hboxTipMsg;
     @FXML
@@ -68,7 +67,7 @@ public class LoginController {
         this.txtUserName.setText("admin");
         this.txtUserPasswd.setText("888888");
 
-        this.imgLogo.setImage(IMGS.findLoginLogo());
+        this.cboxPorts.getSelectionModel().select(0);
 
         this.lblTipMsg.setText("请登录系统~");
     }
@@ -101,7 +100,10 @@ public class LoginController {
     private void onLoginAction(ActionEvent event) throws Exception {
         String userName = this.txtUserName.getText();
         String userPasswd = this.txtUserPasswd.getText();
+
         int portNameIdx = this.cboxPorts.getSelectionModel().getSelectedIndex();
+        String portName = this.cboxPorts.getSelectionModel().getSelectedItem();
+        System.out.println("下位机-" + portNameIdx + ": " + portName);
 
         UserInfoDTO user = MgtFactory.get().getUserMgt().tryLogin(userName, userPasswd);
         if (user == null) {
@@ -119,7 +121,6 @@ public class LoginController {
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
 
             StageUtils.findController(MainViewController.class).initViews(this.stage);
-            // StageUtils.findController(Welcome2Controller.class).initViews(this.stage);
         }
     }
 
