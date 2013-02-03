@@ -1,50 +1,15 @@
 /**
- * obullxl@gmail.com
+ * Author: obullxl@gmail.com
+ * Copyright (c) 2004-2013 All Rights Reserved.
  */
 package mplat.uijfx.images;
 
-import javafx.scene.image.Image;
-
 /**
+ * IMGS点位符
+ * 
  * @author obullxl@gmail.com
+ * @version $Id: IMGS.java, V1.0.1 2013-1-31 下午1:21:41 $
  */
 public class IMGS {
-    private static Image LOGIN_LOGO;
-    private static Image WELCOME_LOGO;
-    private static Image WELCOME_COPY_RGT;
-
-    private static Image EXIT;
-
-    public static Image findLoginLogo() {
-        if(LOGIN_LOGO == null) {
-            LOGIN_LOGO = new Image(IMGS.class.getResourceAsStream("login-logo.jpg"));
-        }
-
-        return LOGIN_LOGO;
-    }
-
-    public static Image findWelcomeLogo() {
-        if(WELCOME_LOGO == null) {
-            WELCOME_LOGO = new Image(IMGS.class.getResourceAsStream("welcome-logo.jpg"));
-        }
-
-        return WELCOME_LOGO;
-    }
-
-    public static Image findWelcomeCopyRgt() {
-        if(WELCOME_COPY_RGT == null) {
-            WELCOME_COPY_RGT = new Image(IMGS.class.getResourceAsStream("welcome-copyrgt.jpg"));
-        }
-
-        return WELCOME_COPY_RGT;
-    }
-
-    public static Image findExit() {
-        if(EXIT == null) {
-            EXIT = new Image(IMGS.class.getResourceAsStream("exit.jpg"));
-        }
-
-        return EXIT;
-    }
 
 }
