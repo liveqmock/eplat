@@ -19,10 +19,10 @@ import javafx.stage.WindowEvent;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.utils.Alert;
+import mplat.utils.UserHolder;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.atom.core.lang.user.UserHolder;
 import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.UIBtnMsg;
 import com.atom.core.uijfx.UIConfig;
@@ -64,8 +64,9 @@ public class LoginController {
         this.txtUserName.setPromptText("用户名");
         this.txtUserPasswd.setPromptText("密码");
 
-        this.txtUserName.setText("admin");
-        this.txtUserPasswd.setText("888888");
+        UserInfoDTO user = MgtFactory.get().getUserMgt().find("admin");
+        this.txtUserName.setText(user.getUserName());
+        this.txtUserPasswd.setText(user.getUserPasswd());
 
         this.cboxPorts.getSelectionModel().select(0);
 
@@ -105,7 +106,7 @@ public class LoginController {
         String portName = this.cboxPorts.getSelectionModel().getSelectedItem();
         System.out.println("下位机-" + portNameIdx + ": " + portName);
 
-        UserInfoDTO user = MgtFactory.get().getUserMgt().tryLogin(userName, userPasswd);
+        UserInfoDTO user = MgtFactory.get().getUserMgt().login(userName, userPasswd);
         if (user == null) {
             this.lblTipMsg.setText("用户不存在或密码错误，请重新输入！");
             LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
@@ -117,7 +118,7 @@ public class LoginController {
 
             Alert.alert(UIConfig.get().setSize(UISize.to(200D, 180D)).setTipMsg(UITipMsg.to("错误提示", "登录失败，用户不存在或密码错误！")).setBtnMsg(UIBtnMsg.get().setSure("确定")).setAdapter(adapter));
         } else {
-            UserHolder.set(user.toUser());
+            UserHolder.set(user);
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
 
             StageUtils.findController(MainViewController.class).initViews(this.stage);
