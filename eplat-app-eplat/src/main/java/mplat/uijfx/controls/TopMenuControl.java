@@ -48,7 +48,7 @@ public class TopMenuControl extends MenuBar {
             loader.setController(this);
             loader.load();
         } catch (Exception e) {
-            LogUtils.error("初始化TopFrame组件异常!", e);
+            LogUtils.error("初始化TopMenu组件异常!", e);
             throw new RuntimeException(e);
         }
 
