@@ -34,9 +34,9 @@ public class UserStore extends BaseStore<UserInfoDTO> {
         xstream.alias("User", UserInfoDTO.class);
     }
 
-    public UserInfoDTO tryLogin(String userName, String userPasswd) {
+    public UserInfoDTO find(String userName) {
         for (UserInfoDTO user : this.findAll()) {
-            if (StringUtils.equals(userName, user.getUserName()) && StringUtils.equals(userPasswd, user.getUserPasswd())) {
+            if (StringUtils.equals(userName, user.getUserName())) {
                 return user;
             }
         }

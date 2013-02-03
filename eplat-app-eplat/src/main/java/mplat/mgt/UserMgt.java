@@ -3,6 +3,8 @@
  */
 package mplat.mgt;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.atom.core.xstream.store.StoreFactory;
 import mplat.mgt.dto.UserInfoDTO;
 import mplat.store.UserStore;
@@ -22,7 +24,7 @@ public class UserMgt {
     public UserMgt() {
         this.userStore = StoreFactory.get().findStore(UserStore.class);
 
-        UserInfoDTO admin = this.tryLogin(U_NAME, U_PASSWD);
+        UserInfoDTO admin = this.userStore.find(U_NAME);
         if (admin == null) {
             admin = new UserInfoDTO(U_NAME, U_PASSWD);
             boolean rtn = this.userStore.create(admin);
@@ -35,8 +37,22 @@ public class UserMgt {
     public static UserInfoDTO toAnonyUser() {
         return new UserInfoDTO(A_NAME, A_PASSWD);
     }
-
-    public UserInfoDTO tryLogin(String userName, String userPasswd) {
-        return this.userStore.tryLogin(userName, userPasswd);
+    
+    public UserInfoDTO find(String userName) {
+        return this.userStore.find(userName);
     }
+
+    public UserInfoDTO login(String userName, String userPasswd) {
+        UserInfoDTO user = this.userStore.find(userName);
+        if(user != null && StringUtils.equals(userPasswd, user.getUserPasswd())) {
+            return user;
+        }
+        
+        return null;
+    }
+    
+    public void update(UserInfoDTO user) {
+        this.userStore.update(user);
+    }
+    
 }
