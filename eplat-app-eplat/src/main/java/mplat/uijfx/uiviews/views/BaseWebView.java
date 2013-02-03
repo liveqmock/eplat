@@ -9,7 +9,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import mplat.uijfx.uiviews.MainViewController;
 
 /**
  * Web组件基类
@@ -17,7 +16,7 @@ import mplat.uijfx.uiviews.MainViewController;
  * @author obullxl@gmail.com
  * @version $Id: BaseWebView.java, V1.0.1 2013-2-1 下午10:56:51 $
  */
-public abstract class BaseWebView extends BaseView {
+public abstract class BaseWebView<T> extends BaseView<T, WebView> {
 
     /** Web组件 */
     private final WebView webView;
@@ -25,7 +24,7 @@ public abstract class BaseWebView extends BaseView {
     /**
      * CTOR
      */
-    public BaseWebView(MainViewController rootView, String url) {
+    public BaseWebView(T rootView, String url) {
         super(rootView);
         
         this.webView = new WebView();
@@ -45,7 +44,6 @@ public abstract class BaseWebView extends BaseView {
     /** 
      * @see mplat.uijfx.uiviews.views.BaseView#findView()
      */
-    @SuppressWarnings("unchecked")
     public WebView findView() {
         return this.webView;
     }

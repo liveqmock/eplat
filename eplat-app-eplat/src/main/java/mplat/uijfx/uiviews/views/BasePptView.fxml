@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane fx:id="pptPane" prefHeight="705.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml">
+  <bottom>
+    <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="200.0" spacing="10.0" styleClass="ppt-buttons" BorderPane.alignment="CENTER_RIGHT">
+      <children>
+        <Button fx:id="btnFirst" mnemonicParsing="false" onAction="#onFirstAction" text="First" />
+        <Button fx:id="btnPrevious" mnemonicParsing="false" onAction="#onPreviousAction" text="Previous" />
+        <Button fx:id="btnNext" mnemonicParsing="false" onAction="#onNextAction" text="Next" />
+        <Button fx:id="btnLast" mnemonicParsing="false" onAction="#onLastAction" text="Last" />
+        <Button fx:id="btnFullScreen" mnemonicParsing="false" onAction="#onFullScreenAction" text="Full Screen" />
+      </children>
+      <padding>
+        <Insets right="30.0" />
+      </padding>
+    </HBox>
+  </bottom>
+  <center>
+    <ImageView fx:id="imgPpt" fitHeight="630.0" fitWidth="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../cfgs/views/ppt/CW01/001.jpg" />
+      </image>
+    </ImageView>
+  </center>
+  <stylesheets>
+    <URL value="@BasePptView.css" />
+  </stylesheets>
+</BorderPane>

@@ -4,7 +4,6 @@
  */
 package mplat.uijfx.uiviews.views;
 
-import mplat.uijfx.uiviews.MainViewController;
 
 /**
  * 基本视图组件
@@ -12,27 +11,27 @@ import mplat.uijfx.uiviews.MainViewController;
  * @author obullxl@gmail.com
  * @version $Id: BaseView.java, V1.0.1 2013-2-2 上午10:17:15 $
  */
-public abstract class BaseView {
+public abstract class BaseView<T, V> {
 
     /** 根组件 */
-    private final MainViewController rootView;
+    private final T rootView;
 
     /**
      * CTOR
      */
-    public BaseView(MainViewController rootView) {
+    public BaseView(T rootView) {
         this.rootView = rootView;
     }
 
     /**
      * 获取当前视图组件
      */
-    public abstract <T> T findView();
+    public abstract V findView();
 
     /**
      * 获取根视图组件
      */
-    public MainViewController getRootView() {
+    public T getRootView() {
         return this.rootView;
     }
 

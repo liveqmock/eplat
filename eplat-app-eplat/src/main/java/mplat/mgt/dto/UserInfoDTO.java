@@ -3,6 +3,7 @@
  */
 package mplat.mgt.dto;
 
+import com.atom.core.lang.MapExt;
 import com.atom.core.lang.ToString;
 import com.atom.core.lang.ids.ID;
 import com.atom.core.lang.user.UserInfo;
@@ -11,10 +12,12 @@ import com.atom.core.lang.user.UserInfo;
  * @author obullxl@gmail.com
  */
 public class UserInfoDTO extends ToString implements ID<Long> {
+    private static final long serialVersionUID = 6316843770631615617L;
 
-    private long id;
-    private String userName;
-    private String userPasswd;
+    private long              id;
+    private String            userName;
+    private String            userPasswd;
+    private MapExt            ext;
 
     public UserInfoDTO() {
     }
@@ -34,6 +37,7 @@ public class UserInfoDTO extends ToString implements ID<Long> {
     }
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
+    
     public Long getId() {
         return id;
     }
@@ -57,4 +61,17 @@ public class UserInfoDTO extends ToString implements ID<Long> {
     public void setUserPasswd(String userPasswd) {
         this.userPasswd = userPasswd;
     }
+
+    public MapExt getExt() {
+        if (this.ext == null) {
+            this.ext = new MapExt();
+        }
+
+        return ext;
+    }
+
+    public void setExt(MapExt ext) {
+        this.ext = ext;
+    }
+
 }

@@ -39,22 +39,16 @@ import javafx.util.Duration;
 import mplat.uijfx.images.IMGS;
 
 /**
-
  * An advanced media player with controls for play/pause, seek, and volume. 
-
  *
-
  * @see javafx.scene.media.MediaPlayer
-
  * @see javafx.scene.media.Media
-
  */
-
 public class AdvancedMedia extends Application {
-    private static final String        MEDIA_URL = "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
+    // private static final String        MEDIA_URL = "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
+    private static final String        MEDIA_URL = "file:///E:/TDDOWNLOAD/Movie/a.mp4";
 
     private MediaPlayer                mediaPlayer;
-
     private AdvancedMedia.MediaControl mediaControl;
 
     private void init(Stage primaryStage) {
@@ -217,17 +211,13 @@ public class AdvancedMedia extends Application {
                         mp.play();
                         playButton.setGraphic(imageViewPause);
                         //playButton.setText("||");
-                    }
-
-                    else {
+                    } else {
                         mp.pause();
                     }
                 }
             });
 
             mp.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-
-                @Override
                 public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
                     updateValues();
                 }
@@ -306,101 +296,59 @@ public class AdvancedMedia extends Application {
 
             mediaBar.getChildren().add(playTime);
 
-            //Fullscreen button
-
-            Button buttonFullScreen = ButtonBuilder.create()
-
-            .text("Full Screen")
-
-            .minWidth(Control.USE_PREF_SIZE)
-
-            .build();
-
+            // Fullscreen button
+            Button buttonFullScreen = ButtonBuilder.create().text("Full Screen").minWidth(Control.USE_PREF_SIZE).build();
             buttonFullScreen.setOnAction(new EventHandler<ActionEvent>() {
-
                 @Override
                 public void handle(ActionEvent event) {
-
                     if (!fullScreen) {
-
                         newStage = new Stage();
-
                         newStage.fullScreenProperty().addListener(new ChangeListener<Boolean>() {
-
                             @Override
                             public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
-
                                 onFullScreen();
-
                             }
-
                         });
 
                         final BorderPane borderPane = new BorderPane() {
-
                             @Override
                             protected void layoutChildren() {
-
                                 if (mediaView != null && getBottom() != null) {
-
                                     mediaView.setFitWidth(getWidth());
-
                                     mediaView.setFitHeight(getHeight() - getBottom().prefHeight(-1));
-
                                 }
 
                                 super.layoutChildren();
 
                                 if (mediaView != null) {
-
                                     mediaView.setTranslateX((((Pane) getCenter()).getWidth() - mediaView.prefWidth(-1)) / 2);
-
                                     mediaView.setTranslateY((((Pane) getCenter()).getHeight() - mediaView.prefHeight(-1)) / 2);
-
                                 }
-
                             };
-
                         };
 
                         setCenter(null);
-
                         setBottom(null);
 
                         borderPane.setCenter(mvPane);
-
                         borderPane.setBottom(mediaBar);
 
                         Scene newScene = new Scene(borderPane);
-
                         newStage.setScene(newScene);
 
                         //Workaround for disposing stage when exit fullscreen
 
                         newStage.setX(-100000);
-
                         newStage.setY(-100000);
-
                         newStage.setFullScreen(true);
-
                         fullScreen = true;
-
                         newStage.show();
-
-                    }
-
-                    else {
-
-                        //toggle FullScreen
-
+                    } else {
+                        // toggle FullScreen
                         fullScreen = false;
-
                         newStage.setFullScreen(false);
-
                     }
-
                 }
-
             });
 
             mediaBar.getChildren().add(buttonFullScreen);
@@ -455,28 +403,19 @@ public class AdvancedMedia extends Application {
         }
 
         protected void onFullScreen() {
-
             if (!newStage.isFullScreen()) {
-
                 fullScreen = false;
 
                 setCenter(mvPane);
-
                 setBottom(mediaBar);
 
                 Platform.runLater(new Runnable() {
-
                     @Override
                     public void run() {
-
                         newStage.close();
-
                     }
-
                 });
-
             }
-
         }
 
         protected void updateValues() {
@@ -566,34 +505,19 @@ public class AdvancedMedia extends Application {
             } else {
 
                 if (elapsedHours > 0) {
-
-                    return String.format("%d:%02d:%02d",
-
-                    elapsedHours, elapsedMinutes, elapsedSeconds);
-
+                    return String.format("%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds);
                 } else {
-
-                    return String.format("%02d:%02d",
-
-                    elapsedMinutes, elapsedSeconds);
-
+                    return String.format("%02d:%02d", elapsedMinutes, elapsedSeconds);
                 }
-
             }
-
         }
-
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         init(primaryStage);
-
         primaryStage.show();
-
         play();
-
     }
 
     public static void main(String[] args) {

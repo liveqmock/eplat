@@ -50,7 +50,7 @@ public final class MainViewController {
     /** 组件尺寸 */
     private static final UISize SIZE = UISize.to(1000, 705);
 
-    private Stage               stage;
+    private Stage               primaryStage;
 
     @FXML
     private BorderPane          viewRoot;
@@ -92,16 +92,16 @@ public final class MainViewController {
     /**
      * 页面初始化
      */
-    public boolean initViews(Stage stage) {
-        this.stage = stage;
+    public boolean initViews(Stage primaryStage) {
+        this.primaryStage = primaryStage;
 
-        this.stage.setTitle("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
+        this.primaryStage.setTitle("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
 
-        this.stage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
+        this.primaryStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
         // this.stage.sizeToScene();
-        this.stage.centerOnScreen();
-        this.stage.setResizable(false);
-        this.stage.show();
+        this.primaryStage.centerOnScreen();
+        this.primaryStage.setResizable(false);
+        this.primaryStage.show();
 
         return true;
     }
@@ -401,6 +401,10 @@ public final class MainViewController {
 
     // ~~~~~~~~ getters and setters ~~~~~~~~~ //
 
+    public Stage getPrimaryStage() {
+        return this.primaryStage;
+    }
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
     /**
@@ -474,7 +478,7 @@ public final class MainViewController {
     private Image findTabTopicTrain() {
         return new Image(IMGS.class.getResourceAsStream("btn-topic-train.jpg"), 20, 20, false, false);
     }
-    
+
     private Image findTabEmergeTrain() {
         return new Image(IMGS.class.getResourceAsStream("btn-emerge-train.jpg"), 20, 20, false, false);
     }
