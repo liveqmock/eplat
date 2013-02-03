@@ -27,4 +27,22 @@ public class IMGS {
         return imgs;
     }
 
+    /**
+     * Icon成功
+     */
+    public static final Image findSuccessIcon(double fit) {
+        if (fit <= 0.0) {
+            return new Image(IMGS.class.getResourceAsStream("icon-success.gif"));
+        } else {
+            return new Image(IMGS.class.getResourceAsStream("icon-success.gif"), fit, 0, true, false);
+        }
+    }
+
+    /**
+     * Icon失败
+     */
+    public static final Image findFailureIcon() {
+        return new Image(IMGS.class.getResourceAsStream("icon-failure.gif"));
+    }
+
 }
