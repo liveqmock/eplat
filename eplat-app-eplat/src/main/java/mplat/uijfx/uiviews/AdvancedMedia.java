@@ -46,7 +46,7 @@ import mplat.uijfx.images.IMGS;
  */
 public class AdvancedMedia extends Application {
     // private static final String        MEDIA_URL = "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
-    private static final String        MEDIA_URL = "file:///E:/TDDOWNLOAD/Movie/a.mp4";
+    private static final String        MEDIA_URL = "file:///E:/上海康人/MP4/视频5.mp4";
 
     private MediaPlayer                mediaPlayer;
     private AdvancedMedia.MediaControl mediaControl;

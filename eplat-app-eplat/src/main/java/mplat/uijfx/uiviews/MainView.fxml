@@ -244,7 +244,7 @@
           <items>
             <MenuItem mnemonicParsing="false" text="使用帮助手册" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="关于..." />
+            <MenuItem mnemonicParsing="false" onAction="#onMenuAbout" text="关于..." />
           </items>
         </Menu>
       </menus>

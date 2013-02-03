@@ -45,6 +45,7 @@ import com.atom.core.uijfx.UIConfig;
 import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.UITipMsg;
 import com.atom.core.uijfx.event.EventAdapter;
+import com.atom.core.uijfx.utils.StageUtils;
 
 /**
  * @author obullxl@gmail.com
@@ -156,6 +157,15 @@ public final class MainViewController {
     @FXML
     private void onMenuExit(ActionEvent evt) {
         this.onExitSystem();
+    }
+
+    @FXML
+    private void onMenuAbout(ActionEvent evt) {
+        try {
+            StageUtils.findController(SystemAboutController.class).initViews(this.primaryStage);
+        } catch (Exception e) {
+            LogUtils.error("打开关于窗口异常！", e);
+        }
     }
 
     @FXML

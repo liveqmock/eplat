@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.UserMgt;
 import mplat.mgt.dto.UserInfoDTO;
+import mplat.uijfx.images.IMGS;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -31,7 +32,7 @@ import com.atom.core.uijfx.UISize;
  * @version $Id: ChargePasswdController.java, V1.0.1 2013-2-3 下午2:50:11 $
  */
 public class ChargePasswdController {
-    private static final UISize SIZE = UISize.to(350, 220);
+    private static final UISize SIZE = UISize.to(350, 225);
 
     /** 主场景 */
     private Stage               primaryStage;
@@ -100,6 +101,7 @@ public class ChargePasswdController {
         this.newStage.initOwner(this.primaryStage);
         this.newStage.initModality(Modality.APPLICATION_MODAL);
 
+        this.newStage.getIcons().addAll(IMGS.findIconImages());
         this.newStage.setTitle("修改登录密码 [" + user.getUserName() + "]");
         this.newStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
         // this.stage.sizeToScene();
