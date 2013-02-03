@@ -4,7 +4,6 @@
  */
 package mplat.uijfx.uiviews.views;
 
-
 /**
  * 基本视图组件
  * 

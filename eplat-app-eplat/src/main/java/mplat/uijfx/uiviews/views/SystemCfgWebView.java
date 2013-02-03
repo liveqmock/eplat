@@ -5,13 +5,20 @@
 package mplat.uijfx.uiviews.views;
 
 import javafx.scene.web.WebEngine;
+import javafx.stage.Stage;
+import mplat.mgt.dto.UserInfoDTO;
+import mplat.uijfx.uiviews.ChargePasswdController;
 import mplat.uijfx.uiviews.MainViewController;
+import mplat.utils.UserHolder;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+
+import com.atom.core.lang.utils.LogUtils;
+import com.atom.core.uijfx.utils.StageUtils;
 
 /**
  * 系统功能设置
@@ -47,13 +54,18 @@ public final class SystemCfgWebView extends BaseWebView<MainViewController> {
     private EventListener buildEventListener(final int no) {
         return new EventListener() {
             public void handleEvent(Event evt) {
-                onHandleEvent(evt, no);
+                if (no == 2) {
+                    Stage stage = getRootView().getPrimaryStage();
+                    UserInfoDTO user = UserHolder.get();
+
+                    try {
+                        StageUtils.findController(ChargePasswdController.class).initViews(stage, user);
+                    } catch (Exception e) {
+                        LogUtils.error("初始化修改密码异常.", e);
+                    }
+                }
             }
         };
-    }
-
-    private void onHandleEvent(Event evt, int no) {
-        System.out.println(no + ": 点击了~~~~~");
     }
 
 }
