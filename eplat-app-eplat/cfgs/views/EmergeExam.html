@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="spt/MainView.css"/>
+<script language="javascript" src="spt/jquery-1.9.0.min.js"></script>
+<script language="javascript">
+/**
+ * INIT
+ */
+$(document).ready(function() {
+	$(".item").hover(function(e) {
+		$(this).css("cursor", "pointer");
+		$(this).addClass("item_over");
+		
+		var img = $("#img_" + $(this).attr("id").split("_")[1]);
+		img.attr("src", img.attr("src").replace("-ico-1", "-ico-2"));
+	}, function(e) {
+		$(this).css("cursor", "auto");
+		$(this).removeClass("item_over");
+		
+		var img = $("#img_" + $(this).attr("id").split("_")[1]);
+		img.attr("src", img.attr("src").replace("-ico-2", "-ico-1"));
+	});
+	
+	$(".page_link a").click(function(e) {	
+		$(".page_body").addClass("page_hide");
+		$("#page_" + $(this).attr("href")[1]).removeClass("page_hide");
+	});
+	
+	// INIT
+	$(".page_body").addClass("page_hide");
+	$("#page_1").removeClass("page_hide");
+});
+</script>
+<title>专项考核</title>
+</head>
+<body>
+<div id="main_container">
+	<div id="content_title">急 救 案 例 考 核</div>
+    <div id="content_body">
+    <div id="page_1" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_11" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_11" src="img/EmergeTrain-101-ico-1.gif"/></td>
+                <td class="title">1.急性心包填塞引起PEA</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：男性，35岁，半小时前因车祸(车速180km/h)发生闭合性胸部损伤。</p>
+                    <br/>
+                    <p>既往史：既往体健，无心肺疾患史。</p>
+                    <br/>
+                    <p>查体：Bp 90/80mmHg，呼吸急促，40次/分，脉搏 130次/分。</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                	<div class="buttons">
+                		<div id="btn_11A" class="btn_blue">训练</div>
+                    	<div id="btn_11B" class="btn_green">详细</div>
+                	</div>
+				</td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%" valign="top" id="item_12" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_12" src="img/EmergeTrain-102-ico-1.gif"/></td>
+                <td class="title">2.无脉搏心脏骤停-室颤</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：30岁，男性，突发意识丧失。患者饭后散步时突发意识丧失。</p>
+                    <br/>
+                    <p>既往史：既往体健。</p>
+                    <br/>
+                    <p>查体：无意识，皮肤紫绀，瞳孔散大，大动脉搏动消失，呼吸断续，呈叹息样呼吸。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td valign="top" id="item_13" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_13" src="img/EmergeTrain-103-ico-1.gif"/></td>
+                <td class="title">3.急性心肌梗死引起心动过缓</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：女性，48岁，上腹部不适4小时。患者诉上腹部不适，恶心，胸闷，出冷汗，濒死感。</p>
+					<br/>
+                    <p>既往史：高血压病史6年，最高血压150/100mmHg，未正规治疗。无烟酒嗜好。</p>
+                    <br/>
+                    <p>查体：BP 70/30mmHg，肥胖体型，呼吸16次/分，双肺叩诊清音，无干湿性啰音。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td valign="top" id="item_14" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_14" src="img/EmergeTrain-104-ico-1.gif"/></td>
+                <td class="title">4.张力性气胸引起PEA</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：男性，27岁，10分钟前左上胸部被汽车撞伤，既往体健。</p>
+                    <br/>
+                    <p>查体：血压 80/50mmHg，脉搏 148次/分，呼吸40次/分。神清合作，痛苦状，呼吸急促，吸氧下呼吸紧迫反而加重，伴口唇青紫，颈静脉怒张不明显。左胸廓饱满，呼吸运动较右胸弱。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td valign="top" id="item_15" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_15" src="img/EmergeTrain-105-ico-1.gif"/></td>
+                <td class="title">5.肺栓塞引起PEA</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者，男，73岁 ，左胸部疼痛伴气促2天，咯血一次，约10ml。患者自觉活动后气急明显，无发热。</p>
+                    <br/>
+                    <p>既往史：患有＂前列腺癌＂史4年，已行手术治疗，但近半年来PSA有进行性升高，在３个月前开始服用＂孕酮＂。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+    
+    <div id="page_2" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_21" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_21" src="img/EmergeTrain-201-ico-1.gif"/></td>
+                <td class="title">1.急性心肌梗死引起心动过缓</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：女性，48岁，上腹部不适4小时。患者诉上腹部不适，恶心，胸闷，出冷汗，濒死感。</p>
+                    <br/>
+                    <p>既往史：高血压病史6年，最高血压150/100mmHg，未正规治疗。无烟酒嗜好。</p>
+					<br/>
+                    <p>查体：BP 70/30mmHg，肥胖体型，呼吸16次/分，双肺叩诊清音，无干湿性啰音。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%">&nbsp;</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+    
+    <div id="page_3" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_31" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_31" src="img/EmergeTrain-301-ico-1.gif"/></td>
+                <td class="title">1.急性冠脉综合征-不稳定型心绞痛</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者，男，56岁，反复胸痛2年，再发半小时。患者2年前在劳累后出现胸骨后钝痛，休息后可自行好转。每次持续时间较短，伴心悸，2年来上述症状反复发作。</p>
+                    <br/>
+                    <p>既往史：患者发现“高血压病”5余年，服用“珍菊降压片”，血压控制在130/90mmHg左右。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%" valign="top" id="item_32" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_32" src="img/EmergeTrain-302-ico-1.gif"/></td>
+                <td class="title">2.不稳定性心动过速</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者，女性，48岁，阵发性心悸、气促伴胸闷6个月，加重伴晕厥1次。患者6个月前出现劳累后阵发性心悸、胸闷。半小时前劳累后又出现心悸、胸闷、头晕、出冷汗，并晕厥一次。</p>
+                    <br/>
+                    <p>既往史：既往无慢性病史，否认风湿病史。无烟酒嗜好。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td valign="top" id="item_33" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_33" src="img/EmergeTrain-303-ico-1.gif"/></td>
+                <td class="title">3.急性冠脉综合征-前间壁心肌梗死</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：男性，55岁，胸骨后压榨性疼痛，伴恶心、呕吐2小时。患者于2小时前搬重物时突然感到胸骨后疼痛，压榨性，有濒死感，休息与口含硝酸甘油均不能缓解，伴大汗、恶心，呕吐过两次，为胃内容物，二便正常。</p>
+                    <br/>
+                    <p>既往史：既往无高血压和心绞痛病史，无药物过敏史，吸烟20余年，每天1包。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+    
+    </div>
+    <table width="100%" align="center" border="0" cellspacing="5" cellpadding="5">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="80%" class="page_link">
+        	[<a href="#1">心脏停搏</a>]
+            [<a href="#2">心动过缓</a>]
+            [<a href="#3">心动过速</a>]
+            [<a href="#4">胸痛</a>]
+            [<a href="#5">中毒及服药过量</a>]
+            [<a href="#6">代谢病及环境伤害</a>]
+            [<a href="#7">呼吸困难</a>]
+            [<a href="#8">颅脑损伤</a>]
+		</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      <tr>
+      	<td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+</div>
+</body>
+</html>
