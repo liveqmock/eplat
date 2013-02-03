@@ -22,9 +22,9 @@ public enum TabDataEnum implements EnumBase {
     //
     TOPIC_TRAIN(0x0003, "TopicTrain", "专项技能训练"),
     //
-    EMERGE_TRAIN(0x0004, "EmergeTrain", "专项急救案例训练"),
+    EMERGE_TRAIN(0x0004, "EmergeTrain", "急救案例训练"),
     //
-    EMERGE_EXAM(0x0005, "EmergeExam", "专项急救案例考核"),
+    EMERGE_EXAM(0x0005, "EmergeExam", "急救案例考核"),
     //
     SYSTEM_CFG(0x0006, "SystemCfg", "系统功能设置"),
     //
