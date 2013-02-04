@@ -3,14 +3,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="spt/html5media.min.js"></script>
-<title>急性心包填塞引起PEA</title>
+<title>PEA</title>
+<script type="text/javascript">
+	function playPause() {
+		var myVideo = document.getElementsByTagName('video')[0];
+		if (myVideo.paused) {
+		   myVideo.play();
+		} else {
+		   myVideo.pause();
+		}
+	}
+
+	function makeBig() {
+		var myVideo = document.getElementsByTagName('video')[0];
+		myVideo.height = (myVideo.videoHeight * 2 );
+	}
+
+	function makeNormal() {
+		var myVideo = document.getElementsByTagName('video')[0];
+		myVideo.height = (myVideo.videoHeight);
+	}
+</script>
 </head>
+
 <body>
 你好啊~~~~Kaha
 <br/>
 
-<video controls="controls" autoplay="false" autobuffer="false">
+<video id="video" controls="controls" autoplay="true" autobuffer="false">
 	<source src="file:///E:/上海康人/MP4/视频5.mp4" type="video/mp4"/>
 </video>
+<br/>
+<br/>
+<div>
+	<a href="javascript:playPause();">Play/Pause</a>
+	<br/>
+	<a href="javascript:makeBig();">2x Size</a> | <a href="javascript:makeNormal();">1x Size</a>
+	<!--
+	myVideo.currentTime = 0;
+	myVideo.pause();
+	-->
+</div>
 </body>
 </html>
