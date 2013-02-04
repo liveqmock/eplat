@@ -9,14 +9,19 @@ import com.atom.core.lang.Money;
 import com.atom.core.lang.prefs.PrefUtils;
 import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.lang.utils.SwingUtils;
+import com.eplat.unicom.Main;
 import com.eplat.unicom.dto.MbillDetail;
 import com.eplat.unicom.utils.MbillWriter;
+import java.awt.Dialog;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -58,7 +63,9 @@ public class ChargeFrame extends javax.swing.JFrame {
         this.spinOutTradeNo.setModel(new SpinnerNumberModel(1, 0, Integer.MAX_VALUE, 1));
         this.spinOtherOutTradeNo.setModel(new SpinnerNumberModel(1, 0, Integer.MAX_VALUE, 1));
 
-        this.spinCharge.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
+        this.spinAmount.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
+        this.spinRate.setModel(new SpinnerNumberModel(3, 0, Integer.MAX_VALUE, 1));
+
         this.spinOtherCharge.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
 
         // 提示消息
@@ -119,8 +126,11 @@ public class ChargeFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         spinOutTradeNo = new javax.swing.JSpinner();
         jLabel13 = new javax.swing.JLabel();
-        spinCharge = new javax.swing.JSpinner();
+        spinAmount = new javax.swing.JSpinner();
         jLabel14 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        spinRate = new javax.swing.JSpinner();
+        jLabel19 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtOtherFile = new javax.swing.JTextField();
@@ -142,6 +152,11 @@ public class ChargeFrame extends javax.swing.JFrame {
         btnSelectTempPath = new javax.swing.JButton();
         btnAnalyze = new javax.swing.JButton();
         lblTipMsg = new javax.swing.JLabel();
+        topMenuBar = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuItemHelp = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menuItemExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("支付宝对账文件明细差异对比筛选系统V1.0.1");
@@ -171,7 +186,7 @@ public class ChargeFrame extends javax.swing.JFrame {
 
         jLabel4.setText("外部交易号第");
 
-        jLabel5.setText("手续费第");
+        jLabel5.setText("交易量第");
 
         jLabel12.setText("列");
 
@@ -179,13 +194,17 @@ public class ChargeFrame extends javax.swing.JFrame {
 
         jLabel14.setText("列");
 
+        jLabel18.setText("费率第");
+
+        jLabel19.setText("列");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,16 +224,22 @@ public class ChargeFrame extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(jLabel5)
                         .addGap(0, 0, 0)
-                        .addComponent(spinCharge, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jLabel14))
+                        .addComponent(jLabel14)
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel18)
+                        .addGap(0, 0, 0)
+                        .addComponent(spinRate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel19))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFile)
+                        .addGap(5, 5, 5)
                         .addComponent(btnSelectFile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,8 +260,11 @@ public class ChargeFrame extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(spinOutTradeNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
-                    .addComponent(spinCharge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
+                    .addComponent(spinAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel18)
+                    .addComponent(spinRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -277,12 +305,6 @@ public class ChargeFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtOtherFile, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSelectOtherFile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxOtherFileExt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,8 +325,15 @@ public class ChargeFrame extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(spinOtherCharge, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jLabel17)))
-                .addGap(10, 10, 10))
+                        .addComponent(jLabel17)
+                        .addGap(12, 12, 12))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtOtherFile)
+                        .addGap(5, 5, 5)
+                        .addComponent(btnSelectOtherFile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,10 +380,10 @@ public class ChargeFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTempPath, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTempPath)
+                .addGap(5, 5, 5)
                 .addComponent(btnSelectTempPath, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,24 +404,58 @@ public class ChargeFrame extends javax.swing.JFrame {
             }
         });
 
-        lblTipMsg.setBackground(new java.awt.Color(255, 153, 51));
+        lblTipMsg.setBackground(new java.awt.Color(204, 255, 153));
         lblTipMsg.setFont(new java.awt.Font("宋体", 0, 14)); // NOI18N
         lblTipMsg.setForeground(new java.awt.Color(255, 51, 51));
         lblTipMsg.setText("提示信息：");
+        lblTipMsg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        lblTipMsg.setOpaque(true);
+
+        jMenu1.setText("文件");
+
+        menuItemHelp.setText("帮助&说明");
+        menuItemHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemHelpActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemHelp);
+        jMenu1.add(jSeparator1);
+
+        menuItemExit.setText("退出本系统");
+        menuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemExit);
+
+        topMenuBar.add(jMenu1);
+
+        setJMenuBar(topMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAnalyze, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTipMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTipMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAnalyze, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,7 +576,24 @@ public class ChargeFrame extends javax.swing.JFrame {
         String file = this.txtFile.getText();
         int tradeNoIdx = (Integer) this.spinTradeNo.getValue();
         int outTradeNoIdx = (Integer) this.spinOutTradeNo.getValue();
-        int chargeIdx = (Integer) this.spinCharge.getValue();
+        int amountIdx = (Integer) this.spinAmount.getValue();
+        int rateIdx = (Integer) this.spinRate.getValue();
+        
+        if (tradeNoIdx < 0 || outTradeNoIdx < 0 || amountIdx < 0 || rateIdx < 0) {
+            SwingUtils.alert(this, "解析我方对账文件出错", "请仔细迁移各项数据列号，列号从0开始！");
+            return;
+        }
+        
+        Set<Integer> idxs = new HashSet<Integer>();
+        idxs.add(tradeNoIdx);
+        idxs.add(outTradeNoIdx);
+        idxs.add(amountIdx);
+        idxs.add(rateIdx);
+        if(idxs.size()<4) {
+            SwingUtils.alert(this, "解析我方对账文件出错", "请仔细迁移各项数据列号，列号从0开始！");
+            return;
+        }
+
         try {
             int count = 1;
             CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(file), "GBK"));
@@ -523,12 +603,16 @@ public class ChargeFrame extends javax.swing.JFrame {
 
                 item.setTradeNo(values[tradeNoIdx]);
                 item.setOutTradeNo(values[outTradeNoIdx]);
-                String chargeTxt = values[chargeIdx];
-                if (StringUtils.contains(chargeTxt, ".")) {
-                    item.setCharge(new Money(chargeTxt));
+                
+                Money amount = new Money(0, 0);
+                String amountTxt = values[amountIdx];
+                if (StringUtils.contains(amountTxt, ".")) {
+                    amount.setCent(new Money(amountTxt).getCent());
                 } else {
-                    item.getCharge().setCent(Long.valueOf(chargeTxt));
+                    amount.setCent(Long.valueOf(amountTxt));
                 }
+               
+                item.setCharge(amount.multiply(new BigDecimal(values[rateIdx])));
 
                 // 保存
                 this.tradeNoMap.put(item.getTradeNo(), item);
@@ -622,7 +706,7 @@ public class ChargeFrame extends javax.swing.JFrame {
                     LogUtils.info("[差异] " + msg);
                     this.writer.writeDifferent(msg);
                 }
-                
+
                 // 标记
                 item.setCheck(true);
 
@@ -637,15 +721,15 @@ public class ChargeFrame extends javax.swing.JFrame {
             LogUtils.error("读取对方对账文件异常！", e);
             return;
         }
-        
+
         // 4. 记录我方明细
-        for(MbillDetail bill : this.tradeNoMap.values()) {
-            if(!bill.isCheck()) {
+        for (MbillDetail bill : this.tradeNoMap.values()) {
+            if (!bill.isCheck()) {
                 bill.setMemo("对方缺少");
-                
+
                 try {
-                this.writer.writeDifferent(bill.toBill());
-                } catch(Exception e) {
+                    this.writer.writeDifferent(bill.toBill());
+                } catch (Exception e) {
                     this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
                     LogUtils.error("记录对方缺少明细异常！", e);
                 }
@@ -657,6 +741,17 @@ public class ChargeFrame extends javax.swing.JFrame {
 
         this.showTipMsg("分析完成，请检查临时目录下的差异数据文件！");
     }//GEN-LAST:event_btnAnalyzeActionPerformed
+
+    private void menuItemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemHelpActionPerformed
+        Dialog dialog = new HelpDialog(this, true);
+        SwingUtils.center(dialog);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuItemHelpActionPerformed
+
+    private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExitActionPerformed
+        this.writer.finish();
+        Main.exit(0);
+    }//GEN-LAST:event_menuItemExitActionPerformed
 
     private boolean checkConfigs() {
         boolean rtn = false;
@@ -704,6 +799,8 @@ public class ChargeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -712,16 +809,22 @@ public class ChargeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblTipMsg;
-    private javax.swing.JSpinner spinCharge;
+    private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemHelp;
+    private javax.swing.JSpinner spinAmount;
     private javax.swing.JSpinner spinOtherCharge;
     private javax.swing.JSpinner spinOtherOutTradeNo;
     private javax.swing.JSpinner spinOtherTradeNo;
     private javax.swing.JSpinner spinOutTradeNo;
+    private javax.swing.JSpinner spinRate;
     private javax.swing.JSpinner spinTradeNo;
+    private javax.swing.JMenuBar topMenuBar;
     private javax.swing.JTextField txtFile;
     private javax.swing.JTextField txtOtherFile;
     private javax.swing.JTextField txtTempPath;

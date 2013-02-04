@@ -24,4 +24,8 @@ public class Main {
         frame.setVisible(true);
     }
     
+    public static void exit(int status) {
+        System.exit(status);
+    }
+    
 }
