@@ -4,7 +4,6 @@
  */
 package mplat.uijfx.uiviews.views;
 
-import javafx.scene.web.WebEngine;
 import javafx.stage.Stage;
 import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.uiviews.ChargePasswdController;
@@ -35,10 +34,10 @@ public final class SystemCfgWebView extends BaseWebView<MainViewController> {
     }
 
     /** 
-     * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad(javafx.scene.web.WebEngine)
+     * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad()
      */
-    public void onWebSuccessLoad(final WebEngine webEngine) {
-        Document doc = webEngine.getDocument();
+    public void onWebSuccessLoad() {
+        Document doc = this.findWebEngine().getDocument();
         for (int i = 1; i <= 2; i++) {
             Element ele = doc.getElementById("item_" + i);
             if (ele != null) {

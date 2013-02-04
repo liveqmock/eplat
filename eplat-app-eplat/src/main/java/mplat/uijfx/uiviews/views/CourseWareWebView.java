@@ -6,7 +6,6 @@ package mplat.uijfx.uiviews.views;
 
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
-import javafx.scene.web.WebEngine;
 import mplat.mgt.enums.TabCWPptEnum;
 import mplat.uijfx.uiviews.MainViewController;
 
@@ -33,10 +32,10 @@ public final class CourseWareWebView extends BaseWebView<MainViewController> {
     }
 
     /** 
-     * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad(javafx.scene.web.WebEngine)
+     * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad()
      */
-    public void onWebSuccessLoad(final WebEngine webEngine) {
-        Document doc = webEngine.getDocument();
+    public void onWebSuccessLoad() {
+        Document doc = this.findWebEngine().getDocument();
         for (int i = 1; i <= 10; i++) {
             Element ele = doc.getElementById("item_" + i);
             if (ele != null) {

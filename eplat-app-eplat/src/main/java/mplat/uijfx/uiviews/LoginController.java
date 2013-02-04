@@ -4,9 +4,12 @@
  */
 package mplat.uijfx.uiviews;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -50,6 +53,8 @@ public class LoginController {
     @FXML
     private PasswordField       txtUserPasswd;
     @FXML
+    private Button              btnLogin;
+    @FXML
     private ComboBox<String>    cboxPorts;
     @FXML
     private HBox                hboxTipMsg;
@@ -64,9 +69,30 @@ public class LoginController {
         this.txtUserName.setPromptText("用户名");
         this.txtUserPasswd.setPromptText("密码");
 
+        // TODO: 正式上线删除
         UserInfoDTO user = MgtFactory.get().getUserMgt().find("admin");
         this.txtUserName.setText(user.getUserName());
         this.txtUserPasswd.setText(user.getUserPasswd());
+
+        this.txtUserName.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
+                if (StringUtils.isBlank(newValue)) {
+                    btnLogin.setDisable(true);
+                } else {
+                    btnLogin.setDisable(false);
+                }
+            }
+        });
+
+        this.txtUserPasswd.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
+                if (StringUtils.isBlank(newValue)) {
+                    btnLogin.setDisable(true);
+                } else {
+                    btnLogin.setDisable(false);
+                }
+            }
+        });
 
         this.cboxPorts.getSelectionModel().select(0);
 

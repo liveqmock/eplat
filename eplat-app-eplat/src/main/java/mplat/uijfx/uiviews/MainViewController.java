@@ -184,6 +184,14 @@ public final class MainViewController {
         // 激活
         this.tabPane.getSelectionModel().select(tab);
     }
+    
+    /**
+     * 删除TAB
+     */
+    public void removeTab(Tab tab) {
+        // 删除
+        this.tabPane.getTabs().remove(tab);
+    }
 
     /**
      * 激活TAB

@@ -4,7 +4,6 @@
  */
 package mplat.uijfx.uiviews.views;
 
-import javafx.scene.web.WebEngine;
 import mplat.uijfx.uiviews.MainViewController;
 
 import org.w3c.dom.Document;
@@ -31,8 +30,8 @@ public final class TopicTrainWebView extends BaseWebView<MainViewController> {
     /** 
      * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad(javafx.scene.web.WebEngine)
      */
-    public void onWebSuccessLoad(final WebEngine webEngine) {
-        Document doc = webEngine.getDocument();
+    public void onWebSuccessLoad() {
+        Document doc = this.findWebEngine().getDocument();
         for (int i = 1; i <= 8; i++) {
             Element ele = doc.getElementById("item_" + i);
             if (ele != null) {

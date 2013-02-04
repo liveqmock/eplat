@@ -4,6 +4,8 @@
  */
 package mplat.uijfx.uiviews.views;
 
+import org.apache.commons.lang.StringUtils;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -19,28 +21,29 @@ import javafx.scene.web.WebView;
 public abstract class BaseWebView<T> extends BaseView<T, WebView> {
 
     /** Web组件 */
-    private final WebView webView;
+    private final WebView   webView;
+    private final WebEngine webEngine;
 
     /**
      * CTOR
      */
     public BaseWebView(T rootView, String url) {
         super(rootView);
-        
-        this.webView = new WebView();
-        this.webView.getEngine().load(url);
 
-        final WebEngine webEngine = this.webView.getEngine();
+        this.webView = new WebView();
+        this.webEngine = this.webView.getEngine();
+        this.webEngine.load(url);
+
         webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
             @SuppressWarnings("rawtypes")
             public void changed(ObservableValue ov, State oldState, State newState) {
                 if (newState == State.SUCCEEDED) {
-                    onWebSuccessLoad(webEngine);
+                    onWebSuccessLoad();
                 }
             }
         });
     }
-    
+
     /** 
      * @see mplat.uijfx.uiviews.views.BaseView#findView()
      */
@@ -49,8 +52,32 @@ public abstract class BaseWebView<T> extends BaseView<T, WebView> {
     }
 
     /**
+     * 取得WebEngine对象
+     */
+    public WebEngine findWebEngine() {
+        return this.webEngine;
+    }
+
+    /**
+     * 停止Vedio视频
+     */
+    public void stopVedio(String vedioId) {
+        String script = "document.getElementById('$ID$').currentTime=0; document.getElementById('$ID$').pause();";
+        script = StringUtils.replace(script, "$ID$", vedioId);
+        
+        this.webEngine.executeScript(script);
+    }
+
+    /**
+     * 停止Audio音频
+     */
+    public void stopAudio(String audioId) {
+
+    }
+
+    /**
      * 初始化事件
      */
-    protected abstract void onWebSuccessLoad(final WebEngine webEngine);
+    protected abstract void onWebSuccessLoad();
 
 }

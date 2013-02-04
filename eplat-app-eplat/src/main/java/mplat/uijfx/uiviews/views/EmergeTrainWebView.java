@@ -4,9 +4,9 @@
  */
 package mplat.uijfx.uiviews.views;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mplat.uijfx.uiviews.MainViewController;
 
@@ -35,10 +35,10 @@ public final class EmergeTrainWebView extends BaseWebView<MainViewController> {
     }
 
     /** 
-     * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad(javafx.scene.web.WebEngine)
+     * @see mplat.uijfx.uiviews.views.BaseWebView#onWebSuccessLoad()
      */
-    public void onWebSuccessLoad(final WebEngine webEngine) {
-        Document doc = webEngine.getDocument();
+    public void onWebSuccessLoad() {
+        Document doc = this.findWebEngine().getDocument();
 
         // 1.心脏停搏
         for (int i = 1; i <= 5; i++) {
@@ -88,12 +88,18 @@ public final class EmergeTrainWebView extends BaseWebView<MainViewController> {
         BorderPane border = new BorderPane();
 
         // Center
-        BaseView<?, ?> webView = new CourseWareWebView(this.getRootView(), this.findHtmlUrl("PEA"));
+        final BaseWebView<?> webView = new CourseWareWebView(this.getRootView(), this.findHtmlUrl("PEA"));
         border.setCenter((WebView) webView.findView());
 
-        Tab tab = new Tab("TEST");
+        final Tab tab = new Tab("TEST");
         tab.setClosable(true);
         tab.setContent(border);
+
+        tab.setOnClosed(new EventHandler<javafx.event.Event>() {
+            public void handle(javafx.event.Event event) {
+                webView.stopVedio("videoPlayer");
+            }
+        });
 
         // 保存
         this.getRootView().activeTab(tab);
