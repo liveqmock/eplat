@@ -79,11 +79,7 @@ public class TopMenuControl extends MenuBar {
 
     @FXML
     private void onMenuAbout(ActionEvent evt) {
-        try {
-            StageUtils.findController(SystemAboutController.class).initViews(this.primaryStage);
-        } catch (Exception e) {
-            LogUtils.error("打开关于窗口异常！", e);
-        }
+        StageUtils.findController(SystemAboutController.class).initViews(this.primaryStage);
     }
 
 }

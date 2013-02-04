@@ -19,7 +19,9 @@ import com.atom.core.xstream.store.StoreFactory;
  */
 public class Main extends Application {
 
-    @Override
+    /** 
+     * @see javafx.application.Application#start(javafx.stage.Stage)
+     */
     public void start(Stage stage) throws Exception {
         StageHolder.set(stage);
 
@@ -28,12 +30,14 @@ public class Main extends Application {
         StoreFactory.get().init();
 
         stage.getIcons().addAll(IMGS.findIconImages());
-        
+
         StageUtils.findController(LoginController.class).initViews(stage);
         // LoginView.create(stage).initViews().show();
     }
 
-    @Override
+    /** 
+     * @see javafx.application.Application#stop()
+     */
     public void stop() throws Exception {
         DataMap.remove();
         StageHolder.remove();

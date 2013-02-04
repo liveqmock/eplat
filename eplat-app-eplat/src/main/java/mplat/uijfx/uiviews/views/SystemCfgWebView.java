@@ -17,7 +17,6 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
-import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.utils.StageUtils;
 
 /**
@@ -58,11 +57,7 @@ public final class SystemCfgWebView extends BaseWebView<MainViewController> {
                     Stage stage = getRootView().getPrimaryStage();
                     UserInfoDTO user = UserHolder.get();
 
-                    try {
-                        StageUtils.findController(ChargePasswdController.class).initViews(stage, user);
-                    } catch (Exception e) {
-                        LogUtils.error("初始化修改密码异常.", e);
-                    }
+                    StageUtils.findController(ChargePasswdController.class).initViews(stage, user);
                 }
             }
         };

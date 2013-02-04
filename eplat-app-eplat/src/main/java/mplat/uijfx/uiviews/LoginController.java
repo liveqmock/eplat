@@ -98,7 +98,7 @@ public class LoginController {
     }
 
     @FXML
-    private void onLoginAction(ActionEvent event) throws Exception {
+    private void onLoginAction(ActionEvent event) {
         String userName = this.txtUserName.getText();
         String userPasswd = this.txtUserPasswd.getText();
 
