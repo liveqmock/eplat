@@ -89,6 +89,10 @@ public class LoginController {
             }
         });
 
+        if (StringUtils.isBlank(this.txtUserName.getText()) || StringUtils.isBlank(this.txtUserPasswd.getText())) {
+            this.btnLogin.setDisable(true);
+        }
+
         this.cboxPorts.getSelectionModel().select(0);
 
         this.lblTipMsg.setText("请登录系统~");
@@ -131,7 +135,7 @@ public class LoginController {
         if (user == null) {
             this.lblTipMsg.setText("用户不存在或密码错误，请重新输入！");
             LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
-            
+
             PopupUtils.alert(this.stage, "登录失败", "登录失败，用户不存在或密码错误！");
         } else {
             UserHolder.set(user);
