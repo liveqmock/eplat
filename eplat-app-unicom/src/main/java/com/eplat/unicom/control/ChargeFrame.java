@@ -22,15 +22,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 /**
  *
@@ -60,22 +59,51 @@ public class ChargeFrame extends javax.swing.JFrame {
         this.cboxOtherFileExt.setModel(new DefaultComboBoxModel(this.fileTypeExts.toArray()));
 
         // 列选择器
-        this.spinTradeNo.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
-        this.spinOtherTradeNo.setModel(new SpinnerNumberModel(0, -1, Integer.MAX_VALUE, 1));
+        int tradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "tradeNoIdx"), 0);
+        this.spinTradeNo.setModel(new SpinnerNumberModel(tradeNoValue, 0, Integer.MAX_VALUE, 1));
 
-        this.spinOutTradeNo.setModel(new SpinnerNumberModel(1, 0, Integer.MAX_VALUE, 1));
-        this.spinOtherOutTradeNo.setModel(new SpinnerNumberModel(1, 0, Integer.MAX_VALUE, 1));
+        int otherOradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "otherTradeNoIdx"), 0);
+        this.spinOtherTradeNo.setModel(new SpinnerNumberModel(otherOradeNoValue, -1, Integer.MAX_VALUE, 1));
 
-        this.spinAmount.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
-        this.spinRate.setModel(new SpinnerNumberModel(3, 0, Integer.MAX_VALUE, 1));
+        int outTradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "outTradeNoIdx"), 1);
+        this.spinOutTradeNo.setModel(new SpinnerNumberModel(outTradeNoValue, 0, Integer.MAX_VALUE, 1));
 
-        this.spinOtherAmount.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
-        this.spinProdCode.setModel(new SpinnerNumberModel(3, 0, Integer.MAX_VALUE, 1));
+        int otherOutTradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "otherOutTradeNoIdx"), 1);
+        this.spinOtherOutTradeNo.setModel(new SpinnerNumberModel(otherOutTradeNoValue, 0, Integer.MAX_VALUE, 1));
+
+        int amountValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "amountIdx"), 2);
+        this.spinAmount.setModel(new SpinnerNumberModel(amountValue, 0, Integer.MAX_VALUE, 1));
+
+        int rateValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "rateIdx"), 3);
+        this.spinRate.setModel(new SpinnerNumberModel(rateValue, 0, Integer.MAX_VALUE, 1));
+
+        int otherAmountValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "otherAmountIdx"), 2);
+        this.spinOtherAmount.setModel(new SpinnerNumberModel(otherAmountValue, 0, Integer.MAX_VALUE, 1));
+
+        int prodCodeValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "prodCodeIdx"), 3);
+        this.spinProdCode.setModel(new SpinnerNumberModel(prodCodeValue, 0, Integer.MAX_VALUE, 1));
 
         // 提示消息
         this.lblTipMsg.setText(" ");
 
         this.btnSelectFile.requestFocus();
+    }
+    
+    /**
+     * 存储个性化参数
+     */
+    private void storePrefValues() {
+        PrefUtils.put(PREF_CATG, "tradeNoIdx", String.valueOf(this.spinTradeNo.getValue()));
+        PrefUtils.put(PREF_CATG, "otherTradeNoIdx", String.valueOf(this.spinOtherTradeNo.getValue()));
+        
+        PrefUtils.put(PREF_CATG, "outTradeNoIdx", String.valueOf(this.spinOutTradeNo.getValue()));
+        PrefUtils.put(PREF_CATG, "otherOutTradeNoIdx", String.valueOf(this.spinOtherOutTradeNo.getValue()));
+        
+        PrefUtils.put(PREF_CATG, "amountIdx", String.valueOf(this.spinAmount.getValue()));
+        PrefUtils.put(PREF_CATG, "rateIdx", String.valueOf(this.spinRate.getValue()));
+        
+        PrefUtils.put(PREF_CATG, "otherAmountIdx", String.valueOf(this.spinOtherAmount.getValue()));
+        PrefUtils.put(PREF_CATG, "prodCodeIdx", String.valueOf(this.spinProdCode.getValue()));
     }
 
     private void showTipMsg(final String tipMsg) {
@@ -729,6 +757,9 @@ public class ChargeFrame extends javax.swing.JFrame {
     }
 
     private void btnAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalyzeActionPerformed
+        // 存储参数
+        this.storePrefValues();
+        
         // 分析账单文件
         Thread analyzer = new Thread() {
             public void run() {
