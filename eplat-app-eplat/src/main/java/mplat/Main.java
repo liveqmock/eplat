@@ -3,13 +3,18 @@
  */
 package mplat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.LoginController;
 import mplat.utils.DataMap;
 
 import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.uijfx.IconImageHolder;
 import com.atom.core.uijfx.utils.StageHolder;
 import com.atom.core.uijfx.utils.StageUtils;
 import com.atom.core.xstream.store.StoreFactory;
@@ -29,7 +34,8 @@ public class Main extends Application {
         CfgUtils.findConfigPath();
         StoreFactory.get().init();
 
-        stage.getIcons().addAll(IMGS.findIconImages());
+        IconImageHolder.setIconImages(findIconImages());
+        stage.getIcons().addAll(IconImageHolder.getIconImages());
 
         StageUtils.findController(LoginController.class).initViews(stage);
         // LoginView.create(stage).initViews().show();
@@ -55,6 +61,17 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    /**
+     * IconImage信息
+     */
+    private static List<Image> findIconImages() {
+        List<Image> imgs = new ArrayList<Image>();
+        
+        imgs.add(new Image(IMGS.class.getResourceAsStream("tab-welcome.jpg"), 16, 16, false, false));
+
+        return imgs;
     }
 
 }
