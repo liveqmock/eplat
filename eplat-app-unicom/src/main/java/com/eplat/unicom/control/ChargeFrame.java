@@ -77,19 +77,13 @@ public class ChargeFrame extends javax.swing.JFrame {
 
         this.btnSelectFile.requestFocus();
     }
-    // private long lastTime = System.currentTimeMillis();
 
     private void showTipMsg(final String tipMsg) {
-        // long now = System.currentTimeMillis();
-        //if (now - lastTime > 3000) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                lblTipMsg.setText("<html>  " + tipMsg + "</html>");
+                lblTipMsg.setText("<html>&nbsp;" + tipMsg + "</html>");
             }
         });
-
-        // lastTime = now;
-        //}
     }
 
     /**
@@ -617,7 +611,7 @@ public class ChargeFrame extends javax.swing.JFrame {
                 }
 
                 // 打印日志
-                LogUtils.info("[我方] " + item);
+                // LogUtils.info("[我方] " + item);
                 this.showTipMsg("[我方]-分析第[<b>" + (count++) + "</b>]条数据明细……");
 
                 // 下一行
@@ -705,6 +699,7 @@ public class ChargeFrame extends javax.swing.JFrame {
 
                 // 标记
                 item.setCheck(true);
+                this.dao.updateChecked(item.getTradeNo());
 
                 // 下一行
                 values = reader.readNext();

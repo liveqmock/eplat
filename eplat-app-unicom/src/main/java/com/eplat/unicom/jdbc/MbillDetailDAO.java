@@ -143,6 +143,19 @@ public class MbillDetailDAO {
         }
     }
 
+    public void updateChecked(String tradeNo) {
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = this.conn.prepareStatement(this.findUpdateCheckedSQL());
+            pstmt.setString(1, tradeNo);
+            pstmt.execute();
+        } catch (Exception e) {
+            throw new RuntimeException("根据交易号[" + tradeNo + "]更新数据异常！", e);
+        } finally {
+            this.close(pstmt);
+        }
+    }
+
     public void printUnckedDetail(MbillWriter writer) {
         Statement pstmt = null;
         ResultSet rs = null;
@@ -158,7 +171,7 @@ public class MbillDetailDAO {
                 Money charge = new Money();
                 charge.setCent(rs.getLong("charge"));
                 detail.setCharge(charge);
-                
+
                 detail.setMemo("对方缺少");
 
                 // 输出
@@ -194,6 +207,10 @@ public class MbillDetailDAO {
 
     private String findInsertSQL() {
         return "INSERT INTO mbill_detail(trade_no, out_trade_no, charge, other_charge, checked) VALUES(?, ?, ?, ?, ?)";
+    }
+
+    private String findUpdateCheckedSQL() {
+        return "UPDATE mbill_detail SET checked='1' WHERE trade_no=?";
     }
 
     private String findSelectUncheckedSQL() {
