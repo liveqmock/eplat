@@ -80,15 +80,15 @@ public class ChargeFrame extends javax.swing.JFrame {
     // private long lastTime = System.currentTimeMillis();
 
     private void showTipMsg(final String tipMsg) {
-       // long now = System.currentTimeMillis();
+        // long now = System.currentTimeMillis();
         //if (now - lastTime > 3000) {
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    lblTipMsg.setText("<html>  " + tipMsg + "</html>");
-                }
-            });
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                lblTipMsg.setText("<html>  " + tipMsg + "</html>");
+            }
+        });
 
-           // lastTime = now;
+        // lastTime = now;
         //}
     }
 
@@ -719,20 +719,12 @@ public class ChargeFrame extends javax.swing.JFrame {
         }
 
         // 4. 记录我方明细
-        /*
-         for (MbillDetail bill : this.tradeNoMap.values()) {
-         if (!bill.isCheck()) {
-         bill.setMemo("对方缺少");
-
-         try {
-         this.writer.writeDifferent(bill.toBill());
-         } catch (Exception e) {
-         this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
-         LogUtils.error("记录对方缺少明细异常！", e);
-         }
-         }
-         }
-         */
+        try {
+            this.dao.printUnckedDetail(this.writer);
+        } catch (Exception e) {
+            this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
+            LogUtils.error("记录对方缺少明细异常！", e);
+        }
 
         // 5. 关闭写入流
         this.writer.finish();
@@ -740,15 +732,15 @@ public class ChargeFrame extends javax.swing.JFrame {
 
         this.showTipMsg("分析完成，请检查临时目录下的差异数据文件！");
     }
-    
+
     private void btnAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalyzeActionPerformed
         // 分析账单文件
-        Thread analyzer = new Thread(){
-            public void run(){
+        Thread analyzer = new Thread() {
+            public void run() {
                 analyze();
             }
         };
-        
+
         analyzer.start();
     }//GEN-LAST:event_btnAnalyzeActionPerformed
 

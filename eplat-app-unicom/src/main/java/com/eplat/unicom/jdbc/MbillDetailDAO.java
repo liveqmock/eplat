@@ -7,6 +7,7 @@ package com.eplat.unicom.jdbc;
 import com.atom.core.lang.Money;
 import com.atom.core.lang.utils.LogUtils;
 import com.eplat.unicom.dto.MbillDetail;
+import com.eplat.unicom.utils.MbillWriter;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -142,6 +143,35 @@ public class MbillDetailDAO {
         }
     }
 
+    public void printUnckedDetail(MbillWriter writer) {
+        Statement pstmt = null;
+        ResultSet rs = null;
+        try {
+            pstmt = this.conn.createStatement();
+            rs = pstmt.executeQuery(this.findSelectUncheckedSQL());
+            while (rs.next()) {
+                MbillDetail detail = new MbillDetail();
+
+                detail.setTradeNo(rs.getString("trade_no"));
+                detail.setOutTradeNo(rs.getString("out_trade_no"));
+
+                Money charge = new Money();
+                charge.setCent(rs.getLong("charge"));
+                detail.setCharge(charge);
+                
+                detail.setMemo("对方缺少");
+
+                // 输出
+                writer.writeDifferent(detail.toBill());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("打印我方未核对数据异常！", e);
+        } finally {
+            this.close(rs);
+            this.close(pstmt);
+        }
+    }
+
     private void close(Statement stmt) {
         try {
             stmt.close();
@@ -166,8 +196,8 @@ public class MbillDetailDAO {
         return "INSERT INTO mbill_detail(trade_no, out_trade_no, charge, other_charge, checked) VALUES(?, ?, ?, ?, ?)";
     }
 
-    private String findSelectByCheckPageSQL() {
-        return "SELECT trade_no, out_trade_no, charge, other_charge, checked FROM mbill_detail WHERE checked=? LIMIT ?, ?";
+    private String findSelectUncheckedSQL() {
+        return "SELECT trade_no, out_trade_no, charge, other_charge, checked FROM mbill_detail WHERE checked='0'";
     }
 
     private String findSelectByTradeNoSQL() {
