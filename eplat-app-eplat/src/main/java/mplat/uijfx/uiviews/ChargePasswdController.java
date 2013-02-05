@@ -19,10 +19,10 @@ import javafx.stage.Stage;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.UserMgt;
 import mplat.mgt.dto.UserInfoDTO;
-import mplat.uijfx.images.IMGS;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.atom.core.uijfx.IconImageHolder;
 import com.atom.core.uijfx.UISize;
 
 /**
@@ -101,7 +101,7 @@ public class ChargePasswdController {
         this.newStage.initOwner(this.primaryStage);
         this.newStage.initModality(Modality.APPLICATION_MODAL);
 
-        this.newStage.getIcons().addAll(IMGS.findIconImages());
+        this.newStage.getIcons().addAll(IconImageHolder.getIconImages());
         this.newStage.setTitle("修改登录密码 [" + user.getUserName() + "]");
         this.newStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
         // this.stage.sizeToScene();

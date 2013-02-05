@@ -4,7 +4,6 @@
  */
 package mplat.uijfx.uiviews;
 
-import mplat.uijfx.images.IMGS;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import com.atom.core.uijfx.IconImageHolder;
 import com.atom.core.uijfx.UISize;
 
 /**
@@ -58,7 +58,7 @@ public class SystemAboutController {
         this.newStage.initOwner(this.primaryStage);
         this.newStage.initModality(Modality.APPLICATION_MODAL);
         
-        this.newStage.getIcons().addAll(IMGS.findIconImages());
+        this.newStage.getIcons().addAll(IconImageHolder.getIconImages());
         this.newStage.setTitle("系统信息");
         this.newStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
         // this.stage.sizeToScene();

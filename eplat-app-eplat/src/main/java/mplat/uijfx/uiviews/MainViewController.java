@@ -6,8 +6,6 @@ package mplat.uijfx.uiviews;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -31,7 +29,6 @@ import mplat.uijfx.uiviews.views.EmergeExamWebView;
 import mplat.uijfx.uiviews.views.EmergeTrainWebView;
 import mplat.uijfx.uiviews.views.SystemCfgWebView;
 import mplat.uijfx.uiviews.views.TopicTrainWebView;
-import mplat.uijfx.utils.Alert;
 import mplat.utils.UConst;
 
 import org.apache.commons.io.FilenameUtils;
@@ -40,11 +37,8 @@ import org.apache.commons.lang.StringUtils;
 
 import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
-import com.atom.core.uijfx.UIBtnMsg;
-import com.atom.core.uijfx.UIConfig;
 import com.atom.core.uijfx.UISize;
-import com.atom.core.uijfx.UITipMsg;
-import com.atom.core.uijfx.event.EventAdapter;
+import com.atom.core.uijfx.popup.PopupUtils;
 
 /**
  * @author obullxl@gmail.com
@@ -184,7 +178,7 @@ public final class MainViewController {
         // 激活
         this.tabPane.getSelectionModel().select(tab);
     }
-    
+
     /**
      * 删除TAB
      */
@@ -205,7 +199,7 @@ public final class MainViewController {
             if (tab == null) {
                 String msg = "主页面Tab不存在，请重新登录系统!";
                 LogUtils.error(msg, new RuntimeException(msg));
-                Alert.alert(UIConfig.get().setSize(UISize.to(400, 300)).setTipMsg(UITipMsg.to("系统异常", msg)));
+                PopupUtils.alert(this.primaryStage, "系统异常", msg);
             } else {
                 // 激活
                 this.tabPane.getSelectionModel().select(tab);
@@ -402,14 +396,7 @@ public final class MainViewController {
      */
     private void onExitSystem() {
         LogUtils.warn("退出系统~~~");
-
-        EventAdapter adapter = new EventAdapter() {
-            public void onSure(ActionEvent evt) {
-                Platform.exit();
-            }
-        };
-
-        Alert.alert(UIConfig.get().setSize(UISize.to(400, 300)).setTipMsg(UITipMsg.to("退出系统", "你确定要退出系统吗？")).setBtnMsg(UIBtnMsg.get().setSure("确定").setCancel("取消")).setAdapter(adapter));
+        PopupUtils.exitSystem(this.primaryStage);
     }
 
     /**

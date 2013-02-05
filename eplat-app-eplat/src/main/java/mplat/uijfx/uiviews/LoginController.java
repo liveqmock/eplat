@@ -18,20 +18,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
-import mplat.uijfx.utils.Alert;
 import mplat.utils.UserHolder;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.atom.core.lang.utils.LogUtils;
-import com.atom.core.uijfx.UIBtnMsg;
-import com.atom.core.uijfx.UIConfig;
 import com.atom.core.uijfx.UISize;
-import com.atom.core.uijfx.UITipMsg;
-import com.atom.core.uijfx.event.EventAdapter;
+import com.atom.core.uijfx.popup.PopupUtils;
 import com.atom.core.uijfx.utils.StageUtils;
 
 /**
@@ -136,13 +131,8 @@ public class LoginController {
         if (user == null) {
             this.lblTipMsg.setText("用户不存在或密码错误，请重新输入！");
             LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
-            EventAdapter adapter = new EventAdapter() {
-                public void onHidden(WindowEvent evt) {
-                    lblTipMsg.setText("用户登录");
-                }
-            };
-
-            Alert.alert(UIConfig.get().setSize(UISize.to(200D, 180D)).setTipMsg(UITipMsg.to("错误提示", "登录失败，用户不存在或密码错误！")).setBtnMsg(UIBtnMsg.get().setSure("确定")).setAdapter(adapter));
+            
+            PopupUtils.alert(this.stage, "登录失败", "登录失败，用户不存在或密码错误！");
         } else {
             UserHolder.set(user);
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");

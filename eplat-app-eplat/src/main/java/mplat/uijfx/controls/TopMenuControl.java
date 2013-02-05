@@ -4,23 +4,17 @@
  */
 package mplat.uijfx.controls;
 
-import com.atom.core.lang.utils.LogUtils;
-import com.atom.core.uijfx.UIBtnMsg;
-import com.atom.core.uijfx.UIConfig;
-import com.atom.core.uijfx.UISize;
-import com.atom.core.uijfx.UITipMsg;
-import com.atom.core.uijfx.event.EventAdapter;
-import com.atom.core.uijfx.utils.StageUtils;
-
-import mplat.uijfx.uiviews.MainViewController;
-import mplat.uijfx.uiviews.SystemAboutController;
-import mplat.uijfx.utils.Alert;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
+import mplat.uijfx.uiviews.MainViewController;
+import mplat.uijfx.uiviews.SystemAboutController;
+
+import com.atom.core.lang.utils.LogUtils;
+import com.atom.core.uijfx.popup.PopupUtils;
+import com.atom.core.uijfx.utils.StageUtils;
 
 /**
  * 菜单组件
@@ -67,14 +61,7 @@ public class TopMenuControl extends MenuBar {
     @FXML
     private void onMenuExit(ActionEvent evt) {
         LogUtils.warn("退出系统~~~");
-
-        EventAdapter adapter = new EventAdapter() {
-            public void onSure(ActionEvent evt) {
-                Platform.exit();
-            }
-        };
-
-        Alert.alert(UIConfig.get().setSize(UISize.to(400, 300)).setTipMsg(UITipMsg.to("退出系统", "你确定要退出系统吗？")).setBtnMsg(UIBtnMsg.get().setSure("确定").setCancel("取消")).setAdapter(adapter));
+        PopupUtils.exitSystem(this.primaryStage);
     }
 
     @FXML
