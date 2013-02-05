@@ -11,6 +11,8 @@ import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.lang.utils.SwingUtils;
 import com.eplat.unicom.Main;
 import com.eplat.unicom.dto.MbillDetail;
+import com.eplat.unicom.jdbc.MbillDetailDAO;
+import com.eplat.unicom.utils.ChargeRateUtils;
 import com.eplat.unicom.utils.MbillWriter;
 import java.awt.Dialog;
 import java.io.File;
@@ -39,8 +41,9 @@ public class ChargeFrame extends javax.swing.JFrame {
     private static final String PREF_CATG = "ChargeFrame";
     private final List<String> fileTypeExts;
     private MbillWriter writer;
-    private final Map<String, MbillDetail> tradeNoMap = new ConcurrentHashMap<String, MbillDetail>();
-    private final Map<String, MbillDetail> outTradeNoMap = new ConcurrentHashMap<String, MbillDetail>();
+    private MbillDetailDAO dao = MbillDetailDAO.get();
+    // private final Map<String, MbillDetail> tradeNoMap = new ConcurrentHashMap<String, MbillDetail>();
+    // private final Map<String, MbillDetail> outTradeNoMap = new ConcurrentHashMap<String, MbillDetail>();
 
     /**
      * Creates new form ChargeFrame
@@ -66,44 +69,27 @@ public class ChargeFrame extends javax.swing.JFrame {
         this.spinAmount.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
         this.spinRate.setModel(new SpinnerNumberModel(3, 0, Integer.MAX_VALUE, 1));
 
-        this.spinOtherCharge.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
+        this.spinOtherAmount.setModel(new SpinnerNumberModel(2, 0, Integer.MAX_VALUE, 1));
+        this.spinProdCode.setModel(new SpinnerNumberModel(3, 0, Integer.MAX_VALUE, 1));
 
         // 提示消息
         this.lblTipMsg.setText(" ");
 
         this.btnSelectFile.requestFocus();
     }
-
-    private void clearTipMsg() {
-        final long timeout = 3000;
-        Thread t = new Thread() {
-            public void run() {
-                long start = System.currentTimeMillis();
-                while (System.currentTimeMillis() - start < timeout) {
-                    try {
-                        Thread.sleep(timeout);
-                    } catch (Exception e) {
-                        //
-                    }
-                }
-
-                lblTipMsg.setText(" ");
-            }
-        };
-
-        t.start();
-    }
+    // private long lastTime = System.currentTimeMillis();
 
     private void showTipMsg(final String tipMsg) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                String msg = tipMsg;
-                if (!StringUtils.startsWith(tipMsg, " ")) {
-                    msg = tipMsg + "    ";
+       // long now = System.currentTimeMillis();
+        //if (now - lastTime > 3000) {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    lblTipMsg.setText("<html>  " + tipMsg + "</html>");
                 }
-                lblTipMsg.setText(msg);
-            }
-        });
+            });
+
+           // lastTime = now;
+        //}
     }
 
     /**
@@ -144,8 +130,11 @@ public class ChargeFrame extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         spinOtherOutTradeNo = new javax.swing.JSpinner();
         jLabel16 = new javax.swing.JLabel();
-        spinOtherCharge = new javax.swing.JSpinner();
+        spinOtherAmount = new javax.swing.JSpinner();
         jLabel17 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        spinProdCode = new javax.swing.JSpinner();
+        jLabel21 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtTempPath = new javax.swing.JTextField();
@@ -289,13 +278,17 @@ public class ChargeFrame extends javax.swing.JFrame {
 
         jLabel9.setText("外部交易号第");
 
-        jLabel10.setText("手续费第");
+        jLabel10.setText("交易量第");
 
         jLabel15.setText("列");
 
         jLabel16.setText("列");
 
         jLabel17.setText("列");
+
+        jLabel20.setText("产品第");
+
+        jLabel21.setText("列");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -323,17 +316,22 @@ public class ChargeFrame extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(jLabel10)
                         .addGap(0, 0, 0)
-                        .addComponent(spinOtherCharge, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinOtherAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jLabel17)
-                        .addGap(12, 12, 12))
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel20)
+                        .addGap(0, 0, 0)
+                        .addComponent(spinProdCode, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel21))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtOtherFile)
                         .addGap(5, 5, 5)
-                        .addComponent(btnSelectOtherFile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(btnSelectOtherFile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,8 +352,11 @@ public class ChargeFrame extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(spinOtherOutTradeNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(spinOtherCharge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
+                    .addComponent(spinOtherAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel20)
+                    .addComponent(spinProdCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -461,11 +462,11 @@ public class ChargeFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAnalyze, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -506,7 +507,6 @@ public class ChargeFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             this.showTipMsg("选择我方对账文件异常:" + e.getMessage());
             LogUtils.error("选择我方对账文件异常.", e);
-            this.clearTipMsg();
         }
 
         if (flag == JFileChooser.APPROVE_OPTION) {
@@ -528,7 +528,6 @@ public class ChargeFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             this.showTipMsg("选择对方对账文件异常:" + e.getMessage());
             LogUtils.error("选择对方对账文件异常.", e);
-            this.clearTipMsg();
         }
 
         if (flag == JFileChooser.APPROVE_OPTION) {
@@ -550,7 +549,6 @@ public class ChargeFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             this.showTipMsg("选择临时目录异常:" + e.getMessage());
             LogUtils.error("选择临时目录异常.", e);
-            this.clearTipMsg();
         }
 
         if (flag == JFileChooser.APPROVE_OPTION) {
@@ -561,9 +559,10 @@ public class ChargeFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSelectTempPathActionPerformed
 
-    private void btnAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalyzeActionPerformed
-        // 分析账单文件
-
+    /**
+     * 分析
+     */
+    private void analyze() {
         // 1. 检查设置参数
         this.showTipMsg("正在检查系统配置参数……");
         boolean rtn = this.checkConfigs();
@@ -578,21 +577,24 @@ public class ChargeFrame extends javax.swing.JFrame {
         int outTradeNoIdx = (Integer) this.spinOutTradeNo.getValue();
         int amountIdx = (Integer) this.spinAmount.getValue();
         int rateIdx = (Integer) this.spinRate.getValue();
-        
+
         if (tradeNoIdx < 0 || outTradeNoIdx < 0 || amountIdx < 0 || rateIdx < 0) {
             SwingUtils.alert(this, "解析我方对账文件出错", "请仔细迁移各项数据列号，列号从0开始！");
             return;
         }
-        
+
         Set<Integer> idxs = new HashSet<Integer>();
         idxs.add(tradeNoIdx);
         idxs.add(outTradeNoIdx);
         idxs.add(amountIdx);
         idxs.add(rateIdx);
-        if(idxs.size()<4) {
+        if (idxs.size() < 4) {
             SwingUtils.alert(this, "解析我方对账文件出错", "请仔细迁移各项数据列号，列号从0开始！");
             return;
         }
+
+        // 清除数据
+        this.dao.clear();
 
         try {
             int count = 1;
@@ -603,20 +605,16 @@ public class ChargeFrame extends javax.swing.JFrame {
 
                 item.setTradeNo(values[tradeNoIdx]);
                 item.setOutTradeNo(values[outTradeNoIdx]);
-                
-                Money amount = new Money(0, 0);
-                String amountTxt = values[amountIdx];
-                if (StringUtils.contains(amountTxt, ".")) {
-                    amount.setCent(new Money(amountTxt).getCent());
-                } else {
-                    amount.setCent(Long.valueOf(amountTxt));
-                }
-               
+
+                Money amount = new Money(values[amountIdx]);
                 item.setCharge(amount.multiply(new BigDecimal(values[rateIdx])));
 
                 // 保存
-                this.tradeNoMap.put(item.getTradeNo(), item);
-                this.outTradeNoMap.put(item.getOutTradeNo(), item);
+                // this.tradeNoMap.put(item.getTradeNo(), item);
+                // this.outTradeNoMap.put(item.getOutTradeNo(), item);
+                if (amount.getCent() > 0) {
+                    this.dao.insert(item);
+                }
 
                 // 打印日志
                 LogUtils.info("[我方] " + item);
@@ -649,7 +647,8 @@ public class ChargeFrame extends javax.swing.JFrame {
         String otherFile = this.txtOtherFile.getText();
         int otherTradeNoIdx = (Integer) this.spinOtherTradeNo.getValue();
         int otherOutTradeNoIdx = (Integer) this.spinOtherOutTradeNo.getValue();
-        int otherChargeIdx = (Integer) this.spinOtherCharge.getValue();
+        int otherAmountIdx = (Integer) this.spinOtherAmount.getValue();
+        int prodCodeIdx = (Integer) this.spinProdCode.getValue();
         try {
             CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(otherFile), "GBK"));
             String[] values = reader.readNext();
@@ -669,24 +668,21 @@ public class ChargeFrame extends javax.swing.JFrame {
 
                 MbillDetail item;
                 if (StringUtils.isNotBlank(tradeNo)) {
-                    item = this.tradeNoMap.get(tradeNo);
+                    // item = this.tradeNoMap.get(tradeNo);
+                    item = this.dao.findByTradeNo(tradeNo);
                 } else {
-                    item = this.outTradeNoMap.get(outTradeNo);
+                    // item = this.outTradeNoMap.get(outTradeNo);
+                    item = this.dao.findByOutTradeNo(outTradeNo);
                 }
 
-                Money charge;
-                String chargeTxt = values[otherChargeIdx];
-                if (StringUtils.contains(chargeTxt, ".")) {
-                    charge = new Money(chargeTxt);
-                } else {
-                    charge = new Money(0, 0);
-                    charge.setCent(Long.valueOf(chargeTxt));
-                }
+                BigDecimal prodRate = new BigDecimal(ChargeRateUtils.getRate(values[prodCodeIdx]));
+                Money otherAmount = new Money(values[otherAmountIdx]);
+                Money otherCharge = otherAmount.multiply(prodRate);
 
                 if (item == null) {
                     item = new MbillDetail();
                     item.setOtherOutTradeNo(outTradeNo);
-                    item.setOtherCharge(charge);
+                    item.setOtherCharge(otherCharge);
                     item.setMemo("我方缺少");
 
                     this.writer.writeDifferent(item.toBill());
@@ -697,7 +693,7 @@ public class ChargeFrame extends javax.swing.JFrame {
                 }
 
                 item.setOtherOutTradeNo(outTradeNo);
-                item.setOtherCharge(charge);
+                item.setOtherCharge(otherCharge);
 
                 // 打印日志
                 if (!item.isSame()) {
@@ -723,23 +719,37 @@ public class ChargeFrame extends javax.swing.JFrame {
         }
 
         // 4. 记录我方明细
-        for (MbillDetail bill : this.tradeNoMap.values()) {
-            if (!bill.isCheck()) {
-                bill.setMemo("对方缺少");
+        /*
+         for (MbillDetail bill : this.tradeNoMap.values()) {
+         if (!bill.isCheck()) {
+         bill.setMemo("对方缺少");
 
-                try {
-                    this.writer.writeDifferent(bill.toBill());
-                } catch (Exception e) {
-                    this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
-                    LogUtils.error("记录对方缺少明细异常！", e);
-                }
-            }
-        }
+         try {
+         this.writer.writeDifferent(bill.toBill());
+         } catch (Exception e) {
+         this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
+         LogUtils.error("记录对方缺少明细异常！", e);
+         }
+         }
+         }
+         */
 
         // 5. 关闭写入流
         this.writer.finish();
+        this.dao.close();
 
         this.showTipMsg("分析完成，请检查临时目录下的差异数据文件！");
+    }
+    
+    private void btnAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalyzeActionPerformed
+        // 分析账单文件
+        Thread analyzer = new Thread(){
+            public void run(){
+                analyze();
+            }
+        };
+        
+        analyzer.start();
     }//GEN-LAST:event_btnAnalyzeActionPerformed
 
     private void menuItemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemHelpActionPerformed
@@ -802,6 +812,8 @@ public class ChargeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -818,10 +830,11 @@ public class ChargeFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JSpinner spinAmount;
-    private javax.swing.JSpinner spinOtherCharge;
+    private javax.swing.JSpinner spinOtherAmount;
     private javax.swing.JSpinner spinOtherOutTradeNo;
     private javax.swing.JSpinner spinOtherTradeNo;
     private javax.swing.JSpinner spinOutTradeNo;
+    private javax.swing.JSpinner spinProdCode;
     private javax.swing.JSpinner spinRate;
     private javax.swing.JSpinner spinTradeNo;
     private javax.swing.JMenuBar topMenuBar;

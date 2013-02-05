@@ -4,7 +4,6 @@
  */
 package com.eplat.unicom.utils;
 
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.Writer;
 import org.apache.commons.io.FilenameUtils;
