@@ -12,8 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import com.atom.core.uijfx.IconImageHolder;
 import com.atom.core.uijfx.UISize;
+import com.atom.core.uijfx.utils.IconsHolder;
 
 /**
  * 系统信息信息
@@ -58,7 +58,7 @@ public class SystemAboutController {
         this.newStage.initOwner(this.primaryStage);
         this.newStage.initModality(Modality.APPLICATION_MODAL);
         
-        this.newStage.getIcons().addAll(IconImageHolder.getIconImages());
+        this.newStage.getIcons().addAll(IconsHolder.getIconImages());
         this.newStage.setTitle("系统信息");
         this.newStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
         // this.stage.sizeToScene();

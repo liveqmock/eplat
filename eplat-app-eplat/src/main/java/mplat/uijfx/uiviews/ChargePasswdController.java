@@ -22,8 +22,8 @@ import mplat.mgt.dto.UserInfoDTO;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.atom.core.uijfx.IconImageHolder;
 import com.atom.core.uijfx.UISize;
+import com.atom.core.uijfx.utils.IconsHolder;
 
 /**
  * 修改密码
@@ -101,7 +101,7 @@ public class ChargePasswdController {
         this.newStage.initOwner(this.primaryStage);
         this.newStage.initModality(Modality.APPLICATION_MODAL);
 
-        this.newStage.getIcons().addAll(IconImageHolder.getIconImages());
+        this.newStage.getIcons().addAll(IconsHolder.getIconImages());
         this.newStage.setTitle("修改登录密码 [" + user.getUserName() + "]");
         this.newStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
         // this.stage.sizeToScene();

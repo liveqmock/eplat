@@ -63,7 +63,7 @@ public final class CourseWareWebView extends BaseWebView<MainViewController> {
         tab.setClosable(true);
         tab.setContent((Node) view.findView());
 
-        this.getRootView().activeTab(tab);
+        this.getRootView().findTabView().addAndActiveTab(tab);
     }
 
 }

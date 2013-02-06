@@ -1,6 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Author: obullxl@gmail.com
+ * Copyright (c) 2004-2013 All Rights Reserved.
  */
 package mplat.uijfx.uiviews;
 
@@ -8,7 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.geometry.Dimension2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
 import mplat.utils.UserHolder;
@@ -25,18 +24,19 @@ import mplat.utils.UserHolder;
 import org.apache.commons.lang.StringUtils;
 
 import com.atom.core.lang.utils.LogUtils;
-import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.popup.PopupUtils;
 import com.atom.core.uijfx.utils.StageUtils;
+import com.atom.core.uijfx.views.BaseStageView;
 
 /**
- *
- * @author Administrator
+ * 用户登录
+ * 
+ * @author obullxl@gmail.com
+ * @version $Id: LoginController.java, V1.0.1 2013-2-3 下午2:50:11 $
  */
-public class LoginController {
-    private static final UISize SIZE = UISize.to(713, 235);
-
-    private Stage               stage;
+public class LoginController extends BaseStageView {
+    /** 窗体尺寸 */
+    private final Dimension2D size = new Dimension2D(713, 235);
 
     @FXML
     private BorderPane          viewRoot;
@@ -97,22 +97,28 @@ public class LoginController {
 
         this.lblTipMsg.setText("请登录系统~");
     }
+    
 
-    /**
-     * 页面初始化
+    /** 
+     * @see com.atom.core.uijfx.views.BaseStageView#findTitle()
      */
-    public boolean initViews(Stage stage) {
-        this.stage = stage;
+    public String findTitle() {
+        return "用户登录";
+    }
 
-        this.stage.setTitle("用户登录");
-
-        this.stage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
-        this.stage.sizeToScene();
-        this.stage.centerOnScreen();
-        this.stage.setResizable(false);
-        this.stage.show();
-
-        return true;
+    /** 
+     * @see com.atom.core.uijfx.views.BaseStageView#findGroupView()
+     */
+    @SuppressWarnings("unchecked")
+    public BorderPane findGroupView() {
+        return this.viewRoot;
+    }
+    
+    /** 
+     * @see com.atom.core.uijfx.views.BaseStageView#findSize()
+     */
+    public Dimension2D findSize() {
+        return this.size;
     }
 
     @FXML
@@ -136,12 +142,12 @@ public class LoginController {
             this.lblTipMsg.setText("用户不存在或密码错误，请重新输入！");
             LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
 
-            PopupUtils.alert(this.stage, "登录失败", "登录失败，用户不存在或密码错误！");
+            PopupUtils.alert(this.findStage(), "登录失败", "登录失败，用户不存在或密码错误！");
         } else {
             UserHolder.set(user);
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
 
-            StageUtils.findController(MainViewController.class).initViews(this.stage);
+            StageUtils.findController(MainViewController.class).initViews(this.findStage()).show();
         }
     }
 

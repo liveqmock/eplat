@@ -102,7 +102,7 @@ public final class EmergeTrainWebView extends BaseWebView<MainViewController> {
         });
 
         // 保存
-        this.getRootView().activeTab(tab);
+        this.getRootView().findTabView().addAndActiveTab(tab);
     }
 
     /**

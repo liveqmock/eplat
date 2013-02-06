@@ -33,7 +33,7 @@ public class TopMenuControl extends MenuBar {
      */
     public TopMenuControl(MainViewController parentView) {
         this.parentView = parentView;
-        this.primaryStage = this.parentView.getPrimaryStage();
+        this.primaryStage = this.parentView.findStage();
 
         try {
             FXMLLoader loader = new FXMLLoader();

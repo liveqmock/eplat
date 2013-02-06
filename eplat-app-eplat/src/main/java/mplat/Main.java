@@ -1,5 +1,6 @@
 /**
- * obullxl@gmail.com
+ * Author: obullxl@gmail.com
+ * Copyright (c) 2004-2013 All Rights Reserved.
  */
 package mplat;
 
@@ -14,15 +15,18 @@ import mplat.uijfx.uiviews.LoginController;
 import mplat.utils.DataMap;
 
 import com.atom.core.lang.utils.CfgUtils;
-import com.atom.core.uijfx.IconImageHolder;
+import com.atom.core.uijfx.utils.IconsHolder;
 import com.atom.core.uijfx.utils.StageHolder;
 import com.atom.core.uijfx.utils.StageUtils;
 import com.atom.core.xstream.store.StoreFactory;
 
 /**
+ * 应用启动入口
+ * 
  * @author obullxl@gmail.com
+ * @version $Id: Main.java, V1.0.1 2013-2-3 下午2:50:11 $
  */
-public class Main extends Application {
+public final class Main extends Application {
 
     /** 
      * @see javafx.application.Application#start(javafx.stage.Stage)
@@ -34,11 +38,10 @@ public class Main extends Application {
         CfgUtils.findConfigPath();
         StoreFactory.get().init();
 
-        IconImageHolder.setIconImages(findIconImages());
-        stage.getIcons().addAll(IconImageHolder.getIconImages());
+        IconsHolder.setIconImages(findIconImages());
+        stage.getIcons().addAll(IconsHolder.getIconImages());
 
-        StageUtils.findController(LoginController.class).initViews(stage);
-        // LoginView.create(stage).initViews().show();
+        StageUtils.findController(LoginController.class).initViews(stage).show();
     }
 
     /** 

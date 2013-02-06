@@ -14,6 +14,12 @@
 		   myVideo.pause();
 		}
 	}
+	
+	var videos = document.getElementsByTagName('video');
+	for(var i = 0; i < videos.length; i++) {
+		videos[i].currentTime=0;
+		videos[i].pause();
+	}
 
 	function makeBig() {
 		var myVideo = document.getElementsByTagName('video')[0];

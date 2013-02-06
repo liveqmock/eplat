@@ -53,7 +53,7 @@ public final class SystemCfgWebView extends BaseWebView<MainViewController> {
         return new EventListener() {
             public void handleEvent(Event evt) {
                 if (no == 2) {
-                    Stage stage = getRootView().getPrimaryStage();
+                    Stage stage = getRootView().findStage();
                     UserInfoDTO user = UserHolder.get();
 
                     StageUtils.findController(ChargePasswdController.class).initViews(stage, user);

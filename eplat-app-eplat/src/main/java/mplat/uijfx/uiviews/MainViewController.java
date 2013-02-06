@@ -1,5 +1,6 @@
 /**
- * obullxl@gmail.com
+ * Author: obullxl@gmail.com
+ * Copyright (c) 2004-2013 All Rights Reserved.
  */
 package mplat.uijfx.uiviews;
 
@@ -8,9 +9,9 @@ import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -18,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.controls.TopFrameControl;
 import mplat.uijfx.controls.TopMenuControl;
@@ -33,44 +33,47 @@ import mplat.utils.UConst;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
 
 import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
-import com.atom.core.uijfx.UISize;
 import com.atom.core.uijfx.popup.PopupUtils;
+import com.atom.core.uijfx.views.BaseStageView;
+import com.atom.core.uijfx.views.BaseTabPane;
 
 /**
+ * 应用主窗体
+ * 
  * @author obullxl@gmail.com
+ * @version $Id: MainViewController.java, V1.0.1 2013-2-3 下午2:50:11 $
  */
-public final class MainViewController {
+public final class MainViewController extends BaseStageView {
     /** 组件尺寸 */
-    private static final UISize SIZE = UISize.to(1000, 705);
+    private final Dimension2D size = new Dimension2D(1000, 705);
 
-    private Stage               primaryStage;
-    private TopMenuControl      topMenuBar;
-
-    @FXML
-    private BorderPane          viewRoot;
+    private TopMenuControl    topMenuBar;
 
     @FXML
-    private TabPane             tabPane;
-    @FXML
-    private Tab                 tabMain;
+    private BorderPane        viewRoot;
 
     @FXML
-    private ImageView           imgCourseWare;
+    private TabPane           tabPane;
     @FXML
-    private ImageView           imgTopicTrain;
-    @FXML
-    private ImageView           imgEmergeTrain;
-    @FXML
-    private ImageView           imgEmergeExam;
-    @FXML
-    private ImageView           imgSystemCfg;
+    private Tab               tabMain;
+    private BaseTabPane       tabView;
 
     @FXML
-    private ImageView           imgExit;
+    private ImageView         imgCourseWare;
+    @FXML
+    private ImageView         imgTopicTrain;
+    @FXML
+    private ImageView         imgEmergeTrain;
+    @FXML
+    private ImageView         imgEmergeExam;
+    @FXML
+    private ImageView         imgSystemCfg;
+
+    @FXML
+    private ImageView         imgExit;
 
     /**
      * 初始化
@@ -82,6 +85,22 @@ public final class MainViewController {
         this.viewRoot.setTop(this.topMenuBar);
         // this.viewRoot.getTop().prefHeight(22.0);
 
+        this.tabView = new BaseTabPane() {
+            /** 
+             * @see com.atom.core.uijfx.views.BaseTabPane#findTabPane()
+             */
+            public TabPane findTabPane() {
+                return tabPane;
+            }
+
+            /** 
+             * @see com.atom.core.uijfx.views.BaseTabPane#findHomePageTab()
+             */
+            public Tab findHomePageTab() {
+                return tabMain;
+            }
+        };
+
         // Tab标签
         TabDataEnum tabdata = TabDataEnum.MAIN_VIEW;
         this.tabMain.setClosable(false);
@@ -89,20 +108,26 @@ public final class MainViewController {
         this.tabMain.setGraphic(new ImageView(this.findTabWelcome()));
     }
 
-    /**
-     * 页面初始化
+    /** 
+     * @see com.atom.core.uijfx.views.BaseStageView#findTitle()
      */
-    public boolean initViews(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public String findTitle() {
+        return "GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]";
+    }
 
-        this.primaryStage.setTitle("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
-        this.primaryStage.setScene(new Scene(this.viewRoot, SIZE.getWidth(), SIZE.getHeight()));
-        // this.stage.sizeToScene();
-        this.primaryStage.centerOnScreen();
-        this.primaryStage.setResizable(false);
-        this.primaryStage.show();
+    /** 
+     * @see com.atom.core.uijfx.views.BaseStageView#findGroupView()
+     */
+    @SuppressWarnings("unchecked")
+    public BorderPane findGroupView() {
+        return this.viewRoot;
+    }
 
-        return true;
+    /** 
+     * @see com.atom.core.uijfx.views.BaseStageView#findSize()
+     */
+    public Dimension2D findSize() {
+        return this.size;
     }
 
     @FXML
@@ -155,36 +180,12 @@ public final class MainViewController {
     }
 
     // ~~~~~~~~~~ 公用方法 ~~~~~~~~~~~~ //
-
+    
     /**
-     * 根据用户数据查询TAB
+     * 获取TabView对象
      */
-    public Tab findTab(TabDataEnum tabdata) {
-        for (Tab tab : this.tabPane.getTabs()) {
-            if (StringUtils.equalsIgnoreCase(ObjectUtils.toString(tab.getUserData()), tabdata.code())) {
-                return tab;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * 激活TAB
-     */
-    public void activeTab(Tab tab) {
-        // 保存
-        this.tabPane.getTabs().add(tab);
-        // 激活
-        this.tabPane.getSelectionModel().select(tab);
-    }
-
-    /**
-     * 删除TAB
-     */
-    public void removeTab(Tab tab) {
-        // 删除
-        this.tabPane.getTabs().remove(tab);
+    public final BaseTabPane findTabView() {
+        return this.tabView;
     }
 
     /**
@@ -192,14 +193,14 @@ public final class MainViewController {
      */
     public void activeTab(TabDataEnum tabdata) {
         // 查找
-        Tab tab = this.findTab(tabdata);
+        Tab tab = this.tabView.findTab(tabdata.code());
 
         if (tabdata == TabDataEnum.MAIN_VIEW) {
             // 欢迎页面
             if (tab == null) {
                 String msg = "主页面Tab不存在，请重新登录系统!";
                 LogUtils.error(msg, new RuntimeException(msg));
-                PopupUtils.alert(this.primaryStage, "系统异常", msg);
+                PopupUtils.alert(this.findStage(), "系统异常", msg);
             } else {
                 // 激活
                 this.tabPane.getSelectionModel().select(tab);
@@ -349,10 +350,6 @@ public final class MainViewController {
 
     // ~~~~~~~~ getters and setters ~~~~~~~~~ //
 
-    public Stage getPrimaryStage() {
-        return this.primaryStage;
-    }
-
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
     /**
@@ -396,7 +393,7 @@ public final class MainViewController {
      */
     private void onExitSystem() {
         LogUtils.warn("退出系统~~~");
-        PopupUtils.exitSystem(this.primaryStage);
+        PopupUtils.exitSystem(this.findStage());
     }
 
     /**
