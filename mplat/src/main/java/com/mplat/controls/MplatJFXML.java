@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package atom.jfxml;
+package com.mplat.controls;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -1,7 +1,7 @@
 /**
  * obullxl@gmail.com
  */
-package atom.jfxml;
+package com.mplat.controls;
 
 /**
  * @author obullxl@gmail.com

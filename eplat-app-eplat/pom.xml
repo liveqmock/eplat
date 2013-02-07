@@ -48,11 +48,13 @@
 			<version>2.1</version>
 		</dependency>
 
+		<!--
 		<dependency>
 			<groupId>org.jrebirth</groupId>
 			<artifactId>core</artifactId>
 			<version>0.7.1</version>
 		</dependency>
+		-->
 
 		<!-- ======================================== -->
 		<!-- 测试相关依赖 -->
@@ -74,7 +76,7 @@
 				<filtering>false</filtering>
 				<directory>${basedir}/src/main/java</directory>
 				<includes>
-					<include>**/*.fxml</include>
+					<include>**/*.*</include>
 				</includes>
 			</resource>
 			<resource>
