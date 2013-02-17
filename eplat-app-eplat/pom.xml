@@ -27,6 +27,11 @@
 			<artifactId>atom-core-uijfx</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.atom</groupId>
+			<artifactId>atom-app-msgs</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -47,14 +52,24 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.1</version>
 		</dependency>
-
-		<!--
+		
+		<!-- ======================================== -->
+		<!-- jrebirth相关依赖 -->
+		<!-- ======================================== -->
 		<dependency>
 			<groupId>org.jrebirth</groupId>
 			<artifactId>core</artifactId>
 			<version>0.7.1</version>
 		</dependency>
-		-->
+		
+		<!-- ======================================== -->
+		<!-- Mina相关依赖 -->
+		<!-- ======================================== -->
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
+			<version>0.7.1</version>
+		</dependency>
 
 		<!-- ======================================== -->
 		<!-- 测试相关依赖 -->
@@ -70,7 +85,6 @@
 	<build>
 		<finalName>eplat-app-eplat-${project.version}</finalName>
 
-		<!-- Include FXML resources -->
 		<resources>
 			<resource>
 				<filtering>false</filtering>
@@ -81,7 +95,7 @@
 			</resource>
 			<resource>
 				<filtering>false</filtering>
-				<directory>${basedir}/src/main/resources</directory>
+				<directory>${basedir}/src/test/java</directory>
 				<includes>
 					<include>**/*.*</include>
 				</includes>
@@ -256,5 +270,5 @@
 			<url>http://repo.jrebirth.org/jrebirth-plugin-snapshot-local</url>
 		</pluginRepository>
 	</pluginRepositories>
-
+	
 </project>

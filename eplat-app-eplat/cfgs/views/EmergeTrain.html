@@ -21,6 +21,8 @@ $(document).ready(function() {
 		
 		var img = $("#img_" + $(this).attr("id").split("_")[1]);
 		img.attr("src", img.attr("src").replace("-ico-2", "-ico-1"));
+	}).click(function() {
+		app.fireEvent($(this).attr("id").split("_")[1]);
 	});
 	
 	$(".page_link a").click(function(e) {	
@@ -261,14 +263,14 @@ $(document).ready(function() {
       <tr>
         <td width="10%">&nbsp;</td>
         <td width="80%" class="page_link">
-        	[<a href="#1">心脏停搏</a>]
-            [<a href="#2">心动过缓</a>]
-            [<a href="#3">心动过速</a>]
-            [<a href="#4">胸痛</a>]
-            [<a href="#5">中毒及服药过量</a>]
-            [<a href="#6">代谢病及环境伤害</a>]
-            [<a href="#7">呼吸困难</a>]
-            [<a href="#8">颅脑损伤</a>]
+        	[<a href="#1">1-心脏停搏</a>]
+            [<a href="#2">2-心动过缓</a>]
+            [<a href="#3">3-心动过速</a>]
+            [<a href="#4">4-胸痛</a>]
+            [<a href="#5">5-中毒及服药过量</a>]
+            [<a href="#6">6-代谢病及环境伤害</a>]
+            [<a href="#7">7-呼吸困难</a>]
+            [<a href="#8">8-颅脑损伤</a>]
 		</td>
         <td width="10%">&nbsp;</td>
       </tr>

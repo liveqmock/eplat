@@ -1,0 +1,15 @@
+<GSet>
+  <minPressDepth>0</minPressDepth>
+  <maxPressDepth>0</maxPressDepth>
+  <minAirVolume>0</minAirVolume>
+  <maxAirVolume>0</maxAirVolume>
+  <cprOperateMode>0</cprOperateMode>
+  <operateTipAudio>false</operateTipAudio>
+  <operateAudio>false</operateAudio>
+  <saverMode>false</saverMode>
+  <pressCount>0</pressCount>
+  <cprRecycleCount>0</cprRecycleCount>
+  <joinHeartGraph>false</joinHeartGraph>
+  <joinBloodGraph>false</joinBloodGraph>
+  <autoSaveSeconds>0</autoSaveSeconds>
+</GSet>

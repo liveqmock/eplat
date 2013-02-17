@@ -3,8 +3,24 @@
     <long>2</long>
     <User>
       <id>2</id>
+      <userName>abcd</userName>
+      <userPasswd>dd</userPasswd>
+    </User>
+  </entry>
+  <entry>
+    <long>1</long>
+    <User>
+      <id>1</id>
       <userName>admin</userName>
-      <userPasswd>123</userPasswd>
+      <userPasswd>888888</userPasswd>
+    </User>
+  </entry>
+  <entry>
+    <long>3</long>
+    <User>
+      <id>3</id>
+      <userName>dadfdfd</userName>
+      <userPasswd>111</userPasswd>
     </User>
   </entry>
 </concurrent-hash-map>

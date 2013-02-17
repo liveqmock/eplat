@@ -16,5 +16,7 @@ $(document).ready(function() {
 		
 		var img = $("#img_" + $(this).attr("id").split("_")[1]);
 		img.attr("src", img.attr("src").replace("-ico-2", "-ico-1"));
+	}).click(function() {
+		app.doShowPpt($(this).attr("id").split("_")[1]);
 	});
 });
