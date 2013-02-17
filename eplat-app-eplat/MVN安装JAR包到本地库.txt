@@ -1,0 +1,5 @@
+mvn install:install-file -Dfile=e:/memcached.jar -DgroupId=com.danga -DartifactId=memcached -Dversion=2.5.3 -Dpackaging=jar -DgeneratePom=true
+
+mvn install:install-file -Dfile=D:/JavaSDK/JDK7/jre/lib/jfxrt.jar -DgroupId=javafx -DartifactId=javafx -Dversion=2.2.4 -Dpackaging=jar -DgeneratePom=true  
+
+mvn install:install-file -Dfile=D:/JavaSDK/JDK7/jre/lib/jfxrt.jar -DgroupId=javafx -DartifactId=javafx -Dversion=2.2.4 -Dpackaging=jar -DgeneratePom=true  
