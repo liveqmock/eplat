@@ -6,8 +6,8 @@ package mplat.store;
 import java.io.File;
 
 import mplat.mgt.dto.ExamInfoDTO;
-import mplat.mgt.dto.ExamItemDTO;
 
+import com.atom.core.lang.MapExt;
 import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.xstream.store.BaseStore;
 import com.thoughtworks.xstream.XStream;
@@ -29,17 +29,9 @@ public class ExamStore extends BaseStore<ExamInfoDTO> {
 
     @Override
     public void initExt() {
-        String path = CfgUtils.findConfigPath() + "/store";
-        File file = new File(path);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
-        super.setFilePath(path + "/Exam.data");
-
         XStream xstream = findXStream();
         xstream.alias("Exam", ExamInfoDTO.class);
-        xstream.alias("Item", ExamItemDTO.class);
+        xstream.alias("MapExt", MapExt.class);
     }
 
 }

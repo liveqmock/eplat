@@ -3,35 +3,25 @@
  */
 package mplat.mgt.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.atom.core.lang.MapExt;
-import com.atom.core.lang.ToString;
-import com.atom.core.lang.ids.ID;
+import com.atom.core.lang.ids.LongID;
 
 /**
  * @author obullxl@gmail.com
  */
-public class ExamInfoDTO extends ToString implements ID<Long> {
+public class ExamInfoDTO extends LongID {
     private static final long serialVersionUID = 4749376888539259294L;
 
-    private long              id;
     private String            title;
     private String            rgtNo;
+    private String            itemA;
+    private String            itemB;
+    private String            itemC;
+    private String            itemD;
+
     private MapExt            ext;
 
-    private List<ExamItemDTO> items;
-
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -49,17 +39,6 @@ public class ExamInfoDTO extends ToString implements ID<Long> {
         this.rgtNo = rgtNo;
     }
 
-    public List<ExamItemDTO> getItems() {
-        if (this.items == null) {
-            this.items = new ArrayList<>();
-        }
-        return items;
-    }
-
-    public void setItems(List<ExamItemDTO> items) {
-        this.items = items;
-    }
-
     public MapExt getExt() {
         if (this.ext == null) {
             this.ext = new MapExt();
@@ -70,6 +49,38 @@ public class ExamInfoDTO extends ToString implements ID<Long> {
 
     public void setExt(MapExt ext) {
         this.ext = ext;
+    }
+
+    public String getItemA() {
+        return itemA;
+    }
+
+    public void setItemA(String itemA) {
+        this.itemA = itemA;
+    }
+
+    public String getItemB() {
+        return itemB;
+    }
+
+    public void setItemB(String itemB) {
+        this.itemB = itemB;
+    }
+
+    public String getItemC() {
+        return itemC;
+    }
+
+    public void setItemC(String itemC) {
+        this.itemC = itemC;
+    }
+
+    public String getItemD() {
+        return itemD;
+    }
+
+    public void setItemD(String itemD) {
+        this.itemD = itemD;
     }
 
 }

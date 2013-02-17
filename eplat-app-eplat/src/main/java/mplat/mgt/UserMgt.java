@@ -3,21 +3,23 @@
  */
 package mplat.mgt;
 
+import java.util.List;
+
+import mplat.mgt.dto.UserInfoDTO;
+import mplat.store.UserStore;
+import mplat.utils.UserHolder;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.atom.core.xstream.store.StoreFactory;
-import mplat.mgt.dto.UserInfoDTO;
-import mplat.store.UserStore;
 
 /**
  * @author obullxl@gmail.com
  */
-public class UserMgt {
+public final class UserMgt {
 
-    private static String A_NAME = "anonym";
-    private static String A_PASSWD = "000000";
-    private static String U_NAME = "admin";
-    private static String U_PASSWD = "888888";
+    private static String   U_NAME   = "admin";
+    private static String   U_PASSWD = "888888";
 
     private final UserStore userStore;
 
@@ -34,25 +36,54 @@ public class UserMgt {
         }
     }
 
-    public static UserInfoDTO toAnonyUser() {
-        return new UserInfoDTO(A_NAME, A_PASSWD);
+    public static boolean isSystemAdmin() {
+        UserInfoDTO user = UserHolder.get();
+        if (user == null) {
+            return false;
+        }
+
+        return isSystemAdmin(user.getUserName());
     }
-    
+
+    public static boolean isSystemAdmin(String userName) {
+        return StringUtils.equals(U_NAME, userName);
+    }
+
     public UserInfoDTO find(String userName) {
         return this.userStore.find(userName);
     }
 
     public UserInfoDTO login(String userName, String userPasswd) {
         UserInfoDTO user = this.userStore.find(userName);
-        if(user != null && StringUtils.equals(userPasswd, user.getUserPasswd())) {
+        if (user != null && StringUtils.equals(userPasswd, user.getUserPasswd())) {
             return user;
         }
-        
+
         return null;
     }
-    
+
+    public void create(UserInfoDTO user) {
+        this.userStore.create(user);
+    }
+
     public void update(UserInfoDTO user) {
         this.userStore.update(user);
     }
-    
+
+    public void remove(UserInfoDTO user) {
+        long id = user.getId();
+        if (id > 0L) {
+            this.userStore.remove(user.getId());
+        } else {
+            UserInfoDTO utmp = this.userStore.find(user.getUserName());
+            if (utmp != null) {
+                this.userStore.remove(utmp.getId());
+            }
+        }
+    }
+
+    public List<UserInfoDTO> findAll() {
+        return this.userStore.findAll();
+    }
+
 }

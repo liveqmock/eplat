@@ -1,0 +1,71 @@
+
+.Welcome {
+	-fx-background-image: url('../images/Welcome-BG.jpg');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center center;
+}
+
+.topic-train-0101-splitter {
+    -fx-background-color: null;
+    -fx-border-color: null;
+    -fx-padding: 0px;
+}
+
+.topic-train-0101-splitter *.split-pane-divider,
+.topic-train-0101-splitter *.vertical-grabber,
+.topic-train-0101-splitter *.horizontal-grabber {
+    -fx-background-color: null;
+    -fx-border-color: null;
+    -fx-padding: 0px;
+}
+
+.topic-train-0101-operate-buttons {
+    -fx-base: #505359;
+    -fx-background: rgb(216, 216, 216);
+    -fx-background-color: rgb(216, 216, 216);
+    -fx-shadow-highlight-color: transparent;
+    -fx-spacing: 10;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: center-right;
+}
+
+.topic-train-0102-topbox {
+    -fx-spacing: 10;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: center-right;
+}
+
+.topic-train-0102-topbox .timer {
+	-fx-alignment: center;
+	-fx-border-color: rgb(128, 255, 0);
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-font-size: 30;
+    -fx-padding: 4 4 4 4;
+}
+
+.topic-train-0102-mainbox {
+    -fx-spacing: 20;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: top-left;
+}
+
+.topic-train-0102-mainbox .hbox {
+    -fx-spacing: 20;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: center-left;
+}
+
+.topic-train-0102-mainbox .label {
+    -fx-font-size: 20;
+}
+
+.topic-train-0102-optbox {
+    -fx-base: #505359;
+    -fx-background: rgb(216, 216, 216);
+    -fx-background-color: rgb(216, 216, 216);
+    -fx-shadow-highlight-color: transparent;
+    -fx-spacing: 10;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: center-right;
+}

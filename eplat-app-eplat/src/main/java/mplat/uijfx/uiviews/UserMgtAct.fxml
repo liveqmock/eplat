@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.geometry.Insets?>
+<?import com.atom.core.uijfx.views.FormattedTableCellFactory?>
+
+<BorderPane fx:id="viewRoot" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@UserMgtAct.css" />
+	</stylesheets>
+	<top>
+		<HBox spacing="5" minHeight="30" alignment="CENTER_RIGHT" styleClass="user-mgt-buttons">
+			<Button fx:id="btnCreateUser" text="增加用户" minHeight="25" onAction="#onCreateUser" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnUpdateUser" text="修改用户" minHeight="25" onAction="#onUpdateUser" />
+			<Button fx:id="btnRemoveUser" text="删除用户" minHeight="25" onAction="#onRemoveUser" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnUnselectUser" text="取消选择" minHeight="25" onAction="#onUnselectUser" />
+			<padding>
+				<Insets top="2" right="3" bottom="5" left="3" />
+			</padding>
+		</HBox>
+	</top>
+	<center>
+		<TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
+			<columns>
+				<TableColumn fx:id="tcolUserID" text="ID">
+					<cellValueFactory>
+						<PropertyValueFactory property="id" />
+					</cellValueFactory>
+					<cellFactory>
+						<FormattedTableCellFactory alignment="CENTER" />
+					</cellFactory>
+				</TableColumn>
+				<TableColumn fx:id="tcolUserAdmin">
+					<cellValueFactory>
+						<PropertyValueFactory property="userIcon" />
+					</cellValueFactory>
+					<cellFactory>
+						<FormattedTableCellFactory alignment="CENTER" />
+					</cellFactory>
+				</TableColumn>
+				<TableColumn fx:id="tcolUserName" text="用户登录名">
+					<cellValueFactory>
+						<PropertyValueFactory property="userName" />
+					</cellValueFactory>
+					<cellFactory>
+						<FormattedTableCellFactory alignment="LEFT" />
+					</cellFactory>
+				</TableColumn>
+			</columns>
+		</TableView>
+	</center>
+</BorderPane>

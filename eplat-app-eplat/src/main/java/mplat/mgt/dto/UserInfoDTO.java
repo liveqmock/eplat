@@ -1,22 +1,24 @@
 /**
- * obullxl@gmail.com
+ * Author: obullxl@gmail.com
+ * Copyright (c) 2004-2013 All Rights Reserved.
  */
 package mplat.mgt.dto;
 
 import com.atom.core.lang.MapExt;
-import com.atom.core.lang.ToString;
-import com.atom.core.lang.ids.ID;
-import com.atom.core.lang.user.UserInfo;
+import com.atom.core.lang.ids.LongID;
 
 /**
+ * 系统用户信息
+ * 
  * @author obullxl@gmail.com
+ * @version $Id: UserInfoDTO.java, V1.0.1 2013-2-10 下午8:51:13 $
  */
-public class UserInfoDTO extends ToString implements ID<Long> {
+public class UserInfoDTO  extends LongID {
     private static final long serialVersionUID = 6316843770631615617L;
 
-    private long              id;
     private String            userName;
     private String            userPasswd;
+    
     private MapExt            ext;
 
     public UserInfoDTO() {
@@ -27,24 +29,7 @@ public class UserInfoDTO extends ToString implements ID<Long> {
         this.userPasswd = userPasswd;
     }
 
-    public UserInfo toUser() {
-        UserInfo user = new UserInfo();
-        user.setUserId(this.id);
-        user.setUserName(this.userName);
-        user.setUserPasswd(this.userPasswd);
-
-        return user;
-    }
-
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;

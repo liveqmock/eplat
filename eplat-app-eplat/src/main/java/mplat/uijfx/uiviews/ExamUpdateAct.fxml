@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@ExamMgtAct.css" />
+	</stylesheets>
+	<center>
+		<VBox alignment="TOP_LEFT" spacing="5">
+			<padding>
+				<Insets top="5" right="5" bottom="5" left="5" />
+			</padding>
+			<Label text="试题标题：" />
+			<TextArea fx:id="txtExamTitle" />
+			<HBox spacing="3" minHeight="30.0" alignment="CENTER_LEFT">
+				<Label text="试题正确选项：" />
+				<ComboBox fx:id="cboxExamRgtNo" prefHeight="20.0" prefWidth="300.0" />
+			</HBox>
+			<Label text="试题选项A：" />
+			<TextArea fx:id="txtExamItemA" />
+			<Label text="试题选项B：" />
+			<TextArea fx:id="txtExamItemB" />
+			<Label text="试题选项C：" />
+			<TextArea fx:id="txtExamItemC" />
+			<Label text="试题选项D：" />
+			<TextArea fx:id="txtExamItemD" />
+		</VBox>
+	</center>
+	<bottom>
+		<HBox spacing="20" minHeight="30" alignment="CENTER_RIGHT" styleClass="exam-mgt-buttons">
+			<padding>
+				<Insets top="3" right="5" bottom="3" left="0" />
+			</padding>
+			<Button fx:id="btnSure" mnemonicParsing="false" onAction="#onSureAction" minWidth="60.0" minHeight="25.0" text="确定" />
+			<Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelAction" minWidth="60.0" minHeight="25.0" text="取消" />
+		</HBox>
+	</bottom>
+</BorderPane>

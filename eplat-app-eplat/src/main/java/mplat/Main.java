@@ -11,13 +11,13 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mplat.uijfx.images.IMGS;
-import mplat.uijfx.uiviews.LoginController;
+import mplat.uijfx.uiviews.LoginAct;
 import mplat.utils.DataMap;
 
 import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.lang.utils.TimerUtils;
 import com.atom.core.uijfx.utils.IconsHolder;
 import com.atom.core.uijfx.utils.StageHolder;
-import com.atom.core.uijfx.utils.StageUtils;
 import com.atom.core.xstream.store.StoreFactory;
 
 /**
@@ -41,7 +41,10 @@ public final class Main extends Application {
         IconsHolder.setIconImages(findIconImages());
         stage.getIcons().addAll(IconsHolder.getIconImages());
 
-        StageUtils.findController(LoginController.class).initViews(stage).show();
+        // 显示登录窗口
+        LoginAct act = new LoginAct(stage);
+        act.findSizeToSceneProperty().set(true);
+        act.show();
     }
 
     /** 
@@ -52,6 +55,8 @@ public final class Main extends Application {
         StageHolder.remove();
 
         StoreFactory.get().stop();
+        
+        TimerUtils.stopTimer();
 
         super.stop();
     }

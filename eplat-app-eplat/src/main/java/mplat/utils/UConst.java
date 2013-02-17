@@ -4,6 +4,13 @@
  */
 package mplat.utils;
 
+import java.awt.Desktop;
+import java.io.File;
+
+import org.apache.commons.io.FilenameUtils;
+
+import com.atom.core.lang.utils.CfgUtils;
+
 /**
  * 常量
  * 
@@ -17,5 +24,24 @@ public class UConst {
 
     /** 0.5透明度 */
     public static final double OPACITY_OUT = 0.5;
+
+    /**
+     * 单机个人版用户手册
+     */
+    public static final String findManualUrl() {
+        return FilenameUtils.normalize(CfgUtils.findConfigPath() + "/manual.pdf");
+    }
+
+    /**
+     * 执行帮助操作
+     */
+    public static final void doHelpAction() {
+        String file = findManualUrl();
+        try {
+            Desktop.getDesktop().open(new File(file));
+        } catch (Exception e) {
+            throw new RuntimeException("打开帮助手册[" + file + "]异常", e);
+        }
+    }
 
 }

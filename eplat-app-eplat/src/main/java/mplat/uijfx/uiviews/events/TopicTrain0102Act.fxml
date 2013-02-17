@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@../MainViewAct.css" />
+	</stylesheets>
+	<top>
+		<HBox styleClass="topic-train-0102-topbox">
+			<Region HBox.hgrow="ALWAYS" />
+			<Label fx:id="lblTimer" text="00:00" styleClass="timer" />
+		</HBox>
+	</top>
+	<center>
+		<VBox styleClass="topic-train-0102-mainbox">
+			<HBox>
+				<Label fx:id="lblExamNo" prefWidth="40" alignment="CENTER" text="1" />
+				<Label fx:id="lblExamTitle" wrapText="true" text="Exam Title" />
+			</HBox>
+			<HBox>
+				<Label prefWidth="40" alignment="CENTER" text="A" />
+				<Label fx:id="lblItemA" wrapText="true" text="A Title" />
+			</HBox>
+			<HBox>
+				<Label prefWidth="40" alignment="CENTER" text="B" />
+				<Label fx:id="lblItemB" wrapText="true" text="B Title" />
+			</HBox>
+			<HBox>
+				<Label prefWidth="40" alignment="CENTER" text="C" />
+				<Label fx:id="lblItemC" wrapText="true" text="C Title" />
+			</HBox>
+			<HBox>
+				<Label prefWidth="40" alignment="CENTER" text="D" />
+				<Label fx:id="lblItemD" wrapText="true" text="D Title" />
+			</HBox>
+			<HBox>
+				<HBox alignment="CENTER_LEFT">
+					<Label text="正确答案：" />
+					<ComboBox fx:id="cboxSelectNo" prefHeight="20.0" prefWidth="200.0">
+						<items>
+							<FXCollections fx:factory="observableArrayList">
+								<String fx:value="" />
+								<String fx:value="A" />
+								<String fx:value="B" />
+								<String fx:value="C" />
+								<String fx:value="D" />
+							</FXCollections>
+						</items>
+					</ComboBox>
+				</HBox>
+				<Region HBox.hgrow="ALWAYS" />
+				<HBox fx:id="hboxExamRgtNo" alignment="CENTER_LEFT" visible="false">
+					<Label text="参考答案：" />
+					<ComboBox fx:id="cboxExamRgtNo" prefHeight="20.0" prefWidth="200.0">
+						<items>
+							<FXCollections fx:factory="observableArrayList">
+								<String fx:value="" />
+								<String fx:value="A" />
+								<String fx:value="B" />
+								<String fx:value="C" />
+								<String fx:value="D" />
+							</FXCollections>
+						</items>
+					</ComboBox>
+				</HBox>
+			</HBox>
+		</VBox>
+	</center>
+	<bottom>
+		<HBox styleClass="topic-train-0102-optbox">
+			<Button fx:id="btnLastExam" minHeight="25.0" text="上一试题" onAction="#onLastExam" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnNextExam" minHeight="25.0" text="下一试题" onAction="#onNextExam" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnRgtExam" minHeight="25.0" text="参考答案" onAction="#onRgtExam" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnExamFinish" minHeight="25.0" text="完成训练" onAction="#onExamFinish" />
+		</HBox>
+	</bottom>
+</BorderPane>

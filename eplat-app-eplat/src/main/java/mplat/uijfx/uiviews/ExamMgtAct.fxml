@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.geometry.Insets?>
+<?import com.atom.core.uijfx.views.FormattedTableCellFactory?>
+
+<BorderPane fx:id="viewRoot" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@ExamMgtAct.css" />
+	</stylesheets>
+	<top>
+		<HBox spacing="5" minHeight="30" alignment="CENTER_RIGHT" styleClass="exam-mgt-buttons">
+			<Button fx:id="btnCreateExam" text="增加试题" minHeight="25" onAction="#onCreateExam" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnUpdateExam" text="更新试题" minHeight="25" onAction="#onUpdateExam" />
+			<Button fx:id="btnRemoveExam" text="删除试题" minHeight="25" onAction="#onRemoveExam" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnUnselectExam" text="取消选择" minHeight="25" onAction="#onUnselectExam" />
+			<padding>
+				<Insets top="2" right="3" bottom="5" left="3" />
+			</padding>
+		</HBox>
+	</top>
+	<center>
+		<TableView fx:id="tableView">
+			<columns>
+				<TableColumn fx:id="tcolExamID" text="ID">
+					<cellValueFactory>
+						<PropertyValueFactory property="id" />
+					</cellValueFactory>
+					<cellFactory>
+						<FormattedTableCellFactory alignment="CENTER" />
+					</cellFactory>
+				</TableColumn>
+				<TableColumn fx:id="tcolExamRgtNo">
+					<cellValueFactory>
+						<PropertyValueFactory property="rgtNo" />
+					</cellValueFactory>
+					<cellFactory>
+						<FormattedTableCellFactory alignment="CENTER" />
+					</cellFactory>
+				</TableColumn>
+				<TableColumn fx:id="tcolExamTitle" text="标题">
+					<cellValueFactory>
+						<PropertyValueFactory property="title" />
+					</cellValueFactory>
+					<cellFactory>
+						<FormattedTableCellFactory alignment="LEFT" />
+					</cellFactory>
+				</TableColumn>
+			</columns>
+		</TableView>
+	</center>
+</BorderPane>

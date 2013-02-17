@@ -12,9 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.images.IMGS;
-import mplat.uijfx.uiviews.MainViewController;
+import mplat.uijfx.uiviews.MainViewAct;
 
 import com.atom.core.lang.utils.LogUtils;
 
@@ -27,26 +28,26 @@ import com.atom.core.lang.utils.LogUtils;
 public class TopFrameControl extends HBox {
 
     @FXML
-    private ImageView                imgCourseWare;
+    private ImageView         imgCourseWare;
     @FXML
-    private ImageView                imgTopicTrain;
+    private ImageView         imgTopicTrain;
     @FXML
-    private ImageView                imgEmergeTrain;
+    private ImageView         imgEmergeTrain;
     @FXML
-    private ImageView                imgEmergeExam;
+    private ImageView         imgEmergeExam;
     @FXML
-    private ImageView                imgSystemCfg;
+    private ImageView         imgSystemCfg;
     @FXML
-    private ImageView                imgGotoMain;
+    private ImageView         imgGotoMain;
 
     /** 根组件 */
-    private final MainViewController parentView;
+    private final MainViewAct rootAct;
 
     /**
      * 初始化
      */
-    public TopFrameControl(MainViewController parentView) {
-        this.parentView = parentView;
+    public TopFrameControl(MainViewAct rootAct) {
+        this.rootAct = rootAct;
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -55,11 +56,26 @@ public class TopFrameControl extends HBox {
             loader.setController(this);
             loader.load();
         } catch (Exception e) {
-            LogUtils.error("初始化TopFrame组件异常!", e);
-            throw new RuntimeException(e);
+            String msg = "初始化TopFrame组件异常!";
+            LogUtils.error(msg, e);
+            throw new RuntimeException(msg, e);
         }
 
         this.initViews();
+    }
+
+    /**
+     * 获取主视图控制器
+     */
+    public final MainViewAct findRootAct() {
+        return this.rootAct;
+    }
+
+    /**
+     * 获取主Stage舞台
+     */
+    public final Stage findStage() {
+        return this.rootAct.findStage();
     }
 
     @FXML
@@ -110,28 +126,22 @@ public class TopFrameControl extends HBox {
 
         if (node == this.imgCourseWare) {
             // 系统课件
-            LogUtils.info("系统课件");
-            this.parentView.activeTab(TabDataEnum.COURSE_WARE);
+            this.rootAct.activeTab(TabDataEnum.COURSE_WARE);
         } else if (node == this.imgTopicTrain) {
             // 专项技能训练
-            LogUtils.info("专项技能训练");
-            this.parentView.activeTab(TabDataEnum.TOPIC_TRAIN);
+            this.rootAct.activeTab(TabDataEnum.TOPIC_TRAIN);
         } else if (node == this.imgEmergeTrain) {
             // 专项急救案例训练
-            LogUtils.info("专项急救案例训练");
-            this.parentView.activeTab(TabDataEnum.EMERGE_TRAIN);
+            this.rootAct.activeTab(TabDataEnum.EMERGE_TRAIN);
         } else if (node == this.imgEmergeExam) {
             // 专项急救案例考核
-            LogUtils.info("专项急救案例考核");
-            this.parentView.activeTab(TabDataEnum.EMERGE_EXAM);
+            this.rootAct.activeTab(TabDataEnum.EMERGE_EXAM);
         } else if (node == this.imgSystemCfg) {
             // 系统功能
-            LogUtils.info("系统功能设置");
-            this.parentView.activeTab(TabDataEnum.SYSTEM_CFG);
+            this.rootAct.activeTab(TabDataEnum.SYSTEM_CFG);
         } else if (node == this.imgGotoMain) {
             // 返回主页面
-            LogUtils.info("返回主页面");
-            this.parentView.activeTab(TabDataEnum.MAIN_VIEW);
+            this.rootAct.activeTab(TabDataEnum.MAIN_VIEW);
         }
     }
 
@@ -158,32 +168,28 @@ public class TopFrameControl extends HBox {
 
     // ~~~~~~~~ getters and setters ~~~~~~~~~ //
 
-    public ImageView getImgCourseWare() {
+    public ImageView findImgCourseWare() {
         return imgCourseWare;
     }
 
-    public ImageView getImgTopicTrain() {
+    public ImageView findImgTopicTrain() {
         return imgTopicTrain;
     }
 
-    public ImageView getImgEmergeTrain() {
+    public ImageView findImgEmergeTrain() {
         return imgEmergeTrain;
     }
 
-    public ImageView getImgEmergeExam() {
+    public ImageView findImgEmergeExam() {
         return imgEmergeExam;
     }
 
-    public ImageView getImgSystemCfg() {
+    public ImageView findImgSystemCfg() {
         return imgSystemCfg;
     }
 
-    public ImageView getImgGotoMain() {
+    public ImageView findImgGotoMain() {
         return imgGotoMain;
-    }
-
-    public MainViewController getParentView() {
-        return parentView;
     }
 
 }

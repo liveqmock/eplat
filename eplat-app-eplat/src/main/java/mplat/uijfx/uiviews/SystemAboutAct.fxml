@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane fx:id="rootView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="460.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <ImageView fx:id="imgAbout" fitHeight="52.0" fitWidth="52.0" layoutX="14.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../images/about.gif" />
+      </image>
+    </ImageView>
+    <Label fx:id="lblTitle" layoutX="88.0" layoutY="34.0" text="高级结合急救技能训练软件 版本号V1.0.1" />
+    <Label fx:id="lblRelease" layoutX="86.0" layoutY="75.0" text="发布日期：2013年07月" />
+    <Label fx:id="lblCategory" layoutX="86.0" layoutY="111.0" text="软件型号：单机版" />
+  </children>
+  <stylesheets>
+    <URL value="@SystemAboutAct.css" />
+  </stylesheets>
+</AnchorPane>

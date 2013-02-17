@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import com.atom.core.uijfx.views.FormattedTableCellFactory?>
+
+<BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@../MainViewAct.css" />
+	</stylesheets>
+	<center>
+		<SplitPane styleClass="topic-train-0101-splitter" dividerPositions="0.44, 0.56">
+			<TableView fx:id="srcTableView">
+				<columns>
+					<TableColumn fx:id="srcTcolExamID" prefWidth="30" sortable="false">
+						<cellValueFactory>
+							<PropertyValueFactory property="id" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="CENTER" />
+						</cellFactory>
+					</TableColumn>
+					<TableColumn fx:id="srcTcolExamTitle" text="标题">
+						<cellValueFactory>
+							<PropertyValueFactory property="title" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="LEFT" />
+						</cellFactory>
+					</TableColumn>
+				</columns>
+			</TableView>
+			<VBox fx:id="vboxButtons" spacing="10" alignment="CENTER" minWidth="80" maxWidth="80">
+				<padding>
+					<Insets top="4" right="4" bottom="4" left="4" />
+				</padding>
+				<Button fx:id="btnRandomSelect" minHeight="25.0" text="随机选择" onAction="#onRandomSelect" />
+				<Button fx:id="btnCancelSelect" minHeight="25.0" text="取消选择" onAction="#onCancelSelect" />
+				<Region VBox.vgrow="ALWAYS" />
+				<Button fx:id="btnSelectAll" minHeight="25.0" text="选择所有" onAction="#onSelectAll" />
+				<Button fx:id="btnSelectOne" minHeight="25.0" text="单个选择" onAction="#onSelectOne" />
+				<Button fx:id="btnDeselectOne" minHeight="25.0" text="取消单个" onAction="#onDeselectOne" />
+				<Button fx:id="btnDeselectAll" minHeight="25.0" text="取消所有" onAction="#onCancelSelect" />
+				<Region VBox.vgrow="ALWAYS" />
+			</VBox>
+			<TableView fx:id="dstTableView">
+				<columns>
+					<TableColumn fx:id="dstTcolExamID" prefWidth="30" sortable="false">
+						<cellValueFactory>
+							<PropertyValueFactory property="id" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="CENTER" />
+						</cellFactory>
+					</TableColumn>
+					<TableColumn fx:id="dstTcolExamTitle" text="标题">
+						<cellValueFactory>
+							<PropertyValueFactory property="title" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="LEFT" />
+						</cellFactory>
+					</TableColumn>
+				</columns>
+			</TableView>
+		</SplitPane>
+	</center>
+	<bottom>
+		<HBox styleClass="topic-train-0101-operate-buttons">
+			<Button fx:id="btnNextStep" minHeight="25.0" text="下一步" onAction="#onNextStep" />
+			<Button fx:id="btnCancel" minHeight="25.0" text="取消" onAction="#onCancelAction" />
+		</HBox>
+	</bottom>
+</BorderPane>

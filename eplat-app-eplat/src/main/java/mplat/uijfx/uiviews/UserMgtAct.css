@@ -1,0 +1,11 @@
+
+.user-mgt-buttons {
+	/*
+    -fx-base: #505359;
+    -fx-background: #505359;
+    -fx-shadow-highlight-color: transparent;
+    -fx-spacing: 5;
+    -fx-padding: 4 4 4 4;
+    */
+    -fx-background-color: #505359;
+}

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane fx:id="viewRoot" prefHeight="705.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml">
+	<center>
+		<HBox prefHeight="683.0" prefWidth="1000.0">
+			<children>
+				<TabPane fx:id="tabPane" prefHeight="683.0" prefWidth="1000.0" tabClosingPolicy="ALL_TABS" tabMaxHeight="23.0" tabMinHeight="23.0">
+					<tabs>
+						<Tab fx:id="tabMain" closable="false" text="欢迎使用">
+							<content>
+								<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="Welcome">
+									<children>
+										<HBox alignment="CENTER" layoutX="60.0" layoutY="254.0" prefHeight="145.0" prefWidth="898.0" spacing="20.0">
+											<children>
+												<ImageView fx:id="imgCourseWare" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../images/btn-course-ware.png" />
+													</image>
+												</ImageView>
+												<ImageView fx:id="imgTopicTrain" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../images/btn-topic-train.jpg" />
+													</image>
+												</ImageView>
+												<ImageView fx:id="imgEmergeTrain" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../images/btn-emerge-train.jpg" />
+													</image>
+												</ImageView>
+												<ImageView fx:id="imgEmergeExam" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../images/btn-emerge-exam.jpg" />
+													</image>
+												</ImageView>
+												<ImageView fx:id="imgSystemCfg" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../images/btn-system-cfg.jpg" />
+													</image>
+												</ImageView>
+											</children>
+											<padding>
+												<Insets left="10.0" right="10.0" />
+											</padding>
+										</HBox>
+										<ImageView fx:id="imgExit" fitHeight="70.0" fitWidth="70.0" layoutX="906.0" layoutY="561.0" onMouseClicked="#onExitAction" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/exit.jpg" />
+											</image>
+										</ImageView>
+									</children>
+								</AnchorPane>
+							</content>
+						</Tab>
+					</tabs>
+				</TabPane>
+			</children>
+		</HBox>
+	</center>
+	<!--
+	<top>
+		<TopMenuControl />
+	</top>
+	-->
+	<stylesheets>
+		<URL value="@MainViewAct.css" />
+	</stylesheets>
+</BorderPane>

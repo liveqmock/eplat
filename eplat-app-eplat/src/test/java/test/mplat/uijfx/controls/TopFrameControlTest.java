@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mplat.uijfx.controls.TopFrameControl;
-import mplat.uijfx.uiviews.MainViewController;
+import mplat.uijfx.uiviews.MainViewAct;
 
 import com.atom.core.uijfx.utils.StageUtils;
 
@@ -29,7 +29,7 @@ public class TopFrameControlTest extends Application {
      * @see javafx.application.Application#start(javafx.stage.Stage)
      */
     public void start(Stage stage) throws Exception {
-        TopFrameControl topFrame = new TopFrameControl(StageUtils.findController(MainViewController.class));
+        TopFrameControl topFrame = new TopFrameControl(StageUtils.findController(MainViewAct.class));
 
         BorderPane border = new BorderPane();
         border.setTop(topFrame);

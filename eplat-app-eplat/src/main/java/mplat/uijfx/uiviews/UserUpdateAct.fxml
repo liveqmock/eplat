@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane fx:id="rootView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="350.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <Label layoutX="29.0" layoutY="39.0" text="登录名称：" />
+    <Label layoutX="41.0" layoutY="92.0" text="新密码：" />
+    <Label layoutX="29.0" layoutY="142.0" text="确认密码：" />
+    <TextField fx:id="txtUserName" editable="false" layoutX="103.0" layoutY="36.0" prefWidth="200.0" />
+    <PasswordField fx:id="txtPasswd" layoutX="103.0" layoutY="89.0" prefWidth="200.0" />
+    <PasswordField fx:id="txtPasswdRepeat" layoutX="103.0" layoutY="139.0" prefWidth="200.0" />
+    <Button fx:id="btnSure" layoutX="140.0" layoutY="183.0" mnemonicParsing="false" onAction="#onSureAction" minWidth="60.0" minHeight="25.0" text="确定" />
+    <Button fx:id="btnCancel" layoutX="233.0" layoutY="183.0" mnemonicParsing="false" onAction="#onCancelAction" minWidth="60.0" minHeight="25.0" text="取消" />
+  </children>
+  <stylesheets>
+    <URL value="@UserMgtAct.css" />
+  </stylesheets>
+</AnchorPane>
