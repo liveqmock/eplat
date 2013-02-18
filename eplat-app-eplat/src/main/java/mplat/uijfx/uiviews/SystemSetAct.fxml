@@ -4,41 +4,156 @@
 <?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.geometry.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.CheckBox?>
 
 <BorderPane fx:id="rootView" prefHeight="400.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml">
-  <bottom>
-    <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="500.0" spacing="10.0" styleClass="SystemSet-Buttons-Container">
-      <children>
-        <Button fx:id="btnSure" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onSureAction" text="确定" />
-        <Button fx:id="btnCancel" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onCancelAction" text="取消" />
-        <Button fx:id="btnApply" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onApplyAction" text="应用" />
-        <Button fx:id="btnHelp" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onHelpAction" text="帮助" />
-      </children>
-      <padding>
-        <Insets right="5.0" />
-      </padding>
-    </HBox>
-  </bottom>
-  <center>
-    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-        <Tab text="无标题选项卡 1">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-        <Tab text="无标题选项卡 2">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-      </tabs>
-    </TabPane>
-  </center>
-  <stylesheets>
-    <URL value="@SystemSetAct.css" />
-  </stylesheets>
+	<bottom>
+		<HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="500.0" spacing="10.0" styleClass="SystemSet-Buttons-Container">
+			<children>
+				<Button fx:id="btnSure" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onSureAction" text="确定" />
+				<Button fx:id="btnCancel" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onCancelAction" text="取消" />
+				<Button fx:id="btnApply" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onApplyAction" text="应用" />
+				<Button fx:id="btnHelp" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onHelpAction" text="帮助" />
+			</children>
+			<padding>
+				<Insets right="5.0" />
+			</padding>
+		</HBox>
+	</bottom>
+	<center>
+		<TabPane fx:id="cfgTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+			<tabs>
+				<Tab text="心肺复苏参数设置">
+					<content>
+						<VBox spacing="10" alignment="TOP_LEFT">
+							<padding>
+								<Insets top="4" right="4" bottom="4" left="4" />
+							</padding>
+							<HBox spacing="10" alignment="CENTER">
+								<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" text="按压深度范围：">
+									<content>
+										<VBox>
+											<padding>
+												<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+											</padding>
+											<HBox>
+												<padding>
+													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+												</padding>
+												<Label text="最小按压深度：" />
+												<TextField prefWidth="40" text="50" />
+												<Label text="mm" />
+											</HBox>
+											<HBox>
+												<padding>
+													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+												</padding>
+												<Label text="最大按压深度：" />
+												<TextField prefWidth="40" text="60" />
+												<Label text="mm" />
+											</HBox>
+										</VBox>
+									</content>
+								</TitledPane>
+								<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" text="吹入潮气量范围：">
+									<content>
+										<VBox>
+											<padding>
+												<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+											</padding>
+											<HBox>
+												<padding>
+													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+												</padding>
+												<Label text="最小潮气量：" />
+												<TextField prefWidth="50" alignment="CENTER_RIGHT" text="500" />
+												<Label text="ml" />
+											</HBox>
+											<HBox>
+												<padding>
+													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+												</padding>
+												<Label text="最大潮气量：" />
+												<TextField prefWidth="50" text="1000" />
+												<Label text="ml" />
+											</HBox>
+										</VBox>
+									</content>
+								</TitledPane>
+							</HBox>
+						</VBox>
+					</content>
+				</Tab>
+				<Tab text="CPR操作规则设置">
+					<content>
+						<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+					</content>
+				</Tab>
+				<Tab text="虚拟监控器设置">
+					<content>
+						<VBox alignment="CENTER" spacing="20">
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="400" prefWidth="400" text="虚拟监视器名称：">
+								<content>
+									<HBox alignment="CENTER_LEFT">
+										<padding>
+											<Insets bottom="15" left="15" right="15" top="15" />
+										</padding>
+										<Label text="计算机名称：" />
+										<ComboBox fx:id="cboxPorts" prefHeight="25.0" prefWidth="200.0">
+											<items>
+												<FXCollections fx:factory="observableArrayList">
+													<String fx:value="COM1" />
+													<String fx:value="COM2" />
+												</FXCollections>
+											</items>
+										</ComboBox>
+									</HBox>
+								</content>
+							</TitledPane>
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="400" prefWidth="400" text="心电图导联：">
+								<content>
+									<HBox alignment="CENTER_LEFT">
+										<padding>
+											<Insets bottom="15" left="15" right="15" top="15" />
+										</padding>
+										<CheckBox />
+										<Label text="计算机名称：" />
+									</HBox>
+								</content>
+							</TitledPane>
+						</VBox>
+					</content>
+				</Tab>
+				<Tab text="虚拟体征日志设置">
+					<content>
+						<VBox alignment="CENTER">
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="200" text="虚拟体征自动保存：">
+								<content>
+									<HBox alignment="CENTER">
+										<padding>
+											<Insets bottom="15" left="15" right="15" top="15" />
+										</padding>
+										<Label text="间隔时间：" />
+										<TextField fx:id="autoSaveSeconds" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
+										<Label text="秒" />
+									</HBox>
+								</content>
+							</TitledPane>
+						</VBox>
+					</content>
+				</Tab>
+			</tabs>
+		</TabPane>
+	</center>
+	<stylesheets>
+		<URL value="@SystemSetAct.css" />
+	</stylesheets>
 </BorderPane>
