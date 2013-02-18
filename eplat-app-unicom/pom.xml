@@ -45,6 +45,21 @@
             <artifactId>commons-io</artifactId>
             <version>2.1</version>
         </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
 
         <!-- ======================================== -->
         <!-- JDBC数据库依赖 -->
@@ -54,8 +69,22 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.7.2</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.16</version>
+        </dependency>
+        
+        <!-- ======================================== -->
+        <!-- 单元测试依赖 -->
+        <!-- ======================================== -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+        </dependency>
     </dependencies>
-
+    
     <repositories>
         <repository>
             <id>central_prod</id>
@@ -72,11 +101,11 @@
                 <version>2.4</version>
                 <configuration>
                     <archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>libs/</classpathPrefix>
-							<mainClass>com.eplat.unicom.Main</mainClass>
-						</manifest>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <mainClass>com.eplat.unicom.Main</mainClass>
+                        </manifest>
                     </archive>
                 </configuration>
             </plugin>

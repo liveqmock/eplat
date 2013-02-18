@@ -7,6 +7,7 @@ package com.eplat.unicom.jdbc;
 import com.atom.core.lang.Money;
 import com.atom.core.lang.utils.LogUtils;
 import com.eplat.unicom.dto.MbillDetail;
+import com.eplat.unicom.utils.DBUtils;
 import com.eplat.unicom.utils.MbillWriter;
 import java.io.File;
 import java.sql.Connection;
@@ -33,7 +34,8 @@ public class MbillDetailDAO {
             String path = FilenameUtils.normalizeNoEndSeparator(root.getAbsolutePath());
             String dbfile = FilenameUtils.normalizeNoEndSeparator(path + "/cfgs/Mbill.db");
 
-            return new MbillDetailDAO(DriverManager.getConnection("jdbc:sqlite:" + dbfile));
+            // return new MbillDetailDAO(DriverManager.getConnection("jdbc:sqlite:" + dbfile));
+            return new MbillDetailDAO(DBUtils.fetchConnection());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -59,51 +59,58 @@ public class ChargeFrame extends javax.swing.JFrame {
         this.cboxOtherFileExt.setModel(new DefaultComboBoxModel(this.fileTypeExts.toArray()));
 
         // 列选择器
-        int tradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "tradeNoIdx"), 0);
+        PrefUtils.setCategory(PREF_CATG);
+        int tradeNoValue = PrefUtils.getInt("tradeNoIdx");
         this.spinTradeNo.setModel(new SpinnerNumberModel(tradeNoValue, 0, Integer.MAX_VALUE, 1));
 
-        int otherOradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "otherTradeNoIdx"), 0);
+        int otherOradeNoValue = PrefUtils.getInt("otherTradeNoIdx");
         this.spinOtherTradeNo.setModel(new SpinnerNumberModel(otherOradeNoValue, -1, Integer.MAX_VALUE, 1));
 
-        int outTradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "outTradeNoIdx"), 1);
+        int outTradeNoValue = PrefUtils.getInt("outTradeNoIdx");
         this.spinOutTradeNo.setModel(new SpinnerNumberModel(outTradeNoValue, 0, Integer.MAX_VALUE, 1));
 
-        int otherOutTradeNoValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "otherOutTradeNoIdx"), 1);
+        int otherOutTradeNoValue = PrefUtils.getInt("otherOutTradeNoIdx");
         this.spinOtherOutTradeNo.setModel(new SpinnerNumberModel(otherOutTradeNoValue, 0, Integer.MAX_VALUE, 1));
 
-        int amountValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "amountIdx"), 2);
+        int amountValue = PrefUtils.getInt("amountIdx");
         this.spinAmount.setModel(new SpinnerNumberModel(amountValue, 0, Integer.MAX_VALUE, 1));
 
-        int rateValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "rateIdx"), 3);
+        int rateValue = PrefUtils.getInt("rateIdx");
         this.spinRate.setModel(new SpinnerNumberModel(rateValue, 0, Integer.MAX_VALUE, 1));
 
-        int otherAmountValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "otherAmountIdx"), 2);
+        int otherAmountValue = PrefUtils.getInt("otherAmountIdx");
         this.spinOtherAmount.setModel(new SpinnerNumberModel(otherAmountValue, 0, Integer.MAX_VALUE, 1));
 
-        int prodCodeValue = NumberUtils.toInt(PrefUtils.get(PREF_CATG, "prodCodeIdx"), 3);
+        int prodCodeValue = PrefUtils.getInt("prodCodeIdx");
         this.spinProdCode.setModel(new SpinnerNumberModel(prodCodeValue, 0, Integer.MAX_VALUE, 1));
+
+        PrefUtils.removeCategory();
 
         // 提示消息
         this.lblTipMsg.setText(" ");
 
         this.btnSelectFile.requestFocus();
     }
-    
+
     /**
      * 存储个性化参数
      */
     private void storePrefValues() {
-        PrefUtils.put(PREF_CATG, "tradeNoIdx", String.valueOf(this.spinTradeNo.getValue()));
-        PrefUtils.put(PREF_CATG, "otherTradeNoIdx", String.valueOf(this.spinOtherTradeNo.getValue()));
-        
-        PrefUtils.put(PREF_CATG, "outTradeNoIdx", String.valueOf(this.spinOutTradeNo.getValue()));
-        PrefUtils.put(PREF_CATG, "otherOutTradeNoIdx", String.valueOf(this.spinOtherOutTradeNo.getValue()));
-        
-        PrefUtils.put(PREF_CATG, "amountIdx", String.valueOf(this.spinAmount.getValue()));
-        PrefUtils.put(PREF_CATG, "rateIdx", String.valueOf(this.spinRate.getValue()));
-        
-        PrefUtils.put(PREF_CATG, "otherAmountIdx", String.valueOf(this.spinOtherAmount.getValue()));
-        PrefUtils.put(PREF_CATG, "prodCodeIdx", String.valueOf(this.spinProdCode.getValue()));
+        PrefUtils.setCategory(PREF_CATG);
+
+        PrefUtils.put("tradeNoIdx", this.spinTradeNo.getValue());
+        PrefUtils.put("otherTradeNoIdx", this.spinOtherTradeNo.getValue());
+
+        PrefUtils.put("outTradeNoIdx", this.spinOutTradeNo.getValue());
+        PrefUtils.put("otherOutTradeNoIdx", this.spinOtherOutTradeNo.getValue());
+
+        PrefUtils.put("amountIdx", this.spinAmount.getValue());
+        PrefUtils.put("rateIdx", this.spinRate.getValue());
+
+        PrefUtils.put("otherAmountIdx", this.spinOtherAmount.getValue());
+        PrefUtils.put("prodCodeIdx", this.spinProdCode.getValue());
+
+        PrefUtils.removeCategory();
     }
 
     private void showTipMsg(final String tipMsg) {
@@ -501,7 +508,12 @@ public class ChargeFrame extends javax.swing.JFrame {
 
     private void setCurrentDirectory(JFileChooser fc, String key) {
         try {
-            String path = PrefUtils.get(PREF_CATG, key);
+            PrefUtils.setCategory(PREF_CATG);
+
+            String path = PrefUtils.get(key);
+
+            PrefUtils.removeCategory();
+
             if (StringUtils.isNotBlank(path)) {
                 fc.setCurrentDirectory(new File(path));
             }
@@ -512,7 +524,11 @@ public class ChargeFrame extends javax.swing.JFrame {
 
     private void savePrefDirectory(String key, String value) {
         try {
-            PrefUtils.put(PREF_CATG, key, value);
+            PrefUtils.setCategory(PREF_CATG);
+            
+            PrefUtils.put(key, value);
+            
+            PrefUtils.removeCategory();
         } catch (Exception e) {
             LogUtils.warn("保存当前目录[" + key + "]异常.", e);
         }
@@ -593,6 +609,34 @@ public class ChargeFrame extends javax.swing.JFrame {
         }
 
         // 2. 解析并导入我方数据
+        if (!this.loadBillDetails()) {
+            return;
+        }
+
+        // 3. 解析对方文件数据
+        if (!this.processOtherBills()) {
+            return;
+        }
+
+        // 4. 记录我方明细
+        try {
+            this.dao.printUnckedDetail(this.writer);
+        } catch (Exception e) {
+            this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
+            LogUtils.error("记录对方缺少明细异常！", e);
+        }
+
+        // 5. 关闭写入流
+        this.writer.finish();
+        this.dao.close();
+
+        this.showTipMsg("分析完成，请检查临时目录下的差异数据文件！");
+    }
+
+    /**
+     * 导入我方数据明细
+     */
+    private boolean loadBillDetails() {
         this.showTipMsg("正在分析我方对账文件内容……");
         String file = this.txtFile.getText();
         int tradeNoIdx = (Integer) this.spinTradeNo.getValue();
@@ -602,7 +646,7 @@ public class ChargeFrame extends javax.swing.JFrame {
 
         if (tradeNoIdx < 0 || outTradeNoIdx < 0 || amountIdx < 0 || rateIdx < 0) {
             SwingUtils.alert(this, "解析我方对账文件出错", "请仔细迁移各项数据列号，列号从0开始！");
-            return;
+            return false;
         }
 
         Set<Integer> idxs = new HashSet<Integer>();
@@ -612,7 +656,7 @@ public class ChargeFrame extends javax.swing.JFrame {
         idxs.add(rateIdx);
         if (idxs.size() < 4) {
             SwingUtils.alert(this, "解析我方对账文件出错", "请仔细迁移各项数据列号，列号从0开始！");
-            return;
+            return false;
         }
 
         // 清除数据
@@ -628,8 +672,8 @@ public class ChargeFrame extends javax.swing.JFrame {
                 item.setTradeNo(values[tradeNoIdx]);
                 item.setOutTradeNo(values[outTradeNoIdx]);
 
-                Money amount = new Money(values[amountIdx]);
-                item.setCharge(amount.multiply(new BigDecimal(values[rateIdx])));
+                Money amount = new Money(StringUtils.trim(values[amountIdx]));
+                item.setCharge(amount.multiply(new BigDecimal(StringUtils.trim(values[rateIdx]))));
 
                 // 保存
                 // this.tradeNoMap.put(item.getTradeNo(), item);
@@ -651,10 +695,16 @@ public class ChargeFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             this.showTipMsg("读取我方对账文件异常:" + e.getMessage());
             LogUtils.error("读取我方对账文件异常！", e);
-            return;
+            return false;
         }
 
-        // 3. 解析对方文件数据
+        return true;
+    }
+
+    /**
+     * 处理对方文件
+     */
+    private boolean processOtherBills() {
         try {
             String tmpPath = this.txtTempPath.getText();
             this.writer = new MbillWriter(tmpPath);
@@ -662,7 +712,7 @@ public class ChargeFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             this.showTipMsg("创建临时文件异常:" + e.getMessage());
             LogUtils.error("创建临时文件异常！", e);
-            return;
+            return false;
         }
 
         this.showTipMsg("正在分析对方对账文件内容……");
@@ -738,28 +788,16 @@ public class ChargeFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             this.showTipMsg("读取对方对账文件异常:" + e.getMessage());
             LogUtils.error("读取对方对账文件异常！", e);
-            return;
+            return false;
         }
 
-        // 4. 记录我方明细
-        try {
-            this.dao.printUnckedDetail(this.writer);
-        } catch (Exception e) {
-            this.showTipMsg("记录对方缺少明细异常：" + e.getMessage());
-            LogUtils.error("记录对方缺少明细异常！", e);
-        }
-
-        // 5. 关闭写入流
-        this.writer.finish();
-        this.dao.close();
-
-        this.showTipMsg("分析完成，请检查临时目录下的差异数据文件！");
+        return true;
     }
 
     private void btnAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalyzeActionPerformed
         // 存储参数
         this.storePrefValues();
-        
+
         // 分析账单文件
         Thread analyzer = new Thread() {
             public void run() {
