@@ -17,8 +17,11 @@ import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.ExamMgtAct;
 import mplat.uijfx.uiviews.MainViewAct;
 import mplat.uijfx.uiviews.SystemAboutAct;
+import mplat.uijfx.uiviews.SystemSetAct;
 import mplat.uijfx.uiviews.UserMgtAct;
+import mplat.uijfx.uiviews.UserUpdateAct;
 import mplat.utils.UConst;
+import mplat.utils.UserHolder;
 
 import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.popup.PopupUtils;
@@ -79,6 +82,22 @@ public class TopMenuControl extends MenuBar {
     @FXML
     public final void onMenuExit(ActionEvent evt) {
         PopupUtils.exitSystem(this.stage);
+    }
+    
+    /**
+     * 系统设置-系统参数设置
+     */
+    @FXML
+    public final void onMenuSystemSet(ActionEvent evt) {
+        new SystemSetAct(this.stage).show();
+    }
+    
+    /**
+     * 系统设置-修改用户信息
+     */
+    @FXML
+    public final void onMenuUserUpdate(ActionEvent evt) {
+        new UserUpdateAct(this.stage, UserHolder.get()).show();
     }
 
     /**

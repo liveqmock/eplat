@@ -176,9 +176,9 @@
 		</Menu>
 		<Menu mnemonicParsing="false" text="系统设置">
 			<items>
-				<MenuItem mnemonicParsing="false" text="配置..." />
+				<MenuItem mnemonicParsing="false" onAction="#onMenuSystemSet" text="系统参数配置..." />
 				<SeparatorMenuItem mnemonicParsing="false" />
-				<MenuItem mnemonicParsing="false" text="登录密码修改..." />
+				<MenuItem mnemonicParsing="false" onAction="#onMenuUserUpdate" text="修改用户信息..." />
 			</items>
 		</Menu>
 		<Menu fx:id="menuSystemMgt" mnemonicParsing="false" text="系统管理">

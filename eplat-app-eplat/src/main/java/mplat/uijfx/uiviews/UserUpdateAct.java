@@ -67,7 +67,7 @@ public final class UserUpdateAct extends BaseXmlAct {
         this.findSizeProperty().set(new Dimension2D(350.0, 225.0));
         this.findTitleProperty().set("更新用户信息");
         this.findGroupViewProperty().set(this.rootView);
-        
+
         // 事件
         this.btnSure.setDisable(true);
 
@@ -103,6 +103,7 @@ public final class UserUpdateAct extends BaseXmlAct {
     public final void initViewShown() {
         super.initViewShown();
 
+        this.findTitleProperty().set("更新用户(" + this.user.getUserName() + ")信息");
         this.txtUserName.setText(this.user.getUserName());
     }
 
