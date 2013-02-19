@@ -13,10 +13,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane fx:id="rootView" prefHeight="400.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@MainViewAct.css" />
+	</stylesheets>
 	<bottom>
-		<HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="500.0" spacing="10.0" styleClass="SystemSet-Buttons-Container">
+		<HBox alignment="CENTER_RIGHT" minHeight="30.0" styleClass="system-set-optbox">
 			<children>
 				<Button fx:id="btnSure" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onSureAction" text="确定" />
 				<Button fx:id="btnCancel" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#onCancelAction" text="取消" />
@@ -33,99 +37,167 @@
 			<tabs>
 				<Tab text="心肺复苏参数设置">
 					<content>
-						<VBox spacing="10" alignment="TOP_LEFT">
+						<VBox spacing="10" alignment="TOP_CENTER">
 							<padding>
-								<Insets top="4" right="4" bottom="4" left="4" />
+								<Insets top="10" right="20" bottom="10" left="20" />
 							</padding>
 							<HBox spacing="10" alignment="CENTER">
-								<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" text="按压深度范围：">
+								<TitledPane prefWidth="200" animated="false" collapsible="false" graphicTextGap="0.0" text="按压深度范围：">
 									<content>
-										<VBox>
+										<VBox spacing="10">
 											<padding>
-												<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+												<Insets bottom="10" left="10" right="10" top="10" />
 											</padding>
-											<HBox>
-												<padding>
-													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-												</padding>
+											<HBox alignment="CENTER_LEFT">
 												<Label text="最小按压深度：" />
-												<TextField prefWidth="40" text="50" />
+												<TextField fx:id="minPressDepth" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="50" />
 												<Label text="mm" />
 											</HBox>
-											<HBox>
-												<padding>
-													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-												</padding>
+											<HBox alignment="CENTER_LEFT">
 												<Label text="最大按压深度：" />
-												<TextField prefWidth="40" text="60" />
+												<TextField fx:id="maxPressDepth" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
 												<Label text="mm" />
 											</HBox>
 										</VBox>
 									</content>
 								</TitledPane>
-								<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" text="吹入潮气量范围：">
+								<TitledPane prefWidth="200" animated="false" collapsible="false" graphicTextGap="0.0" text="吹入潮气量范围：">
 									<content>
-										<VBox>
+										<VBox spacing="10">
 											<padding>
-												<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+												<Insets bottom="10" left="10" right="10" top="10" />
 											</padding>
-											<HBox>
-												<padding>
-													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-												</padding>
+											<HBox alignment="CENTER_LEFT">
 												<Label text="最小潮气量：" />
-												<TextField prefWidth="50" alignment="CENTER_RIGHT" text="500" />
+												<TextField fx:id="minAirVolume" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="500" />
 												<Label text="ml" />
 											</HBox>
-											<HBox>
-												<padding>
-													<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-												</padding>
+											<HBox alignment="CENTER_LEFT">
 												<Label text="最大潮气量：" />
-												<TextField prefWidth="50" text="1000" />
+												<TextField fx:id="maxAirVolume" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="1000" />
 												<Label text="ml" />
 											</HBox>
 										</VBox>
 									</content>
 								</TitledPane>
 							</HBox>
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="给予CPR 5个循环操作模式：">
+								<content>
+									<HBox alignment="CENTER_LEFT">
+										<padding>
+											<Insets bottom="10" left="10" right="10" top="10" />
+										</padding>
+										<RadioButton fx:id="cprOperateStandard" mnemonicParsing="false" text="标准模式" />
+										<Region HBox.hgrow="ALWAYS" />
+										<RadioButton fx:id="cprOperateActual" selected="true" mnemonicParsing="false" text="实战模式" />
+									</HBox>
+								</content>
+							</TitledPane>
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="心肺复苏节拍提示音：">
+								<content>
+									<HBox alignment="CENTER_LEFT">
+										<padding>
+											<Insets bottom="10" left="10" right="10" top="10" />
+										</padding>
+										<RadioButton fx:id="operateRhythmOn" mnemonicParsing="false" text="无节拍音" />
+										<Region HBox.hgrow="ALWAYS" />
+										<RadioButton fx:id="operateRhythmOff" selected="true" mnemonicParsing="false" text="有节拍音" />
+									</HBox>
+								</content>
+							</TitledPane>
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="心肺复苏操作提示音：">
+								<content>
+									<HBox alignment="CENTER_LEFT">
+										<padding>
+											<Insets bottom="10" left="10" right="10" top="10" />
+										</padding>
+										<RadioButton fx:id="operateAudioOn" mnemonicParsing="false" text="无提示音" />
+										<Region HBox.hgrow="ALWAYS" />
+										<RadioButton fx:id="operateAudioOff" selected="true" mnemonicParsing="false" text="有提示音" />
+									</HBox>
+								</content>
+							</TitledPane>
 						</VBox>
 					</content>
 				</Tab>
 				<Tab text="CPR操作规则设置">
 					<content>
-						<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+						<VBox alignment="CENTER" spacing="20">
+							<padding>
+								<Insets bottom="20" left="20" right="20" top="20" />
+							</padding>
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="非专业施救者">
+								<content>
+									<VBox alignment="CENTER_LEFT" spacing="20">
+										<padding>
+											<Insets bottom="30" left="30" right="30" top="30" />
+										</padding>
+										<HBox alignment="CENTER_LEFT">
+											<RadioButton fx:id="saverModeAmateur" mnemonicParsing="false" text="非专业施救者" />
+										</HBox>
+										<HBox alignment="CENTER_LEFT">
+											<Label text="胸外按压次数：" />
+											<TextField fx:id="pressCountAmateur" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
+											<Label text="次" />
+										</HBox>
+									</VBox>
+								</content>
+							</TitledPane>
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="专业施救者">
+								<content>
+									<VBox alignment="CENTER_LEFT" spacing="20">
+										<padding>
+											<Insets bottom="30" left="30" right="30" top="30" />
+										</padding>
+										<RadioButton fx:id="saverModePrefessional" selected="true" mnemonicParsing="false" text="专业施救者" />
+										<RadioButton fx:id="pressCountPref3" mnemonicParsing="false" text="三个循环CPR操作" />
+										<RadioButton fx:id="pressCountPref5" selected="true" mnemonicParsing="false" text="五个循环CPR操作" />
+									</VBox>
+								</content>
+							</TitledPane>
+						</VBox>
 					</content>
 				</Tab>
 				<Tab text="虚拟监控器设置">
 					<content>
 						<VBox alignment="CENTER" spacing="20">
-							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="400" prefWidth="400" text="虚拟监视器名称：">
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="虚拟监视器名称：">
 								<content>
 									<HBox alignment="CENTER_LEFT">
 										<padding>
-											<Insets bottom="15" left="15" right="15" top="15" />
+											<Insets bottom="20" left="20" right="20" top="20" />
 										</padding>
 										<Label text="计算机名称：" />
-										<ComboBox fx:id="cboxPorts" prefHeight="25.0" prefWidth="200.0">
+										<ComboBox fx:id="monitorName" prefWidth="150.0" minHeight="25.0">
 											<items>
 												<FXCollections fx:factory="observableArrayList">
-													<String fx:value="COM1" />
-													<String fx:value="COM2" />
+													<String fx:value="无" />
+													<String fx:value="未指定..." />
 												</FXCollections>
 											</items>
 										</ComboBox>
 									</HBox>
 								</content>
 							</TitledPane>
-							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="400" prefWidth="400" text="心电图导联：">
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="心电图导联：">
 								<content>
 									<HBox alignment="CENTER_LEFT">
 										<padding>
-											<Insets bottom="15" left="15" right="15" top="15" />
+											<Insets bottom="20" left="20" right="20" top="20" />
 										</padding>
-										<CheckBox />
-										<Label text="计算机名称：" />
+										<CheckBox fx:id="joinHeartGraph" />
+										<Label text="导联接头正确连接模拟人后，显示心电图采样波形" />
+									</HBox>
+								</content>
+							</TitledPane>
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="血氧探头：">
+								<content>
+									<HBox alignment="CENTER_LEFT">
+										<padding>
+											<Insets bottom="20" left="20" right="20" top="20" />
+										</padding>
+										<CheckBox fx:id="joinBloodGraph" />
+										<Label text="使用血氧探头连接模拟人后，显示血氧采样波形" />
 									</HBox>
 								</content>
 							</TitledPane>
@@ -135,11 +207,11 @@
 				<Tab text="虚拟体征日志设置">
 					<content>
 						<VBox alignment="CENTER">
-							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="200" text="虚拟体征自动保存：">
+							<TitledPane animated="false" collapsible="false" graphicTextGap="0.0" maxWidth="410" text="虚拟体征自动保存：">
 								<content>
 									<HBox alignment="CENTER">
 										<padding>
-											<Insets bottom="15" left="15" right="15" top="15" />
+											<Insets bottom="30" left="30" right="30" top="30" />
 										</padding>
 										<Label text="间隔时间：" />
 										<TextField fx:id="autoSaveSeconds" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
@@ -153,7 +225,4 @@
 			</tabs>
 		</TabPane>
 	</center>
-	<stylesheets>
-		<URL value="@SystemSetAct.css" />
-	</stylesheets>
 </BorderPane>

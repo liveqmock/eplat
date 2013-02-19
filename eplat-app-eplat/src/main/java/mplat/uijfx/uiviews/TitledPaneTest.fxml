@@ -18,5 +18,6 @@
         </AnchorPane>
       </content>
     </TitledPane>
+    <RadioButton layoutX="417.0" layoutY="169.0" mnemonicParsing="false" text="RadioButton" />
   </children>
 </AnchorPane>

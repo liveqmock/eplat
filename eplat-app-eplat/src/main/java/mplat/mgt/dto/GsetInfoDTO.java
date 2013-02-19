@@ -29,7 +29,7 @@ public class GsetInfoDTO extends ToString {
     private int               cprOperateMode;
 
     // 是否有操作节拍提示音
-    private boolean           operateTipAudio;
+    private boolean           operateRhythm;
 
     // 是否有操作提示音
     private boolean           operateAudio;
@@ -41,9 +41,6 @@ public class GsetInfoDTO extends ToString {
 
     // 胸外按压次数（非专业）
     private int               pressCount;
-
-    // CPR操作循环数（专业）
-    private int               cprRecycleCount;
 
     /** 虚拟监控器参数 */
 
@@ -103,12 +100,13 @@ public class GsetInfoDTO extends ToString {
         this.cprOperateMode = cprOperateMode;
     }
 
-    public boolean isOperateTipAudio() {
-        return operateTipAudio;
+
+    public boolean isOperateRhythm() {
+        return operateRhythm;
     }
 
-    public void setOperateTipAudio(boolean operateTipAudio) {
-        this.operateTipAudio = operateTipAudio;
+    public void setOperateRhythm(boolean operateRhythm) {
+        this.operateRhythm = operateRhythm;
     }
 
     public boolean isOperateAudio() {
@@ -133,14 +131,6 @@ public class GsetInfoDTO extends ToString {
 
     public void setPressCount(int pressCount) {
         this.pressCount = pressCount;
-    }
-
-    public int getCprRecycleCount() {
-        return cprRecycleCount;
-    }
-
-    public void setCprRecycleCount(int cprRecycleCount) {
-        this.cprRecycleCount = cprRecycleCount;
     }
 
     public String getMonitorName() {
