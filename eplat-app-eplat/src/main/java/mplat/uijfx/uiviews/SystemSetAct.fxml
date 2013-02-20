@@ -50,12 +50,12 @@
 											</padding>
 											<HBox alignment="CENTER_LEFT">
 												<Label text="最小按压深度：" />
-												<TextField fx:id="minPressDepth" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="50" />
+												<TextField fx:id="txtMinPressDepth" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="50" />
 												<Label text="mm" />
 											</HBox>
 											<HBox alignment="CENTER_LEFT">
 												<Label text="最大按压深度：" />
-												<TextField fx:id="maxPressDepth" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
+												<TextField fx:id="txtMaxPressDepth" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
 												<Label text="mm" />
 											</HBox>
 										</VBox>
@@ -69,12 +69,12 @@
 											</padding>
 											<HBox alignment="CENTER_LEFT">
 												<Label text="最小潮气量：" />
-												<TextField fx:id="minAirVolume" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="500" />
+												<TextField fx:id="txtMinAirVolume" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="500" />
 												<Label text="ml" />
 											</HBox>
 											<HBox alignment="CENTER_LEFT">
 												<Label text="最大潮气量：" />
-												<TextField fx:id="maxAirVolume" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="1000" />
+												<TextField fx:id="txtMaxAirVolume" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="1000" />
 												<Label text="ml" />
 											</HBox>
 										</VBox>
@@ -87,9 +87,9 @@
 										<padding>
 											<Insets bottom="10" left="10" right="10" top="10" />
 										</padding>
-										<RadioButton fx:id="cprOperateStandard" mnemonicParsing="false" text="标准模式" />
+										<RadioButton fx:id="rbtCprOperateStandard" mnemonicParsing="false" text="标准模式" />
 										<Region HBox.hgrow="ALWAYS" />
-										<RadioButton fx:id="cprOperateActual" selected="true" mnemonicParsing="false" text="实战模式" />
+										<RadioButton fx:id="rbtCprOperateActual" selected="true" mnemonicParsing="false" text="实战模式" />
 									</HBox>
 								</content>
 							</TitledPane>
@@ -99,9 +99,9 @@
 										<padding>
 											<Insets bottom="10" left="10" right="10" top="10" />
 										</padding>
-										<RadioButton fx:id="operateRhythmOn" mnemonicParsing="false" text="无节拍音" />
+										<RadioButton fx:id="rbtOperateRhythmOn" mnemonicParsing="false" text="无节拍音" />
 										<Region HBox.hgrow="ALWAYS" />
-										<RadioButton fx:id="operateRhythmOff" selected="true" mnemonicParsing="false" text="有节拍音" />
+										<RadioButton fx:id="rbtOperateRhythmOff" selected="true" mnemonicParsing="false" text="有节拍音" />
 									</HBox>
 								</content>
 							</TitledPane>
@@ -111,9 +111,9 @@
 										<padding>
 											<Insets bottom="10" left="10" right="10" top="10" />
 										</padding>
-										<RadioButton fx:id="operateAudioOn" mnemonicParsing="false" text="无提示音" />
+										<RadioButton fx:id="rbtOperateAudioOn" mnemonicParsing="false" text="无提示音" />
 										<Region HBox.hgrow="ALWAYS" />
-										<RadioButton fx:id="operateAudioOff" selected="true" mnemonicParsing="false" text="有提示音" />
+										<RadioButton fx:id="rbtOperateAudioOff" selected="true" mnemonicParsing="false" text="有提示音" />
 									</HBox>
 								</content>
 							</TitledPane>
@@ -133,11 +133,11 @@
 											<Insets bottom="30" left="30" right="30" top="30" />
 										</padding>
 										<HBox alignment="CENTER_LEFT">
-											<RadioButton fx:id="saverModeAmateur" mnemonicParsing="false" text="非专业施救者" />
+											<RadioButton fx:id="rbtSaverModeAmateur" mnemonicParsing="false" text="非专业施救者" />
 										</HBox>
 										<HBox alignment="CENTER_LEFT">
 											<Label text="胸外按压次数：" />
-											<TextField fx:id="pressCountAmateur" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
+											<TextField fx:id="txtPressCountAmateur" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
 											<Label text="次" />
 										</HBox>
 									</VBox>
@@ -149,9 +149,9 @@
 										<padding>
 											<Insets bottom="30" left="30" right="30" top="30" />
 										</padding>
-										<RadioButton fx:id="saverModePrefessional" selected="true" mnemonicParsing="false" text="专业施救者" />
-										<RadioButton fx:id="pressCountPref3" mnemonicParsing="false" text="三个循环CPR操作" />
-										<RadioButton fx:id="pressCountPref5" selected="true" mnemonicParsing="false" text="五个循环CPR操作" />
+										<RadioButton fx:id="rbtSaverModePrefessional" selected="true" mnemonicParsing="false" text="专业施救者" />
+										<RadioButton fx:id="rbtPressCountPref3" mnemonicParsing="false" text="三个循环CPR操作" />
+										<RadioButton fx:id="rbtPressCountPref5" selected="true" mnemonicParsing="false" text="五个循环CPR操作" />
 									</VBox>
 								</content>
 							</TitledPane>
@@ -168,7 +168,7 @@
 											<Insets bottom="20" left="20" right="20" top="20" />
 										</padding>
 										<Label text="计算机名称：" />
-										<ComboBox fx:id="monitorName" prefWidth="150.0" minHeight="25.0">
+										<ComboBox fx:id="cboxMonitorName" prefWidth="150.0" minHeight="25.0">
 											<items>
 												<FXCollections fx:factory="observableArrayList">
 													<String fx:value="无" />
@@ -185,7 +185,7 @@
 										<padding>
 											<Insets bottom="20" left="20" right="20" top="20" />
 										</padding>
-										<CheckBox fx:id="joinHeartGraph" />
+										<CheckBox fx:id="chkJoinHeartGraph" />
 										<Label text="导联接头正确连接模拟人后，显示心电图采样波形" />
 									</HBox>
 								</content>
@@ -196,7 +196,7 @@
 										<padding>
 											<Insets bottom="20" left="20" right="20" top="20" />
 										</padding>
-										<CheckBox fx:id="joinBloodGraph" />
+										<CheckBox fx:id="chkJoinBloodGraph" />
 										<Label text="使用血氧探头连接模拟人后，显示血氧采样波形" />
 									</HBox>
 								</content>
@@ -214,7 +214,7 @@
 											<Insets bottom="30" left="30" right="30" top="30" />
 										</padding>
 										<Label text="间隔时间：" />
-										<TextField fx:id="autoSaveSeconds" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
+										<TextField fx:id="txtAutoSaveSeconds" prefWidth="60" minHeight="25" alignment="CENTER_RIGHT" text="60" />
 										<Label text="秒" />
 									</HBox>
 								</content>

@@ -37,10 +37,10 @@ public class GsetInfoDTO extends ToString {
     /** CPR操作规则设置 */
 
     // 施救者类型（专业/非专业）
-    private boolean           saverMode;
+    private int               saverMode;
 
-    // 胸外按压次数（非专业）
-    private int               pressCount;
+    private int               pressCountAmateur;
+    private int               pressCountCycle;
 
     /** 虚拟监控器参数 */
 
@@ -100,7 +100,6 @@ public class GsetInfoDTO extends ToString {
         this.cprOperateMode = cprOperateMode;
     }
 
-
     public boolean isOperateRhythm() {
         return operateRhythm;
     }
@@ -117,20 +116,28 @@ public class GsetInfoDTO extends ToString {
         this.operateAudio = operateAudio;
     }
 
-    public boolean isSaverMode() {
+    public int getSaverMode() {
         return saverMode;
     }
 
-    public void setSaverMode(boolean saverMode) {
+    public void setSaverMode(int saverMode) {
         this.saverMode = saverMode;
     }
 
-    public int getPressCount() {
-        return pressCount;
+    public int getPressCountAmateur() {
+        return pressCountAmateur;
     }
 
-    public void setPressCount(int pressCount) {
-        this.pressCount = pressCount;
+    public void setPressCountAmateur(int pressCountAmateur) {
+        this.pressCountAmateur = pressCountAmateur;
+    }
+
+    public int getPressCountCycle() {
+        return pressCountCycle;
+    }
+
+    public void setPressCountCycle(int pressCountCycle) {
+        this.pressCountCycle = pressCountCycle;
     }
 
     public String getMonitorName() {
