@@ -19,7 +19,7 @@
     -fx-padding: 0px;
 }
 
-.topic-train-0101-operate-buttons {
+.topic-train-0101-optbox {
     -fx-base: #505359;
     -fx-background: rgb(216, 216, 216);
     -fx-background-color: rgb(216, 216, 216);
@@ -60,16 +60,6 @@
     -fx-font-size: 20;
 }
 
-.topic-train-0102-optbox {
-    -fx-base: #505359;
-    -fx-background: rgb(216, 216, 216);
-    -fx-background-color: rgb(216, 216, 216);
-    -fx-shadow-highlight-color: transparent;
-    -fx-spacing: 10;
-    -fx-padding: 4 4 4 4;
-    -fx-alignment: center-right;
-}
-
 .system-set-optbox {
     -fx-base: #505359;
     -fx-background: rgb(216, 216, 216);
@@ -79,3 +69,4 @@
     -fx-padding: 4 4 4 4;
     -fx-alignment: center-right;
 }
+

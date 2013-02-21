@@ -75,7 +75,10 @@ public final class ExamWO extends LongID {
         }
 
         for (ExamInfoDTO srcObj : srcObjs) {
-            dstObjs.add(from(srcObj));
+            ExamWO dstObj = from(srcObj);
+            if (dstObj != null) {
+                dstObjs.add(dstObj);
+            }
         }
 
         return dstObjs;

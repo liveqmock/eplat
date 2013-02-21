@@ -76,7 +76,7 @@
 		</VBox>
 	</center>
 	<bottom>
-		<HBox styleClass="topic-train-0102-optbox">
+		<HBox styleClass="topic-train-0101-optbox">
 			<Button fx:id="btnLastExam" minHeight="25.0" text="上一试题" onAction="#onLastExam" />
 			<Region HBox.hgrow="ALWAYS" />
 			<Button fx:id="btnNextExam" minHeight="25.0" text="下一试题" onAction="#onNextExam" />

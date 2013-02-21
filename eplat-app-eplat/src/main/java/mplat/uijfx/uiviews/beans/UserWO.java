@@ -104,7 +104,10 @@ public final class UserWO extends LongID {
         }
 
         for (UserInfoDTO srcObj : srcObjs) {
-            dstObjs.add(from(srcObj));
+            UserWO dstObj = from(srcObj);
+            if (dstObj != null) {
+                dstObjs.add(dstObj);
+            }
         }
 
         return dstObjs;

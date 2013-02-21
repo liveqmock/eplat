@@ -74,7 +74,7 @@
 		</SplitPane>
 	</center>
 	<bottom>
-		<HBox styleClass="topic-train-0101-operate-buttons">
+		<HBox styleClass="topic-train-0101-optbox">
 			<Button fx:id="btnNextStep" minHeight="25.0" text="下一步" onAction="#onNextStep" />
 			<Button fx:id="btnCancel" minHeight="25.0" text="取消" onAction="#onCancelAction" />
 		</HBox>

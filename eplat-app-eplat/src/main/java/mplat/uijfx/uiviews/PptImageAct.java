@@ -35,7 +35,7 @@ import com.atom.core.uijfx.views.BaseXmlAct;
  */
 public class PptImageAct extends BaseXmlAct implements PPTViewCallback {
     /** PPT高度 */
-    private static final double         HEIGHT    = 630.0;
+    private static final double         HEIGHT    = 620.0;
 
     /** 第几张PPT */
     private int                         pptNo;
@@ -132,7 +132,7 @@ public class PptImageAct extends BaseXmlAct implements PPTViewCallback {
         this.findGroupViewProperty().set(this.pptPane);
         this.findFullScreenProperty().set(true);
         this.findCenterNewStageProperty().set(false);
-        this.findSizeProperty().set(new Dimension2D(1000, 705));
+        this.findSizeProperty().set(new Dimension2D(1000, 700));
         this.findTitleProperty().set("系统课件");
 
         return this;
