@@ -60,6 +60,10 @@
     -fx-font-size: 20;
 }
 
+.ppt-optbox {
+	-fx-background-color: rgb(225,236,219);
+}
+
 .system-set-optbox {
     -fx-base: #505359;
     -fx-background: rgb(216, 216, 216);
@@ -70,3 +74,32 @@
     -fx-alignment: center-right;
 }
 
+.user-mgt-optbox {
+    -fx-base: #505359;
+    -fx-background: rgb(216, 216, 216);
+    -fx-background-color: rgb(216, 216, 216);
+    -fx-shadow-highlight-color: transparent;
+    -fx-spacing: 10;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: center-right;
+}
+
+.exam-mgt-optbox {
+    -fx-base: #505359;
+    -fx-background: rgb(216, 216, 216);
+    -fx-background-color: rgb(216, 216, 216);
+    -fx-shadow-highlight-color: transparent;
+    -fx-spacing: 10;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: center-right;
+}
+
+.ecgt-mgt-optbox {
+    -fx-base: #505359;
+    -fx-background: rgb(216, 216, 216);
+    -fx-background-color: rgb(216, 216, 216);
+    -fx-shadow-highlight-color: transparent;
+    -fx-spacing: 10;
+    -fx-padding: 4 4 4 4;
+    -fx-alignment: center-right;
+}

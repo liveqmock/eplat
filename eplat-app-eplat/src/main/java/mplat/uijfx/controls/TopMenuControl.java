@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import mplat.mgt.UserMgt;
 import mplat.uijfx.images.IMGS;
+import mplat.uijfx.uiviews.EcgtMgtAct;
 import mplat.uijfx.uiviews.ExamMgtAct;
 import mplat.uijfx.uiviews.MainViewAct;
 import mplat.uijfx.uiviews.SystemAboutAct;
@@ -83,7 +84,7 @@ public class TopMenuControl extends MenuBar {
     public final void onMenuExit(ActionEvent evt) {
         PopupUtils.exitSystem(this.stage);
     }
-    
+
     /**
      * 系统设置-系统参数设置
      */
@@ -91,7 +92,7 @@ public class TopMenuControl extends MenuBar {
     public final void onMenuSystemSet(ActionEvent evt) {
         new SystemSetAct(this.stage).show();
     }
-    
+
     /**
      * 系统设置-修改用户信息
      */
@@ -109,7 +110,15 @@ public class TopMenuControl extends MenuBar {
     }
 
     /**
-     * 系统管理-试题管理
+     * 系统管理-ECG心律识别
+     */
+    @FXML
+    public final void onMenuEcgtMgt(ActionEvent evt) {
+        new EcgtMgtAct(this.stage).show();
+    }
+
+    /**
+     * 系统管理-ACLS理论知识
      */
     @FXML
     public final void onMenuExamMgt(ActionEvent evt) {

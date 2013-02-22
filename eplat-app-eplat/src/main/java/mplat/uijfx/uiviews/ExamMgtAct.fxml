@@ -15,10 +15,10 @@
 
 <BorderPane fx:id="viewRoot" xmlns:fx="http://javafx.com/fxml">
 	<stylesheets>
-		<URL value="@ExamMgtAct.css" />
+		<URL value="@MainViewAct.css" />
 	</stylesheets>
 	<top>
-		<HBox spacing="5" minHeight="30" alignment="CENTER_RIGHT" styleClass="exam-mgt-buttons">
+		<HBox spacing="5" minHeight="30" alignment="CENTER_RIGHT" styleClass="exam-mgt-optbox">
 			<Button fx:id="btnCreateExam" text="增加试题" minHeight="25" onAction="#onCreateExam" />
 			<Region HBox.hgrow="ALWAYS" />
 			<Button fx:id="btnUpdateExam" text="更新试题" minHeight="25" onAction="#onUpdateExam" />

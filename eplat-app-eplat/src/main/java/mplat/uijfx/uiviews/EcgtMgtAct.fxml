@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.geometry.Insets?>
+<?import com.atom.core.uijfx.views.FormattedTableCellFactory?>
+
+<BorderPane fx:id="viewRoot" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@MainViewAct.css" />
+	</stylesheets>
+	<top>
+		<HBox minHeight="30" alignment="CENTER_RIGHT" styleClass="ecgt-mgt-optbox">
+			<Button fx:id="btnCreateEcgt" text="增加试题" minHeight="25" onAction="#onCreateEcgt" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnUpdateEcgt" text="更新试题" minHeight="25" onAction="#onUpdateEcgt" />
+			<Button fx:id="btnRemoveEcgt" text="删除试题" minHeight="25" onAction="#onRemoveEcgt" />
+			<Region HBox.hgrow="ALWAYS" />
+			<Button fx:id="btnUnselectEcgt" text="取消选择" minHeight="25" onAction="#onUnselectEcgt" />
+			<padding>
+				<Insets top="2" right="3" bottom="5" left="3" />
+			</padding>
+		</HBox>
+	</top>
+	<center>
+		<TableView fx:id="tableView">
+			<columns>
+				<TableColumn fx:id="tcolEcgtID" prefWidth="30" text="ID">
+						<cellValueFactory>
+							<PropertyValueFactory property="id" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="CENTER" />
+						</cellFactory>
+					</TableColumn>
+					<TableColumn fx:id="tcolEcgtQrs" prefWidth="40" text="QRS">
+						<cellValueFactory>
+							<PropertyValueFactory property="ecgtQrs" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="CENTER" />
+						</cellFactory>
+					</TableColumn>
+					<TableColumn fx:id="tcolEcgtRhythm" text="Basic Rhythm">
+						<cellValueFactory>
+							<PropertyValueFactory property="ecgtRhythm" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="LEFT" />
+						</cellFactory>
+					</TableColumn>
+					<TableColumn fx:id="tcolEcgtRate" prefWidth="50" text="Rate">
+						<cellValueFactory>
+							<PropertyValueFactory property="ecgtRate" />
+						</cellValueFactory>
+						<cellFactory>
+							<FormattedTableCellFactory alignment="CENTER" />
+						</cellFactory>
+					</TableColumn>
+			</columns>
+		</TableView>
+	</center>
+</BorderPane>

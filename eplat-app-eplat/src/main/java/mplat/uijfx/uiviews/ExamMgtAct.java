@@ -73,7 +73,7 @@ public final class ExamMgtAct extends BaseXmlAct {
         // 舞台属性
         this.setNewStage(new Stage());
         this.findSizeProperty().set(new Dimension2D(650.0, 450.0));
-        this.findTitleProperty().set("培训试题管理");
+        this.findTitleProperty().set("ACLS理论知识试题管理");
         this.findGroupViewProperty().set(this.viewRoot);
         this.findResizableProperty().set(true);
 
@@ -113,11 +113,14 @@ public final class ExamMgtAct extends BaseXmlAct {
      */
     public final void refreshExams() {
         this.tableView.getSelectionModel().clearSelection();
-        this.tableView.getItems().clear();
+        
+        while(!this.tableView.getItems().isEmpty()) {
+            this.tableView.getItems().remove(0);
+        }
         
         List<ExamWO> exams = ExamWO.from(this.examMgt.findAll());
         Collections.sort(exams);
-        this.tableView.setItems(FXCollections.observableList(exams));
+        this.tableView.getItems().addAll(FXCollections.observableList(exams));
     }
 
     @FXML

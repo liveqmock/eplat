@@ -1,1 +1,32 @@
-<concurrent-hash-map/>
+<concurrent-hash-map>
+  <entry>
+    <long>2</long>
+    <Ecgt>
+      <id>2</id>
+      <ecgtQrs>C</ecgtQrs>
+      <ecgtRhythm>C</ecgtRhythm>
+      <ecgtSyst>C</ecgtSyst>
+      <ecgtRate>40</ecgtRate>
+      <tipQrs>ab</tipQrs>
+      <tipRate>ab</tipRate>
+      <tipRegular>ab</tipRegular>
+      <tipWave>ab</tipWave>
+      <tipInterval>ab</tipInterval>
+    </Ecgt>
+  </entry>
+  <entry>
+    <long>1</long>
+    <Ecgt>
+      <id>1</id>
+      <ecgtQrs>B</ecgtQrs>
+      <ecgtRhythm>B</ecgtRhythm>
+      <ecgtSyst>B</ecgtSyst>
+      <ecgtRate>160</ecgtRate>
+      <tipQrs>eb</tipQrs>
+      <tipRate>ab</tipRate>
+      <tipRegular>bb</tipRegular>
+      <tipWave>cb</tipWave>
+      <tipInterval>db</tipInterval>
+    </Ecgt>
+  </entry>
+</concurrent-hash-map>

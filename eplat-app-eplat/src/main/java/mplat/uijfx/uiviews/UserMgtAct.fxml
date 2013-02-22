@@ -15,10 +15,10 @@
 
 <BorderPane fx:id="viewRoot" xmlns:fx="http://javafx.com/fxml">
 	<stylesheets>
-		<URL value="@UserMgtAct.css" />
+		<URL value="@MainViewAct.css" />
 	</stylesheets>
 	<top>
-		<HBox spacing="5" minHeight="30" alignment="CENTER_RIGHT" styleClass="user-mgt-buttons">
+		<HBox spacing="5" minHeight="30" alignment="CENTER_RIGHT" styleClass="user-mgt-optbox">
 			<Button fx:id="btnCreateUser" text="增加用户" minHeight="25" onAction="#onCreateUser" />
 			<Region HBox.hgrow="ALWAYS" />
 			<Button fx:id="btnUpdateUser" text="修改用户" minHeight="25" onAction="#onUpdateUser" />

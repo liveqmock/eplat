@@ -183,9 +183,11 @@
 		</Menu>
 		<Menu fx:id="menuSystemMgt" mnemonicParsing="false" text="系统管理">
 			<items>
-				<MenuItem mnemonicParsing="false" onAction="#onMenuUserMgt" text="用户管理" />
+				<MenuItem mnemonicParsing="false" onAction="#onMenuUserMgt" text="用户信息管理" />
 				<SeparatorMenuItem mnemonicParsing="false" />
-				<MenuItem mnemonicParsing="false" onAction="#onMenuExamMgt" text="试题管理" />
+				<MenuItem mnemonicParsing="false" onAction="#onMenuEcgtMgt" text="ECG心律识别试题管理" />
+				<SeparatorMenuItem mnemonicParsing="false" />
+				<MenuItem mnemonicParsing="false" onAction="#onMenuExamMgt" text="ACLS理论知识试题管理" />
 			</items>
 		</Menu>
 		<Menu mnemonicParsing="false" text="帮助">

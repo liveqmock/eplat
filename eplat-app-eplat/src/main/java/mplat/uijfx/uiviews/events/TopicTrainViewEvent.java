@@ -582,7 +582,7 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
             this.srcTcolEcgtRhythm.setPrefWidth(this.srcTableView.getPrefWidth() - 140);
 
             this.dstTableView.setPrefWidth(tableViewWidth);
-            this.dstTcolEcgtRhythm.setPrefWidth(this.srcTableView.getPrefWidth() - 140);
+            this.dstTcolEcgtRhythm.setPrefWidth(this.dstTableView.getPrefWidth() - 140);
 
             // 事件
             this.srcTableView.getItems().addListener(new ListChangeListener<EcgtWO>() {

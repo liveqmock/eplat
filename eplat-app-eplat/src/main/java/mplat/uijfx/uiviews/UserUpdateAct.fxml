@@ -19,6 +19,6 @@
     <Button fx:id="btnCancel" layoutX="233.0" layoutY="183.0" mnemonicParsing="false" onAction="#onCancelAction" minWidth="60.0" minHeight="25.0" text="取消" />
   </children>
   <stylesheets>
-    <URL value="@UserMgtAct.css" />
+    <URL value="@MainViewAct.css" />
   </stylesheets>
 </AnchorPane>

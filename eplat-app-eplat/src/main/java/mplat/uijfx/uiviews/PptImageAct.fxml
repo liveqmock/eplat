@@ -10,28 +10,28 @@
 <?import javafx.scene.paint.*?>
 
 <BorderPane fx:id="pptPane" prefHeight="705.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml">
-  <bottom>
-    <HBox alignment="CENTER_RIGHT" prefHeight="35.0" spacing="10.0" styleClass="ppt-buttons" BorderPane.alignment="CENTER_RIGHT">
-      <children>
-        <Button fx:id="btnFirst" mnemonicParsing="false" onAction="#onFirstAction" text="First" />
-        <Button fx:id="btnPrevious" mnemonicParsing="false" onAction="#onPreviousAction" text="Previous" />
-        <Button fx:id="btnNext" mnemonicParsing="false" onAction="#onNextAction" text="Next" />
-        <Button fx:id="btnLast" mnemonicParsing="false" onAction="#onLastAction" text="Last" />
-        <Button fx:id="btnFullScreen" mnemonicParsing="false" onAction="#onFullScreenAction" text="Full Screen" />
-      </children>
-      <padding>
-        <Insets right="30.0" />
-      </padding>
-    </HBox>
-  </bottom>
-  <center>
-    <ImageView fx:id="imgPpt" fitHeight="630.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-        <Image url="@../../../../../../../cfgs/views/ppt/CW01/001.jpg" preserveRatio="false" smooth="false" />
-      </image>
-    </ImageView>
-  </center>
-  <stylesheets>
-    <URL value="@PptImageAct.css" />
-  </stylesheets>
+	<bottom>
+		<HBox alignment="CENTER_RIGHT" prefHeight="35.0" spacing="10.0" styleClass="ppt-optbox" BorderPane.alignment="CENTER_RIGHT">
+			<children>
+				<Button fx:id="btnFirst" mnemonicParsing="false" onAction="#onFirstAction" text="First" />
+				<Button fx:id="btnPrevious" mnemonicParsing="false" onAction="#onPreviousAction" text="Previous" />
+				<Button fx:id="btnNext" mnemonicParsing="false" onAction="#onNextAction" text="Next" />
+				<Button fx:id="btnLast" mnemonicParsing="false" onAction="#onLastAction" text="Last" />
+				<Button fx:id="btnFullScreen" mnemonicParsing="false" onAction="#onFullScreenAction" text="Full Screen" />
+			</children>
+			<padding>
+				<Insets top="3" right="30.0" bottom="3" />
+			</padding>
+		</HBox>
+	</bottom>
+	<center>
+		<ImageView fx:id="imgPpt" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../../../../../../../cfgs/views/ppt/CW01/001.jpg" preserveRatio="false" smooth="false" />
+			</image>
+		</ImageView>
+	</center>
+	<stylesheets>
+		<URL value="@MainViewAct.css" />
+	</stylesheets>
 </BorderPane>

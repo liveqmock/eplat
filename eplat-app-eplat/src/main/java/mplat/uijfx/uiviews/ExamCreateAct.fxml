@@ -11,7 +11,7 @@
 
 <BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
 	<stylesheets>
-		<URL value="@ExamMgtAct.css" />
+		<URL value="@MainViewAct.css" />
 	</stylesheets>
 	<center>
 		<VBox alignment="TOP_LEFT" spacing="5">
@@ -35,7 +35,7 @@
 		</VBox>
 	</center>
 	<bottom>
-		<HBox spacing="20" minHeight="30" alignment="CENTER_RIGHT" styleClass="exam-mgt-buttons">
+		<HBox spacing="20" minHeight="30" alignment="CENTER_RIGHT" styleClass="exam-mgt-optbox">
 			<padding>
 				<Insets top="3" right="5" bottom="3" left="0" />
 			</padding>

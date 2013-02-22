@@ -24,7 +24,6 @@ import mplat.utils.PPTUtils.PPTViewCallback;
 import org.apache.commons.io.FilenameUtils;
 
 import com.atom.core.lang.utils.CfgUtils;
-import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.views.BaseXmlAct;
 
 /**
@@ -35,7 +34,7 @@ import com.atom.core.uijfx.views.BaseXmlAct;
  */
 public class PptImageAct extends BaseXmlAct implements PPTViewCallback {
     /** PPT高度 */
-    private static final double         HEIGHT    = 620.0;
+    private static final double         HEIGHT    = 610.0;
 
     /** 第几张PPT */
     private int                         pptNo;
@@ -127,7 +126,7 @@ public class PptImageAct extends BaseXmlAct implements PPTViewCallback {
         PPTUtils.initNextButton(this.btnNext);
         PPTUtils.initLastButton(this.btnLast);
         PPTUtils.initFullScreenButton(this.btnFullScreen);
-        
+
         // 属性设置
         this.findGroupViewProperty().set(this.pptPane);
         this.findFullScreenProperty().set(true);
@@ -173,8 +172,6 @@ public class PptImageAct extends BaseXmlAct implements PPTViewCallback {
         }
         this.imgPpt.setFitHeight(height);
         this.imgPpt.setImage(new Image(file, 0, height, true, false));
-
-        LogUtils.info("展示第[" + this.pptNo + "]张PPT[" + file + "].");
 
         // 回调展示PPT
         for (PPTViewCallback callback : this.findCallbacks()) {

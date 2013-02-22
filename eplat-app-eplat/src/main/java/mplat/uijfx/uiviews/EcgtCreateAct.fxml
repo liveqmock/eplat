@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@MainViewAct.css" />
+	</stylesheets>
+	<center>
+		<VBox alignment="TOP_LEFT" spacing="10">
+			<padding>
+				<Insets top="5" right="10" bottom="5" left="10" />
+			</padding>
+			<HBox spacing="3" minHeight="40.0">
+				<VBox alignment="TOP_LEFT">
+					<Label text="QRS：" />
+					<ComboBox fx:id="cboxEcgtQrs" prefHeight="22.0" prefWidth="60.0" />
+				</VBox>
+				<Region HBox.hgrow="ALWAYS" />
+				<VBox alignment="TOP_LEFT">
+					<Label text="Basic Rhythm：" />
+					<ComboBox fx:id="cboxEcgtRhythm" prefHeight="22.0" prefWidth="200.0" />
+				</VBox>
+				<Region HBox.hgrow="ALWAYS" />
+				<VBox alignment="TOP_LEFT">
+					<Label text="Extra Syst：" />
+					<ComboBox fx:id="cboxEcgtSyst" prefHeight="22.0" prefWidth="150.0" />
+				</VBox>
+				<Region HBox.hgrow="ALWAYS" />
+				<VBox alignment="TOP_LEFT">
+					<Label text="Rate：" />
+					<TextField fx:id="txtEcgtRate" prefHeight="24.0" prefWidth="50" alignment="CENTER_RIGHT" />
+				</VBox>
+			</HBox>
+
+			<HBox spacing="10">
+				<VBox>
+					<Label text="Hint Rate：" />
+					<TextArea fx:id="txtTipRate" />
+				</VBox>
+				<VBox>
+					<Label text="Hint Regularity：" />
+					<TextArea fx:id="txtTipRegular" />
+				</VBox>
+			</HBox>
+
+			<HBox spacing="10">
+				<VBox>
+					<Label text="Hint P-Wave：" />
+					<TextArea fx:id="txtTipWave" />
+				</VBox>
+				<VBox>
+					<Label text="Hint PR-Interval：" />
+					<TextArea fx:id="txtTipInterval" />
+				</VBox>
+			</HBox>
+			
+			<VBox>
+				<Label text="Hint QRS：" />
+				<TextArea fx:id="txtTipQrs" />
+			</VBox>
+		</VBox>
+	</center>
+	<bottom>
+		<HBox spacing="20" minHeight="30" alignment="CENTER_RIGHT" styleClass="ecgt-mgt-optbox">
+			<padding>
+				<Insets top="3" right="5" bottom="3" left="0" />
+			</padding>
+			<Button fx:id="btnSure" mnemonicParsing="false" onAction="#onSureAction" minWidth="60.0" minHeight="25.0" text="确定" />
+			<Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelAction" minWidth="60.0" minHeight="25.0" text="取消" />
+		</HBox>
+	</bottom>
+</BorderPane>
