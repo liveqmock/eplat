@@ -4,8 +4,6 @@
  */
 package mplat.uijfx.uiviews.acts;
 
-import java.util.Arrays;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -20,6 +18,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
+import mplat.mgt.msgs.DataMSG;
+import mplat.utils.PortUtils;
 import mplat.utils.UserHolder;
 
 import org.apache.commons.lang.StringUtils;
@@ -101,10 +101,18 @@ public class LoginAct extends BaseXmlAct {
             this.btnLogin.setDisable(true);
         }
 
-        this.cboxPorts.getItems().addAll(Arrays.asList("COM1", "COM2"));
-        this.cboxPorts.getSelectionModel().select(0);
+        // 串口
+        this.initPortNames();
 
         return this;
+    }
+
+    /**
+     * 初始化串口
+     */
+    private final void initPortNames() {
+        this.cboxPorts.getItems().addAll(PortUtils.findSerialPortNames());
+        this.cboxPorts.getSelectionModel().select(0);
     }
 
     @FXML
@@ -119,21 +127,31 @@ public class LoginAct extends BaseXmlAct {
         String userName = this.txtUserName.getText();
         String userPasswd = this.txtUserPasswd.getText();
 
-        int portNameIdx = this.cboxPorts.getSelectionModel().getSelectedIndex();
-        String portName = this.cboxPorts.getSelectionModel().getSelectedItem();
-        System.out.println("下位机-" + portNameIdx + ": " + portName);
-
         UserInfoDTO user = MgtFactory.get().findUserMgt().login(userName, userPasswd);
         if (user == null) {
             LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
             PopupUtils.alert(this.findStage(), "登录失败", "用户不存在或密码错误！");
-        } else {
-            UserHolder.set(user);
-            LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
-
-            // 主窗口
-            new MainViewAct(this.findStage()).show();
+            return;
         }
+
+        // 登录成功
+        UserHolder.set(user);
+        LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");
+
+        // 检查串口
+        String portName = this.cboxPorts.getSelectionModel().getSelectedItem();
+        DataMSG dataMsg = DataMSG.get().setPortName(portName);
+        if (!dataMsg.openPort()) {
+            PopupUtils.alert(this.findStage(), "连接失败", "虚拟人体连接失败，请重新选择串口！");
+            this.initPortNames();
+            return;
+        } else {
+            // TODO: 初始化消息
+            dataMsg.writeData(new byte[] { 1, 2, 3, 4, 5, 6 });
+        }
+
+        // 打开主窗口
+        new MainViewAct(this.findStage()).show();
     }
 
 }

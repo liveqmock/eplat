@@ -4,7 +4,6 @@
  */
 package mplat.uijfx.uiviews.events;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -314,8 +313,7 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
             this.closeNewStage();
 
             List<ExamWO> srcObjs = new ArrayList<ExamWO>(this.dstTableView.getItems());
-            URL fxml = this.getClass().getResource("TopicTrain0102Act.fxml");
-            new TopicTrain0102Act(this.findStage(), fxml, srcObjs).show();
+            new TopicTrain0102Act(this.findStage(), srcObjs).show();
         }
 
         /**
@@ -375,8 +373,8 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
         /**
          * 默认构造器
          */
-        public TopicTrain0102Act(Stage stage, URL fxml, List<ExamWO> exams) {
-            super(stage, fxml);
+        public TopicTrain0102Act(Stage stage, List<ExamWO> exams) {
+            super(stage);
 
             this.exams.addAll(exams);
         }

@@ -10,9 +10,9 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import mplat.mgt.msgs.DataMSG;
 import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.acts.LoginAct;
-import mplat.utils.DataMap;
 
 import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.TimerUtils;
@@ -51,12 +51,13 @@ public final class Main extends Application {
      * @see javafx.application.Application#stop()
      */
     public void stop() throws Exception {
-        DataMap.remove();
         StageHolder.remove();
 
         StoreFactory.get().stop();
         
         TimerUtils.stopTimer();
+        
+        DataMSG.get().closePort();
 
         super.stop();
     }
