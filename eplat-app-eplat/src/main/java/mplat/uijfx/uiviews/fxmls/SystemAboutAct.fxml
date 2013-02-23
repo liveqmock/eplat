@@ -12,7 +12,7 @@
   <children>
     <ImageView fx:id="imgAbout" fitHeight="52.0" fitWidth="52.0" layoutX="14.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@../images/about.gif" />
+        <Image url="@../../images/about.gif" />
       </image>
     </ImageView>
     <Label fx:id="lblTitle" layoutX="88.0" layoutY="34.0" text="高级结合急救技能训练软件 版本号V1.0.1" style="-fx-font-size:16;" />

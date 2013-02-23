@@ -17,7 +17,7 @@
 	<top>
 		<ImageView fx:id="imgLogo" fitHeight="100.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image url="@../images/login-logo.jpg" />
+				<Image url="@../../images/login-logo.jpg" />
 			</image>
 		</ImageView>
 	</top>

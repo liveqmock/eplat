@@ -27,7 +27,7 @@
 	<center>
 		<ImageView fx:id="imgPpt" pickOnBounds="true" preserveRatio="true">
 			<image>
-				<Image url="@../../../../../../../cfgs/views/ppt/CW01/001.jpg" preserveRatio="false" smooth="false" />
+				<Image url="@../../../../../../../../cfgs/views/ppt/CW01/001.jpg" preserveRatio="false" smooth="false" />
 			</image>
 		</ImageView>
 	</center>

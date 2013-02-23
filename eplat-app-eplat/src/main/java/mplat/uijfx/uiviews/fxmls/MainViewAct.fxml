@@ -23,27 +23,27 @@
 											<children>
 												<ImageView fx:id="imgCourseWare" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@../images/btn-course-ware.png" />
+														<Image url="@../../images/btn-course-ware.png" />
 													</image>
 												</ImageView>
 												<ImageView fx:id="imgTopicTrain" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@../images/btn-topic-train.jpg" />
+														<Image url="@../../images/btn-topic-train.jpg" />
 													</image>
 												</ImageView>
 												<ImageView fx:id="imgEmergeTrain" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@../images/btn-emerge-train.jpg" />
+														<Image url="@../../images/btn-emerge-train.jpg" />
 													</image>
 												</ImageView>
 												<ImageView fx:id="imgEmergeExam" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@../images/btn-emerge-exam.jpg" />
+														<Image url="@../../images/btn-emerge-exam.jpg" />
 													</image>
 												</ImageView>
 												<ImageView fx:id="imgSystemCfg" fitHeight="135.0" fitWidth="135.0" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@../images/btn-system-cfg.jpg" />
+														<Image url="@../../images/btn-system-cfg.jpg" />
 													</image>
 												</ImageView>
 											</children>
@@ -53,7 +53,7 @@
 										</HBox>
 										<ImageView fx:id="imgExit" fitHeight="70.0" fitWidth="70.0" layoutX="906.0" layoutY="561.0" onMouseClicked="#onExitAction" onMouseEntered="#onMouseOn" onMouseExited="#onMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
 											<image>
-												<Image url="@../images/exit.jpg" />
+												<Image url="@../../images/exit.jpg" />
 											</image>
 										</ImageView>
 									</children>
