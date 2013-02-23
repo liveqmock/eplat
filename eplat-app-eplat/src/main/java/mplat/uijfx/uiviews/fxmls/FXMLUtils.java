@@ -27,4 +27,13 @@ public final class FXMLUtils {
         return FXMLUtils.class.getResource(fxml);
     }
     
+    /**
+     * 获取FXML文件URL
+     */
+    public static final URL findURL(Class<?> clazz) {
+        String fname = clazz.getSimpleName() + ".fxml";
+        
+        return FXMLUtils.class.getResource(fname);
+    }
+    
 }
