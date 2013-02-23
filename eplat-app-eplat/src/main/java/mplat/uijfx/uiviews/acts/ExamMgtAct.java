@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews;
+package mplat.uijfx.uiviews.acts;
 
 import java.util.Collections;
 import java.util.List;
@@ -120,7 +120,7 @@ public final class ExamMgtAct extends BaseXmlAct {
         
         List<ExamWO> exams = ExamWO.from(this.examMgt.findAll());
         Collections.sort(exams);
-        this.tableView.getItems().addAll(FXCollections.observableList(exams));
+        this.tableView.getItems().addAll(FXCollections.observableList(exams).toArray(new ExamWO[] {}));
     }
 
     @FXML

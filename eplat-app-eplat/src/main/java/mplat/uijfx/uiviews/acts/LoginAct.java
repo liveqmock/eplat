@@ -2,7 +2,9 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews;
+package mplat.uijfx.uiviews.acts;
+
+import java.util.Arrays;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,12 +13,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Dimension2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.UserInfoDTO;
@@ -41,18 +41,16 @@ public class LoginAct extends BaseXmlAct {
 
     @FXML
     private ImageView        imgLogo;
+
     @FXML
     private TextField        txtUserName;
     @FXML
     private PasswordField    txtUserPasswd;
     @FXML
-    private Button           btnLogin;
-    @FXML
     private ComboBox<String> cboxPorts;
+
     @FXML
-    private HBox             hboxTipMsg;
-    @FXML
-    private Label            lblTipMsg;
+    private Button           btnLogin;
 
     /**
      * 默认构造器
@@ -67,7 +65,8 @@ public class LoginAct extends BaseXmlAct {
     public final LoginAct initXmlViews() {
         // 属性
         this.findGroupViewProperty().set(this.viewRoot);
-        this.findSizeProperty().set(new Dimension2D(713, 235));
+        this.findSizeProperty().set(new Dimension2D(300, 235));
+        this.findSizeToSceneProperty().set(true);
         this.findTitleProperty().set("用户登录");
 
         this.txtUserName.setPromptText("用户名");
@@ -102,9 +101,8 @@ public class LoginAct extends BaseXmlAct {
             this.btnLogin.setDisable(true);
         }
 
+        this.cboxPorts.getItems().addAll(Arrays.asList("COM1", "COM2"));
         this.cboxPorts.getSelectionModel().select(0);
-
-        this.lblTipMsg.setText("请登录系统~");
 
         return this;
     }
@@ -127,10 +125,8 @@ public class LoginAct extends BaseXmlAct {
 
         UserInfoDTO user = MgtFactory.get().findUserMgt().login(userName, userPasswd);
         if (user == null) {
-            this.lblTipMsg.setText("用户不存在或密码错误，请重新输入！");
             LogUtils.warn("[用户登录]-登录失败，UserName[" + userName + "], UserPasswd[" + userPasswd + "].");
-
-            PopupUtils.alert(this.findStage(), "登录失败", "登录失败，用户不存在或密码错误！");
+            PopupUtils.alert(this.findStage(), "登录失败", "用户不存在或密码错误！");
         } else {
             UserHolder.set(user);
             LogUtils.warn("[用户登录]-登录成功，UserInfo[" + user + "].");

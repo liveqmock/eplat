@@ -22,7 +22,7 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.19</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.atom</groupId>
 			<artifactId>atom-core-xstream</artifactId>
@@ -58,7 +58,16 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.1</version>
 		</dependency>
-		
+
+		<!-- ======================================== -->
+		<!-- XML相关依赖 -->
+		<!-- ======================================== -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
 		<!-- ======================================== -->
 		<!-- jrebirth相关依赖 -->
 		<!-- ======================================== -->
@@ -67,7 +76,7 @@
 			<artifactId>core</artifactId>
 			<version>0.7.1</version>
 		</dependency>
-		
+
 		<!-- ======================================== -->
 		<!-- Mina相关依赖 -->
 		<!-- ======================================== -->
@@ -269,5 +278,5 @@
 			<url>http://repo.jrebirth.org/jrebirth-plugin-snapshot-local</url>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 </project>

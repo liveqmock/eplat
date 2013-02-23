@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebView;
 import mplat.mgt.enums.TabCWPptEnum;
-import mplat.uijfx.uiviews.PptImageAct;
+import mplat.uijfx.uiviews.acts.PptImageAct;
 
 import org.apache.commons.lang.StringUtils;
 

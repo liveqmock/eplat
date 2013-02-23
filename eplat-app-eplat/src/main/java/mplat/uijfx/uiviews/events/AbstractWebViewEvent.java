@@ -8,7 +8,7 @@ import javafx.concurrent.Worker.State;
 import javafx.scene.control.TabPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import mplat.uijfx.uiviews.MainViewAct;
+import mplat.uijfx.uiviews.acts.MainViewAct;
 import mplat.utils.MViewUtils;
 
 import com.atom.core.lang.utils.LogUtils;

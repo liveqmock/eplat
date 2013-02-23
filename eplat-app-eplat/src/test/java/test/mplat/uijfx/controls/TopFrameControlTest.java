@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mplat.uijfx.controls.TopFrameControl;
-import mplat.uijfx.uiviews.MainViewAct;
+import mplat.uijfx.uiviews.acts.MainViewAct;
 
 import com.atom.core.uijfx.utils.StageUtils;
 

@@ -5,8 +5,8 @@
 package mplat.uijfx.uiviews.events;
 
 import javafx.scene.web.WebView;
-import mplat.uijfx.uiviews.UserUpdateAct;
-import mplat.uijfx.uiviews.SystemSetAct;
+import mplat.uijfx.uiviews.acts.SystemSetAct;
+import mplat.uijfx.uiviews.acts.UserUpdateAct;
 import mplat.utils.UserHolder;
 
 import org.apache.commons.lang.StringUtils;

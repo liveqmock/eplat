@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.images.IMGS;
-import mplat.uijfx.uiviews.MainViewAct;
+import mplat.uijfx.uiviews.acts.MainViewAct;
 
 import com.atom.core.lang.utils.LogUtils;
 

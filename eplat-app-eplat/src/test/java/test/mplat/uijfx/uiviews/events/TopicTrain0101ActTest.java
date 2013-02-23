@@ -4,10 +4,7 @@
  */
 package test.mplat.uijfx.uiviews.events;
 
-import java.net.URL;
-
 import javafx.stage.Stage;
-import mplat.uijfx.uiviews.events.TopicTrainViewEvent;
 import mplat.uijfx.uiviews.events.TopicTrainViewEvent.TopicTrain0101Act;
 
 import com.atom.core.uijfx.test.BaseTest;
@@ -31,8 +28,7 @@ public class TopicTrain0101ActTest extends BaseTest {
      * @see com.atom.core.uijfx.test.BaseTest#onTest(javafx.stage.Stage)
      */
     public void onTest(Stage stage) {
-        URL fxml = TopicTrainViewEvent.class.getResource("TopicTrain0101Act.fxml");
-        new TopicTrain0101Act(stage, fxml).show();
+        new TopicTrain0101Act(stage).show();
     }
 
 }

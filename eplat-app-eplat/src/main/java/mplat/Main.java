@@ -11,7 +11,7 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mplat.uijfx.images.IMGS;
-import mplat.uijfx.uiviews.LoginAct;
+import mplat.uijfx.uiviews.acts.LoginAct;
 import mplat.utils.DataMap;
 
 import com.atom.core.lang.utils.CfgUtils;

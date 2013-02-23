@@ -20,7 +20,7 @@
 		<SplitPane styleClass="topic-train-0101-splitter" dividerPositions="0.44, 0.56">
 			<TableView fx:id="srcTableView">
 				<columns>
-					<TableColumn fx:id="srcTcolEcgtID" prefWidth="30" sortable="false">
+					<TableColumn fx:id="srcTcolPumpID" prefWidth="30" text="ID">
 						<cellValueFactory>
 							<PropertyValueFactory property="id" />
 						</cellValueFactory>
@@ -28,25 +28,17 @@
 							<FormattedTableCellFactory alignment="CENTER" />
 						</cellFactory>
 					</TableColumn>
-					<TableColumn fx:id="srcTcolEcgtQrs" prefWidth="30" sortable="false">
+					<TableColumn fx:id="srcTcolPumpTitle" text="药品">
 						<cellValueFactory>
-							<PropertyValueFactory property="ecgtQrs" />
-						</cellValueFactory>
-						<cellFactory>
-							<FormattedTableCellFactory alignment="CENTER" />
-						</cellFactory>
-					</TableColumn>
-					<TableColumn fx:id="srcTcolEcgtRhythm" text="Basic Rhythm">
-						<cellValueFactory>
-							<PropertyValueFactory property="ecgtRhythm" />
+							<PropertyValueFactory property="title" />
 						</cellValueFactory>
 						<cellFactory>
 							<FormattedTableCellFactory alignment="LEFT" />
 						</cellFactory>
 					</TableColumn>
-					<TableColumn fx:id="srcTcolEcgtRate" prefWidth="30" sortable="false">
+					<TableColumn fx:id="srcTcolPumpRate" prefWidth="100" text="速度">
 						<cellValueFactory>
-							<PropertyValueFactory property="ecgtRate" />
+							<PropertyValueFactory property="rate" />
 						</cellValueFactory>
 						<cellFactory>
 							<FormattedTableCellFactory alignment="CENTER" />
@@ -58,14 +50,18 @@
 				<padding>
 					<Insets top="4" right="4" bottom="4" left="4" />
 				</padding>
+				<Button fx:id="btnRandomSelect" minHeight="25.0" text="随机选择" onAction="#onRandomSelect" />
+				<Button fx:id="btnCancelSelect" minHeight="25.0" text="取消选择" onAction="#onCancelSelect" />
+				<Region VBox.vgrow="ALWAYS" />
 				<Button fx:id="btnSelectAll" minHeight="25.0" text="选择所有" onAction="#onSelectAll" />
 				<Button fx:id="btnSelectOne" minHeight="25.0" text="单个选择" onAction="#onSelectOne" />
 				<Button fx:id="btnDeselectOne" minHeight="25.0" text="取消单个" onAction="#onDeselectOne" />
 				<Button fx:id="btnDeselectAll" minHeight="25.0" text="取消所有" onAction="#onCancelSelect" />
+				<Region VBox.vgrow="ALWAYS" />
 			</VBox>
 			<TableView fx:id="dstTableView">
 				<columns>
-					<TableColumn fx:id="dstTcolEcgtID" prefWidth="30" sortable="false">
+					<TableColumn fx:id="dstTcolPumpID" prefWidth="30" text="ID">
 						<cellValueFactory>
 							<PropertyValueFactory property="id" />
 						</cellValueFactory>
@@ -73,25 +69,17 @@
 							<FormattedTableCellFactory alignment="CENTER" />
 						</cellFactory>
 					</TableColumn>
-					<TableColumn fx:id="dstTcolEcgtQrs" prefWidth="30" sortable="false">
+					<TableColumn fx:id="dstTcolPumpTitle" text="药品">
 						<cellValueFactory>
-							<PropertyValueFactory property="ecgtQrs" />
-						</cellValueFactory>
-						<cellFactory>
-							<FormattedTableCellFactory alignment="CENTER" />
-						</cellFactory>
-					</TableColumn>
-					<TableColumn fx:id="dstTcolEcgtRhythm" text="Basic Rhythm">
-						<cellValueFactory>
-							<PropertyValueFactory property="ecgtRhythm" />
+							<PropertyValueFactory property="title" />
 						</cellValueFactory>
 						<cellFactory>
 							<FormattedTableCellFactory alignment="LEFT" />
 						</cellFactory>
 					</TableColumn>
-					<TableColumn fx:id="dstTcolEcgtRate" prefWidth="30" sortable="false">
+					<TableColumn fx:id="dstTcolPumpRate" prefWidth="100" text="速度">
 						<cellValueFactory>
-							<PropertyValueFactory property="ecgtRate" />
+							<PropertyValueFactory property="rate" />
 						</cellValueFactory>
 						<cellFactory>
 							<FormattedTableCellFactory alignment="CENTER" />

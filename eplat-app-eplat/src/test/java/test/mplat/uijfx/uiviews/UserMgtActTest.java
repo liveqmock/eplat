@@ -5,7 +5,7 @@
 package test.mplat.uijfx.uiviews;
 
 import javafx.stage.Stage;
-import mplat.uijfx.uiviews.UserMgtAct;
+import mplat.uijfx.uiviews.acts.UserMgtAct;
 
 import com.atom.core.uijfx.test.BaseTest;
 

@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews;
+package mplat.uijfx.uiviews.acts;
 
 import java.util.Collections;
 import java.util.List;
@@ -102,7 +102,7 @@ public final class UserMgtAct extends BaseXmlAct {
                 }
             }
         });
-        
+
         // 用户列表
         this.refreshUsers();
 
@@ -115,10 +115,10 @@ public final class UserMgtAct extends BaseXmlAct {
     public final void refreshUsers() {
         this.tableView.getSelectionModel().clearSelection();
         this.tableView.getItems().clear();
-        
+
         List<UserWO> users = UserWO.from(this.userMgt.findAll());
         Collections.sort(users);
-        this.tableView.setItems(FXCollections.observableList(users));
+        this.tableView.getItems().addAll(FXCollections.observableList(users).toArray(new UserWO[] {}));
     }
 
     @FXML

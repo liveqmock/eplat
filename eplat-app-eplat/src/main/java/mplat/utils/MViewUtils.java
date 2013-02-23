@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.controls.TopFrameControl;
 import mplat.uijfx.images.IMGS;
-import mplat.uijfx.uiviews.MainViewAct;
+import mplat.uijfx.uiviews.acts.MainViewAct;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ObjectUtils;

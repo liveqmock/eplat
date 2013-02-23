@@ -15,11 +15,8 @@
         <Image url="@../images/about.gif" />
       </image>
     </ImageView>
-    <Label fx:id="lblTitle" layoutX="88.0" layoutY="34.0" text="高级结合急救技能训练软件 版本号V1.0.1" />
-    <Label fx:id="lblRelease" layoutX="86.0" layoutY="75.0" text="发布日期：2013年07月" />
-    <Label fx:id="lblCategory" layoutX="86.0" layoutY="111.0" text="软件型号：单机版" />
+    <Label fx:id="lblTitle" layoutX="88.0" layoutY="34.0" text="高级结合急救技能训练软件 版本号V1.0.1" style="-fx-font-size:16;" />
+    <Label fx:id="lblRelease" layoutX="86.0" layoutY="75.0" text="发布日期：2013年07月" style="-fx-font-size:14;" />
+    <Label fx:id="lblCategory" layoutX="86.0" layoutY="111.0" text="软件型号：单机版" style="-fx-font-size:14;" />
   </children>
-  <stylesheets>
-    <URL value="@SystemAboutAct.css" />
-  </stylesheets>
 </AnchorPane>

@@ -6,7 +6,7 @@ package test.mplat.uijfx.uiviews;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import mplat.uijfx.uiviews.PptImageAct;
+import mplat.uijfx.uiviews.acts.PptImageAct;
 
 /**
  * PptImageAct测试

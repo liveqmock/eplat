@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews;
+package mplat.uijfx.uiviews.acts;
 
 import java.util.Collections;
 import java.util.List;
@@ -113,10 +113,10 @@ public final class EcgtMgtAct extends BaseXmlAct {
     public final void refreshEcgts() {
         this.tableView.getSelectionModel().clearSelection();
         this.tableView.getItems().clear();
-        
+
         List<EcgtWO> ecgts = EcgtWO.from(this.ecgtMgt.findAll());
         Collections.sort(ecgts);
-        this.tableView.getItems().addAll(FXCollections.observableList(ecgts));
+        this.tableView.getItems().addAll(FXCollections.observableList(ecgts).toArray(new EcgtWO[] {}));
     }
 
     /**
