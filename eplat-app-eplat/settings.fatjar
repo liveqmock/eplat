@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sat Feb 23 18:36:00 CST 2013
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=eplat-app-eplat_fat.jar
+manifest.mergeall=true
+manifest.mainclass=mplat.Main
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<jar|core-0.7.1.jar>;<jar|freemarker-2.3.19.jar>;<jar|junit-4.8.1.jar>;<jar|mina-core-2.0.7.jar>;<jar|jfxrt.jar>
+includes=
