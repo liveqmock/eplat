@@ -10,6 +10,9 @@
 <?import javafx.scene.paint.*?>
 
 <BorderPane fx:id="viewRoot" prefHeight="705.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@MainViewAct.css" />
+	</stylesheets>
 	<center>
 		<HBox prefHeight="683.0" prefWidth="1000.0">
 			<children>
@@ -17,7 +20,7 @@
 					<tabs>
 						<Tab fx:id="tabMain" closable="false" text="欢迎使用">
 							<content>
-								<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="Welcome">
+								<AnchorPane fx:id="content" prefHeight="180.0" prefWidth="200.0" styleClass="main-homepage">
 									<children>
 										<HBox alignment="CENTER" layoutX="60.0" layoutY="254.0" prefHeight="145.0" prefWidth="898.0" spacing="20.0">
 											<children>
@@ -65,12 +68,5 @@
 			</children>
 		</HBox>
 	</center>
-	<!--
-	<top>
-		<TopMenuControl />
-	</top>
-	-->
-	<stylesheets>
-		<URL value="@MainViewAct.css" />
-	</stylesheets>
+	<!-- <top> <TopMenuControl /> </top> -->
 </BorderPane>

@@ -1,6 +1,6 @@
 
-.Welcome {
-	-fx-background-image: url('../../images/Welcome-BG.jpg');
+.main-homepage {
+	-fx-background-image: url('images/homepage-bg.jpg');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center center;
 }

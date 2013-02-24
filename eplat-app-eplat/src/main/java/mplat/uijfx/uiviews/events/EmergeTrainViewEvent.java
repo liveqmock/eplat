@@ -43,7 +43,7 @@ public final class EmergeTrainViewEvent extends AbstractWebViewEvent {
         // 7.呼吸困难
         // 8.颅脑损伤
 
-        System.out.println("-" + arg + ": 点击了~~~~~");
+        System.out.println(arg + ": 点击了~~~~~");
 
         BorderPane border = new BorderPane();
 

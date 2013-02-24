@@ -12,6 +12,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -41,29 +42,31 @@ import com.atom.core.uijfx.views.BaseXmlAct;
 public final class MainViewAct extends BaseXmlAct {
 
     /** 菜单栏组件 */
-    private TopMenuControl    topMenuBar;
+    private TopMenuControl topMenuBar;
 
     @FXML
-    private BorderPane        viewRoot;
+    private BorderPane     viewRoot;
 
     @FXML
-    private TabPane           tabPane;
+    private TabPane        tabPane;
     @FXML
-    private Tab               tabMain;
+    private Tab            tabMain;
+    @FXML
+    private AnchorPane     content;
 
     @FXML
-    private ImageView         imgCourseWare;
+    private ImageView      imgCourseWare;
     @FXML
-    private ImageView         imgTopicTrain;
+    private ImageView      imgTopicTrain;
     @FXML
-    private ImageView         imgEmergeTrain;
+    private ImageView      imgEmergeTrain;
     @FXML
-    private ImageView         imgEmergeExam;
+    private ImageView      imgEmergeExam;
     @FXML
-    private ImageView         imgSystemCfg;
+    private ImageView      imgSystemCfg;
 
     @FXML
-    private ImageView         imgExit;
+    private ImageView      imgExit;
 
     /**
      * 默认构造器
@@ -80,6 +83,8 @@ public final class MainViewAct extends BaseXmlAct {
         this.findGroupViewProperty().set(this.viewRoot);
         this.findSizeProperty().set(new Dimension2D(1000, 705));
         this.findTitleProperty().set("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
+
+        // this.content.setStyle("background-image:url('../../images/Welcome-BG.jpg');-fx-background-repeat:no-repeat;-fx-background-position:center center;");
 
         // 菜单
         this.topMenuBar = new TopMenuControl(this);
