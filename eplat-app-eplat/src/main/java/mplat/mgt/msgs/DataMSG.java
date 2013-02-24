@@ -249,9 +249,10 @@ public final class DataMSG implements SerialPortEventListener {
         IOUtils.closeQuietly(this.output);
 
         // 关闭串口
-        this.dataPort.close();
-
-        this.valid = false;
+        if (this.valid) {
+            this.dataPort.close();
+            this.valid = false;
+        }
 
         LogUtils.info("[串口]-串口[" + this.portName + "]成功关闭！");
     }
