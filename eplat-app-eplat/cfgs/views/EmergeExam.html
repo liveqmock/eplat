@@ -5,6 +5,9 @@
 <link rel="stylesheet" type="text/css" href="spt/MainView.css"/>
 <script language="javascript" src="spt/jquery-1.9.0.min.js"></script>
 <script language="javascript">
+// ID
+var item_id;
+
 /**
  * INIT
  */
@@ -13,17 +16,25 @@ $(document).ready(function() {
 		$(this).css("cursor", "pointer");
 		$(this).addClass("item_over");
 		
-		var img = $("#img_" + $(this).attr("id").split("_")[1]);
+		item_id = $(this).attr("id").split("_")[1];
+		var img = $("#img_" + item_id);
 		img.attr("src", img.attr("src").replace("-ico-1", "-ico-2"));
 	}, function(e) {
 		$(this).css("cursor", "auto");
 		$(this).removeClass("item_over");
 		
-		var img = $("#img_" + $(this).attr("id").split("_")[1]);
+		var img = $("#img_" + item_id);
 		img.attr("src", img.attr("src").replace("-ico-2", "-ico-1"));
-	}).click(function() {
-		app.fireEvent($(this).attr("id").split("_")[1]);
 	});
+	
+	$(".btn_blue").click(function() {
+		// 训练
+        app.fireEvent("A" + item_id);
+    });
+	$(".btn_green").click(function() {
+		// 详细
+		app.fireEvent("B" + item_id);
+    });
 	
 	$(".page_link a").click(function(e) {	
 		$(".page_body").addClass("page_hide");
@@ -254,6 +265,283 @@ $(document).ready(function() {
     	</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+    
+    <div id="page_4" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_41" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_41" src="img/EmergeTrain-401-ico-1.gif"/></td>
+                <td class="title">1.肺栓塞引起PEA</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者，男，73岁 ，左胸部疼痛伴气促2天，咯血一次，约10ml。患者自觉活动后气急明显，无发热。</p>
+                    <br/>
+                    <p>既往史：患有＂前列腺癌＂史4年，已行手术治疗，但近半年来PSA有进行性升高，在３个月前开始服用＂孕酮＂。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%" valign="top" id="item_42" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_42" src="img/EmergeTrain-402-ico-1.gif"/></td>
+                <td class="title">2.急性冠脉综合征-不稳定型心绞痛</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介:患者，男，56岁，反复胸痛2年，再发半小时。患者2年前在劳累后出现胸骨后钝痛，休息后可自行好转。每次持续时间较短，伴心悸，2年来上述症状反复发作。</p>
+                    <br/>
+                    <p>既往史：患者发现“高血压病”5余年，服用“珍菊降压片”，血压控制在130/90mmHg左右。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td valign="top" id="item_43" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_43" src="img/EmergeTrain-403-ico-1.gif"/></td>
+                <td class="title">3.急性冠脉综合征-前间壁心肌梗死</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：男性，55岁，胸骨后压榨性疼痛，伴恶心、呕吐2小时。患者于2小时前搬重物时突然感到胸骨后疼痛，压榨性，有濒死感，休息与口含硝酸甘油均不能缓解，伴大汗、恶心，呕吐过两次。</p>
+                    <br/>
+                    <p>既往史：既往无高血压和心绞痛病史，无药物过敏史，吸烟20余年，每天1包。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+    
+    <div id="page_5" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_51" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_51" src="img/EmergeTrain-501-ico-1.gif"/></td>
+                <td class="title">1.急性有机磷农药中毒</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：女性，35岁，昏迷1小时。患者1个小时前因与家人不和，自服药水1小瓶，5分钟病人腹痛、恶心，并呕吐一次，吐出物有大蒜味，逐渐神志不清，急送来诊，病后大小便失禁，出汗多。</p>
+                    <br/>
+                    <p>既往史：既往体健，无肝、肾、糖尿病史，无药物过敏史，月经史、个人史及家族史无特殊。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%" valign="top" id="item_52" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_52" src="img/EmergeTrain-502-ico-1.gif"/></td>
+                <td class="title">2.药物过量中毒-异搏定</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者女性，22岁，自服异搏定半瓶2h。患者因心情不好于2h前自服异搏定半瓶（40mg/片，30片/瓶）。服药后无神志改变，无头晕、呕吐、心悸。</p>
+                    <br/>
+                    <p>既往史：既往体健。否认肝炎、结核等病史。否认药物、食物过敏史。<br/>查体：T 36.2℃，P 50次/分，R 20次/分，BP 90/60mmHg，神志清楚，自动体位，查体合作。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td valign="top" id="item_53" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_53" src="img/EmergeTrain-503-ico-1.gif"/></td>
+                <td class="title">3.药物过量中毒-心律平</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者女性，22岁，与男友发生争吵而服用心律平50片（每片剂量50mg），服药后半小时感头晕、乏力、心悸、气急、胸闷，全身不适。一小时后上述症状明显加重。</p>
+                    <br/>
+                    <p>既往史：既往体健。否认肝炎、结核等病史。否认药物、食物过敏史。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+    
+    <div id="page_6" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_61" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_61" src="img/EmergeTrain-601-ico-1.gif"/></td>
+                <td class="title">1.糖尿病酮症酸中毒</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者，女性，55岁。昏迷1h。2天前因左脚拇指外伤，自行自行口服抗生素治疗。半天前出现大量呕吐，呕吐物为胃内容物。1h前出现意识不清。</p>
+                    <br/>
+                    <p>既往史：患者有糖尿病史20余年，一直坚持服用“消渴丸”等口服降糖药治疗，并坚持控制饮食，空腹血糖波动在5.5-7.5mmol/L之间。近来多尿、烦渴、乏力等症状加重。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%">&nbsp;</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+    
+    <div id="page_7" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_71" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_71" src="img/EmergeTrain-701-ico-1.gif"/></td>
+                <td class="title">1.支气管哮喘急性重度发作</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：男性，19岁，运动后突发喘息、气急2小时。患者于2小时前剧烈运动后突发喘息、气急、胸闷，自行使用沙丁胺醇气雾剂，无明显缓解。</p>
+                    <br/>
+                    <p>既往史：既往有支气管哮喘病史15年，每月发作7-8次，经治疗可缓解。有青霉素过敏史。对花粉、蟹过敏。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%" valign="top" id="item_72" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_72" src="img/EmergeTrain-702-ico-1.gif"/></td>
+                <td class="title">2.呼吸衰竭</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介:男，65岁，反复咳嗽、咳痰40余年，气促5年，加重伴发热7天。患者有慢性咳嗽，咳痰病史40余年，既往明确诊断“COPD”。近五年明显加剧，常年不断，伴喘息和呼吸困难，冬春季更甚。7天前因受凉而发热，咳嗽咳痰加重，咳大量黄色泡沫痰，气急，呼吸困难，发绀。</p>
+                    <br/>
+                    <p>既往史：有吸烟史30余年。否认药物过敏史。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td valign="top" id="item_73" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_73" src="img/EmergeTrain-703-ico-1.gif"/></td>
+                <td class="title">3.气道异物梗阻</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介:患者，男，63岁，两小时前晚饭时突发喘憋，呼吸困难，咳嗽，咳白色泡沫痰，面色发紫。</p>
+                    <br/>
+                    <p>既往史：既往体健，否认冠心病、高血压、慢支等病史。否认过敏史。<br/>查体：T 37.8℃ P 120次/分  R 27次/分 BP 140/90mmHg ，意识淡漠，口唇紫绀，大汗，右肺呼吸音较左肺低。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    </div>
+
+    <div id="page_8" class="page_body">
+    <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="40%" valign="top" id="item_81" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_81" src="img/EmergeTrain-801-ico-1.gif"/></td>
+                <td class="title">1.硬膜外血肿</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介:男性，23岁，因骑车进行中被汽车撞倒，右颞部着地半小时，到急诊就诊。患者摔倒后曾有约5分钟的昏迷，清醒后，自觉头痛，恶心。</p>
+                    <br/>
+                    <p>既往史：既往体健。否认过敏史。 <br/>查体：BP 139/80mmHg，P80次/分，一般情况可，神志清，对答切题，双侧瞳孔等大同圆，对光反射存在，双侧鼻唇沟对称，口齿清楚，双侧Babinski征阴性，其他神经系统检查均未见明显阳性体征。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="40%" valign="top" id="item_82" class="item">
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="52" height="52" rowspan="3" align="center" valign="top"><img id="img_82" src="img/EmergeTrain-802-ico-1.gif"/></td>
+                <td class="title">2.脑卒中</td>
+              </tr>
+              <tr>
+                <td class="content">
+                    <p>病例简介：患者，男，67岁。突发意识模糊、左侧肢体不能活动半小时。患者半小时前在家中看电视突发头晕、头痛，呕吐一次，呕吐物为胃内容物，随即出现意识模糊，左侧肢体不能活动，言语不清。</p>
+                    <br/>
+                    <p>既往史：发现“高血压病”20年，血压最高达180/120mmHg，平时规律服用“卡托普利 1# tid”，血压控制在120-140/90-105mmHg。否认冠心病、房颤、慢支等慢性病史。否认肝炎、结核等传染病病史。否认药物过敏史。</p>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="buttons"><div class="btn_blue">训练</div><div class="btn_green">详细</div></div></td>
+              </tr>
+            </table>
+    	</td>
+        <td width="10%">&nbsp;</td>
       </tr>
     </table>
     </div>
