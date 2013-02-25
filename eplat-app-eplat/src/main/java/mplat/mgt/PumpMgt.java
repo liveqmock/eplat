@@ -10,19 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import mplat.mgt.dto.PumpInfoDTO;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.apache.commons.lang.StringUtils;
 
 import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
+import com.atom.core.lang.xml.XMLNode;
+import com.atom.core.lang.xml.XMLUtils;
 
 /**
  * 注射泵/输液泵管理器
@@ -66,24 +63,19 @@ public final class PumpMgt {
             String file = FilenameUtils.normalize(path + "/cfgs/" + this.findFileName());
             input = new FileInputStream(file);
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(input);
-            NodeList drugs = doc.getElementsByTagName("drug");
-            for (int i = 0; i < drugs.getLength(); i++) {
+            XMLNode root = XMLUtils.toXMLNode(input);
+            for (XMLNode drug : root.getChildren()) {
                 PumpInfoDTO item = new PumpInfoDTO();
+                item.setId(this.id.incrementAndGet());
 
-                Node node = drugs.item(i);
-                item.setKey(node.getAttributes().getNamedItem("key").getNodeValue());
-
-                item.setName(doc.getElementsByTagName("name").item(i).getFirstChild().getNodeValue());
-                item.setAdvice(doc.getElementsByTagName("advice").item(i).getFirstChild().getNodeValue());
-                item.setRate(doc.getElementsByTagName("rate").item(i).getFirstChild().getNodeValue());
-                item.setDose(doc.getElementsByTagName("dose").item(i).getFirstChild().getNodeValue());
-                item.setWeight(doc.getElementsByTagName("weight").item(i).getFirstChild().getNodeValue());
+                item.setKey(drug.getExtMap().get("key"));
+                item.setName(this.findByName(drug.getChildren(), "name").getText());
+                item.setAdvice(this.findByName(drug.getChildren(), "advice").getText());
+                item.setRate(this.findByName(drug.getChildren(), "rate").getText());
+                item.setDose(this.findByName(drug.getChildren(), "dose").getText());
+                item.setWeight(this.findByName(drug.getChildren(), "weight").getText());
 
                 // 处理完成
-                item.setId(this.id.incrementAndGet());
                 this.pumps.add(item);
             }
         } catch (Exception e) {
@@ -101,6 +93,19 @@ public final class PumpMgt {
             return "PumpEjectorCfg.xml";
         } else if (this.catg == TRANSFER) {
             return "PumpTransferCfg.xml";
+        }
+
+        return null;
+    }
+
+    /**
+     * 查找元素
+     */
+    private XMLNode findByName(List<XMLNode> nodes, String name) {
+        for (XMLNode node : nodes) {
+            if (StringUtils.equalsIgnoreCase(node.getName(), name)) {
+                return node;
+            }
         }
 
         return null;
