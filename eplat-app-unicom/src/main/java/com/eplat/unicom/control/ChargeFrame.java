@@ -609,9 +609,11 @@ public class ChargeFrame extends javax.swing.JFrame {
         }
 
         // 2. 解析并导入我方数据
+        /*
         if (!this.loadBillDetails()) {
             return;
         }
+        */
 
         // 3. 解析对方文件数据
         if (!this.processOtherBills()) {
@@ -771,7 +773,7 @@ public class ChargeFrame extends javax.swing.JFrame {
                 if (!item.isSame()) {
                     item.setMemo("差异明细");
                     String msg = item.toBill();
-                    LogUtils.info("[差异] " + msg);
+                    // LogUtils.info("[差异] " + msg);
                     this.writer.writeDifferent(msg);
                 }
 
