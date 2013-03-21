@@ -7,6 +7,11 @@
 	<version>1.0.1</version>
 	<name>eplat-app-unicom</name>
 	<description>eplat-app-unicom</description>
+	
+	<properties>
+		<deploy.path.name>unicom</deploy.path.name>
+		<deploy.final.name>mbill-unicom</deploy.final.name>
+	</properties>
 
 	<dependencies>
 		<!-- ======================================== -->
@@ -93,7 +98,7 @@
 	</repositories>
 
 	<build>
-		<finalName>mbill-unicom-${project.version}</finalName>
+		<finalName>${deploy.final.name}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -109,6 +114,7 @@
 					</archive>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -119,6 +125,7 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -130,6 +137,7 @@
 					</classpathContainers>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -143,37 +151,88 @@
 					</execution>
 				</executions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.6</version>
 				<executions>
 					<execution>
-						<id>copy</id>
+						<id>copy-dependency-ext</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>mbill-unicom/libs</outputDirectory>
+							<outputDirectory>${deploy.path.name}/libs/ext</outputDirectory>
 							<overWriteIfNewer>true</overWriteIfNewer>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
-							<excludeArtifactIds>junit</excludeArtifactIds>
+							<excludeArtifactIds>junit, atom-core-lang</excludeArtifactIds>
 						</configuration>
 					</execution>
 					<execution>
-						<id>copy-ext</id>
+						<id>copy-dependency-core</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>mbill-unicom/libs/ext</outputDirectory>
+							<outputDirectory>${deploy.path.name}/libs/core</outputDirectory>
 							<overWriteIfNewer>true</overWriteIfNewer>
 							<overWriteReleases>true</overWriteReleases>
 							<overWriteSnapshots>true</overWriteSnapshots>
-							<includeArtifactIds>junit</includeArtifactIds>
+							<includeArtifactIds>atom-core-lang</includeArtifactIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resource</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/${deploy.path.name}/cfgs</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/cfgs</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>com.github.goldin</groupId>
+				<artifactId>copy-maven-plugin</artifactId>
+				<version>0.2.5</version>
+				<executions>
+					<execution>
+						<id>copy-maven</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/target</directory>
+									<targetPath>${project.basedir}/${deploy.path.name}/libs/core</targetPath>
+									<includes>
+										<include>${deploy.final.name}-${project.version}.jar</include>
+									</includes>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
