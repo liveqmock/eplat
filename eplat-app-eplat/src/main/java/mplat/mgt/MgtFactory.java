@@ -10,6 +10,7 @@ public final class MgtFactory {
     /** 管理器工厂 */
     private static final MgtFactory factory = new MgtFactory();
 
+    private final EcgtKVMgt         ecgtKVMgt;
     private final EcgtMgt           ecgtMgt;
     private final ExamMgt           examMgt;
     private final GsetMgt           gsetMgt;
@@ -22,6 +23,7 @@ public final class MgtFactory {
     }
 
     private MgtFactory() {
+        this.ecgtKVMgt = new EcgtKVMgt();
         this.ecgtMgt = new EcgtMgt();
         this.examMgt = new ExamMgt();
         this.gsetMgt = new GsetMgt();
@@ -36,20 +38,24 @@ public final class MgtFactory {
     public void stopMgt() {
     }
 
+    public EcgtKVMgt findEcgtKVMgt() {
+        return this.ecgtKVMgt;
+    }
+
     public EcgtMgt findEcgtMgt() {
-        return ecgtMgt;
+        return this.ecgtMgt;
     }
 
     public ExamMgt findExamMgt() {
-        return examMgt;
+        return this.examMgt;
     }
 
     public GsetMgt findGsetMgt() {
-        return gsetMgt;
+        return this.gsetMgt;
     }
 
     public PumpMgt findEjectorMgt() {
-        return ejectorMgt;
+        return this.ejectorMgt;
     }
 
     public PumpMgt findTransferMgt() {

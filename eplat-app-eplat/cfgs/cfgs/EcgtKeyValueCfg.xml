@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>心律识别Key/Value设置</comment>
+
+	<entry key="Sinus">窦性</entry>
+	<entry key="Sinus  Unifocal PVC">窦性单源性室性早搏</entry>
+	<entry key="Sinus  Coupled PVC">窦性双发型室性早搏</entry>
+	<entry key="Sinus  PAC">窦性房性早搏</entry>
+	<entry key="Sinus  PJC">窦性交界性早搏</entry>
+	<entry key="A.tach.">房性心动过速</entry>
+	<entry key="A.flutt.">房扑</entry>
+	<entry key="A.fib.">房颤</entry>
+	<entry key="Junct.">交界性心律</entry>
+	<entry key="Idiov.">心室律</entry>
+	<entry key="V.tach">室性心动过速</entry>
+	<entry key="V.tach Q220">室速220</entry>
+	<entry key="Torsade.de Pointes">尖端扭转型室速</entry>
+	<entry key="V.fibr.Very coarse">十分粗室颤</entry>
+	<entry key="V.fibr.coarse">粗室颤</entry>
+	<entry key="V.fibr">室颤</entry>
+	<entry key="V.fibr.fine">细室颤</entry>
+	<entry key="V.fibr.very fine">十分细室颤</entry>
+	<entry key="Asystole">心搏停止</entry>
+	<entry key="Agonal rhythm">临终心律</entry>
+	<entry key="Ventr.standstill">心室停顿(搏)</entry>
+	<entry key="Die">死亡心律</entry>
+	<entry key="1 degree AVB">一度房室传导阻滞</entry>
+	<entry key="2 degree AVB Type-1">二度Ⅰ型房室传导阻滞</entry>
+	<entry key="2 degree AVB Type-2">二度Ⅱ型房室传导阻滞</entry>
+	<entry key="3 degree AVB">三度房室传导阻滞</entry>
+	<entry key="Pacemaker Atr">起搏器心律</entry>
+	<entry key="Pacem.AV-seq.">房室顺序起搏</entry>
+	<entry key="Pacemaker A.fib">房颤起搏</entry>
+	<entry key="Pacemaker LOC">Pacemarker LOC</entry>
+	<entry key="Pacemaker No Ps">Pacemaker No Ps</entry>
+	<entry key="Pacemaker P=90 Q=80">Pacemaker p=90 Q=80</entry>
+	<entry key="Pacemaker p=90 Q=100">Pacemaker p=90 Q=100</entry>
+	<entry key="Unifocal PVC">单形性室性早搏</entry>
+	<entry key="PVC RonT">室性早搏RonT</entry>
+	<entry key="Coupled PVC">室性早搏二联律</entry>
+	<entry key="Multifocal PVC">多形性室性早搏</entry>
+	<entry key="PAC">房性早搏</entry>
+	<entry key="PJC">交界性早搏</entry>
+
+</properties>

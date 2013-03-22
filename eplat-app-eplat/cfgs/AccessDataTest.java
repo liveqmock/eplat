@@ -1,5 +1,5 @@
 /**
- * Alipay.com Inc.
+ * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
 package com.alipay.mbill.jdbc;
@@ -10,10 +10,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * AccessÊı¾İ²âÊÔ
- * 
- * @author shizihu
- * @version $Id: AccessDataTest.java, v 0.1 2013-3-22 ÏÂÎç01:29:08 shizihu Exp $
  */
 public class AccessDataTest {
 
