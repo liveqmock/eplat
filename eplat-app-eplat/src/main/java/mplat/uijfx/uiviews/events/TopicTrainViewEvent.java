@@ -342,8 +342,10 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
 
         @FXML
         private Label                        lblTimer;
+        /*
         @FXML
         private Label                        lblExamNo;
+        */
         @FXML
         private Label                        lblExamTitle;
         @FXML
@@ -462,12 +464,12 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
                 this.btnNextExam.setDisable(false);
             }
 
-            this.lblExamNo.setText(Integer.toString(index + 1));
-            this.lblExamTitle.setText(exam.getTitle());
-            this.lblItemA.setText(exam.getItemA());
-            this.lblItemB.setText(exam.getItemB());
-            this.lblItemC.setText(exam.getItemC());
-            this.lblItemD.setText(exam.getItemD());
+            // this.lblExamNo.setText(Integer.toString(index + 1));
+            this.lblExamTitle.setText(Integer.toString(index + 1) + "、" + exam.getTitle());
+            this.lblItemA.setText("A、" + exam.getItemA());
+            this.lblItemB.setText("B、" + exam.getItemB());
+            this.lblItemC.setText("C、" + exam.getItemC());
+            this.lblItemD.setText("D、" + exam.getItemD());
             this.cboxSelectNo.getSelectionModel().select(StringUtils.EMPTY);
         }
 

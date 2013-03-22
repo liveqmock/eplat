@@ -23,23 +23,24 @@
 	<center>
 		<VBox styleClass="topic-train-0102-mainbox">
 			<HBox>
-				<Label fx:id="lblExamNo" prefWidth="40" alignment="CENTER" text="1" />
+				<!--
+				<Label fx:id="lblExamNo" prefWidth="100" alignment="CENTER" text="1" />
+				-->
 				<Label fx:id="lblExamTitle" wrapText="true" text="Exam Title" />
 			</HBox>
 			<HBox>
+				<!--
 				<Label prefWidth="40" alignment="CENTER" text="A" />
+				-->
 				<Label fx:id="lblItemA" wrapText="true" text="A Title" />
 			</HBox>
 			<HBox>
-				<Label prefWidth="40" alignment="CENTER" text="B" />
 				<Label fx:id="lblItemB" wrapText="true" text="B Title" />
 			</HBox>
 			<HBox>
-				<Label prefWidth="40" alignment="CENTER" text="C" />
 				<Label fx:id="lblItemC" wrapText="true" text="C Title" />
 			</HBox>
 			<HBox>
-				<Label prefWidth="40" alignment="CENTER" text="D" />
 				<Label fx:id="lblItemD" wrapText="true" text="D Title" />
 			</HBox>
 			<HBox>

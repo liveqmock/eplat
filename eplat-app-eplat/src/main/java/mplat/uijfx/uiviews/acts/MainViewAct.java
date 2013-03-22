@@ -84,7 +84,8 @@ public final class MainViewAct extends BaseXmlAct {
         this.findSizeProperty().set(new Dimension2D(1000, 705));
         this.findTitleProperty().set("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
 
-        // this.content.setStyle("background-image:url('../../images/Welcome-BG.jpg');-fx-background-repeat:no-repeat;-fx-background-position:center center;");
+        this.findResizableProperty().set(true);
+        this.findMaxSizeProperty().set(new Dimension2D(1100, 805));
 
         // 菜单
         this.topMenuBar = new TopMenuControl(this);
