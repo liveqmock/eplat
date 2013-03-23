@@ -91,6 +91,14 @@ public final class DataMSG implements SerialPortEventListener {
      * 设置数据监听器
      */
     public final DataMSG setDataListener(DataListener listener) {
+        if (this.listener != null) {
+            LogUtils.warn("[数据]-设置数据监听器，原有监听器不为NULL.");
+        }
+
+        if (listener == null) {
+            throw new RuntimeException("[数据]-设置新数据监听器为NULL.");
+        }
+
         this.listener = listener;
         return this;
     }
