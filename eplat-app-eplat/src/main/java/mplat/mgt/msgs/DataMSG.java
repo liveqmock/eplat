@@ -21,7 +21,6 @@ import javax.comm.SerialPortEventListener;
 
 import org.apache.commons.io.IOUtils;
 
-import com.atom.core.lang.utils.ByteUtils;
 import com.atom.core.lang.utils.HexUtils;
 import com.atom.core.lang.utils.LogUtils;
 
@@ -280,7 +279,7 @@ public final class DataMSG implements SerialPortEventListener {
             return this;
         }
 
-        // 输出所以可用数据
+        // 输出全部可用数据
         int[] data = this.findDataMSG();
         while (data != null) {
             // 输出数据
@@ -296,28 +295,25 @@ public final class DataMSG implements SerialPortEventListener {
      * 输出数据
      */
     public final DataMSG writeData(byte[] data) {
-        this.lock.lock();
-
-        String hex = ByteUtils.toHex(data);
-        try {
-            LogUtils.info("[下发]-输出数据[" + hex + "]...");
-            // 输出数据
-            this.output.write(data);
-            LogUtils.info("[下发]-输出数据[" + hex + "]完成！");
-        } catch (Exception e) {
-            LogUtils.error("[下发]-输出数据[" + hex + "]异常！", e);
-        } finally {
-            this.lock.unlock();
+        if (data == null) {
+            return this;
+        }
+        
+        // 数据转换
+        int[] value = new int[data.length];
+        for(int i = 0; i < data.length; i++) {
+            value[i] = data[i];
         }
 
-        return this;
+        // 数据下发
+        return this.writeData(value);
     }
 
     /**
      * 输出数据
      */
     public final DataMSG writeData(int[] data) {
-        if (data == null || data.length == 0) {
+        if (data == null) {
             return this;
         }
 
