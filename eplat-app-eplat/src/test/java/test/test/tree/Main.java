@@ -27,7 +27,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
@@ -42,7 +41,7 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage stage) {
-        stage.initStyle(StageStyle.TRANSPARENT);
+        // stage.initStyle(StageStyle.TRANSPARENT);
         stage.sizeToScene();
         stage.setScene(new AppScene());
 
@@ -90,12 +89,11 @@ public class Main extends Application {
 
         // output FPS
         new Timer().schedule(new TimerTask() {
-
-            @Override
             public void run() {
                 System.out.println("FPS " + com.sun.javafx.perf.PerformanceTracker.getSceneTracker(stage.getScene()).getInstantFPS());
             }
         }, 0, 1000);
+        
         TreeGenerator treeGenerator = new TreeGenerator();
         Tree tree = treeGenerator.generateTree(NUMBER_OF_BRANCH_GENERATIONS - 1, -320, 0);
         Tree tree1 = treeGenerator.generateTree(NUMBER_OF_BRANCH_GENERATIONS, 0, 10);
