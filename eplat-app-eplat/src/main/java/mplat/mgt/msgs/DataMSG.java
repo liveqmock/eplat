@@ -68,7 +68,10 @@ public final class DataMSG implements SerialPortEventListener {
     private OutputStream      output;
 
     /** 数据缓存 */
-    private final List<int[]> data       = new ArrayList<int[]>();                        ;
+    private final List<int[]> data       = new ArrayList<int[]>();
+
+    /** 数据监听器 */
+    private DataListener      listener;
 
     /**
      * 构造器，初始化
@@ -81,6 +84,22 @@ public final class DataMSG implements SerialPortEventListener {
      */
     public final DataMSG setPortName(String portName) {
         this.portName = portName;
+        return this;
+    }
+
+    /**
+     * 设置数据监听器
+     */
+    public final DataMSG setDataListener(DataListener listener) {
+        this.listener = listener;
+        return this;
+    }
+
+    /**
+     * 清楚数据监听器
+     */
+    public final DataMSG removeDataListener() {
+        this.listener = null;
         return this;
     }
 
@@ -226,6 +245,9 @@ public final class DataMSG implements SerialPortEventListener {
                         save = true;
                         this.data.add(value);
                         LogUtils.info("[上传]-上传消息：" + HexUtils.toHex(value));
+
+                        // 触发事件
+                        this.onDataChange();
                     }
                 }
             }
@@ -237,6 +259,26 @@ public final class DataMSG implements SerialPortEventListener {
             LogUtils.error("[上传]-串口读取数据异常！", e);
         } finally {
             this.lock.unlock();
+        }
+
+        return this;
+    }
+
+    /**
+     * 触发数据可用事件
+     */
+    private final DataMSG onDataChange() {
+        if (this.listener == null) {
+            return this;
+        }
+
+        // 输出所以可用数据
+        int[] data = this.findDataMSG();
+        while (data != null) {
+            // 输出数据
+            this.listener.onData(data);
+            // 下一条数据
+            data = this.findDataMSG();
         }
 
         return this;
