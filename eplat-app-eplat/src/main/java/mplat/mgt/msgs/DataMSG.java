@@ -6,6 +6,8 @@ package mplat.mgt.msgs;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,9 +20,9 @@ import javax.comm.SerialPortEvent;
 import javax.comm.SerialPortEventListener;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.mina.core.buffer.IoBuffer;
 
 import com.atom.core.lang.utils.ByteUtils;
+import com.atom.core.lang.utils.HexUtils;
 import com.atom.core.lang.utils.LogUtils;
 
 /**
@@ -47,7 +49,7 @@ public final class DataMSG implements SerialPortEventListener {
     /** 消息尾 */
     private final int[]       msgTail    = new int[] { 0xFC, 0xFC, 0xFC };
     /** 消息最小长度 */
-    private final int         msgMinSize = this.msgHead.length + 6 + this.msgTail.length;
+    private final int         msgMinSize = this.msgHead.length + 5 + this.msgTail.length;
 
     /** 读写锁 */
     private final Lock        lock       = new ReentrantLock();
@@ -104,6 +106,8 @@ public final class DataMSG implements SerialPortEventListener {
             this.dataPort.addEventListener(this);
 
             this.dataPort.notifyOnDataAvailable(true);
+            this.dataPort.notifyOnOutputEmpty(true);
+
             this.input = this.dataPort.getInputStream();
             this.output = this.dataPort.getOutputStream();
 
@@ -130,7 +134,22 @@ public final class DataMSG implements SerialPortEventListener {
     public final void serialEvent(SerialPortEvent event) {
         // 数据可用
         if (event.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-            this.readData();
+            LogUtils.info("[事件]-收到数据上传事件...");
+            // 处理数据
+            this.readData(event);
+            LogUtils.info("[事件]-数据上传事件响应完成.");
+
+            // TODO: 输出数据
+            LogUtils.info("[事件]-准备输出数据......");
+            int[] data = this.findDataMSG();
+            if (data != null && data.length > 0) {
+                this.writeData(data);
+            }
+        }
+
+        // 输出可用
+        else if (event.getEventType() == SerialPortEvent.OUTPUT_BUFFER_EMPTY) {
+            LogUtils.info("[事件]-数据输出完成.");
         }
 
         // 其他事件
@@ -149,52 +168,73 @@ public final class DataMSG implements SerialPortEventListener {
     /**
      * 读取数据到缓存区中
      */
-    private final DataMSG readData() {
+    private final DataMSG readData(SerialPortEvent evt) {
         this.lock.lock();
         try {
             // 循环读取数据
-            IoBuffer buffer = IoBuffer.allocate(1024);
+            // int idx = 0;
+            IntBuffer buffer = IntBuffer.allocate(1024);
             while (true) {
+                // 读取数据
                 int data = this.input.read();
+                // LogUtils.debug("[数据]-上传数据[" + StringUtils.leftPad(Integer.toString((idx++)), 2, "0") + "]：" + HexUtils.toHex(data));
+                // 缓存数据
+                buffer.put(data);
+
                 if (data == -1) {
                     // 末尾
                     break;
                 }
 
-                // 缓存数据
-                buffer.put((byte) data);
-            }
-
-            // limit=position, position=0
-            buffer.flip();
-
-            LogUtils.info("[数据]-上传数据：" + buffer.getHexDump(buffer.limit() + 1));
-
-            // 最小长度
-            if ((buffer.limit() / 4) >= (this.msgMinSize - 1)) {
-                if ((buffer.limit() + 1) % 4 == 0) {
-                    int[] value = new int[(buffer.limit() + 1) / 4];
-                    for (int i = 0; i < value.length; i++) {
-                        value[i] = buffer.getInt();
-                    }
-
-                    // 数据合法(数据头和数据尾)
-                    int[] head = new int[this.msgHead.length];
-                    System.arraycopy(value, 0, head, 0, head.length);
-                    if (Arrays.equals(this.msgHead, head)) {
-                        int[] tail = new int[this.msgTail.length];
-                        System.arraycopy(value, (value.length - tail.length), tail, 0, tail.length);
-                        if (Arrays.equals(this.msgTail, tail)) {
-                            // 保存数据
-                            this.data.add(value);
+                if (buffer.position() >= 3) {
+                    int one = buffer.get(buffer.position() - 3);
+                    if (one == this.msgTail[0]) {
+                        int two = buffer.get(buffer.position() - 2);
+                        if (two == this.msgTail[1]) {
+                            int three = buffer.get(buffer.position() - 1);
+                            if (three == this.msgTail[2]) {
+                                // 消息尾
+                                break;
+                            }
                         }
                     }
                 }
             }
 
-            LogUtils.info("[数据]-丢弃数据：" + buffer.getHexDump(buffer.limit() + 1));
+            // limit=position, position=0
+            buffer.flip();
+
+            String msg = HexUtils.toHex(buffer.array(), buffer.limit());
+            LogUtils.info("[上传]-上传数据：" + msg);
+
+            // 最小长度
+            boolean save = false;
+            if (buffer.limit() >= this.msgMinSize) {
+                int[] value = new int[buffer.limit()];
+                for (int i = 0; i < value.length; i++) {
+                    value[i] = buffer.get();
+                }
+
+                // 数据合法(数据头和数据尾)
+                int[] head = new int[this.msgHead.length];
+                System.arraycopy(value, 0, head, 0, head.length);
+                if (Arrays.equals(this.msgHead, head)) {
+                    int[] tail = new int[this.msgTail.length];
+                    System.arraycopy(value, (value.length - tail.length), tail, 0, tail.length);
+                    if (Arrays.equals(this.msgTail, tail)) {
+                        // 保存数据
+                        save = true;
+                        this.data.add(value);
+                        LogUtils.info("[上传]-上传消息：" + HexUtils.toHex(value));
+                    }
+                }
+            }
+
+            if (!save) {
+                LogUtils.warn("[上传]-丢弃数据：" + msg);
+            }
         } catch (Exception e) {
-            LogUtils.error("[数据]-串口读取数据异常！", e);
+            LogUtils.error("[上传]-串口读取数据异常！", e);
         } finally {
             this.lock.unlock();
         }
@@ -210,13 +250,47 @@ public final class DataMSG implements SerialPortEventListener {
 
         String hex = ByteUtils.toHex(data);
         try {
-            LogUtils.info("[数据]-输出数据[" + hex + "]...");
-
+            LogUtils.info("[下发]-输出数据[" + hex + "]...");
+            // 输出数据
             this.output.write(data);
-
-            LogUtils.info("[数据]-输出数据[" + hex + "]完成！");
+            LogUtils.info("[下发]-输出数据[" + hex + "]完成！");
         } catch (Exception e) {
-            LogUtils.error("[数据]-输出数据[" + hex + "]异常！", e);
+            LogUtils.error("[下发]-输出数据[" + hex + "]异常！", e);
+        } finally {
+            this.lock.unlock();
+        }
+
+        return this;
+    }
+
+    /**
+     * 输出数据
+     */
+    public final DataMSG writeData(int[] data) {
+        if (data == null || data.length == 0) {
+            return this;
+        }
+
+        this.lock.lock();
+
+        String hex = HexUtils.toHex(data);
+        try {
+            LogUtils.info("[下发]-输出数据[" + hex + "]...");
+
+            // 输出数据
+            ByteBuffer buffer = ByteBuffer.allocate(data.length * 4);
+            for (int value : data) {
+                buffer.put((byte) value);
+            }
+
+            // limit=position, position=0
+            buffer.flip();
+
+            this.output.write(buffer.array(), 0, buffer.limit());
+
+            LogUtils.info("[下发]-输出数据[" + hex + "]完成！");
+        } catch (Exception e) {
+            LogUtils.error("[下发]-输出数据[" + hex + "]异常！", e);
         } finally {
             this.lock.unlock();
         }
