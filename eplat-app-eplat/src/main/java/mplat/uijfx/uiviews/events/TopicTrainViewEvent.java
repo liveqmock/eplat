@@ -6,7 +6,11 @@ package mplat.uijfx.uiviews.events;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
@@ -34,15 +38,18 @@ import mplat.mgt.EcgtMgt;
 import mplat.mgt.ExamMgt;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.PumpMgt;
+import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.uiviews.beans.EcgtWO;
 import mplat.uijfx.uiviews.beans.ExamWO;
 import mplat.uijfx.uiviews.beans.PumpWO;
+import mplat.utils.UserHolder;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import com.atom.core.lang.utils.LogUtils;
+import com.atom.core.lang.utils.TemplateUtils;
 import com.atom.core.lang.utils.TimerUtils;
 import com.atom.core.uijfx.views.BaseXmlAct;
 
@@ -333,9 +340,11 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
      */
     public static class TopicTrain0102Act extends BaseXmlAct {
         /** 试题列表 */
-        private final List<ExamWO>           exams   = new ArrayList<ExamWO>();
+        private final List<ExamWO>           exams    = new ArrayList<ExamWO>();
         /** 当前试题 */
-        private final ObjectProperty<ExamWO> current = new SimpleObjectProperty<ExamWO>();
+        private final ObjectProperty<ExamWO> current  = new SimpleObjectProperty<ExamWO>();
+        /** 正确题目 */
+        private Set<Long>                    rgtExams = new HashSet<Long>();
 
         @FXML
         private BorderPane                   rootView;
@@ -474,10 +483,26 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
         }
 
         /**
+         * 设置正确结果
+         */
+        private final void checkExam() {
+            ExamWO exam = this.current.get();
+            if (exam != null) {
+                if (StringUtils.equalsIgnoreCase(this.cboxSelectNo.getValue(), exam.getRgtNo())) {
+                    this.rgtExams.add(exam.getId());
+                }
+            }
+        }
+
+        /**
          * 事件-上一试题
          */
         @FXML
         private final void onLastExam(ActionEvent evt) {
+            // 设置正确题目
+            this.checkExam();
+
+            // 上一题
             int index = this.exams.indexOf(this.current.get()) - 1;
             if (index >= 0) {
                 this.current.set(this.exams.get(index));
@@ -492,6 +517,10 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
          */
         @FXML
         private final void onNextExam(ActionEvent evt) {
+            // 设置正确题目
+            this.checkExam();
+
+            // 下一题
             int index = this.exams.indexOf(this.current.get()) + 1;
             if (index < this.exams.size()) {
                 this.current.set(this.exams.get(index));
@@ -526,6 +555,25 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
          */
         @FXML
         private final void onExamFinish(ActionEvent evt) {
+            // 设置正确题目
+            this.checkExam();
+
+            // 答题完成
+            Map<Object, Object> context = new HashMap<Object, Object>();
+            context.put("user", UserHolder.get());
+
+            int totalCount = this.exams.size();
+            int rightCount = this.rgtExams.size();
+            context.put("totalCount", totalCount);
+            context.put("rightCount", rightCount);
+            context.put("wrongCount", totalCount - rightCount);
+            String webContent = TemplateUtils.render("ExamResult.html", context);
+            
+            WebView web = new WebView();
+            web.getEngine().loadContent(webContent);
+            
+            // TODO:
+            
             this.closeNewStage();
         }
 

@@ -15,6 +15,7 @@ import mplat.uijfx.images.IMGS;
 import mplat.uijfx.uiviews.acts.LoginAct;
 
 import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.lang.utils.TemplateUtils;
 import com.atom.core.lang.utils.TimerUtils;
 import com.atom.core.uijfx.utils.IconsHolder;
 import com.atom.core.uijfx.utils.StageHolder;
@@ -37,6 +38,8 @@ public final class Main extends Application {
         CfgUtils.findRootPath();
         CfgUtils.findConfigPath();
         StoreFactory.get().init();
+        
+        TemplateUtils.setTplPath(CfgUtils.findConfigPath() + "/cfgs/tpls");
 
         IconsHolder.setIconImages(findIconImages());
         stage.getIcons().addAll(IconsHolder.getIconImages());

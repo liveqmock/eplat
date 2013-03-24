@@ -5,8 +5,12 @@
 package test.mplat.uijfx.uiviews.events;
 
 import javafx.stage.Stage;
+import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.uiviews.events.TopicTrainViewEvent.TopicTrain0101Act;
+import mplat.utils.UserHolder;
 
+import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.lang.utils.TemplateUtils;
 import com.atom.core.uijfx.test.BaseTest;
 
 /**
@@ -28,6 +32,12 @@ public class TopicTrain0101ActTest extends BaseTest {
      * @see com.atom.core.uijfx.test.BaseTest#onTest(javafx.stage.Stage)
      */
     public void onTest(Stage stage) {
+        UserInfoDTO user = new UserInfoDTO();
+        user.setUserName("老牛啊");
+        UserHolder.set(user);
+        
+        TemplateUtils.setTplPath(CfgUtils.findConfigPath() + "/cfgs/tpls");
+        
         new TopicTrain0101Act(stage).show();
     }
 
