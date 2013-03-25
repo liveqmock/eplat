@@ -2,9 +2,11 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews.acts;
+package mplat.uijfx.uiviews;
 
 import javafx.scene.web.WebView;
+import mplat.uijfx.uiviews.acts.SystemSetAct;
+import mplat.uijfx.uiviews.acts.UserUpdateAct;
 import mplat.utils.UserHolder;
 
 import org.apache.commons.lang.StringUtils;

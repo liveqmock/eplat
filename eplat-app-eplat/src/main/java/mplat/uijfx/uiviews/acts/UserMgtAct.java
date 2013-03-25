@@ -152,7 +152,7 @@ public final class UserMgtAct extends BaseXmlAct {
         }
 
         PopupUtils.confirm(this.findNewStage(), "删除用户", "[删除]-确定删除用户(" + srcObj.getUserName() + ")信息吗？", new PopupEvent() {
-            public void callback(Stage newStage, int btnValue) {
+            public void callback(Stage stage, Stage newStage, int btnValue) {
                 if (btnValue == PopupConst.BTN_SURE_VALUE) {
                     userMgt.remove(UserWO.to(srcObj));
                     tableView.getItems().remove(srcObj);

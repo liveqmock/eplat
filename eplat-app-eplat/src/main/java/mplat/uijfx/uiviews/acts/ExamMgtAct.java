@@ -149,7 +149,7 @@ public final class ExamMgtAct extends BaseXmlAct {
         }
 
         PopupUtils.confirm(this.findNewStage(), "删除试题", "[删除]-确定删除试题(" + srcObj.getTitle() + ")信息吗？", new PopupEvent() {
-            public void callback(Stage newStage, int btnValue) {
+            public void callback(Stage stage, Stage newStage, int btnValue) {
                 if (btnValue == PopupConst.BTN_SURE_VALUE) {
                     examMgt.remove(ExamWO.to(srcObj));
                     tableView.getItems().remove(srcObj);

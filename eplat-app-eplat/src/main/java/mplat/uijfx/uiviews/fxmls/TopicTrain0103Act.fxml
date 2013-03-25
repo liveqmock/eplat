@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@MainViewAct.css" />
+	</stylesheets>
+	<center>
+		<WebView fx:id="webMain" />
+	</center>
+	<bottom>
+		<HBox styleClass="topic-train-0101-optbox">
+			<Button minHeight="25.0" text="确认" onAction="#onSure" />
+		</HBox>
+	</bottom>
+</BorderPane>

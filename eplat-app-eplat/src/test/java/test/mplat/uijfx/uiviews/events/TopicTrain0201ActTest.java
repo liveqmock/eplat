@@ -5,7 +5,7 @@
 package test.mplat.uijfx.uiviews.events;
 
 import javafx.stage.Stage;
-import mplat.uijfx.uiviews.acts.TopicTrainViewEvent.TopicTrain0201Act;
+import mplat.uijfx.uiviews.acts.TopicTrain0201Act;
 
 import com.atom.core.uijfx.test.BaseTest;
 

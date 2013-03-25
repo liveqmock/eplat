@@ -20,10 +20,13 @@ import com.atom.core.lang.utils.CfgUtils;
 public class UConst {
 
     /** 1.0透明度 */
-    public static final double OPACITY_ON  = 1.0;
+    public static final double OPACITY_ON     = 1.0;
 
     /** 0.5透明度 */
-    public static final double OPACITY_OUT = 0.5;
+    public static final double OPACITY_OUT    = 0.5;
+
+    /** 随机最多选择个数 */
+    public static final int    MAX_EXAM_ITEMS = 8;
 
     /**
      * 单机个人版用户手册

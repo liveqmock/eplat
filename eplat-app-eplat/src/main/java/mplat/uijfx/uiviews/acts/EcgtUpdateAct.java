@@ -94,7 +94,7 @@ public final class EcgtUpdateAct extends BaseXmlAct {
         this.cboxEcgtSyst.setItems(FXCollections.observableList(EcgtMgt.findEcgtExtSyst()));
 
         // 事件
-        List<ComboBox<String>> cboxs = Arrays.asList(this.cboxEcgtQrs, this.cboxEcgtRhythm, this.cboxEcgtSyst);
+        List<ComboBox<String>> cboxs = Arrays.asList(this.cboxEcgtQrs, this.cboxEcgtRhythm);
         for (ComboBox<String> cbox : cboxs) {
             cbox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
@@ -141,7 +141,7 @@ public final class EcgtUpdateAct extends BaseXmlAct {
             return false;
         }
 
-        if (StringUtils.isBlank(ecgt.getEcgtSyst()) || StringUtils.isBlank(ecgt.getEcgtRate())) {
+        if (StringUtils.isBlank(ecgt.getEcgtRate())) {
             return false;
         }
 

@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews.acts;
+package mplat.uijfx.uiviews;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Tab;
@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebView;
 import mplat.mgt.enums.TabCWPptEnum;
+import mplat.uijfx.uiviews.acts.PptImageAct;
 
 import org.apache.commons.lang.StringUtils;
 

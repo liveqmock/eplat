@@ -24,7 +24,10 @@ import mplat.mgt.dto.ExamInfoDTO;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.atom.core.uijfx.popup.PopupUtils;
+import com.atom.core.uijfx.popup.PopupBuilder;
+import com.atom.core.uijfx.popup.PopupConst;
+import com.atom.core.uijfx.popup.PopupEvent;
+import com.atom.core.uijfx.utils.StageUtils;
 import com.atom.core.uijfx.views.BaseXmlAct;
 
 /**
@@ -161,12 +164,22 @@ public final class ExamUpdateAct extends BaseXmlAct {
         this.fillInputExamInfoDTO(this.exam);
         this.examMgt.update(this.exam);
 
-        // 更新表格
-        ExamMgtAct act = this.findRootAct();
-        act.refreshExams();
+        // 弹出提示框
+        PopupBuilder builder = PopupBuilder.create(this.findNewStage());
+        builder.modal(true).imageValue(PopupConst.IMG_SUCCESS).buttons(PopupConst.BTN_SURE_VALUE);
+        builder.title("操作成功").despMsg("[更新]-试题(" + this.exam.getTitle() + ")信息修改成功！");
+        builder.callback(new PopupEvent() {
+            public void callback(Stage stage, Stage newStage, int btnValue) {
+                StageUtils.close(newStage);
+                StageUtils.close(stage);
 
-        // 提示
-        PopupUtils.success(this.findNewStage(), "[更新]-试题(" + this.exam.getTitle() + ")信息修改成功！");
+                // 更新表格
+                ExamMgtAct act = findRootAct();
+                act.refreshExams();
+            }
+        });
+
+        builder.build().show();
     }
 
     @FXML

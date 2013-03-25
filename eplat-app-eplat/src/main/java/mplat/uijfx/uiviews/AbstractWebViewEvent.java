@@ -2,12 +2,13 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews.acts;
+package mplat.uijfx.uiviews;
 
 import javafx.concurrent.Worker.State;
 import javafx.scene.control.TabPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import mplat.uijfx.uiviews.acts.MainViewAct;
 import mplat.utils.MViewUtils;
 
 import com.atom.core.lang.utils.LogUtils;

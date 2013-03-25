@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews.acts;
+package mplat.uijfx.uiviews;
 
 import javafx.scene.web.WebView;
 

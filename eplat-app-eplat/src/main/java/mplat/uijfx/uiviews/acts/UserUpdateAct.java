@@ -20,7 +20,10 @@ import mplat.mgt.dto.UserInfoDTO;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.atom.core.uijfx.popup.PopupUtils;
+import com.atom.core.uijfx.popup.PopupBuilder;
+import com.atom.core.uijfx.popup.PopupConst;
+import com.atom.core.uijfx.popup.PopupEvent;
+import com.atom.core.uijfx.utils.StageUtils;
 import com.atom.core.uijfx.views.BaseXmlAct;
 
 /**
@@ -112,7 +115,18 @@ public final class UserUpdateAct extends BaseXmlAct {
         this.user.setUserPasswd(this.txtPasswd.getText());
         this.userMgt.update(this.user);
 
-        PopupUtils.success(this.findNewStage(), "[更新]-用户(" + this.user.getUserName() + ")信息修改成功！");
+        // 弹出提示框
+        PopupBuilder builder = PopupBuilder.create(this.findNewStage());
+        builder.modal(true).imageValue(PopupConst.IMG_SUCCESS).buttons(PopupConst.BTN_SURE_VALUE);
+        builder.title("操作成功").despMsg("[更新]-用户(" + this.user.getUserName() + ")信息修改成功！");
+        builder.callback(new PopupEvent() {
+            public void callback(Stage stage, Stage newStage, int btnValue) {
+                StageUtils.close(newStage);
+                StageUtils.close(stage);
+            }
+        });
+        
+        builder.build().show();
     }
 
     @FXML

@@ -154,7 +154,7 @@ public final class EcgtMgtAct extends BaseXmlAct {
         }
 
         PopupUtils.confirm(this.findNewStage(), "删除ECG心律识别试题", "[删除]-确定删除ECG心律识别试题(" + srcObj.getEcgtRhythm() + ")信息吗？", new PopupEvent() {
-            public void callback(Stage newStage, int btnValue) {
+            public void callback(Stage stage, Stage newStage, int btnValue) {
                 if (btnValue == PopupConst.BTN_SURE_VALUE) {
                     ecgtMgt.remove(EcgtWO.to(srcObj));
                     tableView.getItems().remove(srcObj);
