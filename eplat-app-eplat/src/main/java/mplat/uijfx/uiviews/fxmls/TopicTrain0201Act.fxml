@@ -14,7 +14,7 @@
 
 <BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
 	<stylesheets>
-		<URL value="@../fxmls/MainViewAct.css" />
+		<URL value="@MainViewAct.css" />
 	</stylesheets>
 	<center>
 		<SplitPane styleClass="topic-train-0101-splitter" dividerPositions="0.44, 0.56">

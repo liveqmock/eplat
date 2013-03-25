@@ -12,7 +12,7 @@
 
 <BorderPane fx:id="rootView" xmlns:fx="http://javafx.com/fxml">
 	<stylesheets>
-		<URL value="@../fxmls/MainViewAct.css" />
+		<URL value="@MainViewAct.css" />
 	</stylesheets>
 	<top>
 		<HBox styleClass="topic-train-0102-topbox">
