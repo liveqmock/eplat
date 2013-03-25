@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews.events;
+package mplat.uijfx.uiviews.acts;
 
 import javafx.scene.web.WebView;
 
@@ -22,7 +22,7 @@ public final class EmergeExamViewEvent extends AbstractWebViewEvent {
     }
 
     /** 
-     * @see mplat.uijfx.uiviews.events.AbstractWebViewEvent#onFireEvent(java.lang.String)
+     * @see mplat.uijfx.uiviews.acts.AbstractWebViewEvent#onFireEvent(java.lang.String)
      */
     protected final void onFireEvent(String arg) {
         // 1.心脏停搏

@@ -1,7 +1,7 @@
 package test.test.monitor;
 
-import ch.ethz.ssh2.Connection;
-import ch.ethz.ssh2.Session;
+// import ch.ethz.ssh2.Connection;
+// import ch.ethz.ssh2.Session;
 
 public class RemoteTOPMonitor implements Runnable {
 
@@ -29,6 +29,7 @@ public class RemoteTOPMonitor implements Runnable {
 	}
 
 	public void run() {
+	    /*
 		System.out.println("TopMonitor : Start");
 		try {
 			Connection conn = new Connection(hostname);
@@ -50,7 +51,8 @@ public class RemoteTOPMonitor implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+        */
+	    
 		System.out.println("TopMonitor : End");
 	}
 

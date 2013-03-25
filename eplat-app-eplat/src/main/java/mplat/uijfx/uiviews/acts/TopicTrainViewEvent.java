@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews.events;
+package mplat.uijfx.uiviews.acts;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,7 +71,7 @@ public final class TopicTrainViewEvent extends AbstractWebViewEvent {
     }
 
     /** 
-     * @see mplat.uijfx.uiviews.events.AbstractWebViewEvent#onFireEvent(java.lang.String)
+     * @see mplat.uijfx.uiviews.acts.AbstractWebViewEvent#onFireEvent(java.lang.String)
      */
     protected final void onFireEvent(String arg) {
         System.out.println(arg + ": 点击了专项训练~~~~~");

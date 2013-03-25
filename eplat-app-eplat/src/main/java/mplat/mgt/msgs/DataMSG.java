@@ -21,7 +21,7 @@ import javax.comm.SerialPortEventListener;
 
 import org.apache.commons.io.IOUtils;
 
-import com.atom.core.lang.utils.HexUtils;
+import com.atom.core.lang.utils.DigitUtils;
 import com.atom.core.lang.utils.LogUtils;
 
 /**
@@ -203,7 +203,7 @@ public final class DataMSG implements SerialPortEventListener {
             while (true) {
                 // 读取数据
                 int data = this.input.read();
-                // LogUtils.debug("[数据]-上传数据[" + StringUtils.leftPad(Integer.toString((idx++)), 2, "0") + "]：" + HexUtils.toHex(data));
+                // LogUtils.debug("[数据]-上传数据[" + StringUtils.leftPad(Integer.toString((idx++)), 2, "0") + "]：" + DigitUtils.toHex(data));
                 // 缓存数据
                 buffer.put(data);
 
@@ -230,7 +230,7 @@ public final class DataMSG implements SerialPortEventListener {
             // limit=position, position=0
             buffer.flip();
 
-            String msg = HexUtils.toHex(buffer.array(), buffer.limit());
+            String msg = DigitUtils.toHex(buffer.array(), buffer.limit());
             LogUtils.info("[上传]-上传数据：" + msg);
 
             // 最小长度
@@ -251,7 +251,7 @@ public final class DataMSG implements SerialPortEventListener {
                         // 保存数据
                         save = true;
                         this.data.add(value);
-                        LogUtils.info("[上传]-上传消息：" + HexUtils.toHex(value));
+                        LogUtils.info("[上传]-上传消息：" + DigitUtils.toHex(value));
 
                         // 触发事件
                         this.onDataChange();
@@ -319,7 +319,7 @@ public final class DataMSG implements SerialPortEventListener {
 
         this.lock.lock();
 
-        String hex = HexUtils.toHex(data);
+        String hex = DigitUtils.toHex(data);
         try {
             LogUtils.info("[下发]-输出数据[" + hex + "]...");
 

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.atom.core.lang.utils.CfgUtils;
-import com.atom.core.lang.utils.MapUtils;
+import com.atom.core.lang.utils.KVUtils;
 
 /**
  * 心律识别Key/Value设置
@@ -25,7 +25,7 @@ public final class EcgtKVMgt {
      */
     public EcgtKVMgt() {
         String path = CfgUtils.findConfigPath() + "/cfgs/EcgtKeyValueCfg.xml";
-        values.putAll(MapUtils.fromXML(path));
+        values.putAll(KVUtils.fromXML(path));
     }
 
     /**

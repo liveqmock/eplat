@@ -19,11 +19,6 @@ import javafx.stage.Stage;
 import mplat.mgt.enums.TabDataEnum;
 import mplat.uijfx.controls.TopFrameControl;
 import mplat.uijfx.controls.TopMenuControl;
-import mplat.uijfx.uiviews.events.CourseWareViewEvent;
-import mplat.uijfx.uiviews.events.EmergeExamViewEvent;
-import mplat.uijfx.uiviews.events.EmergeTrainViewEvent;
-import mplat.uijfx.uiviews.events.SystemCfgViewEvent;
-import mplat.uijfx.uiviews.events.TopicTrainViewEvent;
 import mplat.utils.MViewUtils;
 import mplat.utils.UConst;
 

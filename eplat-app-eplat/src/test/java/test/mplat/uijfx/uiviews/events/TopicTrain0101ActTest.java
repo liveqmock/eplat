@@ -6,7 +6,7 @@ package test.mplat.uijfx.uiviews.events;
 
 import javafx.stage.Stage;
 import mplat.mgt.dto.UserInfoDTO;
-import mplat.uijfx.uiviews.events.TopicTrainViewEvent.TopicTrain0101Act;
+import mplat.uijfx.uiviews.acts.TopicTrainViewEvent.TopicTrain0101Act;
 import mplat.utils.UserHolder;
 
 import com.atom.core.lang.utils.CfgUtils;

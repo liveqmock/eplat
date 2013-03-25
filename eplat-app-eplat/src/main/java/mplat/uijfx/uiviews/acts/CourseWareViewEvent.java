@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package mplat.uijfx.uiviews.events;
+package mplat.uijfx.uiviews.acts;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Tab;
@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebView;
 import mplat.mgt.enums.TabCWPptEnum;
-import mplat.uijfx.uiviews.acts.PptImageAct;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -32,7 +31,7 @@ public final class CourseWareViewEvent extends AbstractWebViewEvent {
     }
 
     /** 
-     * @see mplat.uijfx.uiviews.events.AbstractWebViewEvent#onFireEvent(java.lang.String)
+     * @see mplat.uijfx.uiviews.acts.AbstractWebViewEvent#onFireEvent(java.lang.String)
      */
     protected final void onFireEvent(String arg) {
         String pptNo = StringUtils.leftPad(arg, 2, "0");
