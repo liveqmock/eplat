@@ -2,7 +2,7 @@
  * Author: obullxl@gmail.com
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package test.mplat.uijfx.uiviews.events;
+package test.mplat.uijfx.uiviews.acts;
 
 import javafx.stage.Stage;
 import mplat.mgt.dto.UserInfoDTO;
