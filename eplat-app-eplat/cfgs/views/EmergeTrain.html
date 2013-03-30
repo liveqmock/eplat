@@ -25,7 +25,10 @@ $(document).ready(function() {
 		
 		var img = $("#img_" + item_id);
 		img.attr("src", img.attr("src").replace("-ico-2", "-ico-1"));
-	});
+	}).click(function() {
+		// 详细
+		app.fireEvent("B" + item_id);
+    });;
 	
 	$(".btn_blue").click(function() {
 		// 训练

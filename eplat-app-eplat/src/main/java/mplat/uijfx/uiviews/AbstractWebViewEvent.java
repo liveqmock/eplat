@@ -10,6 +10,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import mplat.uijfx.uiviews.acts.MainViewAct;
 import mplat.utils.MViewUtils;
+import mplat.utils.UConst;
 
 import com.atom.core.lang.utils.LogUtils;
 import com.atom.core.uijfx.utils.WebViewUtils;
@@ -22,9 +23,6 @@ import com.atom.core.uijfx.utils.WebViewUtils.WebViewStateEvent;
  * @version $Id: AbstractWebViewEvent.java, V1.0.1 2013-2-14 下午8:13:05 $
  */
 public abstract class AbstractWebViewEvent implements WebViewStateEvent {
-    /** Java存放JS变量名 */
-    public static final String VAR_APP = "app";
-
     /** Web网页视图 */
     private final WebView      view;
 
@@ -71,7 +69,7 @@ public abstract class AbstractWebViewEvent implements WebViewStateEvent {
      * @see com.atom.core.uijfx.utils.WebViewUtils.WebViewStateEvent#onWebViewStateChanged(javafx.concurrent.Worker.State, javafx.concurrent.Worker.State)
      */
     public final void onWebViewStateChanged(State oldState, State newState) {
-        WebViewUtils.putHtmlWindowObject(this.view, VAR_APP, this);
+        WebViewUtils.putHtmlWindowObject(this.view, UConst.VAR_APP, this);
 
         this.afterWebViewStateChanged(oldState, newState);
     }

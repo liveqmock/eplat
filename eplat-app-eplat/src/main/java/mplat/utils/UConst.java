@@ -28,6 +28,12 @@ public class UConst {
     /** 随机最多选择个数 */
     public static final int    MAX_EXAM_ITEMS = 8;
 
+    /** Java存放JS变量名 */
+    public static final String VAR_APP        = "app";
+
+    /** 串口唯一TabID */
+    public static final String PORT_TAB_ID    = "PORT_TAB_ID";
+
     /**
      * 单机个人版用户手册
      */
