@@ -16,12 +16,11 @@ import com.atom.core.uijfx.test.BaseTest;
 import com.atom.core.uijfx.utils.WebViewUtils;
 
 /**
- * 网页视频测试
  * 
  * @author obullxl@gmail.com
- * @version $Id: WebViewVedioTest.java, V1.0.1 2013-3-30 下午4:58:51 $
+ * @version $Id: WebViewFlashTest.java, V1.0.1 2013-3-31 下午3:23:52 $
  */
-public class WebViewVedioTest extends BaseTest {
+public class WebViewFlashTest extends BaseTest {
     
     /**
      * 应用入口
@@ -36,7 +35,7 @@ public class WebViewVedioTest extends BaseTest {
     public void onTest(Stage stage) {
         BorderPane border = new BorderPane();
         
-        String html = "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/test_web_Video.html");
+        String html = "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/test_web_Flash.html");
         final WebView webView = WebViewUtils.initWebView(html);
         border.setCenter(webView);
         

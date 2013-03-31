@@ -5,6 +5,7 @@
 package mplat.utils;
 
 import mplat.uijfx.images.IMGS;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,7 @@ public final class PPTUtils {
         button.setMaxWidth(30.0);
         button.setMaxHeight(30.0);
         button.setGraphicTextGap(0.0);
+        button.setCursor(Cursor.HAND);
         button.setGraphic(new ImageView(image));
     }
 

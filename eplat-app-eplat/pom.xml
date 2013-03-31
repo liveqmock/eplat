@@ -20,6 +20,12 @@
             <scope>provided</scope>
 		</dependency>
         -->
+
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>swt</artifactId>
+			<version>4.2.1</version>
+		</dependency>
         
         <!-- ======================================== -->
 		<!-- ATOM相关依赖 -->

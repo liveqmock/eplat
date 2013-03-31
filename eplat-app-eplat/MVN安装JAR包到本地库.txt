@@ -2,4 +2,6 @@ mvn install:install-file -Dfile=e:/memcached.jar -DgroupId=com.danga -DartifactI
 
 mvn install:install-file -Dfile=D:/JavaSDK/JDK7/jre/lib/jfxrt.jar -DgroupId=javafx -DartifactId=javafx -Dversion=2.2.4 -Dpackaging=jar -DgeneratePom=true  
 
-mvn install:install-file -Dfile=D:/JavaSDK/JDK7/jre/lib/jfxrt.jar -DgroupId=javafx -DartifactId=javafx -Dversion=2.2.4 -Dpackaging=jar -DgeneratePom=true  
+mvn install:install-file -Dfile=D:/JavaSDK/JDK7/jre/lib/jfxrt.jar -DgroupId=javafx -DartifactId=javafx -Dversion=2.2.4 -Dpackaging=jar -DgeneratePom=true
+
+mvn install:install-file -Dfile=swt.jar -DgroupId=swt -DartifactId=swt -Dsources=swt-src.jar -Dversion=4.2.1 -Dpackaging=jar -DgeneratePom=true

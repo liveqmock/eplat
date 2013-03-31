@@ -42,8 +42,6 @@ public class TopicTrain0103Act extends BaseXmlAct {
         if (context != null) {
             this.data.putAll(context);
         }
-
-        System.out.println("训练结果：" + this.data);
     }
 
     /** 
