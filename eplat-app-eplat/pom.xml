@@ -18,7 +18,10 @@
 			<version>2.2.4</version>
             <scope>provided</scope>
 		</dependency>
-
+		
+		<!-- ======================================== -->
+		<!-- JFace相关依赖 -->
+		<!-- ======================================== -->
 		<dependency>
 			<groupId>swt</groupId>
 			<artifactId>swt</artifactId>
@@ -31,7 +34,33 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/cfgs/swing2swt.jar</systemPath>
 		</dependency>
-        
+		
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>core-commands</artifactId>
+			<version>3.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>equinox-common</artifactId>
+			<version>3.6.100</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>jface</artifactId>
+			<version>3.8.102</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>osgi</artifactId>
+			<version>3.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>ui-workbench</artifactId>
+			<version>3.104.0</version>
+		</dependency>
+		
         <!-- ======================================== -->
 		<!-- ATOM相关依赖 -->
 		<!-- ======================================== -->
