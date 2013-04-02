@@ -24,6 +24,13 @@
 			<artifactId>swt</artifactId>
 			<version>4.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>swing2swt</artifactId>
+			<version>99.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/cfgs/swing2swt.jar</systemPath>
+		</dependency>
         
         <!-- ======================================== -->
 		<!-- ATOM相关依赖 -->
@@ -82,6 +89,20 @@
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 			<version>2.3.19</version>
+		</dependency>
+		
+		<!-- ======================================== -->
+		<!-- Logger相关依赖 -->
+		<!-- ======================================== -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.10</version>
 		</dependency>
 
 		<!-- ======================================== -->
