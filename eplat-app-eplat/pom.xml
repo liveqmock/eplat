@@ -37,27 +37,27 @@
 		
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>core-commands</artifactId>
+			<artifactId>eclipse-core-commands</artifactId>
 			<version>3.6.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>equinox-common</artifactId>
+			<artifactId>eclipse-equinox-common</artifactId>
 			<version>3.6.100</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>jface</artifactId>
+			<artifactId>eclipse-jface</artifactId>
 			<version>3.8.102</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>osgi</artifactId>
+			<artifactId>eclipse-osgi</artifactId>
 			<version>3.8.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>ui-workbench</artifactId>
+			<artifactId>eclipse-ui-workbench</artifactId>
 			<version>3.104.0</version>
 		</dependency>
 		
