@@ -9,6 +9,8 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -53,12 +55,19 @@ public class JFaceExample extends ApplicationWindow {
     protected Control createContents(Composite parent) {
         getShell().setText("JFace Example");
         setStatus("JFace Example v1.0");
+
+        this.getShell().addMouseMoveListener(new MouseMoveListener() {
+            public void mouseMove(MouseEvent e) {
+                setStatus("X:" + e.x + ", Y:" + e.y);
+            }
+        });
+
         return parent;
     }
 
     protected void initializeBounds() {
         getShell().setSize(500, 400);
-        
+
         SWTUtils.center(this.getShell());
     }
 
