@@ -193,6 +193,8 @@ public class HomeMainView extends ApplicationWindow {
         });
         
         newShell.setSize(1000, 750);
+        
+        SWTUtils.center(newShell);
     }
 
     /** 

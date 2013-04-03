@@ -91,10 +91,10 @@ public class UserLoginView extends ApplicationWindow {
 
                 String cport = cboxPort.getText();
                 LogUtils.get().info("登录成功:: CPort[{}], UserName[{}], Passwd[{}].", cport, userName, passwd);
-                
+
                 // 显示主窗口
                 close();
-                UserMgtView window = new UserMgtView();
+                HomeMainView window = new HomeMainView();
                 window.setBlockOnOpen(true);
                 window.open();
             }
@@ -114,6 +114,11 @@ public class UserLoginView extends ApplicationWindow {
         });
         btnClear.setBounds(224, 183, 80, 27);
         btnClear.setText("清除");
+
+        // TODO:测试数据
+        UserInfoDTO user = MgtFactory.get().findUserMgt().find("admin");
+        this.txtUserName.setText("admin");
+        this.txtPasswd.setText(user.getUserPasswd());
 
         return container;
     }
@@ -138,6 +143,8 @@ public class UserLoginView extends ApplicationWindow {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText("用户登录");
+        
+        SWTUtils.center(newShell);
     }
 
     /** 

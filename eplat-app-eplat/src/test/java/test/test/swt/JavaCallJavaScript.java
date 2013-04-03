@@ -80,7 +80,7 @@ public class JavaCallJavaScript {
                             return;
                         String expression = "5+Math.sin(9)";
                         Variant[] rgvarg = new Variant[] { new Variant(expression) };
-                        pVarResult = htmlWindow.invoke(evaluateID[0], rgvarg, null);
+                        pVarResult = htmlWindow.invoke(evaluateID[0], rgvarg);
                         if (pVarResult == null || pVarResult.getType() == 0)
                             return;
                         System.out.println(expression + " = " + pVarResult.getString());
