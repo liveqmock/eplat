@@ -60,8 +60,8 @@ public final class UserLoginView extends ApplicationWindow {
      * @see org.eclipse.jface.window.Window#initializeBounds()
      */
     protected void initializeBounds() {
-        this.getShell().setSize(365, 270);
-        this.getShell().setText("用户登录");
+        this.shell.setSize(365, 270);
+        this.shell.setText("用户登录");
 
         SWTUtils.center(this.getShell());
     }
@@ -77,34 +77,44 @@ public final class UserLoginView extends ApplicationWindow {
      * @see org.eclipse.jface.window.Window#createContents(org.eclipse.swt.widgets.Composite)
      */
     protected Control createContents(Composite parent) {
-        Label label = new Label(this.getShell(), SWT.NONE);
+        this.createContents();
+        return parent;
+    }
+    
+    /** 
+     * @see org.eclipse.jface.window.Window#createContents(org.eclipse.swt.widgets.Composite)
+     */
+    protected void createContents() {
+        this.shell = this.getShell();
+        
+        Label label = new Label(this.shell, SWT.NONE);
         label.setBounds(34, 104, 48, 17);
         label.setText("用户名：");
 
-        txtUserName = new Text(this.getShell(), SWT.BORDER);
+        txtUserName = new Text(this.shell, SWT.BORDER);
         txtUserName.setBounds(87, 101, 228, 23);
 
-        Label label_1 = new Label(this.getShell(), SWT.NONE);
+        Label label_1 = new Label(this.shell, SWT.NONE);
         label_1.setBounds(320, 52, 0, 17);
 
-        Label label_2 = new Label(this.getShell(), SWT.NONE);
+        Label label_2 = new Label(this.shell, SWT.NONE);
         label_2.setBounds(46, 154, 36, 17);
         label_2.setAlignment(SWT.RIGHT);
         label_2.setText("密码：");
 
-        txtPasswd = new Text(this.getShell(), SWT.BORDER | SWT.PASSWORD);
+        txtPasswd = new Text(this.shell, SWT.BORDER | SWT.PASSWORD);
         txtPasswd.setBounds(87, 151, 228, 23);
 
-        Label label_3 = new Label(this.getShell(), SWT.NONE);
+        Label label_3 = new Label(this.shell, SWT.NONE);
         label_3.setBounds(34, 48, 48, 17);
         label_3.setText("下位机：");
 
-        final Combo cboxPorts = new Combo(this.getShell(), SWT.READ_ONLY);
+        final Combo cboxPorts = new Combo(this.shell, SWT.READ_ONLY);
         cboxPorts.setBounds(87, 44, 228, 25);
         cboxPorts.setItems(new String[] { "COM1", "COM2" });
         cboxPorts.select(0);
 
-        Button btnLogin = new Button(this.getShell(), SWT.NONE);
+        Button btnLogin = new Button(this.shell, SWT.NONE);
         btnLogin.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 String cport = cboxPorts.getItem(cboxPorts.getSelectionIndex());
@@ -114,7 +124,7 @@ public final class UserLoginView extends ApplicationWindow {
         btnLogin.setBounds(132, 195, 80, 27);
         btnLogin.setText("登录");
 
-        Button btnReset = new Button(this.getShell(), SWT.NONE);
+        Button btnReset = new Button(this.shell, SWT.NONE);
         btnReset.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 txtUserName.setText(StringUtils.EMPTY);
@@ -124,9 +134,7 @@ public final class UserLoginView extends ApplicationWindow {
         btnReset.setBounds(235, 195, 80, 27);
         btnReset.setText("清除");
 
-        Label lblNewLabel = new Label(this.getShell(), SWT.NONE);
+        Label lblNewLabel = new Label(this.shell, SWT.NONE);
         lblNewLabel.setBounds(405, 184, 0, 17);
-
-        return parent;
     }
 }
