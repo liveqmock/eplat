@@ -10,12 +10,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import mplat.uijfx.images.IMGS;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+
+import com.atom.core.lang.utils.CfgUtils;
 
 /**
  * SWT工具类
@@ -80,7 +85,7 @@ public class SWTUtils {
         Image image = _images.get(name);
         if (image == null || image.isDisposed()) {
             _images.remove(name);
-            
+
             InputStream input = IMGS.class.getResourceAsStream(name);
             try {
                 image = new Image(device, input);
@@ -91,6 +96,30 @@ public class SWTUtils {
         }
 
         return image;
+    }
+    
+    /**
+     * 获取HTML视图
+     */
+    public static final String findHtml(String name) {
+        return "file:///" + FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/" + name);
+    }
+
+    /**
+     * 警告提示
+     */
+    public static final void alert(final Shell shell, String message) {
+        alert(shell, "提示", message, SWT.ERROR | SWT.OK);
+    }
+
+    /**
+     * 警告提示
+     */
+    public static final void alert(final Shell shell, String title, String message, int style) {
+        MessageBox msgBox = new MessageBox(shell, style);
+        msgBox.setText(title);
+        msgBox.setMessage(message);
+        msgBox.open();
     }
 
 }

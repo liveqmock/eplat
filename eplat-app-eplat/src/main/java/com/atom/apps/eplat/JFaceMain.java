@@ -4,22 +4,27 @@
  */
 package com.atom.apps.eplat;
 
-import com.atom.apps.eplat.views.HomeMainView;
+import org.eclipse.swt.widgets.Display;
+
+import com.atom.apps.eplat.views.UserLoginView;
 
 /**
  * 应用入口
  * 
  * @author obullxl@gmail.com
- * @version $Id: Main.java, V1.0.1 2013-4-1 下午1:52:08 $
+ * @version $Id: JFaceMain.java, V1.0.1 2013-4-1 下午1:52:08 $
  */
-public final class Main {
+public final class JFaceMain {
 
     /**
      * Launch the application.
      */
     public static void main(String[] args) {
         try {
-            new HomeMainView().open();
+            UserLoginView window = new UserLoginView();
+            window.setBlockOnOpen(true);
+            window.open();
+            Display.getCurrent().dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }

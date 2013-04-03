@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="spt/jump.js"></script>
+<title>页首导航</title>
+<style type="text/css">
+<!--
+body{
+	background-color: #FFFFFF;
+	background-image: url(img/head_back.JPG);
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+	height:175px;
+}
+
+#flash{
+bottom:85px;
+position:absolute;
+margin-left:20px;
+float:left;
+}
+
+
+#title{
+	color: #666666;
+	font-size: 18px;
+	font-family:Times New Roman;
+	text-align:left;
+	left:10px;
+	bottom:15px;
+	position:absolute;
+}
+#return
+{
+position:absolute;
+bottom:100px;
+right:60px;
+}
+
+#tooltips{
+	color: #778899;
+	font-size: 16px;
+	font-weight:600;
+	font-family:Times New Roman;
+	position:absolute;
+	bottom:75px;
+	right:45px;
+	visibility:hidden;
+}
+
+-->
+</style>
+</head>
+<body>
+  <div id="flash"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase=
+  "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="400" height="70" align="middle" id= 
+  "myFlash" name="myFlash">
+      <param name="movie" value="swf/8000cs.swf" />
+      <param name="quality" value="high" />
+	  <param name="wmode" value="transparent" />
+	  <param name="allowScriptAccess" value="sameDomain"/>
+    </object>
+  </div>
+  <a id="return"><img src="img/return.gif" onmousemove="src='img/return2.gif';style.cursor='hand';document.getElementById('tooltips').style.visibility='visible'" onmouseout="src = 'img/return.gif';document.getElementById('tooltips').style.visibility='hidden'" onclick="parent.window.location.href = 'default.html'"></a>
+  <div id="tooltips">返回主页面</div>
+<div id="title">
+ <script type="text/javascript">
+  var url = parent.location.href;
+  var index1 = url.lastIndexOf('/');
+  var index2 = url.lastIndexOf('.');
+  var str = url.substr(index1+1,index2-index1-1);
+  writeTitle(str);
+  </script>
+</div>
+</body>
+</html>
