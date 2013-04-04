@@ -2,9 +2,11 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<script type="text/javascript" src="spt/jump.js"></script>
+<link rel="stylesheet" type="text/css" href="spt/default.css"/>
 <link rel="stylesheet" type="text/css" href="spt/MainView.css"/>
-<script language="javascript" src="spt/jquery-1.9.0.min.js"></script>
-<script language="javascript">
+<script type="text/javascript" src="spt/jquery-1.9.0.min.js"></script>
+<script type="text/javascript">
 // ID
 var item_id;
 
@@ -25,19 +27,36 @@ $(document).ready(function() {
 		
 		var img = $("#img_" + item_id);
 		img.attr("src", img.attr("src").replace("-ico-2", "-ico-1"));
-	}).click(function() {
+	}).click(function(e) {
 		// 详细
-		app.fireEvent("B" + item_id);
-    });;
+		var id = item_id;
+		if(id.length < 2) {
+			id = "0" + id;
+		}
+		
+		fireEvent("B" + id);
+    });
 	
+	/*
 	$(".btn_blue").click(function() {
 		// 训练
-        app.fireEvent("A" + item_id);
+		var id = item_id;
+		if(id.length < 2) {
+			id = "0" + id;
+		}
+		
+		fireEvent("B" + id);
     });
 	$(".btn_green").click(function() {
 		// 详细
-		app.fireEvent("B" + item_id);
+		var id = item_id;
+		if(id.length < 2) {
+			id = "0" + id;
+		}
+		
+		fireEvent("B" + id);
     });
+	*/
 	
 	$(".page_link a").click(function(e) {	
 		$(".page_body").addClass("page_hide");
@@ -52,8 +71,8 @@ $(document).ready(function() {
 <title>专项训练</title>
 </head>
 <body>
+<iframe name="content_frame" marginwidth=0 marginheight=0 width=100% height=175px src='head.html' frameborder=0 scrolling="no"></iframe>
 <div id="main_container">
-	<div id="content_title">急 救 案 例 训 练</div>
     <div id="content_body">
     <div id="page_1" class="page_body">
     <table width="100%" align="center" border="0" cellspacing="10" cellpadding="10">

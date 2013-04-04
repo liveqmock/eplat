@@ -35,35 +35,6 @@ function OnMouseOn(id, bResize) {
 		document.getElementById("items" + id + "_0").style.display = "none";
 		document.getElementById("items" + id + "_1").style.display = "block";
 	}
-
-	/* 保持DIV层不超出屏幕外的可见性 先获得层的下边高度，再获取窗口的下边高度 判断并调整滚动条 */
-	/* 获取到的pt_Bottom值为相对于文档左上角的绝对高度 */
-	// var pt_Bottom = e.offsetTop+e.offsetHeight;
-	// while(e=e.offsetParent)
-	// {
-	// pt_Bottom+=e.offsetTop;
-	// }
-	// var dis_x = pt_Bottom-parseInt(document.documentElement.clientHeight);
-	// if(dis_x > 0)
-	// {
-	// window.scrollBy(0,dis_x);
-	// }
-	// for test
-	// alert("clientHeight="+clientHeight+"windowHeight="+windowHeight);
-	/* 当前窗口的高度 */
-	/* 当前层为相对定位时 层的扩张会导致窗口高度增加 */
-	/* 当前层为绝对定位时 层的扩张不会导致改变窗口高度 */
-	/*
-	 * XHTML中用 document.documentElement.clientHeight
-	 * 代替document.body.clientHeight XHTML中后者取得的是BODY文档的高度
-	 */
-	// var clientHeight = parseInt(document.body.clientHeight);
-	/* 当前文档的总高度 */
-	// document.body.scrollHeight
-	/* 当前屏幕窗口的总高度 */
-	// var windowHeight =parseInt(window.screen.availHeight);
-	// for test
-	// document.getElementById("item_"+id).style.filter="alpha(opacity=100,finishOpacity=100,style=1)";
 }
 
 function OnMouseLeave(id, bResize) {
@@ -103,28 +74,6 @@ function OnDivExpand(id) {
 		var src = left + '1' + '.jpg';
 		document.getElementById("img" + id).src = src;
 	}
-}
-
-// 写标题
-function writeTitle(CurPage) {
-	var title = CurPage;
-	if (CurPage == "CourseWare") {
-		callExternal("A");
-		title = "系 统 课 件 列 表";
-	} else if (CurPage == "NurseScene") {
-		callExternal("C");
-		title = "急 救 案 例 训 练";
-	} else if (CurPage == "SpecTrain") {
-		callExternal("B");
-		title = "专 项 训 练";
-	} else if (CurPage == "nurse_test") {
-		callExternal("D");
-		title = "急 救 案 例 考 核";
-	} else if (CurPage == "systom_set") {
-		callExternal("E");
-		title = "系 统 设 置";
-	}
-	document.write(title);
 }
 
 // 护理详情中判断是考核还是训练
@@ -200,56 +149,39 @@ function callExternal(str) {
 	thisMovie("myFlash").FlagShow(str);
 }
 
+function gotoHomePage() {
+	var rtn = fireEvent("A00");
+	// alert(rtn);
+	// parent.location.href = "CourseWare.html";
+}
+
 function aFunction() {
-	parent.location.href = "CourseWare.htm";
+	var rtn = fireEvent("A01");
+	// alert(rtn);
+	// parent.location.href = "CourseWare.html";
 }
 
 function bFunction() {
-	parent.window.location.href = "SpecTrain.html";
+	var rtn = fireEvent("A02");
+	// parent.window.location.href = "SpecTrain.html";
 }
 
 function cFunction() {
-	parent.location.href = "NurseScene.htm";
+	var rtn = fireEvent("A03");
+	// parent.location.href = "NurseScene.htm";
 }
 
 function dFunction() {
-	parent.window.location.href = "nurse_test.htm";
+	var rtn = fireEvent("A04");
+	// parent.window.location.href = "nurse_test.htm";
 }
 
 function eFunction() {
-	parent.window.location.href = "systom_set.html";
+	var rtn = fireEvent("A05");
+	// parent.window.location.href = "systom_set.html";
 }
 
 function CloseFun() {
-	external.JSCommand(0, 0);
+	// external.JSCommand(0, 0);
+	var rtn = fireEvent("Z01");
 }
-
-// function getCookie(name)
-// {
-// var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
-// if(arr !=null) return unescape(arr[2]); return null;
-// }
-//
-// function setCookie(name,value)
-// {
-// var Days = 1; //此 cookie 将被保存 1 天
-// var exp = new Date();
-// exp.setTime(exp.getTime() + Days*24*60*60*1000);
-// document.cookie = name + "="+ escape (value) + ";expires=" +
-// exp.toGMTString();
-// }
-
-// open具体参数介绍
-// url为网站地址
-// "myPage"为弹出的该窗口的名称，可以省略为""
-// height、width是窗口的大小
-// toolbar指定是否有工具栏
-// top窗口距离屏幕上方的象素值
-// left窗口距离屏幕左侧的象素值
-// toolbar是否显示工具栏，yes为显示，下同
-// menubar、scrollbars表示菜单栏和滚动栏
-// resizable是否允许改变窗口大小
-// location是否显示地址栏
-// status是否显示状态栏内的信息（通常是文件已经打开）
-// window.open(url,"myPage","height=400, width=600, top=0, left=0, toolbar=no,
-// menubar=no, scrollbars=no, resizable=no, location=no, status=no");

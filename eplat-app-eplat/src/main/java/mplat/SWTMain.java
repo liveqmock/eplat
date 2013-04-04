@@ -1,78 +1,68 @@
+/**
+ * Author: obullxl@gmail.com
+ * Copyright (c) 2004-2013 All Rights Reserved.
+ */
 package mplat;
 
+import mplat.mgt.msgs.DataMSG;
+
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import swing2swt.layout.BorderLayout;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.MenuItem;
 
+import com.atom.apps.eplat.SWTUtils;
+import com.atom.apps.eplat.views.UserLoginView;
+import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.lang.utils.TemplateUtils;
+import com.atom.core.xstream.store.StoreFactory;
+
+/**
+ * 应用入口
+ * 
+ * @author obullxl@gmail.com
+ * @version $Id: SWTMain.java, V1.0.1 2013-4-4 下午1:47:46 $
+ */
 public class SWTMain {
-
-    protected Shell shell;
 
     /**
      * Launch the application.
-     * @param args
      */
     public static void main(String[] args) {
         try {
-            SWTMain window = new SWTMain();
+            // 初始化
+            initSystem();
+
+            // 显示窗口
+            UserLoginView window = new UserLoginView();
+            window.setBlockOnOpen(true);
             window.open();
+            Display.getCurrent().dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Open the window.
+     * 系统初始化
      */
-    public void open() {
-        Display display = Display.getDefault();
-        createContents();
-        shell.open();
-        shell.layout();
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep();
-            }
-        }
+    private static void initSystem() {
+        CfgUtils.findRootPath();
+        CfgUtils.findConfigPath();
+        StoreFactory.get().init();
+
+        TemplateUtils.setTplPath(CfgUtils.findConfigPath() + "/cfgs/tpls");
     }
 
     /**
-     * Create contents of the window.
+     * 退出系统
      */
-    protected void createContents() {
-        shell = new Shell();
-        shell.setSize(450, 300);
-        shell.setText("SWT Application");
-        shell.setLayout(new BorderLayout(0, 0));
-        
-        Menu menuBar = new Menu(shell, SWT.BAR);
-        shell.setMenuBar(menuBar);
-        
-        MenuItem menuFile = new MenuItem(menuBar, SWT.CASCADE);
-        menuFile.setText("文件");
-        
-        Menu menu_1 = new Menu(menuFile);
-        menuFile.setMenu(menu_1);
-        
-        MenuItem menuItem_2 = new MenuItem(menu_1, SWT.NONE);
-        menuItem_2.setText("退出");
-        
-        MenuItem menuItem_1 = new MenuItem(menuBar, SWT.CASCADE);
-        menuItem_1.setText("系统管理");
-        
-        Menu menu_2 = new Menu(menuItem_1);
-        menuItem_1.setMenu(menu_2);
-        
-        MenuItem menuItem_3 = new MenuItem(menuBar, SWT.CASCADE);
-        menuItem_3.setText("关于");
-        
-        Menu menu_3 = new Menu(menuItem_3);
-        menuItem_3.setMenu(menu_3);
-        
-        MenuItem menuItem_4 = new MenuItem(menu_3, SWT.NONE);
-        menuItem_4.setText("关于系统");
+    public static void exitSystem() {
+        SWTUtils.dispose();
+
+        StoreFactory.get().stop();
+        DataMSG.get().closePort();
+
+        // 退出
+        Display.getCurrent().dispose();
+        System.exit(0);
     }
+    
 }

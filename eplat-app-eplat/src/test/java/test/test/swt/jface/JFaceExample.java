@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 
-import com.atom.apps.SWTUtils;
+import com.atom.apps.eplat.SWTUtils;
 
 /**
  * JFace

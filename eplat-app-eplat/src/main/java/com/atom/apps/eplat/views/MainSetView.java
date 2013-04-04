@@ -1,3 +1,7 @@
+/**
+ * Author: obullxl@gmail.com
+ * Copyright (c) 2004-2013 All Rights Reserved.
+ */
 package com.atom.apps.eplat.views;
 
 import org.eclipse.jface.action.Action;
@@ -6,7 +10,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.graphics.Point;
@@ -14,15 +18,22 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
-
-import com.atom.apps.SWTUtils;
 
 import swing2swt.layout.BorderLayout;
 
-public class HomeMainView extends ApplicationWindow {
-    private static final String HTML_00_HOME_MAIN = "default.html";
+import com.atom.apps.eplat.SWTMainView;
+import com.atom.apps.eplat.SWTUtils;
+import com.atom.apps.eplat.views.ext.HomePageExt;
+
+/**
+ * 主窗口
+ * 
+ * @author obullxl@gmail.com
+ * @version $Id: MainSetView.java, V1.0.1 2013-4-4 下午3:38:05 $
+ */
+public final class MainSetView extends ApplicationWindow implements SWTMainView {
+
+    private CTabFolder          tabFolder;
 
     private Action              actExit;
     private Action              actConfigSet;
@@ -35,7 +46,7 @@ public class HomeMainView extends ApplicationWindow {
 
     public static void main(String[] args) {
         try {
-            HomeMainView window = new HomeMainView();
+            MainSetView window = new MainSetView();
             window.setBlockOnOpen(true);
             window.open();
             Display.getCurrent().dispose();
@@ -47,12 +58,15 @@ public class HomeMainView extends ApplicationWindow {
     /**
      * Create the application window.
      */
-    public HomeMainView() {
+    public MainSetView() {
         super(null);
         createActions();
         addToolBar(SWT.FLAT | SWT.WRAP);
         addMenuBar();
         addStatusLine();
+
+        // 设置系统主窗口
+        SWTUtils.setMainView(this);
     }
 
     /** 
@@ -62,15 +76,12 @@ public class HomeMainView extends ApplicationWindow {
         Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new BorderLayout(0, 0));
 
-        TabFolder tabFolder = new TabFolder(container, SWT.NONE);
+        tabFolder = new CTabFolder(container, SWT.BORDER);
         tabFolder.setLayoutData(BorderLayout.CENTER);
+        tabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 
-        TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-        tabItem.setText("欢迎使用");
-
-        Browser homeMainBrowser = new Browser(tabFolder, SWT.NONE);
-        tabItem.setControl(homeMainBrowser);
-        homeMainBrowser.setUrl(SWTUtils.findHtml(HTML_00_HOME_MAIN));
+        // 设置主功能页面
+        new HomePageExt();
 
         return container;
     }
@@ -82,7 +93,7 @@ public class HomeMainView extends ApplicationWindow {
         {
             actExit = new Action("退出") {
                 public void run() {
-                    System.out.println("退出系统……");
+                    SWTUtils.exitSystem(getShell());
                 }
             };
         }
@@ -185,15 +196,15 @@ public class HomeMainView extends ApplicationWindow {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
-        
+
         newShell.addMouseMoveListener(new MouseMoveListener() {
             public void mouseMove(MouseEvent e) {
                 setStatus("X:" + e.x + ", Y:" + e.y);
             }
         });
-        
+
         newShell.setSize(1000, 750);
-        
+
         SWTUtils.center(newShell);
     }
 
@@ -210,4 +221,33 @@ public class HomeMainView extends ApplicationWindow {
     protected Point getInitialSize() {
         return new Point(450, 970);
     }
+
+    /** 
+     * @see com.atom.apps.eplat.SWTMainView#findDisplay()
+     */
+    public Display findDisplay() {
+        return this.getContents().getDisplay();
+    }
+
+    /** 
+     * @see com.atom.apps.eplat.SWTMainView#findShell()
+     */
+    public Shell findShell() {
+        return this.getShell();
+    }
+
+    /** 
+     * @see com.atom.apps.eplat.SWTMainView#findCTabFolder()
+     */
+    public CTabFolder findCTabFolder() {
+        return this.tabFolder;
+    }
+    
+    /** 
+     * @see com.atom.apps.eplat.SWTMainView#setStatusMessage(java.lang.String)
+     */
+    public void setStatusMessage(String msg) {
+        super.setStatus(msg);
+    }
+
 }
