@@ -1,0 +1,1190 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 11">
+<link id=Main-File rel=Main-File href="../第六课.htm">
+<link rel=Preview href=preview.wmf>
+<meta name=Robots content=NoIndex>
+<script src=script.js></script><script><!--
+
+if( !(IsWin("PPTOtl")||IsWin("PPTNav")||IsWin("PPTOtlNav")) )
+{
+	obj = GetObj("Main-File")
+	parent.location.href=obj.href
+}
+
+var gOtlHiliteClr="#ffffff",gOtlNormalClr="#000000",gOtlActiveClr="#ffff00",gSelected="",gTxtState=false,gChildEntryTable=new Array()
+
+function Load()
+{
+	if( IsWin("PPTOtl" ) ){ LoadOtl(); parent.gOtlLoaded=true; return }
+	if( g_supportsPPTHTML ) {
+		if( IsWin("PPTNav" ) ){ LoadNav("NavObj",UpdNav); parent.gNavLoaded=true; return }
+		if( IsWin("PPTOtlNav" ) ){ LoadNav("OtlNavObj",UpdOtlNav); parent.gOtlNavLoaded=true; return }
+	}
+}
+function Upd(){ if( IsWin("PPTNav") ) LoadNav("NavObj",UpdNav) }
+function LoadNav( oId,UpdFunc )
+{
+	document.ondragstart=CancelDrag
+	document.onselectstart=CancelDrag
+	document.body.style.margin=2
+	UpdFunc()
+	obj=document.all.item(oId)
+	obj.style.display="block"
+	obj.style.visibility="visible"
+	document.bgColor="threedface"
+
+	if( parent.frames["PPTNts"] )
+		notesBtn.style.display = ""
+	if( parent.gHasNarration )
+		nb_voiceBorder.style.display = ""
+}
+function LoadOtl()
+{
+	var otl=GetObj("OtlObj")
+	otl.style.display="block"
+	otl.style.visibility="visible"
+	if( gOtlActiveClr == "" ) gOtlActiveClr=document.linkColor
+	if( gOtlHiliteClr == "" ) gOtlHiliteClr=document.fgColor
+	if( gOtlNormalClr == "" )
+		gOtlNormalClr=document.bgColor
+	else
+		document.bgColor=gOtlNormalClr  
+
+	InitArray()
+
+	if( ObjExists( parent.gCurSld ) ) {
+		ChangeState( parent.gCurSld,gOtlNormalClr,gOtlHiliteClr )
+		gSelected=parent.gCurSld
+	}
+	else gSelected = -1
+
+	UpdOtl()
+}
+function UpdOtl(){ UpdIdx(parent.gCurSld) }
+function UpdIdx( idx )
+{
+	if( gSelected != idx ) {
+		if( gSelected > 0 )
+			ChangeState( gSelected,gOtlHiliteClr,gOtlNormalClr )
+
+		if( ObjExists( idx ) ) {
+			gSelected = idx
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+		}
+		else gSelected = -1
+	}
+
+	if( gTxtState != parent.gOtlTxtExp ) {
+		state = "block"
+		if( !parent.gOtlTxtExp )
+			state="none"
+
+		for(ii=0; ii<gChildEntryTable.length; ii++) {
+			obj=gChildEntryTable[ii];
+			if( obj.id == null ) continue;
+
+			if( obj.id.indexOf("PPTC") >= 0 )
+				obj.style.display=state;
+		} 
+		gTxtState=parent.gOtlTxtExp
+		if( ObjExists( gSelected ) )
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+	}
+}
+function InitArray()
+{
+	count=0
+	var list=GetTags(document,"DIV");
+	for(ii=0; ii<list.length; ii++) {
+		obj=list.item(ii)
+		if( obj.id == null ) continue
+
+		if( obj.id.indexOf("PPTC") >= 0 )  
+			gChildEntryTable[count++]=obj
+	}
+}
+function ChangeState( idx,fgColor,bgColor )
+{
+	obj=GetObj("PPTL"+idx)
+	obj.style.color=fgColor
+
+	obj=GetObj("PPTP"+idx)
+	obj.style.backgroundColor=bgColor
+}
+function ChgClr( o,clr ){ if( o.id != "PPTL"+gSelected ) o.style.color=clr }
+function Over( src ){ ChgClr(GetLink(src),gOtlActiveClr) }
+function Out( src ){ ChgClr(GetLink(src),gOtlHiliteClr) }
+function Follow(src){ window.location.href = GetLink(src).href; }
+function ObjExists( ii ) { obj=GetObj("PPTP"+ii ); return( obj ) }
+function GoToSld( href ){ UpdIdx(parent.GetSldNum(href)); parent.GoToSld( href ) }
+function CancelDrag(){ window.event.cancelBubble=true;window.event.returnValue=false}
+function GetLink(src)
+{
+   if(src.tagName=="A") return src
+   else return GetTags(src,"A").item(0)
+}
+
+function UpdNav()
+{
+	txt = "<center>";
+	if( parent.GetHrefObj( parent.gCurSld ).mOrigVis == 1 )
+		txt += "幻灯片" + parent.GetCurSldNum() + " /" + parent.GetNumSlds()
+	else
+		txt += "隐藏幻灯片"
+	txt += "</center>";
+	nav_text.innerHTML = txt;
+
+	if( !parent.HasPrevSld() )
+		gBtnArr["nb_prev"].Enabled(0)
+	else
+		gBtnArr["nb_prev"].Enabled(1)
+
+	if( !parent.HasNextSld() )
+		gBtnArr["nb_next"].Enabled(0)
+	else
+		gBtnArr["nb_next"].Enabled(1)
+	gBtnArr["nb_nts"].Enabled(1)
+	gBtnArr["nb_ntsBorder"].SetFlag( parent.gHasNts )
+
+	gBtnArr["nb_sldshw"].Enabled(1)
+	gBtnArr["nb_voice"].Enabled(1)
+}
+
+function ExecBtn()
+{
+	if (event.keyCode == 13)
+	{
+		BtnOnDown();
+		BtnOnUp();
+	}
+}
+function UpdOtlNav()
+{
+	gBtnArr["nb_otl"].SetEnabled();
+
+	if( parent.gOtlOpen )
+		gBtnArr["nb_otlTxt"].Enabled( true );
+	else
+		document.all.item("nb_otlTxtBorder").style.visibility = "hidden";
+}
+
+
+
+
+//--></script>
+<style>
+<!--.PTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;
+	padding-left:2px;
+	font-weight:bold;}
+.CTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;}
+a
+	{color:white;
+	text-decoration:none;}
+ul
+	{color:white;
+	margin-bottom:0px;
+	margin-left:20px;}
+.sldNum
+	{margin-top:5px;
+	color:white;}
+.button
+	{position:absolute;
+	width:32px;
+	height:20px;
+	border-style:solid;
+	border-width:1px;
+	border-color:threedface;}
+-->
+</style>
+</head>
+
+<body onload="Load()" style='margin:2px'>
+
+<div id=NavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
+<table id="notesBtn" style='display:none;position:relative;width:55px' align=left cellpadding=0
+ cellspacing=0>
+ <td nowrap>
+ <div id="nb_ntsElem" title="显示/隐藏备注" align=center style='position:relative;margin-left:5px;margin-right:5px;padding:3px;
+ font-family:宋体;color:buttontext;font-size:9pt; cursor:default'>
+ <img src="notes_flag.gif" id="nb_nts" style='display:none'> &nbsp;备注</div>
+ <div id="nb_ntsBorder" title ="显示/隐藏备注" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=1 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+
+ </div>
+ </td>
+</table>
+
+
+<table style='position:relative;width:70px' align=right cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_sldshwText" title="全屏幻灯片放映" align=center style='position:relative;margin-left:20px;padding:3px;
+ font-family:宋体;color:buttontext;font-size:9pt;cursor:default'>幻灯片放映</div>
+ <div id="nb_sldshwBorder" title="全屏幻灯片放映" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=5 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_sldshw" style='position:relative;left:-254px'></div>
+ </div>
+ </td>
+ <td>
+ <div id="nb_voiceBorder" style='display:none;position:absolute;top:0;left:-40px;
+ width:20px;height:20px' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=4 class=button>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_voice" title="播放/暂停旁白" style='position:
+ relative;left:-290px'></div>
+ </div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_prevBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=2 class=button style='left:-30px'>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_prev" title="上一张幻灯片" style='position:relative;
+ left:0px'></div>
+ </div>
+ <span id="nav_text" style='position:relative;top:3px;width:100px;font-family:
+ 宋体;color:buttontext;font-size:9pt'></span>
+ <div id="nb_nextBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=3 class=button>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_next" title="下一张幻灯片" style='position:relative;
+ left:-90px'></div>
+ </div>
+ </td>
+</table>
+</div>
+
+<div id=OtlNavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
+
+<table style='position:relative;width:70px' align=left cellpadding=0 cellspacing=0>
+ <td nowrap><div title="显示/隐藏大纲" id="nb_otl" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=11
+ style='position:absolute;top:0%;left:0%;width:100%;height:100%;cursor:default'>
+ <div id="nb_otlElem" align=center style='position:relative;padding:3px;font-family:宋体;
+ color:buttontext;font-size:9pt'>大纲</div></div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td>
+ <div style='position:absolute;left:-18px;width:24px;height:20px;border-style:
+ solid;border-width:1px;border-color:threedface' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=12 id="nb_otlTxtBorder">
+ <div style='position:absolute;clip:rect(0px, 22px, 18px, 0px)'><img
+ src=buttons.gif id="nb_otlTxt" title="展开/折叠大纲"
+ style='position:relative;left:-157px'></div>
+ </div>
+ </td>
+</table>
+
+</div>
+
+<div id=OtlObj style='display:none;visibility:hidden;'>
+
+
+<table width="100%" style='font-family:宋体;font-size:9pt'>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>1</font></div>
+  </td>
+  <td width="100%">
+  <div id=PPTP1 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0003.htm');" id=PPTL1><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>2</font></div>
+  </td>
+  <td>
+  <div id=PPTP2 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0006.htm');" id=PPTL2>学习目的</a></font></div>
+  <div id=PPTC2 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>学习结束时学会：</li>
+   <br>
+   <br>
+   <li>明确急性冠脉综合征定义</li>
+   <li>使用缺血性心痛规范</li>
+   <li>对缺血性心痛病人用药时认识为什么使用？什么时间使用？什么剂量？注意什么？</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>3</font></div>
+  </td>
+  <td>
+  <div id=PPTP3 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0052.htm');" id=PPTL3>学习目的</a></font></div>
+  <div id=PPTC3 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>学习结束时学会：</li>
+   <li></li>
+   <li>认识ST段变化</li>
+   <li>怎么测量ST升高和降低</li>
+   <li>知道心肌梗死、损伤和缺血区的解剖定位</li>
+   <li>知道怎么对危重病人应用心电图意义</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>4</font></div>
+  </td>
+  <td>
+  <div id=PPTP4 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0007.htm');" id=PPTL4>病例1</a></font></div>
+  <div id=PPTC4 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>1个55岁老人诉说胸骨下疼痛，放射到左臂和下颌，恶心、有频死感、大汗淋漓</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>5</font></div>
+  </td>
+  <td>
+  <div id=PPTP5 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0008.htm');" id=PPTL5>缺血性胸痛规范</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>6</font></div>
+  </td>
+  <td>
+  <div id=PPTP6 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0009.htm');" id=PPTL6>立即判断的项目（小于10分钟）</a></font></div>
+  <div id=PPTC6 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>用自动血压计或袖带血压计测生命体征</li>
+   <li>血氧饱和度</li>
+   <li>建立静脉通道</li>
+   <li>12导联心电图</li>
+   <li>针对能否溶栓简要问病史和做体验，使用表格（YES-N0）</li>
+   <li>抽血做心肌酶标测定</li>
+   <li>抽血做电解质和凝血测定</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>7</font></div>
+  </td>
+  <td>
+  <div id=PPTP7 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0010.htm');" id=PPTL7>立即常规治疗</a></font></div>
+  <div id=PPTC7 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>吸氧4L/min</li>
+   <li>阿斯匹林160~325mg</li>
+   <li>硝酸甘油片舌下或雾化吸入</li>
+   <li>吗啡静脉注射（当硝酸甘油不能缓解疼痛时使用）</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>8</font></div>
+  </td>
+  <td>
+  <div id=PPTP8 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0011.htm');" id=PPTL8>ACLS时的药物使用</a></font></div>
+  <div id=PPTC8 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>为什么使用（作用）</li>
+   <li>什么时间使用（适应征）</li>
+   <li>如何使用（剂量）</li>
+   <li>注意点（预防）</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>9</font></div>
+  </td>
+  <td>
+  <div id=PPTP9 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0012.htm');" id=PPTL9>急性冠状动脉综合征的氧气治疗</a></font></div>
+  <div id=PPTC9 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>为什么？</li>
+   <li>对缺血组织增加供氧</li>
+   <li>什么时间？</li>
+   <li>当怀疑急性心肌梗死时</li>
+   <li>怎么样？</li>
+   <li>开始用4 L/min鼻导管吸氧</li>
+   <li>记住：供氧—开通静脉通道—监护</li>
+   <li>注意！</li>
+   <li>小部分慢性阻塞性肺病患者必须低流量给氧</li>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>10</font></div>
+  </td>
+  <td>
+  <div id=PPTP10 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0013.htm');" id=PPTL10>硝酸甘油作用</a></font></div>
+  <div id=PPTC10 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>减轻缺血性疼痛</li>
+   <li>扩张静脉</li>
+   <li>减少静脉回心血量</li>
+   <li>减轻前负荷和心肌氧耗量</li>
+   <li>扩张冠状动脉</li>
+   <li>增加侧支血流</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>11</font></div>
+  </td>
+  <td>
+  <div id=PPTP11 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0014.htm');" id=PPTL11>硝酸甘油适应症</a></font></div>
+  <div id=PPTC11 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>例1：有ST段增高或降低的病人头24至48小时包括以下情况</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>左心衰（急性肺水肿或充血性心衰）</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>血压升高（特别是有左心衰体征）</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>大面积前壁心梗</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>持续缺血</li>
+   <li>可疑缺血性胸痛</li>
+   <li>不稳定心绞痛</li>
+   <li>急性肺水肿（如果收缩压大于90 mm Hg ）</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>12</font></div>
+  </td>
+  <td>
+  <div id=PPTP12 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0015.htm');" id=PPTL12>硝酸甘油剂量</a></font></div>
+  <div id=PPTC12 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <br>
+   <li>舌下含服0.3 to 0.4 mg每5分钟重复1次</li>
+   <li>每5分钟内喷雾吸入2个剂量</li>
+   <li>静脉输入12.5 to 25 mg （ bolus ），10 to 20 mg /min</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>13</font></div>
+  </td>
+  <td>
+  <div id=PPTP13 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0016.htm');" id=PPTL13>硝酸甘油注意点</a></font></div>
+  <div id=PPTC13 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <br>
+   <li>如果收缩压&lt;90 mm Hg使用要极端小心</li>
+   <li>伴有下壁ST变化的右心室梗死的要极端小心</li>
+   <li>正常血压病人血压下降10%</li>
+   <li>高血压病人血压下降30%</li>
+   <li>头痛、血压下降、晕厥、心动过速者</li>
+   <li>给药时病人坐下或躺下</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>14</font></div>
+  </td>
+  <td>
+  <div id=PPTP14 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0017.htm');" id=PPTL14>硫酸吗啡的作用机制和适应症</a></font></div>
+  <div id=PPTC14 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>为什么使用？</li>
+   <ul>
+    <li>减轻缺血疼痛</li>
+    <li>减少焦虑</li>
+    <li>减少氧需求减少缺血范围</li>
+   </ul>
+   <li>什么时候（指证）？</li>
+   <ul>
+    <li>持续疼痛</li>
+    <li>有左心充血依据（急性左心衰）</li>
+    <li>收缩压&gt;90 mm Hg</li>
+    <li>无低血容量</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>15</font></div>
+  </td>
+  <td>
+  <div id=PPTP15 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0018.htm');" id=PPTL15>硫酸吗啡的剂量和注意点</a></font></div>
+  <div id=PPTC15 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>怎么用（剂量）？</li>
+   <ul>
+    <li>有效量为 2~ 4 mg</li>
+    <li>目的是减轻疼痛</li>
+   </ul>
+   <li>注意点</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>病人血压下降特别是伴有以下情况：</li>
+   <ul>
+    <ul>
+     <li>血容量不足</li>
+     <li>体循环阻力增加</li>
+     <li>右心室梗死</li>
+    </ul>
+    <li><span style='mso-spacerun:yes'>&nbsp;</span>通气减少</li>
+    <li><span style='mso-spacerun:yes'>&nbsp;</span>恶心和呕吐</li>
+    <li>心动过缓</li>
+    <br>
+    <br>
+    <ul>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <ul>
+      <br>
+     </ul>
+    </ul>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>16</font></div>
+  </td>
+  <td>
+  <div id=PPTP16 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0019.htm');" id=PPTL16>阿斯匹林作用机制</a></font></div>
+  <div id=PPTC16 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>为什么使用</li>
+   <ul>
+    <li>阻止血栓素 A<sub>2</sub> 形成，血栓素 A<sub>2</sub> 引起血小板凝聚和动脉收缩</li>
+   </ul>
+   <li>使用将减少</li>
+   <ul>
+    <li>心肌梗死总体死亡率</li>
+    <li>非致死性再梗死</li>
+    <li>非致死性中风</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>17</font></div>
+  </td>
+  <td>
+  <div id=PPTP17 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0020.htm');" id=PPTL17>阿斯匹林适应症、剂量和注意点</a></font></div>
+  <div id=PPTC17 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>何时使用：符合适应症的尽早使用</li>
+   <ul>
+    <li>常规治疗，用于疑有心梗伴有新产生疼痛的所有病人</li>
+    <li>到达的几分钟内给予</li>
+   </ul>
+   <li>剂量： 160- to 325-mg 一片，尽早使用</li>
+   <li>注意点：</li>
+   <ul>
+    <li>相对禁忌症：活动性消化溃疡或哮喘</li>
+    <li>已知对阿斯匹林高度敏感的病人为禁忌症</li>
+    <li>出血性疾病</li>
+    <li>严重肝脏疾病</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>18</font></div>
+  </td>
+  <td>
+  <div id=PPTP18 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0021.htm');" id=PPTL18>判断最初12导联心电图发现</a></font></div>
+  <div id=PPTC18 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <br>
+   <li>在到达10分钟内把急性胸痛病人分成上述3类</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>19</font></div>
+  </td>
+  <td>
+  <div id=PPTP19 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0038.htm');" id=PPTL19><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>20</font></div>
+  </td>
+  <td>
+  <div id=PPTP20 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0022.htm');" id=PPTL20>认识急性心梗</a></font></div>
+  <div id=PPTC20 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>知道怎么寻找—</li>
+   <ul>
+    <li>ST升高<sup>&gt;</sup>1 mm</li>
+    <li>三个相邻导联</li>
+   </ul>
+   <li>知道那里寻找</li>
+   <ul>
+    <li>参考2000心电图手册</li>
+   </ul>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>21</font></div>
+  </td>
+  <td>
+  <div id=PPTP21 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0023.htm');" id=PPTL21>怎么测量ST段升降</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>22</font></div>
+  </td>
+  <td>
+  <div id=PPTP22 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0024.htm');" id=PPTL22>在急性心梗和心绞痛中<br>
+    12导联心电图的变化</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>23</font></div>
+  </td>
+  <td>
+  <div id=PPTP23 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0025.htm');" id=PPTL23>心梗定位</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>24</font></div>
+  </td>
+  <td>
+  <div id=PPTP24 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0026.htm');" id=PPTL24>前壁、室间壁心梗</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>25</font></div>
+  </td>
+  <td>
+  <div id=PPTP25 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0027.htm');" id=PPTL25>B受体阻滞剂</a></font></div>
+  <div id=PPTC25 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>作用机制</li>
+   <ul>
+    <li>阻断儿茶酚胺与B受体结合</li>
+    <li>减少心率、血压、心肌收缩力</li>
+    <li>减少房室结传导</li>
+    <li>减少最初室颤发生</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>26</font></div>
+  </td>
+  <td>
+  <div id=PPTP26 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0028.htm');" id=PPTL26>B受体阻滞剂</a></font></div>
+  <div id=PPTC26 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>严重充血性心衰/肺水肿</li>
+   <li>收缩压 &lt;100 mm Hg</li>
+   <li>急性哮喘 (支气管痉挛)</li>
+   <li>2- 3度房室传导阻滞</li>
+   <li>轻、中度充血性心衰</li>
+   <li>心率&lt;60 次/分</li>
+   <li>有哮喘病史</li>
+   <li>胰岛素依赖性糖尿病</li>
+   <li>严重外周血管疾病</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>27</font></div>
+  </td>
+  <td>
+  <div id=PPTP27 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0029.htm');" id=PPTL27>肝素</a></font></div>
+  <div id=PPTC27 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>作用机制</li>
+   <ul>
+    <li>间接仰止凝血酶</li>
+   </ul>
+   <li>适应症</li>
+   <ul>
+    <li>经皮冠状血管介入治疗或者冠状动脉旁路移植术</li>
+    <li>与特殊纤维蛋白溶解酶合用</li>
+    <li>严重的全身栓塞可能如大面积前壁心梗、房颤、左室血栓</li>
+    <ul>
+     <br>
+     <br>
+    </ul>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>28</font></div>
+  </td>
+  <td>
+  <div id=PPTP28 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0030.htm');" id=PPTL28>血管紧张素转换酶抑制剂</a></font></div>
+  <div id=PPTC28 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>作用机制</li>
+   <ul>
+    <li>抑止血管紧张素转换酶减低血压</li>
+    <li>抑止组织中血管紧张素转换酶改变急性心梗后左室状况</li>
+    <li>以扩血管降低外周血管阻力</li>
+    <li>降低急性心梗引起的充血性心衰及其死亡率</li>
+   </ul>
+   <br>
+   <ul>
+    <ul>
+     <br>
+    </ul>
+    <br>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>29</font></div>
+  </td>
+  <td>
+  <div id=PPTP29 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0036.htm');" id=PPTL29>纤维蛋白溶解治疗</a></font></div>
+  <div id=PPTC29 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>打碎纤维蛋白凝聚块</li>
+   <li>适应症：在连续2个或以上导联上出现ST段升高&gt;1 mm ，或新出现左束支传导阻滞，或新出现遮蔽ST的束支传导阻滞</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>症状发生时间必须少于12小时</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>警惕：纤溶治疗可引起脑出血至死</li>
+   <li>各种药物在作用机制、准备使用的容易度、价格及对肝素的需要各不相同</li>
+   <li>:当前常用5类药物<span style='mso-spacerun:yes'>&nbsp; </span>tPA激活剂, 阿尼链菌酶,
+       reteplase (Retavase), 链激酶 (Streptase), tenecteplase (TNKase)</li>
+   <br>
+   <br>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>30</font></div>
+  </td>
+  <td>
+  <div id=PPTP30 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0037.htm');" id=PPTL30>抗血小板药物</a></font></div>
+  <div id=PPTC30 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>阻滞血小板上的糖蛋白IIb/IIIa受体</li>
+   <li>受体不能作用于纤维蛋白元</li>
+   <li>纤维蛋白元不能使血小板凝聚</li>
+   <li>适应症：</li>
+   <li><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>无ST段升高的ACS:</li>
+   <ul>
+    <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>无Q波心梗</li>
+    <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>药物治疗的不稳定心绞痛</li>
+    <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>经皮冠状动脉介入治疗后的不稳定心绞痛</li>
+   </ul>
+   <li>药物例如abciximab (ReoPro), eptifibitide (Integrilin), tirofiban (Aggrastat)</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>31</font></div>
+  </td>
+  <td>
+  <div id=PPTP31 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0033.htm');" id=PPTL31>经皮冠状动脉成形术</a></font></div>
+  <div id=PPTC31 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>直接治疗</li>
+   <li>梗死有关冠脉再灌注的机制</li>
+   <br>
+   <br>
+   <li>对急性心梗伴有心源性休克的病人疗效最好</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>32</font></div>
+  </td>
+  <td>
+  <div id=PPTP32 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0034.htm');" id=PPTL32>3种经皮冠状动脉介入治疗</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>33</font></div>
+  </td>
+  <td>
+  <div id=PPTP33 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0065.htm');" id=PPTL33><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>34</font></div>
+  </td>
+  <td>
+  <div id=PPTP34 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0053.htm');" id=PPTL34>这张12导联心电图显示什么?</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>35</font></div>
+  </td>
+  <td>
+  <div id=PPTP35 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0054.htm');" id=PPTL35><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>36</font></div>
+  </td>
+  <td>
+  <div id=PPTP36 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0055.htm');" id=PPTL36><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>37</font></div>
+  </td>
+  <td>
+  <div id=PPTP37 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0056.htm');" id=PPTL37><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>38</font></div>
+  </td>
+  <td>
+  <div id=PPTP38 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0057.htm');" id=PPTL38><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>39</font></div>
+  </td>
+  <td>
+  <div id=PPTP39 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0058.htm');" id=PPTL39><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>40</font></div>
+  </td>
+  <td>
+  <div id=PPTP40 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0059.htm');" id=PPTL40><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>41</font></div>
+  </td>
+  <td>
+  <div id=PPTP41 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0060.htm');" id=PPTL41><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>42</font></div>
+  </td>
+  <td>
+  <div id=PPTP42 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0061.htm');" id=PPTL42><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>43</font></div>
+  </td>
+  <td>
+  <div id=PPTP43 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0062.htm');" id=PPTL43><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>44</font></div>
+  </td>
+  <td>
+  <div id=PPTP44 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0063.htm');" id=PPTL44><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>45</font></div>
+  </td>
+  <td>
+  <div id=PPTP45 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0064.htm');" id=PPTL45><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+</table>
+
+
+
+</div>
+
+<div style='display:none'><a href=master03.htm></a><a href=master03.xml></a><a
+href=preview.wmf></a><a href="master03_image001.png"></a><a href=master02.htm></a><a
+href=pres.xml></a><a href=sound001.wav></a><a href=slide0003.htm></a><a
+href="slide0003_image002.jpg"></a><a href="slide0003_image003.gif"></a><a
+href=slide0006.htm></a><a href="master03_image004.jpg"></a><a
+href="master03_image005.gif"></a><a href="master03_image006.gif"></a><a
+href=slide0052.htm></a><a href=slide0007.htm></a><a href=slide0008.htm></a><a
+href="slide0008_image007.gif"></a><a href="slide0008_image008.gif"></a><a
+href=slide0009.htm></a><a href=slide0010.htm></a><a href=slide0011.htm></a><a
+href=slide0012.htm></a><a href=slide0013.htm></a><a href=slide0014.htm></a><a
+href=slide0015.htm></a><a href="slide0015_image009.wmz"></a><a
+href="slide0015_image010.gif"></a><a href=slide0016.htm></a><a
+href=slide0017.htm></a><a href=slide0018.htm></a><a
+href="slide0018_image011.wmz"></a><a href="slide0018_image012.gif"></a><a
+href=slide0019.htm></a><a href=slide0020.htm></a><a href=slide0021.htm></a><a
+href="slide0021_image013.gif"></a><a href=slide0038.htm></a><a
+href="slide0038_image014.jpg"></a><a href="slide0038_image015.jpg"></a><a
+href=slide0022.htm></a><a href="slide0022_image016.jpg"></a><a
+href="slide0022_image017.jpg"></a><a href="slide0022_image018.gif"></a><a
+href="slide0022_image019.gif"></a><a href="slide0022_image020.gif"></a><a
+href="slide0022_image021.gif"></a><a href="slide0022_image022.gif"></a><a
+href="slide0022_image023.gif"></a><a href=slide0023.htm></a><a
+href="slide0023_image024.jpg"></a><a href="slide0023_image025.jpg"></a><a
+href="slide0023_image026.gif"></a><a href="slide0023_image027.gif"></a><a
+href="slide0023_image028.gif"></a><a href="slide0023_image029.gif"></a><a
+href="slide0023_image030.gif"></a><a href="slide0023_image031.gif"></a><a
+href="slide0023_image032.gif"></a><a href=slide0024.htm></a><a
+href="slide0024_image033.gif"></a><a href="slide0024_image034.png"></a><a
+href="slide0024_image035.gif"></a><a href=slide0025.htm></a><a
+href=slide0025.xml></a><a href="slide0025_image036.gif"></a><a
+href="slide0025_image037.gif"></a><a href="slide0025_image038.gif"></a><a
+href="slide0025_image039.gif"></a><a href="slide0025_image040.gif"></a><a
+href="slide0025_image041.gif"></a><a href="slide0025_image042.gif"></a><a
+href="slide0025_image043.gif"></a><a href="slide0025_image044.gif"></a><a
+href="slide0025_image045.gif"></a><a href="slide0025_image046.gif"></a><a
+href="slide0025_image047.gif"></a><a href="slide0025_image048.gif"></a><a
+href="slide0025_image049.gif"></a><a href="slide0025_image050.gif"></a><a
+href="slide0025_image051.gif"></a><a href="slide0025_image052.gif"></a><a
+href="slide0025_image053.gif"></a><a href="slide0025_image054.gif"></a><a
+href="slide0025_image055.gif"></a><a href="slide0025_image056.gif"></a><a
+href="slide0025_image057.gif"></a><a href="slide0025_image058.gif"></a><a
+href="slide0025_image059.gif"></a><a href="slide0025_image060.gif"></a><a
+href="slide0025_image061.gif"></a><a href="slide0025_image062.gif"></a><a
+href="slide0025_image063.gif"></a><a href="slide0025_image064.gif"></a><a
+href="slide0025_image065.gif"></a><a href="slide0025_image066.gif"></a><a
+href="slide0025_image067.gif"></a><a href="slide0025_image068.gif"></a><a
+href="slide0025_image069.gif"></a><a href="slide0025_image070.gif"></a><a
+href="slide0025_image071.gif"></a><a href="slide0025_image072.gif"></a><a
+href="slide0025_image073.gif"></a><a href=slide0026.htm></a><a
+href="slide0026_image074.png"></a><a href="slide0026_image075.jpg"></a><a
+href=slide0027.htm></a><a href="slide0027_image076.wmz"></a><a
+href="slide0027_image077.gif"></a><a href=slide0028.htm></a><a
+href=slide0029.htm></a><a href=slide0030.htm></a><a
+href="slide0030_image078.wmz"></a><a href="slide0030_image079.gif"></a><a
+href=slide0036.htm></a><a href=slide0037.htm></a><a href=slide0033.htm></a><a
+href="slide0033_image080.jpg"></a><a href="slide0033_image081.gif"></a><a
+href=slide0034.htm></a><a href="slide0034_image082.gif"></a><a
+href=slide0065.htm></a><a href="slide0065_image083.wmz"></a><a
+href=oledata.mso></a><a href="slide0065_image084.gif"></a><a
+href=slide0053.htm></a><a href="slide0053_image085.jpg"></a><a
+href="slide0053_image086.gif"></a><a href=slide0054.htm></a><a
+href="slide0054_image087.jpg"></a><a href="slide0054_image088.gif"></a><a
+href=slide0055.htm></a><a href="slide0055_image089.jpg"></a><a
+href="slide0055_image090.gif"></a><a href=slide0056.htm></a><a
+href="slide0056_image091.jpg"></a><a href="slide0056_image092.gif"></a><a
+href=slide0057.htm></a><a href="slide0057_image093.jpg"></a><a
+href="slide0057_image094.gif"></a><a href=slide0058.htm></a><a
+href="slide0058_image095.jpg"></a><a href="slide0058_image096.gif"></a><a
+href=slide0059.htm></a><a href="slide0059_image097.jpg"></a><a
+href="slide0059_image098.gif"></a><a href=slide0060.htm></a><a
+href="slide0060_image099.jpg"></a><a href="slide0060_image100.gif"></a><a
+href=slide0061.htm></a><a href="slide0061_image101.jpg"></a><a
+href="slide0061_image102.gif"></a><a href=slide0062.htm></a><a
+href="slide0062_image103.jpg"></a><a href="slide0062_image104.gif"></a><a
+href=slide0063.htm></a><a href="slide0063_image105.jpg"></a><a
+href="slide0063_image106.gif"></a><a href=slide0064.htm></a><a
+href="slide0064_image107.jpg"></a><a href="slide0064_image108.gif"></a><a
+href=master01.htm></a><a href="master03_stylesheet.css"></a><a href=script.js></a><a
+href="../第六课.htm"></a><a href=fullscreen.htm></a><a href="notes_flag.gif"></a><a
+href=buttons.gif></a><a href=frame.htm></a><a href=outline.htm></a></div>
+
+</body>
+
+</html>

@@ -1,0 +1,1119 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 11">
+<link id=Main-File rel=Main-File href="../第十课.htm">
+<link rel=Preview href=preview.wmf>
+<meta name=Robots content=NoIndex>
+<script src=script.js></script><script><!--
+
+if( !(IsWin("PPTOtl")||IsWin("PPTNav")||IsWin("PPTOtlNav")) )
+{
+	obj = GetObj("Main-File")
+	parent.location.href=obj.href
+}
+
+var gOtlHiliteClr="#ffffff",gOtlNormalClr="#000000",gOtlActiveClr="#ffff00",gSelected="",gTxtState=false,gChildEntryTable=new Array()
+
+function Load()
+{
+	if( IsWin("PPTOtl" ) ){ LoadOtl(); parent.gOtlLoaded=true; return }
+	if( g_supportsPPTHTML ) {
+		if( IsWin("PPTNav" ) ){ LoadNav("NavObj",UpdNav); parent.gNavLoaded=true; return }
+		if( IsWin("PPTOtlNav" ) ){ LoadNav("OtlNavObj",UpdOtlNav); parent.gOtlNavLoaded=true; return }
+	}
+}
+function Upd(){ if( IsWin("PPTNav") ) LoadNav("NavObj",UpdNav) }
+function LoadNav( oId,UpdFunc )
+{
+	document.ondragstart=CancelDrag
+	document.onselectstart=CancelDrag
+	document.body.style.margin=2
+	UpdFunc()
+	obj=document.all.item(oId)
+	obj.style.display="block"
+	obj.style.visibility="visible"
+	document.bgColor="threedface"
+
+	if( parent.frames["PPTNts"] )
+		notesBtn.style.display = ""
+	if( parent.gHasNarration )
+		nb_voiceBorder.style.display = ""
+}
+function LoadOtl()
+{
+	var otl=GetObj("OtlObj")
+	otl.style.display="block"
+	otl.style.visibility="visible"
+	if( gOtlActiveClr == "" ) gOtlActiveClr=document.linkColor
+	if( gOtlHiliteClr == "" ) gOtlHiliteClr=document.fgColor
+	if( gOtlNormalClr == "" )
+		gOtlNormalClr=document.bgColor
+	else
+		document.bgColor=gOtlNormalClr  
+
+	InitArray()
+
+	if( ObjExists( parent.gCurSld ) ) {
+		ChangeState( parent.gCurSld,gOtlNormalClr,gOtlHiliteClr )
+		gSelected=parent.gCurSld
+	}
+	else gSelected = -1
+
+	UpdOtl()
+}
+function UpdOtl(){ UpdIdx(parent.gCurSld) }
+function UpdIdx( idx )
+{
+	if( gSelected != idx ) {
+		if( gSelected > 0 )
+			ChangeState( gSelected,gOtlHiliteClr,gOtlNormalClr )
+
+		if( ObjExists( idx ) ) {
+			gSelected = idx
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+		}
+		else gSelected = -1
+	}
+
+	if( gTxtState != parent.gOtlTxtExp ) {
+		state = "block"
+		if( !parent.gOtlTxtExp )
+			state="none"
+
+		for(ii=0; ii<gChildEntryTable.length; ii++) {
+			obj=gChildEntryTable[ii];
+			if( obj.id == null ) continue;
+
+			if( obj.id.indexOf("PPTC") >= 0 )
+				obj.style.display=state;
+		} 
+		gTxtState=parent.gOtlTxtExp
+		if( ObjExists( gSelected ) )
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+	}
+}
+function InitArray()
+{
+	count=0
+	var list=GetTags(document,"DIV");
+	for(ii=0; ii<list.length; ii++) {
+		obj=list.item(ii)
+		if( obj.id == null ) continue
+
+		if( obj.id.indexOf("PPTC") >= 0 )  
+			gChildEntryTable[count++]=obj
+	}
+}
+function ChangeState( idx,fgColor,bgColor )
+{
+	obj=GetObj("PPTL"+idx)
+	obj.style.color=fgColor
+
+	obj=GetObj("PPTP"+idx)
+	obj.style.backgroundColor=bgColor
+}
+function ChgClr( o,clr ){ if( o.id != "PPTL"+gSelected ) o.style.color=clr }
+function Over( src ){ ChgClr(GetLink(src),gOtlActiveClr) }
+function Out( src ){ ChgClr(GetLink(src),gOtlHiliteClr) }
+function Follow(src){ window.location.href = GetLink(src).href; }
+function ObjExists( ii ) { obj=GetObj("PPTP"+ii ); return( obj ) }
+function GoToSld( href ){ UpdIdx(parent.GetSldNum(href)); parent.GoToSld( href ) }
+function CancelDrag(){ window.event.cancelBubble=true;window.event.returnValue=false}
+function GetLink(src)
+{
+   if(src.tagName=="A") return src
+   else return GetTags(src,"A").item(0)
+}
+
+function UpdNav()
+{
+	txt = "<center>";
+	if( parent.GetHrefObj( parent.gCurSld ).mOrigVis == 1 )
+		txt += "幻灯片" + parent.GetCurSldNum() + " /" + parent.GetNumSlds()
+	else
+		txt += "隐藏幻灯片"
+	txt += "</center>";
+	nav_text.innerHTML = txt;
+
+	if( !parent.HasPrevSld() )
+		gBtnArr["nb_prev"].Enabled(0)
+	else
+		gBtnArr["nb_prev"].Enabled(1)
+
+	if( !parent.HasNextSld() )
+		gBtnArr["nb_next"].Enabled(0)
+	else
+		gBtnArr["nb_next"].Enabled(1)
+	gBtnArr["nb_nts"].Enabled(1)
+	gBtnArr["nb_ntsBorder"].SetFlag( parent.gHasNts )
+
+	gBtnArr["nb_sldshw"].Enabled(1)
+	gBtnArr["nb_voice"].Enabled(1)
+}
+
+function ExecBtn()
+{
+	if (event.keyCode == 13)
+	{
+		BtnOnDown();
+		BtnOnUp();
+	}
+}
+function UpdOtlNav()
+{
+	gBtnArr["nb_otl"].SetEnabled();
+
+	if( parent.gOtlOpen )
+		gBtnArr["nb_otlTxt"].Enabled( true );
+	else
+		document.all.item("nb_otlTxtBorder").style.visibility = "hidden";
+}
+
+
+
+
+//--></script>
+<style>
+<!--.PTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;
+	padding-left:2px;
+	font-weight:bold;}
+.CTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;}
+a
+	{color:white;
+	text-decoration:none;}
+ul
+	{color:white;
+	margin-bottom:0px;
+	margin-left:20px;}
+.sldNum
+	{margin-top:5px;
+	color:white;}
+.button
+	{position:absolute;
+	width:32px;
+	height:20px;
+	border-style:solid;
+	border-width:1px;
+	border-color:threedface;}
+-->
+</style>
+</head>
+
+<body onload="Load()" style='margin:2px'>
+
+<div id=NavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
+<table id="notesBtn" style='display:none;position:relative;width:55px' align=left cellpadding=0
+ cellspacing=0>
+ <td nowrap>
+ <div id="nb_ntsElem" title="显示/隐藏备注" align=center style='position:relative;margin-left:5px;margin-right:5px;padding:3px;
+ font-family:宋体;color:buttontext;font-size:9pt; cursor:default'>
+ <img src="notes_flag.gif" id="nb_nts" style='display:none'> &nbsp;备注</div>
+ <div id="nb_ntsBorder" title ="显示/隐藏备注" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=1 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+
+ </div>
+ </td>
+</table>
+
+
+<table style='position:relative;width:70px' align=right cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_sldshwText" title="全屏幻灯片放映" align=center style='position:relative;margin-left:20px;padding:3px;
+ font-family:宋体;color:buttontext;font-size:9pt;cursor:default'>幻灯片放映</div>
+ <div id="nb_sldshwBorder" title="全屏幻灯片放映" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=5 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_sldshw" style='position:relative;left:-254px'></div>
+ </div>
+ </td>
+ <td>
+ <div id="nb_voiceBorder" style='display:none;position:absolute;top:0;left:-40px;
+ width:20px;height:20px' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=4 class=button>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_voice" title="播放/暂停旁白" style='position:
+ relative;left:-290px'></div>
+ </div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_prevBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=2 class=button style='left:-30px'>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_prev" title="上一张幻灯片" style='position:relative;
+ left:0px'></div>
+ </div>
+ <span id="nav_text" style='position:relative;top:3px;width:100px;font-family:
+ 宋体;color:buttontext;font-size:9pt'></span>
+ <div id="nb_nextBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=3 class=button>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_next" title="下一张幻灯片" style='position:relative;
+ left:-90px'></div>
+ </div>
+ </td>
+</table>
+</div>
+
+<div id=OtlNavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
+
+<table style='position:relative;width:70px' align=left cellpadding=0 cellspacing=0>
+ <td nowrap><div title="显示/隐藏大纲" id="nb_otl" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=11
+ style='position:absolute;top:0%;left:0%;width:100%;height:100%;cursor:default'>
+ <div id="nb_otlElem" align=center style='position:relative;padding:3px;font-family:宋体;
+ color:buttontext;font-size:9pt'>大纲</div></div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td>
+ <div style='position:absolute;left:-18px;width:24px;height:20px;border-style:
+ solid;border-width:1px;border-color:threedface' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=12 id="nb_otlTxtBorder">
+ <div style='position:absolute;clip:rect(0px, 22px, 18px, 0px)'><img
+ src=buttons.gif id="nb_otlTxt" title="展开/折叠大纲"
+ style='position:relative;left:-157px'></div>
+ </div>
+ </td>
+</table>
+
+</div>
+
+<div id=OtlObj style='display:none;visibility:hidden;'>
+
+
+<table width="100%" style='font-family:宋体;font-size:9pt'>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>1</font></div>
+  </td>
+  <td width="100%">
+  <div id=PPTP1 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0048.htm');" id=PPTL1><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>2</font></div>
+  </td>
+  <td>
+  <div id=PPTP2 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0100.htm');" id=PPTL2>病例10:急性缺血性中风</a></font></div>
+  <div id=PPTC2 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>学习目的</li>
+   <li>通过学习能够</li>
+   <li>认识中风的症状和体征</li>
+   <li>讨论院前急救的原则和急诊治疗</li>
+   <li>了解选择合适的严重缺血性中风病人进行溶栓治疗的可能性</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>3</font></div>
+  </td>
+  <td>
+  <div id=PPTP3 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0101.htm');" id=PPTL3>第一阶段：院前</a></font></div>
+  <div id=PPTC3 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>学习目的：</li>
+   <li>认识中风的症状和体征</li>
+   <li>既可以参考Cincinnati院前中风评分标准，也可以参考Los Angeles 院前中风筛选标准</li>
+   <li>认识快速转送到急诊室的重要性</li>
+   <li>认识在到达之前通知急诊室的重要性</li>
+   <li>知道缺血性中风和出血性中风的区别</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>4</font></div>
+  </td>
+  <td>
+  <div id=PPTP4 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0102.htm');" id=PPTL4>一个妇女倒在地上…</a></font></div>
+  <div id=PPTC4 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>病例介绍 ：</li>
+   <li>6:30PM你和另一位急救员接到通知，有一位妇女在商店发生晕厥</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>6:35PM
+       你到达现场看见一位妇女坐在椅子上，她神志模糊，但是能用语言应答</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>5</font></div>
+  </td>
+  <td>
+  <div id=PPTP5 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0103.htm');" id=PPTL5>建立鉴别诊断</a></font></div>
+  <div id=PPTC5 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>最初的生命体征，临床症状和病史 ：</li>
+   <li>通畅气道，周围空气流通</li>
+   <li>正常的心率，心律规则，正常的心脏灌注</li>
+   <li>没有缺血性胸痛</li>
+   <li>说话口齿不清</li>
+   <li>主诉右侧肢体麻木，无力</li>
+   <li>有高血压史，血压控制差</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>6</font></div>
+  </td>
+  <td>
+  <div id=PPTP6 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0104.htm');" id=PPTL6>导致晕厥和神经缺损的病因</a></font></div>
+  <div id=PPTC6 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>出血性中风</li>
+   <li>缺血性中风</li>
+   <li>颅脑/颈部外伤</li>
+   <li>高血压脑病</li>
+   <li>颅内肿块</li>
+   <li>脑膜炎/脑炎</li>
+   <li>癫痫发作</li>
+   <li>偏头痛</li>
+   <li>代谢情况（包括低血糖，高血糖，药物过量）</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>7</font></div>
+  </td>
+  <td>
+  <div id=PPTP7 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0105.htm');" id=PPTL7>病情发展</a></font></div>
+  <div id=PPTC7 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>妇女的女儿回答：</li>
+   <li>在商店里母亲感觉很好</li>
+   <li>突然她的手臂感觉异样</li>
+   <li>她突然瘫倒在地上</li>
+   <li>没有丧失意识，没有头部外伤</li>
+   <li>从不说头痛</li>
+   <li>没有急性体征，无癫痫、糖尿病、心脏病和心悸史</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>8</font></div>
+  </td>
+  <td>
+  <div id=PPTP8 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0106.htm');" id=PPTL8>Cincinnati 院前中风评分标准</a></font></div>
+  <div id=PPTC8 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>3个特点：</li>
+   <li>面瘫（要求病人露齿或笑）</li>
+   <li>手臂变化（要求病人伸臂，手掌下垂，眼睛闭合）</li>
+   <li>说话（让病人说话）</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>9</font></div>
+  </td>
+  <td>
+  <div id=PPTP9 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0107.htm');" id=PPTL9>面瘫</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>10</font></div>
+  </td>
+  <td>
+  <div id=PPTP10 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0108.htm');" id=PPTL10>手臂变化</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>11</font></div>
+  </td>
+  <td>
+  <div id=PPTP11 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0109.htm');" id=PPTL11>急性中风治疗规范</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>12</font></div>
+  </td>
+  <td>
+  <div id=PPTP12 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0110.htm');" id=PPTL12>病情继续</a></font></div>
+  <div id=PPTC12 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>在商店里检查：</li>
+   <li>病人右侧面瘫</li>
+   <li>右侧手臂无力</li>
+   <li>口齿不清</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>13</font></div>
+  </td>
+  <td>
+  <div id=PPTP13 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0111.htm');" id=PPTL13>病情继续</a></font></div>
+  <div id=PPTC13 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>女儿的回答 ：</li>
+   <li>母亲的病症在呼救之前发展很快</li>
+   <li>她不能确定发病时间，但尽量回忆起</li>
+   <ul>
+    <li>她和她的母亲走过一家电器商店</li>
+    <li>她的母亲停下来看当地电视天气预报节目，天气预报总在6:20pm播放</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>14</font></div>
+  </td>
+  <td>
+  <div id=PPTP14 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0112.htm');" id=PPTL14>对院前中风病人采取的关键措施</a></font></div>
+  <div id=PPTC14 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>院前的关键措施：</li>
+   <li>估计和维护心肺功能</li>
+   <li>分析和维持血糖</li>
+   <li>评估和维护供氧和通气</li>
+   <li>分析神经系统功能</li>
+   <li>明确症状开始时间</li>
+   <li>确定必要的医疗信息</li>
+   <li>快速送到急诊室</li>
+   <li>通知急诊室</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>15</font></div>
+  </td>
+  <td>
+  <div id=PPTP15 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0113.htm');" id=PPTL15>病情继续</a></font></div>
+  <div id=PPTC15 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>6:45PM<span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>EMS联系急诊室</li>
+   <li>63岁的妇女突然在商店里晕厥</li>
+   <li>可能是中风：右侧面瘫，右侧手臂无力，口齿不清</li>
+   <li>生命体征：BP：198/120mmHg，气道通畅</li>
+   <li>将信息通知急诊室的医生和护士</li>
+   <li>急诊室医生通知CT，神经科医生</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>7:00PM<span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>EMS到达急诊室</li>
+   <li>护士等在门口，病人被安排在重症治疗室</li>
+   <li>护士通知溶栓治疗的医生</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>16</font></div>
+  </td>
+  <td>
+  <div id=PPTP16 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0114.htm');" id=PPTL16>第二阶段：急诊室</a></font></div>
+  <div id=PPTC16 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>学习目的</li>
+   <li>通过这段学习将要讨论：</li>
+   <li>对中风病人快速分类和尽早CT检查</li>
+   <li>使用NIHSS标准</li>
+   <li>在中风病人中确定高血压病治疗</li>
+   <li>出血性中风和缺血性中风的临床区别</li>
+   <li>出血性中风和缺血性中风的不同治疗方法</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>17</font></div>
+  </td>
+  <td>
+  <div id=PPTP17 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0115.htm');" id=PPTL17>中风病人的评估标准，有可能溶栓治疗</a></font></div>
+  <div id=PPTC17 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>现场→医生第一次见到病人 ………………………	10	分钟</li>
+   <li>现场→CT结束…….………………………………...	25	分钟</li>
+   <li>现场→CT报告 	...…………..………………………	45	分钟</li>
+   <li>现场→溶栓治疗开始 ……………………….…….. 	60	分钟</li>
+   <li>神经科医生检查* …..……………………….………	15	分钟</li>
+   <li>神经外科医生检查* ………………………….……..	 2	小时</li>
+   <li>允许床旁监护..……...………………………………	 3	小时</li>
+   <li></li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>18</font></div>
+  </td>
+  <td>
+  <div id=PPTP18 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0116.htm');" id=PPTL18>迅速全身评估</a></font></div>
+  <div id=PPTC18 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>在前10分钟：</li>
+   <li>判断ABC，生命体征</li>
+   <li>常规鼻导管吸氧</li>
+   <li>开通静脉，抽取血样本</li>
+   <li>12导联心电图，检查心率，监护</li>
+   <li>检查血糖</li>
+   <li>通知中风医疗组会诊：神经科，放射科，CT室</li>
+   <li>常规神经系统检查</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>19</font></div>
+  </td>
+  <td>
+  <div id=PPTP19 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0117.htm');" id=PPTL19>迅速神经系统评估</a></font></div>
+  <div id=PPTC19 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>在前25分钟：</li>
+   <li>询问病人过去史</li>
+   <li>首先出现的症状，溶栓治疗要求〈3小时</li>
+   <li>进行体格检查</li>
+   <ul>
+    <li>神经科检查</li>
+    <li>确定意识情况</li>
+    <li>确定中风严重程度</li>
+   </ul>
+   <li>要求紧急CT检查，现场→CT检查在25分钟内</li>
+   <li>读CT报告在45分钟内</li>
+   <li>完成颈椎侧位X线检查（如果病人有昏迷/外伤史）</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>20</font></div>
+  </td>
+  <td>
+  <div id=PPTP20 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0118.htm');" id=PPTL20>病情继续</a></font></div>
+  <div id=PPTC20 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>病人被送到CT室，复查BP :</li>
+   <ul>
+    <li>现场血压：198/120mmHg</li>
+    <li>到急诊室血压：190/110 mmHg</li>
+    <li>CT检查时血压：190/100 mmHg</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>21</font></div>
+  </td>
+  <td>
+  <div id=PPTP21 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0119.htm');" id=PPTL21>急性中风病人抗高血压治疗指征</a></font></div>
+  <div id=PPTC21 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>一般情况:</li>
+   <li>观察血压变化，如果血压〉185/〉110mmHg是溶栓治疗的禁忌症</li>
+   <li>考虑:除了血压因素，病人是否能接受溶栓治疗?</li>
+   <ul>
+    <li>如果病人能接受溶栓治疗: 先治疗最初的高血压 <br>
+                BP &gt;185/&gt;110 mm Hg</li>
+   </ul>
+   <li>在急诊室里开始降低血压，如果治疗使血压〈185/110 mmHg，可以溶栓</li>
+   <li>出血性中风和缺血性中风 ?</li>
+   <ul>
+    <li>血压在180—230 mmHg/110—140mmHg分类治疗</li>
+    <li>建议出血性中风不溶栓治疗</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>22</font></div>
+  </td>
+  <td>
+  <div id=PPTP22 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0120.htm');" id=PPTL22>严重中风病人治疗高血压</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>23</font></div>
+  </td>
+  <td>
+  <div id=PPTP23 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0121.htm');" id=PPTL23>病情继续</a></font></div>
+  <div id=PPTC23 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>7：40PM<span style='mso-spacerun:yes'>&nbsp;
+       </span>（离开急性症状开始1小时20分钟）<span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>病人从CT室返回</li>
+   <li>护士：血压190/115mmHg，在溶栓前要治疗高血压 .</li>
+   <li>2000ECC手册，血压》185/100mmHg :使用拉贝洛尔或硝酸盐</li>
+   <li>拉贝洛尔10 mg IV (10分钟后重复)</li>
+   <li>血压175/100mmHg</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>24</font></div>
+  </td>
+  <td>
+  <div id=PPTP24 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0122.htm');" id=PPTL24>CT图像显示何种病理改变</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>25</font></div>
+  </td>
+  <td>
+  <div id=PPTP25 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0123.htm');" id=PPTL25>CT图像显示何种病理改变</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>26</font></div>
+  </td>
+  <td>
+  <div id=PPTP26 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0124.htm');" id=PPTL26>CT图像显示何种病理改变</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>27</font></div>
+  </td>
+  <td>
+  <div id=PPTP27 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0125.htm');" id=PPTL27>CT图像显示何种病理改变</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>28</font></div>
+  </td>
+  <td>
+  <div id=PPTP28 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0126.htm');" id=PPTL28>CT图像显示何种病理改变</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>29</font></div>
+  </td>
+  <td>
+  <div id=PPTP29 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0127.htm');" id=PPTL29>CT图像显示何种病理改变</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>30</font></div>
+  </td>
+  <td>
+  <div id=PPTP30 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0128.htm');" id=PPTL30>第三阶段：溶栓治疗</a></font></div>
+  <div id=PPTC30 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>学习目的</li>
+   <li>通过第三阶段学习：</li>
+   <li>讨论急性中风病人溶栓治疗的指征和禁忌症</li>
+   <li>讨论急性缺血性中风病人溶栓治疗的利弊</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>31</font></div>
+  </td>
+  <td>
+  <div id=PPTP31 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0129.htm');" id=PPTL31>溶栓治疗 <br>
+    Yes/No 检验表</a></font></div>
+  <div id=PPTC31 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>包括原则</li>
+   <li>(在溶栓治疗前，所有 “Yes”框都必须核对过)</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>Yes</li>
+   <li>	<font face="Monotype Sorts">o</font><font face=华文新魏>	A：年龄≥18岁</font></li>
+   <li>	<font face="Monotype Sorts">o</font><font face=华文新魏>	B：临床缺血性中风引起神经系统损伤</font></li>
+   <li>	<font face="Monotype Sorts">o</font><font face=华文新魏>	C：在溶栓治疗前，症状开始到完成检查〈180分钟</font></li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>32</font></div>
+  </td>
+  <td>
+  <div id=PPTP32 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0130.htm');" id=PPTL32>溶栓治疗 <br>
+    Yes/No 检验表</a></font></div>
+  <div id=PPTC32 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>排除原则</li>
+   <li>(在被溶栓前必须所有的检查，回答是“不是” ):</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span><span
+       style='mso-spacerun:yes'>&nbsp;</span><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp; </span>No</li>
+   <li>	 A：头颅CT显示颅内出血</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>B：只有在未成年人或中风症状发展很快</li>
+   <li>	 C：即使CT正常，高度怀疑蛛网膜下腔出血</li>
+   <li>	 D：活动性出血（在21天内有消化道或泌尿道出血）</li>
+   <li>	 E：实质性出血</li>
+   <li>		— 血小板计数〈1000000mm<sup>3</sup></li>
+   <li>		— 病人在48小时内接受肝素治疗，已有PTT延长</li>
+   <li>		— 最近应用抗凝血药，已有PT延长</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>33</font></div>
+  </td>
+  <td>
+  <div id=PPTP33 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0131.htm');" id=PPTL33>溶栓治疗 <br>
+    Yes/No 检验表</a></font></div>
+  <div id=PPTC33 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>排除原则</li>
+   <li>(在被溶栓前必须所有的检查，回答是“不是” ):</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span><span
+       style='mso-spacerun:yes'>&nbsp;</span><span
+       style='mso-spacerun:yes'>&nbsp;&nbsp; </span>No</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>	F<span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>少于3个月，外科颅脑手术，头部外伤，早期中风</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>	G<span
+       style='mso-spacerun:yes'>&nbsp; </span>〈14天，外科手术或严重的外伤</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>	H<span
+       style='mso-spacerun:yes'>&nbsp; </span>〈7天，做过腰穿</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>	I<span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>最近动脉穿刺</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>	J<span
+       style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>有脑出血史，动静脉奇形或动脉瘤</li>
+   <li>	K<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>证明在中风前有癫痫</li>
+   <li>	L<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>最近有严重的心肌梗塞</li>
+   <li>	M<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;
+       </span>多次证实SBP〉185mmHg /DBP&gt;110mmHg</li>
+   <li>	N<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;
+       </span>血压经治疗后被控制在上述范围内</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>34</font></div>
+  </td>
+  <td>
+  <div id=PPTP34 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0132.htm');" id=PPTL34>病情继续</a></font></div>
+  <div id=PPTC34 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>7:50PM （离开急性症状开始1小时30分钟）</li>
+   <li><span style='mso-spacerun:yes'>&nbsp; </span>CT报告显示“正常”，可能是严重的缺血性中风</li>
+   <li>寻找CT证据</li>
+   <li>反复神经系统检查</li>
+   <li>病人是否有溶栓的禁忌症</li>
+   <li>注意时间：症状到现在〉3小时</li>
+   <li>确定治疗方案，分析利弊关系</li>
+   <li>与病人及家属协商</li>
+   <ul>
+    <li>30%的可能改善症状，没有残疾</li>
+    <li>增加颅内出血 (0.6% to 6.4%)</li>
+    <li>死亡率没有增加</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>35</font></div>
+  </td>
+  <td>
+  <div id=PPTP35 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0133.htm');" id=PPTL35><br>
+    中风病人的一般治疗1</a></font></div>
+  <div id=PPTC35 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>持续保持正常血压（平均动脉压在90—100mmHg）</li>
+   <li>根据需要补液和给血管活性药</li>
+   <li>保持适当的通气（动脉血PCO<sub>2</sub>在30—35mmHg）</li>
+   <li>保持适当的氧浓度（动脉血PO<sub>2</sub>在≥100mmHg）</li>
+   <li>尽可能的用最低的PEEP方法</li>
+   <li>保持动脉血pH在7.3—7.5</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>根据需要固定头部</li>
+   <li>根据需要服用镇静剂（吗啡，安定）</li>
+   <li>抗惊撅药物（安定，苯妥英钠，巴比妥类）</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>36</font></div>
+  </td>
+  <td>
+  <div id=PPTP36 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0134.htm');" id=PPTL36><br>
+    中风病人的一般治疗2</a></font></div>
+  <div id=PPTC36 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>纠正不正常的血液（血糖、胶渗压等）</li>
+   <li>如果血糖过低，给予葡萄糖</li>
+   <li>如果血糖过高，给予胰岛素</li>
+   <li>如果营养不良或酒精中毒，给予 硫胺维生素B1</li>
+   <li>根据需要调节渗透压</li>
+   <ul>
+    <li><span style='mso-spacerun:yes'>&nbsp;</span>监护显示颅内压升高</li>
+    <li><span style='mso-spacerun:yes'>&nbsp;</span>继发神经系统恶化</li>
+   </ul>
+   <li>避免低渗透性液体，避免过量补液</li>
+   <li>保持正常体温 (“允许”低体温，“治疗”高体温)</li>
+   <li>48小时内保持营养补充</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>37</font></div>
+  </td>
+  <td>
+  <div id=PPTP37 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0135.htm');" id=PPTL37>危重病情变化: <br>
+    出血性中风和病情恶化</a></font></div>
+  <div id=PPTC37 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>7：40PM（离开急性症状开始1小时20分钟）</li>
+   <li>病人CT后返回急诊室</li>
+   <li>她昏睡更加明显</li>
+   <li>呼吸变浅</li>
+   <li>看见呼吸困难</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>38</font></div>
+  </td>
+  <td>
+  <div id=PPTP38 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0136.htm');" id=PPTL38>病情继续 <br>
+    (危重变化)</a></font></div>
+  <div id=PPTC38 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>7：50PM<span style='mso-spacerun:yes'>&nbsp;&nbsp;
+       </span>（离开急性症状开始1小时30分钟）</li>
+   <li>CT显示左侧基底神经节出血</li>
+   <li>出血量约40毫升，伴有血肿</li>
+   <li>没有进入脑室</li>
+   <li>血压：220/115mmHg</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>39</font></div>
+  </td>
+  <td>
+  <div id=PPTP39 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0137.htm');" id=PPTL39>病情继续</a></font></div>
+  <div id=PPTC39 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>8：00PM（离开急性症状开始1小时40分钟）</li>
+   <li>开始治疗严重的出血</li>
+   <li>请神经外科会诊</li>
+   <li>停止使用抗凝剂</li>
+   <li>逆转不稳定的出血</li>
+   <li>监护神经系统情况</li>
+   <li>清醒后治疗高血压</li>
+   <li>低血压：拉贝洛尔或硝酸甘油贴片</li>
+   <br>
+   <br>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>40</font></div>
+  </td>
+  <td>
+  <div id=PPTP40 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0138.htm');" id=PPTL40>病例10: <br>
+    急性中风概要</a></font></div>
+  <div id=PPTC40 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>再灌注是一种新的溶栓治疗方法，已经彻底改变ACS病人的治疗，但还没有运用到急性中风病人。</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>在中风病人的抢救过程中，如果每个环节都能积极治疗，可以在最大限度上降低脑血管病对人体的损害。</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+</table>
+
+
+
+</div>
+
+<div style='display:none'><a href=master03.htm></a><a href=master03.xml></a><a
+href=preview.wmf></a><a href="master03_image001.png"></a><a href=master02.htm></a><a
+href=pres.xml></a><a href=slide0048.htm></a><a href="slide0048_image002.jpg"></a><a
+href="slide0048_image003.gif"></a><a href=slide0100.htm></a><a
+href="master03_image004.jpg"></a><a href="master03_image005.gif"></a><a
+href="master03_image006.gif"></a><a href=slide0101.htm></a><a
+href=slide0102.htm></a><a href=slide0103.htm></a><a href=slide0104.htm></a><a
+href=slide0105.htm></a><a href=slide0106.htm></a><a
+href="slide0106_image007.gif"></a><a href="slide0106_image008.gif"></a><a
+href="slide0106_image009.jpg"></a><a href="slide0106_image010.jpg"></a><a
+href="slide0106_image011.jpg"></a><a href="slide0106_image012.jpg"></a><a
+href="slide0106_image013.png"></a><a href=oledata.mso></a><a
+href="slide0106_image014.gif"></a><a href="slide0106_image015.gif"></a><a
+href=slide0107.htm></a><a href="slide0107_image016.gif"></a><a
+href="slide0107_image017.gif"></a><a href="slide0107_image018.gif"></a><a
+href=slide0108.htm></a><a href="slide0108_image019.gif"></a><a
+href="slide0108_image020.jpg"></a><a href=slide0109.htm></a><a
+href="slide0109_image021.gif"></a><a href="slide0109_image022.gif"></a><a
+href="slide0109_image023.gif"></a><a href="slide0109_image024.gif"></a><a
+href=slide0110.htm></a><a href=slide0111.htm></a><a href=slide0112.htm></a><a
+href=slide0113.htm></a><a href=slide0114.htm></a><a href=slide0115.htm></a><a
+href="slide0115_image025.gif"></a><a href="slide0115_image026.gif"></a><a
+href=slide0116.htm></a><a href=slide0117.htm></a><a href=slide0118.htm></a><a
+href=slide0119.htm></a><a href=slide0120.htm></a><a
+href="slide0120_image027.gif"></a><a href="slide0120_image028.gif"></a><a
+href="slide0120_image029.gif"></a><a href="slide0120_image030.gif"></a><a
+href="slide0120_image031.gif"></a><a href="slide0120_image032.gif"></a><a
+href="slide0120_image033.gif"></a><a href="slide0120_image034.gif"></a><a
+href="slide0120_image035.gif"></a><a href="slide0120_image036.gif"></a><a
+href="slide0120_image037.gif"></a><a href="slide0120_image038.gif"></a><a
+href="slide0120_image039.gif"></a><a href="slide0120_image040.gif"></a><a
+href="slide0120_image041.gif"></a><a href=slide0121.htm></a><a
+href=slide0122.htm></a><a href="slide0122_image042.png"></a><a
+href="slide0122_image043.jpg"></a><a href=slide0123.htm></a><a
+href="slide0123_image044.jpg"></a><a href="slide0123_image045.gif"></a><a
+href=slide0124.htm></a><a href="slide0124_image046.png"></a><a
+href="slide0124_image047.gif"></a><a href=slide0125.htm></a><a
+href="slide0125_image048.gif"></a><a href="slide0125_image049.gif"></a><a
+href=slide0126.htm></a><a href="slide0126_image050.png"></a><a
+href="slide0126_image051.gif"></a><a href=slide0127.htm></a><a
+href="slide0127_image052.gif"></a><a href="slide0127_image053.gif"></a><a
+href=slide0128.htm></a><a href=slide0129.htm></a><a href=slide0130.htm></a><a
+href=slide0131.htm></a><a href=slide0132.htm></a><a href=slide0133.htm></a><a
+href=slide0134.htm></a><a href=slide0135.htm></a><a href=slide0136.htm></a><a
+href=slide0137.htm></a><a href=slide0138.htm></a><a href=master01.htm></a><a
+href="master03_stylesheet.css"></a><a href=script.js></a><a href="../第十课.htm"></a><a
+href=fullscreen.htm></a><a href="notes_flag.gif"></a><a href=buttons.gif></a><a
+href=frame.htm></a><a href=outline.htm></a></div>
+
+</body>
+
+</html>

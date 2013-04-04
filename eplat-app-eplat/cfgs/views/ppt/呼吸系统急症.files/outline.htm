@@ -1,0 +1,1035 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 11">
+<link rel=Preview href=preview.wmf>
+<meta name=Robots content=NoIndex>
+<script src=script.js></script><script><!--
+
+if( !(IsWin("PPTOtl")||IsWin("PPTNav")||IsWin("PPTOtlNav")) )
+{
+	obj = GetObj("Main-File")
+	parent.location.href=obj.href
+}
+
+var gOtlHiliteClr="#ffffff",gOtlNormalClr="#000000",gOtlActiveClr="#ffff00",gSelected="",gTxtState=false,gChildEntryTable=new Array()
+
+function Load()
+{
+	if( IsWin("PPTOtl" ) ){ LoadOtl(); parent.gOtlLoaded=true; return }
+	if( g_supportsPPTHTML ) {
+		if( IsWin("PPTNav" ) ){ LoadNav("NavObj",UpdNav); parent.gNavLoaded=true; return }
+		if( IsWin("PPTOtlNav" ) ){ LoadNav("OtlNavObj",UpdOtlNav); parent.gOtlNavLoaded=true; return }
+	}
+}
+function Upd(){ if( IsWin("PPTNav") ) LoadNav("NavObj",UpdNav) }
+function LoadNav( oId,UpdFunc )
+{
+	document.ondragstart=CancelDrag
+	document.onselectstart=CancelDrag
+	document.body.style.margin=2
+	UpdFunc()
+	obj=document.all.item(oId)
+	obj.style.display="block"
+	obj.style.visibility="visible"
+	document.bgColor="threedface"
+
+	if( parent.frames["PPTNts"] )
+		notesBtn.style.display = ""
+	if( parent.gHasNarration )
+		nb_voiceBorder.style.display = ""
+}
+function LoadOtl()
+{
+	var otl=GetObj("OtlObj")
+	otl.style.display="block"
+	otl.style.visibility="visible"
+	if( gOtlActiveClr == "" ) gOtlActiveClr=document.linkColor
+	if( gOtlHiliteClr == "" ) gOtlHiliteClr=document.fgColor
+	if( gOtlNormalClr == "" )
+		gOtlNormalClr=document.bgColor
+	else
+		document.bgColor=gOtlNormalClr  
+
+	InitArray()
+
+	if( ObjExists( parent.gCurSld ) ) {
+		ChangeState( parent.gCurSld,gOtlNormalClr,gOtlHiliteClr )
+		gSelected=parent.gCurSld
+	}
+	else gSelected = -1
+
+	UpdOtl()
+}
+function UpdOtl(){ UpdIdx(parent.gCurSld) }
+function UpdIdx( idx )
+{
+	if( gSelected != idx ) {
+		if( gSelected > 0 )
+			ChangeState( gSelected,gOtlHiliteClr,gOtlNormalClr )
+
+		if( ObjExists( idx ) ) {
+			gSelected = idx
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+		}
+		else gSelected = -1
+	}
+
+	if( gTxtState != parent.gOtlTxtExp ) {
+		state = "block"
+		if( !parent.gOtlTxtExp )
+			state="none"
+
+		for(ii=0; ii<gChildEntryTable.length; ii++) {
+			obj=gChildEntryTable[ii];
+			if( obj.id == null ) continue;
+
+			if( obj.id.indexOf("PPTC") >= 0 )
+				obj.style.display=state;
+		} 
+		gTxtState=parent.gOtlTxtExp
+		if( ObjExists( gSelected ) )
+			ChangeState( gSelected,gOtlNormalClr,gOtlHiliteClr )
+	}
+}
+function InitArray()
+{
+	count=0
+	var list=GetTags(document,"DIV");
+	for(ii=0; ii<list.length; ii++) {
+		obj=list.item(ii)
+		if( obj.id == null ) continue
+
+		if( obj.id.indexOf("PPTC") >= 0 )  
+			gChildEntryTable[count++]=obj
+	}
+}
+function ChangeState( idx,fgColor,bgColor )
+{
+	obj=GetObj("PPTL"+idx)
+	obj.style.color=fgColor
+
+	obj=GetObj("PPTP"+idx)
+	obj.style.backgroundColor=bgColor
+}
+function ChgClr( o,clr ){ if( o.id != "PPTL"+gSelected ) o.style.color=clr }
+function Over( src ){ ChgClr(GetLink(src),gOtlActiveClr) }
+function Out( src ){ ChgClr(GetLink(src),gOtlHiliteClr) }
+function Follow(src){ window.location.href = GetLink(src).href; }
+function ObjExists( ii ) { obj=GetObj("PPTP"+ii ); return( obj ) }
+function GoToSld( href ){ UpdIdx(parent.GetSldNum(href)); parent.GoToSld( href ) }
+function CancelDrag(){ window.event.cancelBubble=true;window.event.returnValue=false}
+function GetLink(src)
+{
+   if(src.tagName=="A") return src
+   else return GetTags(src,"A").item(0)
+}
+
+function UpdNav()
+{
+	txt = "<center>";
+	if( parent.GetHrefObj( parent.gCurSld ).mOrigVis == 1 )
+		txt += "幻灯片" + parent.GetCurSldNum() + " /" + parent.GetNumSlds()
+	else
+		txt += "隐藏幻灯片"
+	txt += "</center>";
+	nav_text.innerHTML = txt;
+
+	if( !parent.HasPrevSld() )
+		gBtnArr["nb_prev"].Enabled(0)
+	else
+		gBtnArr["nb_prev"].Enabled(1)
+
+	if( !parent.HasNextSld() )
+		gBtnArr["nb_next"].Enabled(0)
+	else
+		gBtnArr["nb_next"].Enabled(1)
+	gBtnArr["nb_nts"].Enabled(1)
+	gBtnArr["nb_ntsBorder"].SetFlag( parent.gHasNts )
+
+	gBtnArr["nb_sldshw"].Enabled(1)
+	gBtnArr["nb_voice"].Enabled(1)
+}
+
+function ExecBtn()
+{
+	if (event.keyCode == 13)
+	{
+		BtnOnDown();
+		BtnOnUp();
+	}
+}
+function UpdOtlNav()
+{
+	gBtnArr["nb_otl"].SetEnabled();
+
+	if( parent.gOtlOpen )
+		gBtnArr["nb_otlTxt"].Enabled( true );
+	else
+		document.all.item("nb_otlTxtBorder").style.visibility = "hidden";
+}
+
+
+
+
+//--></script>
+<style>
+<!--.PTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;
+	padding-left:2px;
+	font-weight:bold;}
+.CTxt
+	{position:relative;
+	width:100%;
+	margin-top:5px;}
+a
+	{color:white;
+	text-decoration:none;}
+ul
+	{color:white;
+	margin-bottom:0px;
+	margin-left:20px;}
+.sldNum
+	{margin-top:5px;
+	color:white;}
+.button
+	{position:absolute;
+	width:32px;
+	height:20px;
+	border-style:solid;
+	border-width:1px;
+	border-color:threedface;}
+-->
+</style>
+</head>
+
+<body onload="Load()" style='margin:2px'>
+
+<div id=NavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
+<table id="notesBtn" style='display:none;position:relative;width:55px' align=left cellpadding=0
+ cellspacing=0>
+ <td nowrap>
+ <div id="nb_ntsElem" title="显示/隐藏备注" align=center style='position:relative;margin-left:5px;margin-right:5px;padding:3px;
+ font-family:宋体;color:buttontext;font-size:9pt; cursor:default'>
+ <img src="notes_flag.gif" id="nb_nts" style='display:none'> &nbsp;备注</div>
+ <div id="nb_ntsBorder" title ="显示/隐藏备注" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=1 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+
+ </div>
+ </td>
+</table>
+
+
+<table style='position:relative;width:70px' align=right cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_sldshwText" title="全屏幻灯片放映" align=center style='position:relative;margin-left:20px;padding:3px;
+ font-family:宋体;color:buttontext;font-size:9pt;cursor:default'>幻灯片放映</div>
+ <div id="nb_sldshwBorder" title="全屏幻灯片放映" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=5 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_sldshw" style='position:relative;left:-254px'></div>
+ </div>
+ </td>
+ <td>
+ <div id="nb_voiceBorder" style='display:none;position:absolute;top:0;left:-40px;
+ width:20px;height:20px' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=4 class=button>
+ <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_voice" title="播放/暂停旁白" style='position:
+ relative;left:-290px'></div>
+ </div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td nowrap>
+ <div id="nb_prevBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=2 class=button style='left:-30px'>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_prev" title="上一张幻灯片" style='position:relative;
+ left:0px'></div>
+ </div>
+ <span id="nav_text" style='position:relative;top:3px;width:100px;font-family:
+ 宋体;color:buttontext;font-size:9pt'></span>
+ <div id="nb_nextBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=3 class=button>
+ <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
+ src="buttons.gif" id="nb_next" title="下一张幻灯片" style='position:relative;
+ left:-90px'></div>
+ </div>
+ </td>
+</table>
+</div>
+
+<div id=OtlNavObj onload="Load()" onmouseover="BtnOnOver()"
+onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
+onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
+
+<table style='position:relative;width:70px' align=left cellpadding=0 cellspacing=0>
+ <td nowrap><div title="显示/隐藏大纲" id="nb_otl" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=11
+ style='position:absolute;top:0%;left:0%;width:100%;height:100%;cursor:default'>
+ <div id="nb_otlElem" align=center style='position:relative;padding:3px;font-family:宋体;
+ color:buttontext;font-size:9pt'>大纲</div></div>
+ </td>
+</table>
+
+<table style='position:relative' align=center cellpadding=0 cellspacing=0>
+ <td>
+ <div style='position:absolute;left:-18px;width:24px;height:20px;border-style:
+ solid;border-width:1px;border-color:threedface' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=12 id="nb_otlTxtBorder">
+ <div style='position:absolute;clip:rect(0px, 22px, 18px, 0px)'><img
+ src=buttons.gif id="nb_otlTxt" title="展开/折叠大纲"
+ style='position:relative;left:-157px'></div>
+ </div>
+ </td>
+</table>
+
+</div>
+
+<div id=OtlObj style='display:none;visibility:hidden;'>
+
+
+<table width="100%" style='font-family:宋体;font-size:9pt'>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>1</font></div>
+  </td>
+  <td width="100%">
+  <div id=PPTP1 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0048.htm');" id=PPTL1><span
+  style='mso-spacerun:yes'>&nbsp;</span></a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>2</font></div>
+  </td>
+  <td>
+  <div id=PPTP2 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0009.htm');" id=PPTL2>病例介绍</a></font></div>
+  <div id=PPTC2 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>69岁患者，吸烟（4包/日）</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>有严重慢性阻塞性肺部疾病，</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>气促甚，</li>
+   <li><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>突然神志不清。</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>3</font></div>
+  </td>
+  <td>
+  <div id=PPTP3 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0010.htm');" id=PPTL3>学习与训练目的</a></font></div>
+  <div id=PPTC3 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>表述进行CPR时的ACLS</li>
+   <li><span style='mso-spacerun:yes'>&nbsp; </span>（基本的与第二步ABCD）</li>
+   <li>表述和明确“气道等级”：</li>
+   <ul>
+    <li>供氧：</li>
+    <ul>
+     <li>鼻管</li>
+     <li>面罩</li>
+    </ul>
+    <li>非侵入性气道设备：</li>
+    <ul>
+     <li>鼻咽管气道</li>
+     <li>口咽管气道</li>
+    </ul>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>4</font></div>
+  </td>
+  <td>
+  <div id=PPTP4 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0049.htm');" id=PPTL4>学习与训练目的</a></font></div>
+  <div id=PPTC4 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>气道等级： (续)</li>
+   <ul>
+    <li>介绍侵入性气道设备：</li>
+    <ul>
+     <li>喉部面罩气道(LMA)</li>
+     <li>食管-气管导管 (Combitube)</li>
+     <li>气管导管</li>
+    </ul>
+    <li>基本的/第二步气管导管位置固定：</li>
+    <ul>
+     <li>体检准则</li>
+     <li>终末-潮气CO2检测</li>
+     <li>探测食管位置设备</li>
+    </ul>
+    <li>防止气管导管脱出</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>5</font></div>
+  </td>
+  <td>
+  <div id=PPTP5 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0011.htm');" id=PPTL5>基本的ABCD</a></font></div>
+  <div id=PPTC5 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>重点：基本的CPR和除颤</li>
+   <ul>
+    <li>判断神志反应</li>
+    <li>启动急诊反应系统</li>
+    <li>通知拿除颤器</li>
+   </ul>
+   <li>A =气道:<span style='mso-spacerun:yes'>&nbsp; </span>打开气道</li>
+   <li>B =呼吸：判断呼吸，提供正压通气</li>
+   <li>C =循环：判断循环，给予胸外按压</li>
+   <li>D =除颤：评估，并对室颤/无脉室速除颤</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>6</font></div>
+  </td>
+  <td>
+  <div id=PPTP6 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0012.htm');" id=PPTL6>第二步ABCD</a></font></div>
+  <div id=PPTC6 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>A =气道:尽快气管插管；（新：三个类型）</li>
+   <li>B =呼吸：由体检固定位置（基本导管固定）</li>
+   <br>
+   <br>
+   <li>另外</li>
+   <li>B =呼吸：由口咽管固定位置，检测终末-潮气CO2或/和气道建立（第二次导管固定）</li>
+   <li>B =呼吸：用一固定导管支架以防脱落</li>
+   <li>B =呼吸： 通过检测氧饱和度、终末-潮气CO2、pH值，以确定有效供氧/通气</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>7</font></div>
+  </td>
+  <td>
+  <div id=PPTP7 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0013.htm');" id=PPTL7>气道解剖图</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>8</font></div>
+  </td>
+  <td>
+  <div id=PPTP8 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0014.htm');" id=PPTL8>气道阻塞</a></font></div>
+  <div id=PPTC8 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>最通常原因：舌根后坠及/或会厌炎</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>9</font></div>
+  </td>
+  <td>
+  <div id=PPTP9 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0015.htm');" id=PPTL9>打开气道</a></font></div>
+  <div id=PPTC9 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>推颌法</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>10</font></div>
+  </td>
+  <td>
+  <div id=PPTP10 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0016.htm');" id=PPTL10>口咽管开放气道</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>11</font></div>
+  </td>
+  <td>
+  <div id=PPTP11 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0017.htm');" id=PPTL11>口咽管开放气道不正常放置</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>12</font></div>
+  </td>
+  <td>
+  <div id=PPTP12 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0018.htm');" id=PPTL12>鼻咽管开放气道</a></font></div>
+  <div id=PPTC12 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>内置技术</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>13</font></div>
+  </td>
+  <td>
+  <div id=PPTP13 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0019.htm');" id=PPTL13>防护膜</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>14</font></div>
+  </td>
+  <td>
+  <div id=PPTP14 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0020.htm');" id=PPTL14>口对面罩通气</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>15</font></div>
+  </td>
+  <td>
+  <div id=PPTP15 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0021.htm');" id=PPTL15>口对面罩通气</a></font></div>
+  <div id=PPTC15 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>优点：</li>
+   <ul>
+    <li>排除直接接触</li>
+    <li>使正压通气</li>
+    <li>供氧良好</li>
+    <li>比气囊面罩通气更易实施</li>
+    <li>微型便携对救援者最好</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>16</font></div>
+  </td>
+  <td>
+  <div id=PPTP16 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0022.htm');" id=PPTL16>口对面罩通气</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>17</font></div>
+  </td>
+  <td>
+  <div id=PPTP17 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0023.htm');" id=PPTL17>口对面罩通气</a></font></div>
+  <div id=PPTC17 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>关键是通气量，使胸廓有足够明显的抬高</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>18</font></div>
+  </td>
+  <td>
+  <div id=PPTP18 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0024.htm');" id=PPTL18>压迫环状软骨</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>19</font></div>
+  </td>
+  <td>
+  <div id=PPTP19 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0025.htm');" id=PPTL19>口对面罩通气</a></font></div>
+  <div id=PPTC19 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>优点：</li>
+   <ul>
+    <li>提供即刻通气和供氧</li>
+    <li>操作者能感觉气道顺应性和阻力</li>
+    <li>提供良好的短期通气支持</li>
+    <li>能使氧浓度提高</li>
+    <li>常用于辅助有自主呼吸者</li>
+   </ul>
+   <li>并发症：</li>
+   <ul>
+    <li>通气不足</li>
+    <li>胃膨胀</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>20</font></div>
+  </td>
+  <td>
+  <div id=PPTP20 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0026.htm');" id=PPTL20>气道附属物比较</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>21</font></div>
+  </td>
+  <td>
+  <div id=PPTP21 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0027.htm');" id=PPTL21>便携式吸引器类型</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>22</font></div>
+  </td>
+  <td>
+  <div id=PPTP22 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0028.htm');" id=PPTL22>气管插管设备</a></font></div>
+  <div id=PPTC22 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>喉镜</li>
+   <li>气管导管</li>
+   <li>弯曲柔顺式</li>
+   <li>10ml注射器</li>
+   <li>Magill镊/钳</li>
+   <li>润滑剂</li>
+   <li>吸引器 ,套管 ,导管</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>23</font></div>
+  </td>
+  <td>
+  <div id=PPTP23 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0050.htm');" id=PPTL23>弯形喉镜片按装法</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>24</font></div>
+  </td>
+  <td>
+  <div id=PPTP24 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0051.htm');" id=PPTL24>弯形喉镜片按装法</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>25</font></div>
+  </td>
+  <td>
+  <div id=PPTP25 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0052.htm');" id=PPTL25>弯型喉镜进入到会厌上部</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>26</font></div>
+  </td>
+  <td>
+  <div id=PPTP26 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0053.htm');" id=PPTL26>直型喉镜</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>27</font></div>
+  </td>
+  <td>
+  <div id=PPTP27 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0054.htm');" id=PPTL27>直型喉镜进入到会厌下部</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>28</font></div>
+  </td>
+  <td>
+  <div id=PPTP28 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0055.htm');" id=PPTL28>环甲膜部位结构 <br>
+    <span style='mso-spacerun:yes'>&nbsp;</span>环甲膜水平切割</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>29</font></div>
+  </td>
+  <td>
+  <div id=PPTP29 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0032.htm');" id=PPTL29>上部气道排列轴</a></font></div>
+  <div id=PPTC29 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>A</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>30</font></div>
+  </td>
+  <td>
+  <div id=PPTP30 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0034.htm');" id=PPTL30>声门看见的解剖结构</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>31</font></div>
+  </td>
+  <td>
+  <div id=PPTP31 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0035.htm');" id=PPTL31>气管插管</a></font></div>
+  <div id=PPTC31 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>优点：</li>
+   <ul>
+    <li>防止异物吸入气道</li>
+    <li>促进通气与供氧</li>
+    <li>便于气管与支气管吸引</li>
+    <li>提供给药途经</li>
+    <li>预防胃膨胀</li>
+    <li>能较快地胸外按压</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>32</font></div>
+  </td>
+  <td>
+  <div id=PPTP32 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0036.htm');" id=PPTL32>气管插管</a></font></div>
+  <div id=PPTC32 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>指征</li>
+   <ul>
+    <li>不能有效通气的昏迷病人</li>
+    <li>插入咽喉管后</li>
+    <li>病人无能力保护自身气道（昏迷、反射消失、心脏停搏）</li>
+    <li>需要长期机械通气</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>33</font></div>
+  </td>
+  <td>
+  <div id=PPTP33 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0037.htm');" id=PPTL33>气管插管</a></font></div>
+  <div id=PPTC33 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>建议</li>
+   <ul>
+    <li>心脏停搏时，通气供氧后尽快插管</li>
+    <li>气管插管应由最熟练者施行</li>
+    <li>每次操作不超过30秒钟</li>
+    <li>插入后听诊胸部和上腹部</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>34</font></div>
+  </td>
+  <td>
+  <div id=PPTP34 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0038.htm');" id=PPTL34>气管插管</a></font></div>
+  <div id=PPTC34 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>并发症</li>
+   <ul>
+    <li>损伤——牙、舌、唇、粘膜、声门、气管</li>
+    <li>插入食管</li>
+    <li>呕吐和吸入性疾病</li>
+    <li>高血压和心律失常</li>
+   </ul>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>35</font></div>
+  </td>
+  <td>
+  <div id=PPTP35 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0056.htm');" id=PPTL35>食管-气管盲插管</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>36</font></div>
+  </td>
+  <td>
+  <div id=PPTP36 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0057.htm');" id=PPTL36>食管-气管盲插管进入食管</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>37</font></div>
+  </td>
+  <td>
+  <div id=PPTP37 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0058.htm');" id=PPTL37>喉部气囊面罩通气 (LMA)</a></font></div>
+  <div id=PPTC37 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>喉部气囊面罩是一种辅助用插管，为一个带气囊的导管，其盲端有一个面具状防护罩。</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>38</font></div>
+  </td>
+  <td>
+  <div id=PPTP38 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0059.htm');" id=PPTL38>LMA经口进入会厌部</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>39</font></div>
+  </td>
+  <td>
+  <div id=PPTP39 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0060.htm');" id=PPTL39>LMA位置</a></font></div>
+  <div id=PPTC39 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li><span style='mso-spacerun:yes'>&nbsp;</span>防置LMA后，开放了通畅、安全的气道</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>40</font></div>
+  </td>
+  <td>
+  <div id=PPTP40 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0061.htm');" id=PPTL40>解剖示意图</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>41</font></div>
+  </td>
+  <td>
+  <div id=PPTP41 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0062.htm');" id=PPTL41>食管检测装置</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>42</font></div>
+  </td>
+  <td>
+  <div id=PPTP42 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0063.htm');" id=PPTL42>确定插管位置</a></font></div>
+  <div id=PPTC42 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>终末-潮气CO2检测器</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>43</font></div>
+  </td>
+  <td>
+  <div id=PPTP43 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0064.htm');" id=PPTL43>气管插管的固定器</a></font></div>
+  </td>
+ </tr>
+ <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
+  style='cursor:hand'>
+  <td align=right valign=top>
+  <div class=sldNum><font size=2>44</font></div>
+  </td>
+  <td>
+  <div id=PPTP44 class=PTxt><font size=2><a
+  href="javascript:GoToSld('slide0065.htm');" id=PPTL44>终末-潮气CO2检测</a></font></div>
+  <div id=PPTC44 class=CTxt style='display:none'><font size=2>
+  <ul>
+   <li>施术者下一步该如何？</li>
+  </ul>
+  </font></div>
+  </td>
+ </tr>
+</table>
+
+
+
+</div>
+
+<div style='display:none'><a href=master03.htm></a><a href=master03.xml></a><a
+href=preview.wmf></a><a href="master03_image001.png"></a><a href=master02.htm></a><a
+href=pres.xml></a><a href=slide0048.htm></a><a href="master03_image002.jpg"></a><a
+href="master03_image003.gif"></a><a href="master03_image004.gif"></a><a
+href="slide0048_image005.jpg"></a><a href="slide0048_image006.gif"></a><a
+href=slide0009.htm></a><a href=slide0010.htm></a><a href=slide0049.htm></a><a
+href=slide0011.htm></a><a href="slide0011_image007.jpg"></a><a
+href="slide0011_image008.gif"></a><a href="slide0011_image009.jpg"></a><a
+href="slide0011_image010.gif"></a><a href="slide0011_image011.jpg"></a><a
+href="slide0011_image012.gif"></a><a href=slide0012.htm></a><a
+href=slide0013.htm></a><a href="slide0013_image013.jpg"></a><a
+href="slide0013_image014.jpg"></a><a href=slide0014.htm></a><a
+href="slide0014_image015.jpg"></a><a href="slide0014_image016.jpg"></a><a
+href=slide0015.htm></a><a href="slide0015_image017.jpg"></a><a
+href="slide0015_image018.jpg"></a><a href="slide0015_image019.jpg"></a><a
+href="slide0015_image020.jpg"></a><a href=slide0016.htm></a><a
+href="slide0016_image021.gif"></a><a href="slide0016_image022.jpg"></a><a
+href="slide0016_image023.jpg"></a><a href="slide0016_image024.jpg"></a><a
+href="slide0016_image025.gif"></a><a href=slide0017.htm></a><a
+href="slide0017_image026.jpg"></a><a href="slide0017_image027.jpg"></a><a
+href="slide0017_image028.gif"></a><a href=slide0018.htm></a><a
+href="slide0018_image029.jpg"></a><a href="slide0018_image030.jpg"></a><a
+href="slide0018_image031.gif"></a><a href=slide0019.htm></a><a
+href="slide0019_image032.jpg"></a><a href="slide0019_image033.jpg"></a><a
+href="slide0019_image034.gif"></a><a href=slide0020.htm></a><a
+href="slide0020_image035.jpg"></a><a href="slide0020_image036.png"></a><a
+href="slide0020_image037.gif"></a><a href=slide0021.htm></a><a
+href="slide0021_image038.gif"></a><a href="slide0021_image039.jpg"></a><a
+href="slide0021_image040.jpg"></a><a href=slide0022.htm></a><a
+href="slide0022_image041.jpg"></a><a href="slide0022_image042.jpg"></a><a
+href="slide0022_image043.gif"></a><a href=slide0023.htm></a><a
+href="slide0023_image044.jpg"></a><a href="slide0023_image045.gif"></a><a
+href="slide0023_image046.jpg"></a><a href="slide0023_image047.jpg"></a><a
+href=slide0024.htm></a><a href="slide0024_image048.jpg"></a><a
+href="slide0024_image049.jpg"></a><a href="slide0024_image050.gif"></a><a
+href=slide0025.htm></a><a href=slide0026.htm></a><a
+href="slide0026_image051.wmz"></a><a href="slide0026_image052.wmz"></a><a
+href="slide0026_image053.gif"></a><a href=slide0027.htm></a><a
+href="slide0027_image054.jpg"></a><a href="slide0027_image055.jpg"></a><a
+href="slide0027_image056.gif"></a><a href=slide0028.htm></a><a
+href="slide0028_image057.png"></a><a href="slide0028_image058.gif"></a><a
+href=slide0050.htm></a><a href="slide0050_image059.jpg"></a><a
+href="slide0050_image060.jpg"></a><a href=slide0051.htm></a><a
+href="slide0051_image061.jpg"></a><a href="slide0051_image062.jpg"></a><a
+href=slide0052.htm></a><a href="slide0052_image063.jpg"></a><a
+href="slide0052_image064.jpg"></a><a href=slide0053.htm></a><a
+href="slide0053_image065.jpg"></a><a href="slide0053_image066.jpg"></a><a
+href=slide0054.htm></a><a href="slide0054_image067.jpg"></a><a
+href="slide0054_image068.jpg"></a><a href=slide0055.htm></a><a
+href="slide0055_image069.gif"></a><a href="slide0055_image070.jpg"></a><a
+href="slide0055_image071.jpg"></a><a href="slide0055_image072.gif"></a><a
+href=slide0032.htm></a><a href="slide0032_image073.gif"></a><a
+href="slide0032_image074.jpg"></a><a href="slide0032_image075.jpg"></a><a
+href="slide0032_image076.gif"></a><a href="slide0032_image077.jpg"></a><a
+href="slide0032_image078.jpg"></a><a href="slide0032_image079.gif"></a><a
+href="slide0032_image080.gif"></a><a href="slide0032_image081.gif"></a><a
+href="slide0032_image082.gif"></a><a href="slide0032_image083.gif"></a><a
+href="slide0032_image084.gif"></a><a href="slide0032_image085.gif"></a><a
+href="slide0032_image086.gif"></a><a href=slide0034.htm></a><a
+href="slide0034_image087.jpg"></a><a href="slide0034_image088.gif"></a><a
+href="slide0034_image089.jpg"></a><a href="slide0034_image090.gif"></a><a
+href="slide0034_image091.jpg"></a><a href="slide0034_image092.gif"></a><a
+href="slide0034_image093.gif"></a><a href="slide0034_image094.gif"></a><a
+href="slide0034_image095.gif"></a><a href=slide0035.htm></a><a
+href=slide0036.htm></a><a href=slide0037.htm></a><a href=slide0038.htm></a><a
+href=slide0056.htm></a><a href="slide0056_image096.png"></a><a
+href=oledata.mso></a><a href="slide0056_image097.gif"></a><a
+href="slide0056_image098.gif"></a><a href=slide0057.htm></a><a
+href="slide0057_image099.gif"></a><a href="slide0057_image100.jpg"></a><a
+href="slide0057_image101.gif"></a><a href="slide0057_image102.gif"></a><a
+href=slide0058.htm></a><a href="slide0058_image103.jpg"></a><a
+href="slide0058_image104.gif"></a><a href=slide0059.htm></a><a
+href="slide0059_image105.jpg"></a><a href="slide0059_image106.gif"></a><a
+href=slide0060.htm></a><a href="slide0060_image107.jpg"></a><a
+href="slide0060_image108.gif"></a><a href=slide0061.htm></a><a
+href="slide0061_image109.jpg"></a><a href="slide0061_image110.gif"></a><a
+href=slide0062.htm></a><a href="slide0062_image111.jpg"></a><a
+href="slide0062_image112.gif"></a><a href=slide0063.htm></a><a
+href="slide0063_image113.jpg"></a><a href="slide0063_image114.gif"></a><a
+href="slide0063_image115.jpg"></a><a href="slide0063_image116.gif"></a><a
+href=slide0064.htm></a><a href="slide0064_image117.jpg"></a><a
+href="slide0064_image118.gif"></a><a href=slide0065.htm></a><a
+href="slide0065_image119.jpg"></a><a href="slide0065_image120.gif"></a><a
+href=master01.htm></a><a href="master03_stylesheet.css"></a><a href=script.js></a><a
+href="../第一课.htm"></a><a href=fullscreen.htm></a><a href="notes_flag.gif"></a><a
+href=buttons.gif></a><a href=frame.htm></a><a href=outline.htm></a></div>
+
+</body>
+
+</html>
