@@ -15,6 +15,7 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.widgets.Display;
 
 import com.atom.apps.eplat.SWTMainView;
 import com.atom.apps.eplat.SWTUtils;
@@ -49,6 +50,13 @@ public abstract class AbstractWebEvent implements SWTWebEvent {
     public final SWTMainView findMainView() {
         return this.mainView;
     }
+    
+    /**
+     * 获取SWT设备
+     */
+    public final Display findDisplay() {
+        return this.mainView.findDisplay();
+    }
 
     /**
      * 获取标签容器
@@ -81,7 +89,7 @@ public abstract class AbstractWebEvent implements SWTWebEvent {
             // 增加功能
             new SWTWebFuncExt(browser, this);
         }
-
+        
         tabFolder.setSelection(tabItem);
 
         return tabItem;
