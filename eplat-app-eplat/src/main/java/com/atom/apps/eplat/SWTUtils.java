@@ -4,16 +4,20 @@
  */
 package com.atom.apps.eplat;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import mplat.SWTMain;
+import mplat.mgt.dto.UserInfoDTO;
 import mplat.uijfx.images.IMGS;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -25,6 +29,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
+import com.atom.apps.eplat.views.ext.CourseSlideExt;
+import com.atom.apps.eplat.views.ext.HomePageExt;
+import com.atom.apps.eplat.views.ext.TopicEventExt;
 import com.atom.core.lang.utils.CfgUtils;
 
 /**
@@ -35,23 +42,42 @@ import com.atom.core.lang.utils.CfgUtils;
  */
 public final class SWTUtils {
     /** 图片缓存 */
-    private static Map<String, Image> _images         = new ConcurrentHashMap<String, Image>();
+    private static Map<String, Image>           _images         = new ConcurrentHashMap<String, Image>();
+    private static Map<String, ImageDescriptor> _imgDesps       = new ConcurrentHashMap<String, ImageDescriptor>();
+
+    /** 登录用户 */
+    private static UserInfoDTO                  _UserInfo;
 
     /** 应用主窗口 */
-    private static SWTMainView        _MainView;
+    private static SWTMainView                  _MainView;
 
     /** JS回调函数名 */
-    public static final String        FUNC_FIRE_EVENT = "fireEvent";
+    public static final String                  FUNC_FIRE_EVENT = "fireEvent";
 
     /** 标签值 */
-    public static final String        TAB_DATA_KEY    = "EPLAT-TAB-DATA-KEY";
+    public static final String                  TAB_DATA_KEY    = "EPLAT-TAB-DATA-KEY";
 
-    public static final String        TD_HOME_MAIN    = "EPLAT-TAB-DATA-HomeMain";
-    public static final String        TD_COURSE_WARE  = "EPLAT-TAB-DATA-CourseWare";
-    public static final String        TD_TOPIC_TRAIN  = "EPLAT-TAB-DATA-TopicTrain";
-    public static final String        TD_EMERGE_TRAIN = "EPLAT-TAB-DATA-EmergeTrain";
-    public static final String        TD_EMERGE_EXAM  = "EPLAT-TAB-DATA-EmergeExam";
-    public static final String        TD_SYSTEM_CFG   = "EPLAT-TAB-DATA-SystemCfg";
+    public static final String                  TD_HOME_MAIN    = "EPLAT-TAB-DATA-HomeMain";
+    public static final String                  TD_COURSE_WARE  = "EPLAT-TAB-DATA-CourseWare";
+    public static final String                  TD_TOPIC_TRAIN  = "EPLAT-TAB-DATA-TopicTrain";
+    public static final String                  TD_EMERGE_TRAIN = "EPLAT-TAB-DATA-EmergeTrain";
+    public static final String                  TD_EMERGE_EXAM  = "EPLAT-TAB-DATA-EmergeExam";
+    public static final String                  TD_SYSTEM_CFG   = "EPLAT-TAB-DATA-SystemCfg";
+
+    /** PPT */
+    private static final Map<String, String>    _slides         = new ConcurrentHashMap<String, String>();
+    {
+        _slides.put("01", "呼吸系统急症");
+        _slides.put("02", "急性中风");
+        _slides.put("03", "被证实为室颤：用自动除颤器（AED）和CPR施救");
+        _slides.put("04", "心动过缓");
+        _slides.put("05", "室颤/无脉搏室速");
+        _slides.put("06", "无脉搏心电活动");
+        _slides.put("07", "急性冠脉综合征");
+        _slides.put("08", "不稳定性心动过速");
+        _slides.put("09", "心室停搏");
+        _slides.put("10", "稳定性心动过速");
+    }
 
     /**
      * 执行销毁
@@ -64,6 +90,23 @@ public final class SWTUtils {
             }
         }
         _images.clear();
+
+        // 2.图片描述
+        _imgDesps.clear();
+    }
+
+    /**
+     * 设置登录用户
+     */
+    public static void setLoginUser(UserInfoDTO _user) {
+        _UserInfo = _user;
+    }
+
+    /**
+     * 获取登录用户
+     */
+    public static UserInfoDTO findLoginUser() {
+        return _UserInfo;
     }
 
     /**
@@ -143,6 +186,13 @@ public final class SWTUtils {
     /**
      * 获取图片
      */
+    public static Image findImage(String name, Rectangle size) {
+        return findImage(Display.getDefault(), name, size);
+    }
+
+    /**
+     * 获取图片
+     */
     public static Image findImage(final Device device, String name, Rectangle size) {
         Image tmpImg = findImage(device, name);
         if (tmpImg == null) {
@@ -178,6 +228,31 @@ public final class SWTUtils {
         images[0] = findImage("img-icon-01.png");
 
         return images;
+    }
+
+    /**
+     * 获取图片描述
+     */
+    public static ImageDescriptor findImgDesp(String name) {
+        return findImgDesp(Display.getDefault(), name);
+    }
+
+    /**
+     * 获取图片描述
+     */
+    public static ImageDescriptor findImgDesp(final Device device, String name) {
+        ImageDescriptor imgDesp = _imgDesps.get(name);
+        if (imgDesp == null) {
+            _imgDesps.remove(name);
+
+            Image image = findImage(device, name);
+            if (image != null) {
+                imgDesp = ImageDescriptor.createFromImage(image);
+                _imgDesps.put(name, imgDesp);
+            }
+        }
+
+        return imgDesp;
     }
 
     /**
@@ -260,6 +335,39 @@ public final class SWTUtils {
         }
 
         return null;
+    }
+    
+    /**
+     * 展示功能主页
+     */
+    public static void gotoHomePage() {
+        new HomePageExt();
+    }
+
+    /**
+     * 展示PPT页面
+     */
+    public static void gotoPptSlide(final String no) {
+        new CourseSlideExt(no);
+    }
+    
+    /**
+     * 显示专项训练
+     */
+    public static void gotTopicEvent(final String no) {
+        new TopicEventExt(no).onTopicEvent();
+    }
+
+    /**
+     * 打开帮助操作手册
+     */
+    public static void openHelpManual() {
+        String file = FilenameUtils.normalize(CfgUtils.findConfigPath() + "/manual.pdf");
+        try {
+            Desktop.getDesktop().open(new File(file));
+        } catch (Exception e) {
+            throw new RuntimeException("打开帮助手册[" + file + "]异常", e);
+        }
     }
 
 }

@@ -65,7 +65,7 @@ public class UserLoginView extends ApplicationWindow {
         Label lblLogo = new Label(container, SWT.NONE);
         lblLogo.setBounds(0, 0, 350, 50);
         lblLogo.setText("");
-        lblLogo.setBackgroundImage(SWTUtils.findImage(parent.getDisplay(), "login-logo.jpg", lblLogo.getBounds()));
+        lblLogo.setBackgroundImage(SWTUtils.findImage("login-logo.jpg", lblLogo.getBounds()));
 
         Label label = new Label(container, SWT.NONE);
         label.setAlignment(SWT.RIGHT);
@@ -117,12 +117,14 @@ public class UserLoginView extends ApplicationWindow {
                     SWTUtils.alert(getShell(), "虚拟人体连接失败，请重新选择串口！");
                     initPortNames();
                     return;
-                } else {
-                    // TODO: 初始化消息
-                    dataMsg.writeData(new byte[] { 1, 2, 3, 4, 5, 6 });
                 }
 
+                // 登录成功
+                SWTUtils.setLoginUser(user);
                 LogUtils.get().info("登录成功:: CPort[{}], UserName[{}], Passwd[{}].", cport, userName, passwd);
+
+                // TODO: 初始化消息
+                dataMsg.writeData(new byte[] { 1, 2, 3, 4, 5, 6 });
 
                 // 显示主窗口
                 close();
@@ -188,7 +190,7 @@ public class UserLoginView extends ApplicationWindow {
         super.configureShell(newShell);
         newShell.setText("用户登录");
         newShell.setImages(SWTUtils.findImgIcons());
-        
+
         SWTUtils.center(newShell);
     }
 

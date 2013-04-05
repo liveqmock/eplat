@@ -4,6 +4,7 @@
  */
 package com.atom.apps.eplat.views.ext;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 
 import com.atom.apps.eplat.SWTUtils;
@@ -16,7 +17,7 @@ import com.atom.apps.eplat.SWTUtils;
  */
 public final class TopicTrainExt extends AbstractWebEvent {
     /** 页面 */
-    private static final String HTML_URL = "02-TopicTrain.html";
+    private static final String       HTML_URL = "02-TopicTrain.html";
 
     /**
      * 默认构造器
@@ -30,7 +31,7 @@ public final class TopicTrainExt extends AbstractWebEvent {
      * @see com.atom.apps.eplat.views.ext.AbstractWebEvent#onFireEvent(java.lang.String)
      */
     public Object onFireEvent(String arg) {
-        // new CourseSlideExt(StringUtils.leftPad(arg, 2, "0"));
+        new TopicEventExt(StringUtils.leftPad(arg, 2, "0")).onTopicEvent();
 
         return "1";
     }

@@ -4,11 +4,12 @@
  */
 package com.atom.apps.eplat.views;
 
+import mplat.mgt.UserMgt;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.StatusLineManager;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -16,7 +17,6 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -40,6 +40,28 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
     private CTabFolder tabFolder;
 
     private Action     actExit;
+    private Action     actHomePage;
+
+    private Action     act0101;
+    private Action     act0102;
+    private Action     act0103;
+    private Action     act0104;
+    private Action     act0105;
+    private Action     act0106;
+    private Action     act0107;
+    private Action     act0108;
+    private Action     act0109;
+    private Action     act0110;
+
+    private Action     act0201;
+    private Action     act0202;
+    private Action     act0203;
+    private Action     act0204;
+    private Action     act0205;
+    private Action     act0206;
+    private Action     act0207;
+    private Action     act0208;
+
     private Action     actConfigSet;
     private Action     actUserModify;
     private Action     actUserMgt;
@@ -95,12 +117,148 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
      */
     private void createActions() {
         {
-            actExit = new Action("退出") {
+            actHomePage = new Action("欢迎使用", SWTUtils.findImgDesp("tab-house.png")) {
+                public void run() {
+                    SWTUtils.gotoHomePage();
+                }
+            };
+        }
+        {
+            actExit = new Action("退出系统", SWTUtils.findImgDesp("icon-exit.png")) {
                 public void run() {
                     SWTUtils.exitSystem(getShell());
                 }
             };
         }
+
+        {
+            act0101 = new Action("1.呼吸系统急症") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("01");
+                }
+            };
+        }
+        {
+            act0102 = new Action("2.急性中风") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("02");
+                }
+            };
+        }
+        {
+            act0103 = new Action("3.被证实为室颤：用自动除颤器（AED）和CPR施救") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("03");
+                }
+            };
+        }
+        {
+            act0104 = new Action("4.心动过缓") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("04");
+                }
+            };
+        }
+        {
+            act0105 = new Action("5.室颤或无脉搏室速") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("05");
+                }
+            };
+        }
+        {
+            act0106 = new Action("6.无脉搏心电活动") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("06");
+                }
+            };
+        }
+        {
+            act0107 = new Action("7.急性冠状动脉综合征") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("07");
+                }
+            };
+        }
+        {
+            act0108 = new Action("8.不稳定性心动过速") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("08");
+                }
+            };
+        }
+        {
+            act0109 = new Action("9.心室停搏") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("09");
+                }
+            };
+        }
+        {
+            act0110 = new Action("10.稳定性心动过速") {
+                public void run() {
+                    SWTUtils.gotoPptSlide("10");
+                }
+            };
+        }
+
+        {
+            act0201 = new Action("1.ACLS基础知识训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("01");
+                }
+            };
+        }
+        {
+            act0202 = new Action("2.心律识别训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("02");
+                }
+            };
+        }
+        {
+            act0203 = new Action("3.心肺复苏急救训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("03");
+                }
+            };
+        }
+        {
+            act0204 = new Action("4.除颤仪使用训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("04");
+                }
+            };
+        }
+        {
+            act0205 = new Action("5.插管训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("05");
+                }
+            };
+        }
+        {
+            act0206 = new Action("6.注射泵使用训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("06");
+                }
+            };
+        }
+        {
+            act0207 = new Action("7.AED使用训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("07");
+                }
+            };
+        }
+        {
+            act0208 = new Action("8.输液泵使用训练") {
+                public void run() {
+                    SWTUtils.gotTopicEvent("08");
+                }
+            };
+        }
+
         {
             actConfigSet = new Action("系统参数设置") {
 
@@ -127,8 +285,10 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
             };
         }
         {
-            actHelp = new Action("帮助手册") {
-
+            actHelp = new Action("帮助手册", SWTUtils.findImgDesp("icon-info.png")) {
+                public void run() {
+                    SWTUtils.openHelpManual();
+                }
             };
         }
         {
@@ -144,44 +304,61 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
     protected MenuManager createMenuManager() {
         MenuManager menuManager = new MenuManager("menu");
 
-        MenuManager menuFile = new MenuManager("&文件");
-        MenuManager menuSysFunc = new MenuManager("&系统功能");
+        MenuManager menuFile = new MenuManager("&文件", SWTUtils.findImgDesp("icon-disk.png"), null);
         menuManager.add(menuFile);
+        menuFile.add(actHomePage);
+        menuFile.add(new Separator());
         menuFile.add(actExit);
+        
+        MenuManager menuSysFunc = new MenuManager("&系统功能", SWTUtils.findImgDesp("icon-function.gif"), null);
         menuManager.add(menuSysFunc);
-
         MenuManager menuCauseWare = new MenuManager("&系统课件");
         menuSysFunc.add(menuCauseWare);
-
+        menuCauseWare.add(act0101);
+        menuCauseWare.add(act0102);
+        menuCauseWare.add(act0103);
+        menuCauseWare.add(act0104);
+        menuCauseWare.add(act0105);
+        menuCauseWare.add(act0106);
+        menuCauseWare.add(act0107);
+        menuCauseWare.add(act0108);
+        menuCauseWare.add(act0109);
+        menuCauseWare.add(act0110);
+        menuSysFunc.add(new Separator());
         MenuManager menuTopicTrain = new MenuManager("&专项技能训练");
         menuSysFunc.add(menuTopicTrain);
+        menuTopicTrain.add(act0201);
+        menuTopicTrain.add(act0202);
+        menuTopicTrain.add(act0203);
+        menuTopicTrain.add(act0204);
+        menuTopicTrain.add(act0205);
+        menuTopicTrain.add(act0206);
+        menuTopicTrain.add(act0207);
+        menuTopicTrain.add(act0208);
         menuSysFunc.add(new Separator());
-
         MenuManager menuEmergeTrain = new MenuManager("&专业急救案例训练");
         menuSysFunc.add(menuEmergeTrain);
-
+        menuSysFunc.add(new Separator());
         MenuManager menuEmergeExam = new MenuManager("&专业急救案例考核");
         menuSysFunc.add(menuEmergeExam);
 
-        MenuManager menuSysConfig = new MenuManager("&系统设置");
+        MenuManager menuSysConfig = new MenuManager("&系统设置", SWTUtils.findImgDesp("icon-config.png"), null);
         menuManager.add(menuSysConfig);
         menuSysConfig.add(actConfigSet);
         menuSysConfig.add(new Separator());
         menuSysConfig.add(actUserModify);
 
-        Image menuSysImg = SWTUtils.findImage("icon-user.png");
-        ImageDescriptor menuSysImgDesp = ImageDescriptor.createFromImage(menuSysImg);
-        MenuManager menuSysMgt = new MenuManager("&系统管理", menuSysImgDesp, null);
-        menuManager.add(menuSysMgt);
-        menuSysMgt.add(actUserMgt);
-        menuSysMgt.add(new Separator());
-        menuSysMgt.add(actEcgMgt);
-        menuSysMgt.add(new Separator());
-        menuSysMgt.add(actExamMgt);
+        if (UserMgt.isSystemAdmin(SWTUtils.findLoginUser())) {
+            MenuManager menuSysMgt = new MenuManager("&系统管理", SWTUtils.findImgDesp("icon-user.png"), null);
+            menuManager.add(menuSysMgt);
+            menuSysMgt.add(actUserMgt);
+            menuSysMgt.add(new Separator());
+            menuSysMgt.add(actEcgMgt);
+            menuSysMgt.add(new Separator());
+            menuSysMgt.add(actExamMgt);
+        }
 
-        Image menuHelpImg = SWTUtils.findImage("icon-info.png");
-        ImageDescriptor menuHelpImgDesp = ImageDescriptor.createFromImage(menuHelpImg);
-        MenuManager menuHelp = new MenuManager("&帮助", menuHelpImgDesp, null);
+        MenuManager menuHelp = new MenuManager("&帮助", SWTUtils.findImgDesp("icon-info.png"), null);
         menuManager.add(menuHelp);
         menuHelp.add(actHelp);
         menuHelp.add(new Separator());

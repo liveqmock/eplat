@@ -48,9 +48,9 @@ public class CourseSlideExt extends AbstractWebEvent {
         this.slides.put("02", "急性中风");
         this.slides.put("03", "被证实为室颤：用自动除颤器（AED）和CPR施救");
         this.slides.put("04", "心动过缓");
-        this.slides.put("05", "室颤/无脉搏室速");
+        this.slides.put("05", "室颤或无脉搏室速");
         this.slides.put("06", "无脉搏心电活动");
-        this.slides.put("07", "急性冠脉综合征");
+        this.slides.put("07", "急性冠状动脉综合征");
         this.slides.put("08", "不稳定性心动过速");
         this.slides.put("09", "心室停搏");
         this.slides.put("10", "稳定性心动过速");

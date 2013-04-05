@@ -49,6 +49,14 @@ public final class UserMgt {
         return StringUtils.equals(U_NAME, userName);
     }
 
+    public static boolean isSystemAdmin(UserInfoDTO user) {
+        if (user == null) {
+            return false;
+        }
+
+        return isSystemAdmin(user.getUserName());
+    }
+
     public UserInfoDTO find(String userName) {
         return this.userStore.find(userName);
     }
