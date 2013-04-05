@@ -187,7 +187,8 @@ public class UserLoginView extends ApplicationWindow {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText("用户登录");
-
+        newShell.setImages(SWTUtils.findImgIcons());
+        
         SWTUtils.center(newShell);
     }
 

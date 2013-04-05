@@ -116,6 +116,13 @@ public final class SWTUtils {
     /**
      * 获取图片
      */
+    public static Image findImage(String name) {
+        return findImage(Display.getDefault(), name);
+    }
+
+    /**
+     * 获取图片
+     */
     public static Image findImage(final Device device, String name) {
         Image image = _images.get(name);
         if (image == null || image.isDisposed()) {
@@ -161,6 +168,16 @@ public final class SWTUtils {
 
         // 缩放
         return new Image(device, tmpImg.getImageData().scaledTo(size.width, size.height));
+    }
+
+    /**
+     * 获取应用小图标
+     */
+    public static Image[] findImgIcons() {
+        Image[] images = new Image[1];
+        images[0] = findImage("img-icon-01.png");
+
+        return images;
     }
 
     /**
@@ -211,6 +228,13 @@ public final class SWTUtils {
         msgBox.setMessage(message);
 
         return msgBox.open();
+    }
+
+    /**
+     * 退出系统
+     */
+    public static void exitSystem() {
+        SWTMain.exitSystem();
     }
 
     /**

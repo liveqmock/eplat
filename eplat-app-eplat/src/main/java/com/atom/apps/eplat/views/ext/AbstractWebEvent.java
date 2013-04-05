@@ -75,7 +75,8 @@ public abstract class AbstractWebEvent implements SWTWebEvent {
             tabItem = new CTabItem(tabFolder, tabStyle);
             tabItem.setText(text);
             tabItem.setData(SWTUtils.TAB_DATA_KEY, tabData);
-
+            tabItem.setImage(SWTUtils.findImage(this.findDisplay(), "tab-default.png"));
+            
             Browser browser = new Browser(tabFolder, SWT.NONE);
             tabItem.setControl(browser);
             browser.setUrl(html);

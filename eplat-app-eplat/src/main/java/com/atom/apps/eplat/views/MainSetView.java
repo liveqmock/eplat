@@ -8,11 +8,15 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.StatusLineManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -33,16 +37,16 @@ import com.atom.apps.eplat.views.ext.HomePageExt;
  */
 public final class MainSetView extends ApplicationWindow implements SWTMainView {
 
-    private CTabFolder          tabFolder;
+    private CTabFolder tabFolder;
 
-    private Action              actExit;
-    private Action              actConfigSet;
-    private Action              actUserModify;
-    private Action              actUserMgt;
-    private Action              actEcgMgt;
-    private Action              actExamMgt;
-    private Action              actHelp;
-    private Action              actAbout;
+    private Action     actExit;
+    private Action     actConfigSet;
+    private Action     actUserModify;
+    private Action     actUserMgt;
+    private Action     actEcgMgt;
+    private Action     actExamMgt;
+    private Action     actHelp;
+    private Action     actAbout;
 
     public static void main(String[] args) {
         try {
@@ -165,7 +169,9 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         menuSysConfig.add(new Separator());
         menuSysConfig.add(actUserModify);
 
-        MenuManager menuSysMgt = new MenuManager("&系统管理");
+        Image menuSysImg = SWTUtils.findImage("icon-user.png");
+        ImageDescriptor menuSysImgDesp = ImageDescriptor.createFromImage(menuSysImg);
+        MenuManager menuSysMgt = new MenuManager("&系统管理", menuSysImgDesp, null);
         menuManager.add(menuSysMgt);
         menuSysMgt.add(actUserMgt);
         menuSysMgt.add(new Separator());
@@ -173,7 +179,9 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         menuSysMgt.add(new Separator());
         menuSysMgt.add(actExamMgt);
 
-        MenuManager menuHelp = new MenuManager("&帮助");
+        Image menuHelpImg = SWTUtils.findImage("icon-info.png");
+        ImageDescriptor menuHelpImgDesp = ImageDescriptor.createFromImage(menuHelpImg);
+        MenuManager menuHelp = new MenuManager("&帮助", menuHelpImgDesp, null);
         menuManager.add(menuHelp);
         menuHelp.add(actHelp);
         menuHelp.add(new Separator());
@@ -193,9 +201,11 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
     /** 
      * @see org.eclipse.jface.window.ApplicationWindow#configureShell(org.eclipse.swt.widgets.Shell)
      */
-    protected void configureShell(Shell newShell) {
+    protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
         newShell.setText("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
+        newShell.setSize(1000, 750);
+        newShell.setImages(SWTUtils.findImgIcons());
 
         newShell.addMouseMoveListener(new MouseMoveListener() {
             public void mouseMove(MouseEvent e) {
@@ -203,7 +213,11 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
             }
         });
 
-        newShell.setSize(1000, 750);
+        newShell.addDisposeListener(new DisposeListener() {
+            public void widgetDisposed(DisposeEvent evt) {
+                SWTUtils.exitSystem();
+            }
+        });
 
         SWTUtils.center(newShell);
     }
@@ -226,7 +240,7 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
      * @see com.atom.apps.eplat.SWTMainView#findDisplay()
      */
     public Display findDisplay() {
-        return this.getContents().getDisplay();
+        return this.getShell().getDisplay();
     }
 
     /** 
@@ -242,7 +256,7 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
     public CTabFolder findCTabFolder() {
         return this.tabFolder;
     }
-    
+
     /** 
      * @see com.atom.apps.eplat.SWTMainView#setStatusMessage(java.lang.String)
      */

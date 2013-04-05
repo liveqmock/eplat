@@ -5,6 +5,7 @@
 package com.atom.apps.eplat.views.ext;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabItem;
 
 import com.atom.apps.eplat.SWTUtils;
 
@@ -23,7 +24,8 @@ public final class HomePageExt extends AbstractWebEvent {
      */
     public HomePageExt() {
         // 初始化页面
-        super.initWebViewExt(SWTUtils.TD_HOME_MAIN, SWT.NONE, "欢迎使用", SWTUtils.findHtml(HTML_URL));
+        CTabItem tabItem = super.initWebViewExt(SWTUtils.TD_HOME_MAIN, SWT.NONE, "欢迎使用", SWTUtils.findHtml(HTML_URL));
+        tabItem.setImage(SWTUtils.findImage(this.findDisplay(), "tab-house.png"));
     }
 
     /** 
