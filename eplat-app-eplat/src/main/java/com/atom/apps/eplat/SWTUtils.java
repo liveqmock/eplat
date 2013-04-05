@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
+import com.atom.apps.eplat.views.SystemInfoView;
 import com.atom.apps.eplat.views.ext.CourseSlideExt;
 import com.atom.apps.eplat.views.ext.HomePageExt;
 import com.atom.apps.eplat.views.ext.TopicEventExt;
@@ -62,6 +63,7 @@ public final class SWTUtils {
     public static final String                  TD_TOPIC_TRAIN  = "EPLAT-TAB-DATA-TopicTrain";
     public static final String                  TD_EMERGE_TRAIN = "EPLAT-TAB-DATA-EmergeTrain";
     public static final String                  TD_EMERGE_EXAM  = "EPLAT-TAB-DATA-EmergeExam";
+    public static final String                  TD_EMERGE_WEB = "EPLAT-TAB-DATA-EmergeWeb";
     public static final String                  TD_SYSTEM_CFG   = "EPLAT-TAB-DATA-SystemCfg";
 
     /** PPT */
@@ -325,16 +327,29 @@ public final class SWTUtils {
     /**
      * 获取标签
      */
-    public static CTabItem findTabItem(CTabFolder tabFolder, String value) {
+    public static CTabItem findTabItem(CTabFolder tabFolder, String tabData) {
         CTabItem[] items = tabFolder.getItems();
         for (CTabItem item : items) {
             String data = String.valueOf(item.getData(TAB_DATA_KEY));
-            if (StringUtils.equalsIgnoreCase(value, data)) {
+            if (StringUtils.equalsIgnoreCase(tabData, data)) {
                 return item;
             }
         }
 
         return null;
+    }
+    
+    /**
+     * 删除标签
+     */
+    public static void removeTabItem(CTabFolder tabFolder, String tabData) {
+        CTabItem[] items = tabFolder.getItems();
+        for (CTabItem item : items) {
+            String data = String.valueOf(item.getData(TAB_DATA_KEY));
+            if (StringUtils.equalsIgnoreCase(tabData, data)) {
+                item.dispose();
+            }
+        }
     }
     
     /**
@@ -354,8 +369,15 @@ public final class SWTUtils {
     /**
      * 显示专项训练
      */
-    public static void gotTopicEvent(final String no) {
+    public static void gotoTopicEvent(final String no) {
         new TopicEventExt(no).onTopicEvent();
+    }
+    
+    /**
+     * 打开系统信息
+     */
+    public static void gotoSystemInfo() {
+        new SystemInfoView(SWTUtils.findMainView().findShell()).open();
     }
 
     /**

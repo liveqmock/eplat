@@ -4,6 +4,7 @@
  */
 package com.atom.apps.eplat.views;
 
+import mplat.mgt.MgtFactory;
 import mplat.mgt.UserMgt;
 
 import org.eclipse.jface.action.Action;
@@ -63,7 +64,7 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
     private Action     act0208;
 
     private Action     actConfigSet;
-    private Action     actUserModify;
+    private Action     actUserUpdate;
     private Action     actUserMgt;
     private Action     actEcgMgt;
     private Action     actExamMgt;
@@ -72,6 +73,8 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
 
     public static void main(String[] args) {
         try {
+            SWTUtils.setLoginUser(MgtFactory.get().findUserMgt().find("admin"));
+
             MainSetView window = new MainSetView();
             window.setBlockOnOpen(true);
             window.open();
@@ -205,56 +208,56 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         {
             act0201 = new Action("1.ACLS基础知识训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("01");
+                    SWTUtils.gotoTopicEvent("01");
                 }
             };
         }
         {
             act0202 = new Action("2.心律识别训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("02");
+                    SWTUtils.gotoTopicEvent("02");
                 }
             };
         }
         {
             act0203 = new Action("3.心肺复苏急救训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("03");
+                    SWTUtils.gotoTopicEvent("03");
                 }
             };
         }
         {
             act0204 = new Action("4.除颤仪使用训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("04");
+                    SWTUtils.gotoTopicEvent("04");
                 }
             };
         }
         {
             act0205 = new Action("5.插管训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("05");
+                    SWTUtils.gotoTopicEvent("05");
                 }
             };
         }
         {
             act0206 = new Action("6.注射泵使用训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("06");
+                    SWTUtils.gotoTopicEvent("06");
                 }
             };
         }
         {
             act0207 = new Action("7.AED使用训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("07");
+                    SWTUtils.gotoTopicEvent("07");
                 }
             };
         }
         {
             act0208 = new Action("8.输液泵使用训练") {
                 public void run() {
-                    SWTUtils.gotTopicEvent("08");
+                    SWTUtils.gotoTopicEvent("08");
                 }
             };
         }
@@ -265,8 +268,10 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
             };
         }
         {
-            actUserModify = new Action("修改用户信息") {
-
+            actUserUpdate = new Action("修改用户信息") {
+                public void run() {
+                    new UserUpdateView(getShell(), SWTUtils.findLoginUser()).open();
+                }
             };
         }
         {
@@ -293,7 +298,9 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         }
         {
             actAbout = new Action("关于系统") {
-
+                public void run() {
+                    SWTUtils.gotoSystemInfo();
+                }
             };
         }
     }
@@ -309,7 +316,7 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         menuFile.add(actHomePage);
         menuFile.add(new Separator());
         menuFile.add(actExit);
-        
+
         MenuManager menuSysFunc = new MenuManager("&系统功能", SWTUtils.findImgDesp("icon-function.gif"), null);
         menuManager.add(menuSysFunc);
         MenuManager menuCauseWare = new MenuManager("&系统课件");
@@ -346,7 +353,7 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         menuManager.add(menuSysConfig);
         menuSysConfig.add(actConfigSet);
         menuSysConfig.add(new Separator());
-        menuSysConfig.add(actUserModify);
+        menuSysConfig.add(actUserUpdate);
 
         if (UserMgt.isSystemAdmin(SWTUtils.findLoginUser())) {
             MenuManager menuSysMgt = new MenuManager("&系统管理", SWTUtils.findImgDesp("icon-user.png"), null);

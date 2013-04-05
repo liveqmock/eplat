@@ -4,6 +4,7 @@
  */
 package com.atom.apps.eplat.views.ext;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
 
 import com.atom.apps.eplat.SWTUtils;
@@ -30,7 +31,7 @@ public class EmergeExamExt extends AbstractWebEvent {
      * @see com.atom.apps.eplat.views.ext.AbstractWebEvent#onFireEvent(java.lang.String)
      */
     public Object onFireEvent(String arg) {
-        // new CourseSlideExt(StringUtils.leftPad(arg, 2, "0"));
+        new EmergeWebExt(StringUtils.leftPad(arg, 2, "0"));
 
         return "1";
     }

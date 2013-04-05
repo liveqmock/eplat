@@ -13,6 +13,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.widgets.Display;
@@ -50,7 +52,7 @@ public abstract class AbstractWebEvent implements SWTWebEvent {
     public final SWTMainView findMainView() {
         return this.mainView;
     }
-    
+
     /**
      * 获取SWT设备
      */
@@ -66,6 +68,13 @@ public abstract class AbstractWebEvent implements SWTWebEvent {
     }
 
     /**
+     * 删除标签页面
+     */
+    public final void removeTabItem(String tabData) {
+        SWTUtils.removeTabItem(this.findTabFolder(), tabData);
+    }
+
+    /**
      * 初始化Web页面
      */
     protected CTabItem initWebViewExt(String tabData, int tabStyle, String text, String html) {
@@ -76,21 +85,42 @@ public abstract class AbstractWebEvent implements SWTWebEvent {
             tabItem.setText(text);
             tabItem.setData(SWTUtils.TAB_DATA_KEY, tabData);
             tabItem.setImage(SWTUtils.findImage(this.findDisplay(), "tab-default.png"));
-            
-            Browser browser = new Browser(tabFolder, SWT.NONE);
+
+            final Browser browser = new Browser(tabFolder, SWT.NONE);
             tabItem.setControl(browser);
             browser.setUrl(html);
 
+            // 页面-鼠标事件
             browser.addMouseMoveListener(new MouseMoveListener() {
                 public void mouseMove(MouseEvent e) {
                     findMainView().setStatusMessage("X:" + e.x + ", Y:" + e.y);
                 }
             });
 
+            // 标签-关闭事件
+            tabItem.addDisposeListener(new DisposeListener() {
+                public void widgetDisposed(DisposeEvent evt) {
+                    browser.close();
+                }
+            });
+
             // 增加功能
-            new SWTWebFuncExt(browser, this);
+            /* final BrowserFunction function = */new SWTWebFuncExt(browser, this);
+            /*
+            browser.addProgressListener(new ProgressAdapter() {
+                public void completed(ProgressEvent event) {
+                    browser.addLocationListener(new LocationAdapter() {
+                        public void changed(LocationEvent event) {
+                            browser.removeLocationListener(this);
+                            function.dispose();
+                        }
+                    });
+                }
+            });
+            */
         }
-        
+
+        // 选中标签
         tabFolder.setSelection(tabItem);
 
         return tabItem;

@@ -12,7 +12,7 @@
     <User>
       <id>1</id>
       <userName>admin</userName>
-      <userPasswd>a</userPasswd>
+      <userPasswd>abc</userPasswd>
     </User>
   </entry>
   <entry>
