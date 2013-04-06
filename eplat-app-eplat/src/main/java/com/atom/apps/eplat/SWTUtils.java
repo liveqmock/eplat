@@ -17,8 +17,9 @@ import mplat.uijfx.images.IMGS;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Device;
@@ -26,7 +27,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import com.atom.apps.eplat.views.SystemInfoView;
@@ -45,6 +45,7 @@ public final class SWTUtils {
     /** 图片缓存 */
     private static Map<String, Image>           _images         = new ConcurrentHashMap<String, Image>();
     private static Map<String, ImageDescriptor> _imgDesps       = new ConcurrentHashMap<String, ImageDescriptor>();
+    private static Image[]                      _iconImgs;
 
     /** 登录用户 */
     private static UserInfoDTO                  _UserInfo;
@@ -58,12 +59,13 @@ public final class SWTUtils {
     /** 标签值 */
     public static final String                  TAB_DATA_KEY    = "EPLAT-TAB-DATA-KEY";
 
+    public static final String                  TD_COMM_PORT    = "EPLAT-TAB-DATA-CommPort";
     public static final String                  TD_HOME_MAIN    = "EPLAT-TAB-DATA-HomeMain";
     public static final String                  TD_COURSE_WARE  = "EPLAT-TAB-DATA-CourseWare";
     public static final String                  TD_TOPIC_TRAIN  = "EPLAT-TAB-DATA-TopicTrain";
     public static final String                  TD_EMERGE_TRAIN = "EPLAT-TAB-DATA-EmergeTrain";
     public static final String                  TD_EMERGE_EXAM  = "EPLAT-TAB-DATA-EmergeExam";
-    public static final String                  TD_EMERGE_WEB = "EPLAT-TAB-DATA-EmergeWeb";
+    public static final String                  TD_EMERGE_WEB   = "EPLAT-TAB-DATA-EmergeWeb";
     public static final String                  TD_SYSTEM_CFG   = "EPLAT-TAB-DATA-SystemCfg";
 
     /** PPT */
@@ -95,6 +97,15 @@ public final class SWTUtils {
 
         // 2.图片描述
         _imgDesps.clear();
+
+        // 3.图片图标
+        if (_iconImgs != null && _iconImgs.length > 0) {
+            for (Image iconImg : _iconImgs) {
+                if (!iconImg.isDisposed()) {
+                    iconImg.dispose();
+                }
+            }
+        }
     }
 
     /**
@@ -226,10 +237,14 @@ public final class SWTUtils {
      * 获取应用小图标
      */
     public static Image[] findImgIcons() {
-        Image[] images = new Image[1];
-        images[0] = findImage("img-icon-01.png");
+        if (_iconImgs == null) {
+            _iconImgs = new Image[1];
+            _iconImgs[0] = findImage("img-icon-01.png");
 
-        return images;
+            Window.setDefaultImages(_iconImgs);
+        }
+
+        return _iconImgs;
     }
 
     /**
@@ -275,36 +290,28 @@ public final class SWTUtils {
      * 警告提示
      */
     public static void alert(final Shell shell, String message) {
-        alert(shell, "警告提示", message, SWT.ICON_ERROR | SWT.OK);
+        MessageDialog.openWarning(shell, "警告提示", message);
     }
 
     /**
      * 警告提示
      */
-    public static void alert(final Shell shell, String title, String message, int style) {
-        MessageBox msgBox = new MessageBox(shell, style);
-        msgBox.setText(title);
-        msgBox.setMessage(message);
-
-        msgBox.open();
+    public static void alert(final Shell shell, String title, String message) {
+        MessageDialog.openWarning(shell, title, message);
     }
 
     /**
      * 确认提示
      */
-    public static int confirm(final Shell shell, String message) {
-        return confirm(shell, "确认提示", message, SWT.ICON_QUESTION | SWT.OK | SWT.CANCEL);
+    public static boolean confirm(final Shell shell, String message) {
+        return MessageDialog.openConfirm(shell, "确认提示", message);
     }
 
     /**
      * 确认提示
      */
-    public static int confirm(final Shell shell, String title, String message, int style) {
-        MessageBox msgBox = new MessageBox(shell, style);
-        msgBox.setText(title);
-        msgBox.setMessage(message);
-
-        return msgBox.open();
+    public static boolean confirm(final Shell shell, String title, String message) {
+        return MessageDialog.openConfirm(shell, title, message);
     }
 
     /**
@@ -318,9 +325,9 @@ public final class SWTUtils {
      * 退出系统
      */
     public static void exitSystem(final Shell shell) {
-        int rtn = confirm(shell, "你确认退出系统吗？");
-        if (rtn == SWT.OK) {
-            SWTMain.exitSystem();
+        boolean rtn = confirm(shell, "你确认退出系统吗？");
+        if (rtn) {
+            exitSystem();
         }
     }
 
@@ -338,7 +345,7 @@ public final class SWTUtils {
 
         return null;
     }
-    
+
     /**
      * 删除标签
      */
@@ -351,7 +358,7 @@ public final class SWTUtils {
             }
         }
     }
-    
+
     /**
      * 展示功能主页
      */
@@ -365,14 +372,14 @@ public final class SWTUtils {
     public static void gotoPptSlide(final String no) {
         new CourseSlideExt(no);
     }
-    
+
     /**
      * 显示专项训练
      */
     public static void gotoTopicEvent(final String no) {
         new TopicEventExt(no).onTopicEvent();
     }
-    
+
     /**
      * 打开系统信息
      */

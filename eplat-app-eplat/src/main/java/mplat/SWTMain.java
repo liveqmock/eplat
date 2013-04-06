@@ -49,6 +49,8 @@ public class SWTMain {
         StoreFactory.get().init();
 
         TemplateUtils.setTplPath(CfgUtils.findConfigPath() + "/cfgs/tpls");
+        
+        SWTUtils.findImgIcons();
     }
 
     /**

@@ -22,9 +22,9 @@ import com.atom.core.lang.utils.CfgUtils;
 
 public class OleSample {
 
-    private int width = 1200;
-    private int height = 850;
-    
+    private int   width  = 1200;
+    private int   height = 850;
+
     private Shell shell;
 
     public OleSample() {
@@ -56,8 +56,8 @@ public class OleSample {
         OleAutomation oa = new OleAutomation(clientSite);
         int[] methodIDs = oa.getIDsOfNames(new String[] { "LoadMovie" });
         // String file = new File(OleSample.class.getResource("/a.swf").getFile()).getAbsolutePath();
-        String file = FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/mpg/AEDSimulator.swf");
-        Variant[] str = { new Variant(0), new Variant(file) };
+        String file = FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/swf/~SimulateLink2.swf");
+        Variant[] str = { new Variant(0), new Variant(file + "?name=老牛啊&age=29") };
         oa.invoke(methodIDs[0], str);
 
         button.addListener(SWT.MouseDown, new Listener() {
@@ -67,7 +67,6 @@ public class OleSample {
         });
 
         shell.open();
-
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) {
                 display.sleep();
