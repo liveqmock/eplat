@@ -140,7 +140,7 @@ public final class SWTUtils {
      * 窗口循环，避免退出
      */
     public static void tryLoop(Shell shell) {
-        Display display = Display.getDefault();
+        Display display = shell.getDisplay();
 
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch())
