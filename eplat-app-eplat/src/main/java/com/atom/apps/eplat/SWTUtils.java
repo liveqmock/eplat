@@ -8,7 +8,20 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineEvent.Type;
+import javax.sound.sampled.LineListener;
 
 import mplat.SWTMain;
 import mplat.mgt.dto.UserInfoDTO;
@@ -34,6 +47,7 @@ import com.atom.apps.eplat.views.ext.CourseSlideExt;
 import com.atom.apps.eplat.views.ext.HomePageExt;
 import com.atom.apps.eplat.views.ext.TopicEventExt;
 import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.lang.utils.LogUtils;
 
 /**
  * SWT工具类
@@ -46,6 +60,13 @@ public final class SWTUtils {
     private static Map<String, Image>           _images         = new ConcurrentHashMap<String, Image>();
     private static Map<String, ImageDescriptor> _imgDesps       = new ConcurrentHashMap<String, ImageDescriptor>();
     private static Image[]                      _iconImgs;
+
+    /** 线程服务 */
+    private static final ExecutorService        _executors      = Executors.newFixedThreadPool(2);
+
+    /** 音频播放标记 */
+    private static final Lock                   _audioLock      = new ReentrantLock();
+    private static final ExecutorService        _audioExecutor  = Executors.newFixedThreadPool(1);
 
     /** 登录用户 */
     private static UserInfoDTO                  _UserInfo;
@@ -106,6 +127,10 @@ public final class SWTUtils {
                 }
             }
         }
+
+        // 4.线程服务
+        _audioExecutor.shutdownNow();
+        _executors.shutdownNow();
     }
 
     /**
@@ -396,6 +421,84 @@ public final class SWTUtils {
             Desktop.getDesktop().open(new File(file));
         } catch (Exception e) {
             throw new RuntimeException("打开帮助手册[" + file + "]异常", e);
+        }
+    }
+
+    /**
+     * 通过线程服务执行
+     */
+    public static void execute(Runnable runnable) {
+        _executors.execute(runnable);
+    }
+
+    /**
+     * 播放音频文件
+     */
+    public static void playAudio(final File file) {
+        execute(new Runnable() {
+            public void run() {
+                if (!_audioLock.tryLock()) {
+                    LogUtils.get().debug("Lock fail.");
+                    return;
+                }
+
+                Future<Boolean> future = _audioExecutor.submit(new Callable<Boolean>() {
+                    public Boolean call() throws Exception {
+                        Clip clip = null;
+                        AudioInputStream input = null;
+                        try {
+                            AudioLineListener listener = new AudioLineListener();
+                            clip = AudioSystem.getClip();
+                            clip.addLineListener(listener);
+
+                            input = AudioSystem.getAudioInputStream(file);
+                            clip.open(input);
+                            clip.start();
+                            listener.waitUntilDone();
+                        } catch (Exception e) {
+                            LogUtils.get().error("播放音频文件[{}]异常！", file, e);
+                        } finally {
+                            clip.close();
+                            IOUtils.closeQuietly(input);
+                        }
+
+                        return true;
+                    }
+                });
+
+                try {
+                    future.get();
+                } catch (Exception e) {
+                    LogUtils.get().error("", e);
+                }
+
+                _audioLock.unlock();
+            }
+        });
+    }
+
+    /**
+     * 音频状态监听器
+     */
+    private static class AudioLineListener implements LineListener {
+        private boolean done = false;
+
+        /** 
+         * @see javax.sound.sampled.LineListener#update(javax.sound.sampled.LineEvent)
+         */
+        public synchronized void update(LineEvent event) {
+            Type eventType = event.getType();
+
+            if (eventType == Type.STOP || eventType == Type.CLOSE) {
+                this.done = true;
+                notifyAll();
+            }
+        }
+
+        public synchronized void waitUntilDone() throws InterruptedException {
+            while (!this.done) {
+                wait();
+            }
         }
     }
 

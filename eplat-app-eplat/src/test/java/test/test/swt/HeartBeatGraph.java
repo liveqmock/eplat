@@ -4,6 +4,9 @@
  */
 package test.test.swt;
 
+import java.io.File;
+
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.eclipse.swt.SWT;
@@ -17,6 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.atom.apps.eplat.SWTUtils;
+import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
 
 /**
@@ -107,8 +111,35 @@ public final class HeartBeatGraph {
         }
 
         public void update(int value) {
+            if (value >= 150) {
+                value = 150;
+
+                String audio = FilenameUtils.normalize(CfgUtils.findConfigPath() + "/audios/cpr/023.wav");
+                SWTUtils.playAudio(new File(audio));
+            }
+
+            if (value <= 50) {
+                String audio = FilenameUtils.normalize(CfgUtils.findConfigPath() + "/audios/cpr/021.wav");
+                SWTUtils.playAudio(new File(audio));
+            }
+
             int newX = point.x + xdeta;
             int newY = DEF_VALUE - value;
+
+            gc.drawLine(point.x, point.y, newX, newY);
+
+            point.x = newX;
+            point.y = newY;
+
+            if (point.x >= MAX_X) {
+                clear();
+                point.x = 0;
+            }
+        }
+
+        public void draw() {
+            int newX = point.x + xdeta;
+            int newY = DEF_VALUE;
 
             gc.drawLine(point.x, point.y, newX, newY);
 
@@ -146,7 +177,8 @@ public final class HeartBeatGraph {
                             while (drawing) {
                                 display.syncExec(new Runnable() {
                                     public void run() {
-                                        update(findValue());
+                                        // update(findValue());
+                                        draw();
                                     }
                                 });
 
