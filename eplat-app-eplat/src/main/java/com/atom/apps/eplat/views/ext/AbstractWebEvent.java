@@ -28,6 +28,9 @@ import com.atom.core.lang.utils.LogUtils;
  * @version $Id: AbstractWebEvent.java, V1.0.1 2013-4-4 下午4:30:02 $
  */
 public abstract class AbstractWebEvent extends AbstractExtEvent implements SWTWebEvent {
+    /** 浏览器 */
+    private Browser                                         browser;
+
     /** 功能页面映射 */
     private final Map<String, Class<? extends SWTWebEvent>> events = new ConcurrentHashMap<>();
     {
@@ -40,6 +43,20 @@ public abstract class AbstractWebEvent extends AbstractExtEvent implements SWTWe
     }
 
     /**
+     * 获取浏览器
+     */
+    public final Browser findWebBrowser() {
+        return this.browser;
+    }
+
+    /**
+     * 设置浏览器
+     */
+    public final void setWebBrowser(Browser browser) {
+        this.browser = browser;
+    }
+
+    /**
      * 初始化Web页面
      */
     protected CTabItem initWebViewExt(String tabData, int tabStyle, String text, String html) {
@@ -49,10 +66,10 @@ public abstract class AbstractWebEvent extends AbstractExtEvent implements SWTWe
             // 选中标签
             tabFolder.setSelection(tabItem);
         } else {
-            final Browser browser = new Browser(tabFolder, SWT.NONE);
-            browser.setUrl(html);
+            this.browser = new Browser(tabFolder, SWT.NONE);
+            this.browser.setUrl(html);
 
-            tabItem = super.initTabItem(tabData, tabStyle, text, browser);
+            tabItem = super.initTabItem(tabData, tabStyle, text, this.browser);
 
             // 标签-关闭事件
             tabItem.addDisposeListener(new DisposeListener() {
@@ -62,10 +79,50 @@ public abstract class AbstractWebEvent extends AbstractExtEvent implements SWTWe
             });
 
             // 增加功能
-            new SWTWebFuncExt(browser, this);
+            new SWTWebFuncExt(this.browser, this);
         }
 
         return tabItem;
+    }
+
+    /**
+     * 执行JS脚本
+     */
+    public final boolean execScript(final String script) {
+        if (this.browser == null) {
+            throw new RuntimeException("浏览器为NULL, 无法执行JS脚本, Script[" + script + "].");
+        }
+
+        LogUtils.get().debug("执行JS脚本: {}", script);
+
+        return this.browser.execute(script);
+    }
+
+    /**
+     * 执行JS方法
+     */
+    public final Object evalScript(final String name) {
+        return this.evalScript(name, null);
+    }
+
+    /**
+     * 执行JS方法
+     */
+    public final Object evalScript(final String name, String arg) {
+        if (this.browser == null) {
+            throw new RuntimeException("浏览器为NULL, 无法执行JS脚本, Name[" + name + "], Args[" + arg + "].");
+        }
+
+        StringBuilder script = new StringBuilder();
+        script.append(name).append("(");
+        if (arg != null) {
+            script.append("\"").append(arg).append("\"");
+        }
+        script.append(");");
+
+        LogUtils.get().debug("执行JS方法: {}", script.toString());
+
+        return this.browser.evaluate(script.toString());
     }
 
     /** 

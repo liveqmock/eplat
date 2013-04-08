@@ -1,6 +1,7 @@
 /**
  * INIT
  */
+/*
 $(document).ready(function() {
 	$(".item").hover(function(e) {
 		$(this).css("cursor", "pointer");
@@ -20,3 +21,12 @@ $(document).ready(function() {
 		app.doShowPpt($(this).attr("id").split("_")[1]);
 	});
 });
+*/
+
+function flashObject(name) {
+	if (navigator.appName.indexOf("Microsoft") != -1) {
+		return window[name];
+	} else {
+		return document[name];
+	}
+}

@@ -54,11 +54,13 @@ public final class TopicEventExt extends AbstractExtEvent {
     public final void onTopicEvent() {
         LogUtils.get().info("[专项训练]-{}.{}", this.evtNo, _evts.get(this.evtNo));
 
-        // 07.AED使用训练
-        if (StringUtils.equalsIgnoreCase(this.evtNo, "07")) {
-            // Composite composite = new TopicTrain07View(this.findTabFolder(), SWT.NONE);
-            // super.initTabItem(SWTUtils.TD_COMM_PORT, SWT.CLOSE, this.evts.get(this.evtNo), composite);
+        // 04.除颤仪使用训练
+        if (StringUtils.equalsIgnoreCase(this.evtNo, "04")) {
+            new TopicEvent04Ext();
+        }
 
+        // 07.AED使用训练
+        else if (StringUtils.equalsIgnoreCase(this.evtNo, "07")) {
             new TopicEvent07Ext();
         }
     }

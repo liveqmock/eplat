@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>02-07-AED使用训练</title>
-<script type="text/javascript" src="spt/jump.js"></script>
+<title>0203-心肺复苏急救训练</title>
 <link rel="stylesheet" type="text/css" href="spt/default.css"/>
 <link rel="stylesheet" type="text/css" href="spt/MainView.css"/>
 <script type="text/javascript" src="spt/jquery-1.9.0.min.js"></script>
@@ -11,45 +10,27 @@
 <script type="text/javascript" src="spt/MainView.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	swfobject.embedSWF("swf/0207-AED使用训练.swf", "FlashPlayer", "861", "377", "9.0.0", "swf/expressInstall.swf", null, null, {id:"FlashID"});
+	swfobject.embedSWF("swf/0203-心肺复苏急救训练.swf", "FlashPlayer", "864", "380", "9.0.0", "swf/expressInstall.swf", null, null, {id:"FlashID"});
 	
-	$("#AED").click(function(e) {
-		var flash = thisMovie("FlashID");
-		flash.AED();
-	});
-	
-	$("#NoAED").click(function(e) {
-		var flash = thisMovie("FlashID");
-		flash.noAED();
-	});
-	
-	$("#SendData").click(function(e) {
-		// CPRStart();
+	/*
+	$("#opRecoder").click(function(e) {
 		var flash = flashObject("FlashID");
-		flash.CPRStart();
+		flash.opRecoder($("#DataValue").val());
 	});
-	
-	$("#StopData").click(function(e) {
-		var flash = thisMovie("FlashID");
-		flash.CPRStop();
-	});
+	*/
 });
-
-function CPRStart() {
-	var flash = flashObject("FlashID");
-	flash.CPRStart();
-}
 </script>
 </head>
 
 <body>
 <div id="FlashPlayer">
-	<h1>02-TT07-AED使用训练</h1>
+	<h1>02-TT03-心肺复苏急救训练</h1>
 	<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
 </div>
 <br/>
-<input type="button" id="AED" value="AED" />  <input type="button" id="NoAED" value="No AED" />
-<input type="button" id="SendData" value="发送数据" />  <input type="button" id="StopData" value="停止发送" />
-
+<input type="text" id="DataValue" />
+<br/>
+<input type="button" id="opRecoder" value="opRecoder" />  <input type="button" id="energySet" value="energySet" />
+<input type="button" id="defibStart" value="defibStart" />  <input type="button" id="reSet" value="reSet" />
 </body>
 </html>
