@@ -252,18 +252,6 @@
     </Exam>
   </entry>
   <entry>
-    <long>42</long>
-    <Exam>
-      <id>42</id>
-      <title>对一个ST抬高、急性缺血性胸症状发生30分钟60岁心梗老人，选择下列哪项能包括治疗的主要内容？</title>
-      <rgtNo>A</rgtNo>
-      <itemA>再灌注治疗（纤溶药或PCI）、阿斯匹林、肝素、β阻滞剂</itemA>
-      <itemB>用肝素抗栓塞、用阿斯匹林抗血小板凝聚、糖蛋白Ⅱb/Ⅲa抑制剂、β阻滞剂、硝酸甘油、监护高危险状况</itemB>
-      <itemC>心电图ST段监护、血清心脏酶标、用灌注放射性核成象和超声心动图进一步判断风险、阿斯匹林</itemC>
-      <itemD>预防性的利多卡因、液体推注、血管加压素</itemD>
-    </Exam>
-  </entry>
-  <entry>
     <long>18</long>
     <Exam>
       <id>18</id>
@@ -273,6 +261,18 @@
       <itemB>仅给予一次“大剂量”的肾上腺素：0.1—0.2 mg/kg</itemB>
       <itemC>静脉注射肾上腺素1mg，5分钟以后每隔3到5分钟给予血管加压素静脉注射40U</itemC>
       <itemD>静脉注射肾上腺素1mg，每隔3到5分钟重复给予肾上腺素1mg</itemD>
+    </Exam>
+  </entry>
+  <entry>
+    <long>42</long>
+    <Exam>
+      <id>42</id>
+      <title>对一个ST抬高、急性缺血性胸症状发生30分钟60岁心梗老人，选择下列哪项能包括治疗的主要内容？</title>
+      <rgtNo>A</rgtNo>
+      <itemA>再灌注治疗（纤溶药或PCI）、阿斯匹林、肝素、β阻滞剂</itemA>
+      <itemB>用肝素抗栓塞、用阿斯匹林抗血小板凝聚、糖蛋白Ⅱb/Ⅲa抑制剂、β阻滞剂、硝酸甘油、监护高危险状况</itemB>
+      <itemC>心电图ST段监护、血清心脏酶标、用灌注放射性核成象和超声心动图进一步判断风险、阿斯匹林</itemC>
+      <itemD>预防性的利多卡因、液体推注、血管加压素</itemD>
     </Exam>
   </entry>
   <entry>

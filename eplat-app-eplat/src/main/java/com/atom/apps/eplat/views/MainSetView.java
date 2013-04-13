@@ -28,7 +28,10 @@ import swing2swt.layout.BorderLayout;
 
 import com.atom.apps.eplat.SWTMainView;
 import com.atom.apps.eplat.SWTUtils;
+import com.atom.apps.eplat.views.ext.EcgtMngtViewExt;
+import com.atom.apps.eplat.views.ext.ExamMngtViewExt;
 import com.atom.apps.eplat.views.ext.HomePageExt;
+import com.atom.apps.eplat.views.ext.UserMngtViewExt;
 
 /**
  * 主窗口
@@ -89,6 +92,8 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
      */
     public MainSetView() {
         super(null);
+        super.setShellStyle(SWT.CLOSE | SWT.MIN | SWT.MAX | SWT.RESIZE | SWT.SYSTEM_MODAL);
+
         createActions();
         addToolBar(SWT.FLAT | SWT.WRAP);
         addMenuBar();
@@ -276,17 +281,23 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         }
         {
             actUserMgt = new Action("用户信息管理") {
-
+                public void run() {
+                    new UserMngtViewExt();
+                }
             };
         }
         {
             actEcgMgt = new Action("ECG心律识别试题管理") {
-
+                public void run() {
+                    new EcgtMngtViewExt(true);
+                }
             };
         }
         {
             actExamMgt = new Action("ACLS理论知识试题管理") {
-
+                public void run() {
+                    new ExamMngtViewExt(true);
+                }
             };
         }
         {
@@ -404,13 +415,6 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
         });
 
         SWTUtils.center(newShell);
-    }
-
-    /** 
-     * @see org.eclipse.jface.window.Window#getShellStyle()
-     */
-    protected int getShellStyle() {
-        return SWT.CLOSE | SWT.MIN | SWT.SYSTEM_MODAL;
     }
 
     /** 

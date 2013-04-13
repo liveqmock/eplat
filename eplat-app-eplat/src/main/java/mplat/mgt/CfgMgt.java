@@ -4,7 +4,7 @@
  */
 package mplat.mgt;
 
-import mplat.mgt.dto.GsetInfoDTO;
+import mplat.mgt.dto.CfgInfoDTO;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -18,7 +18,7 @@ import com.atom.core.xstream.store.ObjectStore;
  * @author obullxl@gmail.com
  * @version $Id: GsetMgt.java, V1.0.1 2013-2-10 下午9:21:17 $
  */
-public class GsetMgt {
+public class CfgMgt {
     /** 参数分类 */
     // 心肺复苏
     public static final String CATG_RECOVER  = "recover";
@@ -33,45 +33,45 @@ public class GsetMgt {
     private final ObjectStore  store         = new ObjectStore();
 
     /** 参数对象 */
-    private GsetInfoDTO        gset          = new GsetInfoDTO();
+    private CfgInfoDTO         cfg           = new CfgInfoDTO();
 
     /**
      * 默认构造函数，初始化
      */
-    public GsetMgt() {
-        ObjectStore.findXStream().alias("GSet", GsetInfoDTO.class);
+    public CfgMgt() {
+        ObjectStore.findXStream().alias("GSet", CfgInfoDTO.class);
 
         String path = CfgUtils.findConfigPath();
         this.store.setFilePath(FilenameUtils.normalize(path + "/store/GSetMgt.data"));
         this.store.init();
 
-        GsetInfoDTO temp = (GsetInfoDTO) this.store.findObject();
+        CfgInfoDTO temp = (CfgInfoDTO) this.store.findObject();
         if (temp != null) {
-            this.gset = temp;
+            this.cfg = temp;
         } else {
-            LogUtils.warn("系统参数[" + GsetInfoDTO.class.getName() + "]初始化失败，使用默认值代替！");
+            LogUtils.warn("系统参数[" + CfgInfoDTO.class.getName() + "]初始化失败，使用默认值代替！");
         }
     }
 
     /**
      * 获取参数复本
      */
-    public GsetInfoDTO getGSet() {
-        return this.gset;
+    public CfgInfoDTO getCfgInfo() {
+        return this.cfg;
     }
 
     /**
      * 重置参数内容
      */
     public void reset() {
-        this.gset = (GsetInfoDTO) this.store.findObject();
+        this.cfg = (CfgInfoDTO) this.store.findObject();
     }
 
     /**
      * 刷新参数设置
      */
     public void persist() {
-        this.store.update(this.gset);
+        this.store.update(this.cfg);
         this.store.persist();
     }
 

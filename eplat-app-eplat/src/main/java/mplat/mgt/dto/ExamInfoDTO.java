@@ -3,7 +3,6 @@
  */
 package mplat.mgt.dto;
 
-import com.atom.core.lang.MapExt;
 import com.atom.core.lang.ids.LongID;
 
 /**
@@ -18,8 +17,6 @@ public class ExamInfoDTO extends LongID {
     private String            itemB;
     private String            itemC;
     private String            itemD;
-
-    private MapExt            ext;
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
 
@@ -37,18 +34,6 @@ public class ExamInfoDTO extends LongID {
 
     public void setRgtNo(String rgtNo) {
         this.rgtNo = rgtNo;
-    }
-
-    public MapExt getExt() {
-        if (this.ext == null) {
-            this.ext = new MapExt();
-        }
-
-        return ext;
-    }
-
-    public void setExt(MapExt ext) {
-        this.ext = ext;
     }
 
     public String getItemA() {

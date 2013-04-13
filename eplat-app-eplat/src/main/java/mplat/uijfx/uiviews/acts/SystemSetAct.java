@@ -21,9 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import mplat.mgt.GsetMgt;
+import mplat.mgt.CfgMgt;
 import mplat.mgt.MgtFactory;
-import mplat.mgt.dto.GsetInfoDTO;
+import mplat.mgt.dto.CfgInfoDTO;
 import mplat.utils.UConst;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -122,14 +122,14 @@ public final class SystemSetAct extends BaseXmlAct {
     private TextField        txtAutoSaveSeconds;
 
     /** 系统参数管理器 */
-    private final GsetMgt    setMgt;
+    private final CfgMgt     setMgt;
 
     /**
      * 默认构造函数
      */
     public SystemSetAct(Stage stage) {
         super(stage);
-        this.setMgt = MgtFactory.get().findGsetMgt();
+        this.setMgt = MgtFactory.get().findCfgMgt();
     }
 
     /** 
@@ -196,7 +196,7 @@ public final class SystemSetAct extends BaseXmlAct {
      * 初始化各个组件值
      */
     public final void initViewShown() {
-        GsetInfoDTO set = this.setMgt.getGSet();
+        CfgInfoDTO set = this.setMgt.getCfgInfo();
 
         this.txtMinPressDepth.setText(Integer.toString(set.getMinPressDepth()));
         this.txtMaxPressDepth.setText(Integer.toString(set.getMaxPressDepth()));
@@ -227,8 +227,8 @@ public final class SystemSetAct extends BaseXmlAct {
         } else {
             this.rbtSaverModePrefessional.setSelected(true);
         }
-        this.txtPressCountAmateur.setText(Integer.toString(set.getPressCountAmateur()));
-        if (set.getPressCountCycle() == 3) {
+        this.txtPressCountAmateur.setText(Integer.toString(set.getPressCountAmat()));
+        if (set.getPressCountProf() == 3) {
             this.rbtPressCountPref3.setSelected(true);
         } else {
             this.rbtPressCountPref5.setSelected(true);
@@ -274,9 +274,9 @@ public final class SystemSetAct extends BaseXmlAct {
     /**
      * 填充系统参数对象
      */
-    private final GsetInfoDTO fillSystemSetInfo(GsetInfoDTO set) {
+    private final CfgInfoDTO fillSystemSetInfo(CfgInfoDTO set) {
         if (set == null) {
-            set = new GsetInfoDTO();
+            set = new CfgInfoDTO();
         }
 
         set.setMinPressDepth(Integer.parseInt(this.txtMinPressDepth.getText()));
@@ -304,11 +304,11 @@ public final class SystemSetAct extends BaseXmlAct {
         } else {
             set.setSaverMode(2);
         }
-        set.setPressCountAmateur(NumberUtils.toInt(this.txtPressCountAmateur.getText(), 0));
+        set.setPressCountAmat(NumberUtils.toInt(this.txtPressCountAmateur.getText(), 0));
         if (this.rbtPressCountPref3.isSelected()) {
-            set.setPressCountCycle(3);
+            set.setPressCountProf(3);
         } else {
-            set.setPressCountCycle(5);
+            set.setPressCountProf(5);
         }
 
         // 监视器
@@ -331,7 +331,7 @@ public final class SystemSetAct extends BaseXmlAct {
     @FXML
     public final void onSureAction(ActionEvent evt) {
         // 填充
-        GsetInfoDTO set = this.setMgt.getGSet();
+        CfgInfoDTO set = this.setMgt.getCfgInfo();
         this.fillSystemSetInfo(set);
 
         // 保存
@@ -356,7 +356,7 @@ public final class SystemSetAct extends BaseXmlAct {
      */
     @FXML
     public final void onApplyAction(ActionEvent evt) {
-        this.fillSystemSetInfo(this.setMgt.getGSet());
+        this.fillSystemSetInfo(this.setMgt.getCfgInfo());
     }
 
     /**

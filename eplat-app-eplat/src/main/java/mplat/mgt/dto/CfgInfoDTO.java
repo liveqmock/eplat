@@ -4,7 +4,7 @@
  */
 package mplat.mgt.dto;
 
-import com.atom.core.lang.ToString;
+import com.atom.core.lang.ids.LongID;
 
 /**
  * 系统参数设置信息
@@ -12,8 +12,23 @@ import com.atom.core.lang.ToString;
  * @author obullxl@gmail.com
  * @version $Id: GsetInfoDTO.java, V1.0.1 2013-2-10 下午8:50:42 $
  */
-public class GsetInfoDTO extends ToString {
+public class CfgInfoDTO extends LongID {
     private static final long serialVersionUID = 3233112917389329951L;
+
+    /** CPR循环操作模式 */
+    // 标准模式
+    public static int         CPR_MODE_STAND   = 1;
+    // 实战模式
+    public static int         CPR_MODE_ACTUAL  = 2;
+
+    /** 施救者类型 */
+    // 专业施救者
+    public static int         SAVER_MODE_PROF  = 1;
+    public static int         PROF_CPR_THREE  = 3;
+    public static int         PROF_CPR_FIVE    = 5;
+
+    // 非专业施救者
+    public static int         SAVER_Mode_AMAT  = 2;
 
     /** 心肺复苏 */
 
@@ -39,8 +54,8 @@ public class GsetInfoDTO extends ToString {
     // 施救者类型（专业/非专业）
     private int               saverMode;
 
-    private int               pressCountAmateur;
-    private int               pressCountCycle;
+    private int               pressCountAmat;
+    private int               pressCountProf;
 
     /** 虚拟监控器参数 */
 
@@ -124,20 +139,20 @@ public class GsetInfoDTO extends ToString {
         this.saverMode = saverMode;
     }
 
-    public int getPressCountAmateur() {
-        return pressCountAmateur;
+    public int getPressCountAmat() {
+        return pressCountAmat;
     }
 
-    public void setPressCountAmateur(int pressCountAmateur) {
-        this.pressCountAmateur = pressCountAmateur;
+    public void setPressCountAmat(int pressCountAmat) {
+        this.pressCountAmat = pressCountAmat;
     }
 
-    public int getPressCountCycle() {
-        return pressCountCycle;
+    public int getPressCountProf() {
+        return pressCountProf;
     }
 
-    public void setPressCountCycle(int pressCountCycle) {
-        this.pressCountCycle = pressCountCycle;
+    public void setPressCountProf(int pressCountProf) {
+        this.pressCountProf = pressCountProf;
     }
 
     public String getMonitorName() {

@@ -4,7 +4,6 @@
  */
 package mplat.mgt.dto;
 
-import com.atom.core.lang.MapExt;
 import com.atom.core.lang.ids.LongID;
 
 /**
@@ -26,8 +25,6 @@ public class EcgtInfoDTO extends LongID {
     private String            tipRegular;
     private String            tipWave;
     private String            tipInterval;
-
-    private MapExt            ext;
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
 
@@ -101,18 +98,6 @@ public class EcgtInfoDTO extends LongID {
 
     public void setTipInterval(String tipInterval) {
         this.tipInterval = tipInterval;
-    }
-
-    public MapExt getExt() {
-        if (this.ext == null) {
-            this.ext = new MapExt();
-        }
-
-        return ext;
-    }
-
-    public void setExt(MapExt ext) {
-        this.ext = ext;
     }
 
 }

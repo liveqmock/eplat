@@ -13,7 +13,7 @@ public final class MgtFactory {
     private final EcgtKVMgt         ecgtKVMgt;
     private final EcgtMgt           ecgtMgt;
     private final ExamMgt           examMgt;
-    private final GsetMgt           gsetMgt;
+    private final CfgMgt            cfgMgt;
     private final PumpMgt           ejectorMgt;
     private final PumpMgt           transferMgt;
     private final UserMgt           userMgt;
@@ -26,7 +26,7 @@ public final class MgtFactory {
         this.ecgtKVMgt = new EcgtKVMgt();
         this.ecgtMgt = new EcgtMgt();
         this.examMgt = new ExamMgt();
-        this.gsetMgt = new GsetMgt();
+        this.cfgMgt = new CfgMgt();
         this.ejectorMgt = new PumpMgt(PumpMgt.EJECTOR);
         this.transferMgt = new PumpMgt(PumpMgt.TRANSFER);
         this.userMgt = new UserMgt();
@@ -50,8 +50,8 @@ public final class MgtFactory {
         return this.examMgt;
     }
 
-    public GsetMgt findGsetMgt() {
-        return this.gsetMgt;
+    public CfgMgt findCfgMgt() {
+        return this.cfgMgt;
     }
 
     public PumpMgt findEjectorMgt() {

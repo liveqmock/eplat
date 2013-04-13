@@ -1,15 +1,244 @@
 <GSet>
-  <minPressDepth>50</minPressDepth>
+  <id>0</id>
+  <extMap serialization="custom">
+    <unserializable-parents/>
+    <concurrent-hash-map>
+      <default>
+        <segmentMask>15</segmentMask>
+        <segmentShift>28</segmentShift>
+        <segments>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+          <java.util.concurrent.ConcurrentHashMap_-Segment>
+            <sync class="java.util.concurrent.locks.ReentrantLock$NonfairSync" serialization="custom">
+              <java.util.concurrent.locks.AbstractQueuedSynchronizer>
+                <default>
+                  <state>0</state>
+                </default>
+              </java.util.concurrent.locks.AbstractQueuedSynchronizer>
+              <java.util.concurrent.locks.ReentrantLock_-Sync>
+                <default/>
+              </java.util.concurrent.locks.ReentrantLock_-Sync>
+            </sync>
+            <loadFactor>0.75</loadFactor>
+          </java.util.concurrent.ConcurrentHashMap_-Segment>
+        </segments>
+      </default>
+      <null/>
+      <null/>
+    </concurrent-hash-map>
+    <MapExt>
+      <default>
+        <entrySeparator> </entrySeparator>
+        <keyValueSeparator>=</keyValueSeparator>
+      </default>
+    </MapExt>
+  </extMap>
+  <minPressDepth>30</minPressDepth>
   <maxPressDepth>60</maxPressDepth>
-  <minAirVolume>500</minAirVolume>
-  <maxAirVolume>1000</maxAirVolume>
+  <minAirVolume>100</minAirVolume>
+  <maxAirVolume>1200</maxAirVolume>
   <cprOperateMode>2</cprOperateMode>
   <operateRhythm>false</operateRhythm>
   <operateAudio>false</operateAudio>
-  <saverMode>2</saverMode>
-  <pressCountAmateur>150</pressCountAmateur>
-  <pressCountCycle>5</pressCountCycle>
+  <saverMode>1</saverMode>
+  <pressCountAmat>150</pressCountAmat>
+  <pressCountProf>3</pressCountProf>
+  <monitorName></monitorName>
   <joinHeartGraph>false</joinHeartGraph>
   <joinBloodGraph>false</joinBloodGraph>
-  <autoSaveSeconds>60</autoSaveSeconds>
+  <autoSaveSeconds>70</autoSaveSeconds>
 </GSet>

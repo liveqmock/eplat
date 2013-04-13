@@ -1,6 +1,7 @@
 package com.atom.apps.eplat.views;
 
 import mplat.mgt.MgtFactory;
+import mplat.mgt.UserMgt;
 import mplat.mgt.dto.UserInfoDTO;
 
 import org.apache.commons.lang.StringUtils;
@@ -21,11 +22,15 @@ import com.atom.apps.eplat.SWTUtils;
 
 public class UserUpdateView extends Dialog {
 
+    private Text              userName;
     private Text              passwd;
     private Text              passwd2;
 
+    private final UserMgt     umgt = MgtFactory.get().findUserMgt();
+
     /** 用户信息 */
     private final UserInfoDTO user;
+    private final boolean     update;
 
     /**
      * Create the dialog.
@@ -35,6 +40,7 @@ public class UserUpdateView extends Dialog {
         super(parentShell);
 
         this.user = user;
+        this.update = (this.user.getId() > 0L);
     }
 
     /**
@@ -52,9 +58,9 @@ public class UserUpdateView extends Dialog {
         label.setBounds(35, 26, 61, 17);
         label.setText("用户名：");
 
-        Text userName = new Text(container, SWT.BORDER);
+        userName = new Text(container, SWT.BORDER);
         userName.setBounds(11, 41, 73, 23);
-        userName.setEditable(false);
+        userName.setEditable(!this.update);
         userName.setBounds(102, 23, 172, 23);
 
         Label label_1 = new Label(container, SWT.NONE);
@@ -108,10 +114,14 @@ public class UserUpdateView extends Dialog {
         btnClear.setBounds(194, 137, 80, 27);
         btnClear.setText("清除");
         */
-        
+
         // 初始化
-        userName.setText(this.user.getUserName());
-        passwd.setFocus();
+        if (this.update) {
+            userName.setText(this.user.getUserName());
+            passwd.setFocus();
+        } else {
+            userName.setFocus();
+        }
 
         return container;
     }
@@ -131,9 +141,22 @@ public class UserUpdateView extends Dialog {
                 }
 
                 user.setUserPasswd(ptxt);
-                MgtFactory.get().findUserMgt().update(user);
+                if (update) {
+                    umgt.update(user);
+                    SWTUtils.alert(getShell(), "用户信息修改成功！");
+                } else {
+                    user.setUserName(userName.getText());
 
-                SWTUtils.alert(getShell(), "用户信息修改成功！");
+                    UserInfoDTO tmpUser = umgt.find(user.getUserName());
+                    if (tmpUser != null) {
+                        SWTUtils.alert(getShell(), "用户[" + tmpUser.getUserName() + "]已经存在！");
+                        userName.setFocus();
+                        return;
+                    } else {
+                        umgt.create(user);
+                        SWTUtils.alert(getShell(), "用户信息增加成功！");
+                    }
+                }
 
                 // 关闭
                 close();
@@ -154,11 +177,11 @@ public class UserUpdateView extends Dialog {
      */
     protected void configureShell(Shell shell) {
         super.configureShell(shell);
-        
-        shell.setText("修改用户信息");
+
+        shell.setText("增加/修改用户信息");
         shell.setImages(SWTUtils.findImgIcons());
-     }
-    
+    }
+
     /**
      * Return the initial size of the dialog.
      */

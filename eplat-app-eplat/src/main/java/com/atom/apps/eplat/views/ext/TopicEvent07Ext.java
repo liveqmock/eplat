@@ -25,8 +25,10 @@ public class TopicEvent07Ext extends AbstractWebEvent {
      */
     public TopicEvent07Ext() {
         // 初始化页面
-        super.initWebViewExt(SWTUtils.TD_COMM_PORT, SWT.CLOSE, "AED使用训练", SWTUtils.findHtml(HTML_URL));
-        
+        String tabData = SWTUtils.TD_COMM_PORT;
+        this.removeTabItem(tabData);
+        super.initWebViewExt(tabData, SWT.CLOSE, "AED使用训练", SWTUtils.findHtml(HTML_URL));
+
         super.findWebBrowser().addProgressListener(new ProgressAdapter() {
             public void completed(ProgressEvent event) {
                 // evalScript("alert", "你好啊，老牛先生~~");
@@ -34,7 +36,7 @@ public class TopicEvent07Ext extends AbstractWebEvent {
             }
         });
     }
-    
+
     /** 
      * @see com.atom.apps.eplat.views.ext.AbstractWebEvent#onFireEvent(java.lang.String)
      */

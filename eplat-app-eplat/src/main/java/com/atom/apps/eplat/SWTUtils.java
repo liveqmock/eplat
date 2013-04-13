@@ -7,6 +7,8 @@ package com.atom.apps.eplat;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,11 +43,14 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 
 import com.atom.apps.eplat.views.SystemInfoView;
 import com.atom.apps.eplat.views.ext.CourseSlideExt;
 import com.atom.apps.eplat.views.ext.HomePageExt;
 import com.atom.apps.eplat.views.ext.TopicEventExt;
+import com.atom.core.lang.ids.LongID;
 import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
 
@@ -84,10 +89,16 @@ public final class SWTUtils {
     public static final String                  TD_HOME_MAIN    = "EPLAT-TAB-DATA-HomeMain";
     public static final String                  TD_COURSE_WARE  = "EPLAT-TAB-DATA-CourseWare";
     public static final String                  TD_TOPIC_TRAIN  = "EPLAT-TAB-DATA-TopicTrain";
+    public static final String                  TD_TOPIC_EXAM   = "EPLAT-TAB-DATA-TopicExam";
     public static final String                  TD_EMERGE_TRAIN = "EPLAT-TAB-DATA-EmergeTrain";
     public static final String                  TD_EMERGE_EXAM  = "EPLAT-TAB-DATA-EmergeExam";
     public static final String                  TD_EMERGE_WEB   = "EPLAT-TAB-DATA-EmergeWeb";
     public static final String                  TD_SYSTEM_CFG   = "EPLAT-TAB-DATA-SystemCfg";
+
+    public static final String                  TD_USER_MNGT    = "EPLAT-TAB-DATA-UserMngt";
+
+    /** 是否更新KEY */
+    public static final String                  SAVE_KEY        = "_save_data_key";
 
     /** PPT */
     private static final Map<String, String>    _slides         = new ConcurrentHashMap<String, String>();
@@ -103,6 +114,9 @@ public final class SWTUtils {
         _slides.put("09", "心室停搏");
         _slides.put("10", "稳定性心动过速");
     }
+
+    /** 试题最大个数 */
+    public static final int                     MAX_EXAM_COUNT  = 10;
 
     /**
      * 执行销毁
@@ -305,6 +319,55 @@ public final class SWTUtils {
     }
 
     /**
+     * 列表转换为数组
+     */
+    public static String[] toArray(List<String> items) {
+        if (items == null) {
+            return null;
+        }
+
+        String[] rtns = new String[items.size()];
+        for (int i = 0; i < rtns.length; i++) {
+            rtns[i] = items.get(i);
+        }
+
+        return rtns;
+    }
+
+    /**
+     * 是否需要保存
+     */
+    public static boolean isNeedSave(LongID item) {
+        if (item == null) {
+            return false;
+        }
+
+        return item.getExtMap().getBoolean(SAVE_KEY);
+    }
+
+    /**
+     * 设置保存标记
+     */
+    public static void setSaveFlag(LongID item) {
+        if (item == null) {
+            return;
+        }
+
+        item.getExtMap().put(SAVE_KEY, Boolean.toString(true));
+    }
+
+    /**
+     * 去除保存标记
+     */
+    public static void removeSaveFlag(LongID item) {
+        if (item == null) {
+            return;
+        }
+
+        item.getExtMap().remove(SAVE_KEY);
+    }
+
+    /**
      * 新建尺寸
      */
     public static Rectangle toSize(int width, int height) {
@@ -422,6 +485,114 @@ public final class SWTUtils {
         } catch (Exception e) {
             throw new RuntimeException("打开帮助手册[" + file + "]异常", e);
         }
+    }
+
+    /**
+     * 根据值找到数据行
+     */
+    public static TableItem findTableItem(Table table, int index, String value) {
+        if (table == null || index < 0) {
+            return null;
+        }
+
+        for (TableItem item : table.getItems()) {
+            if (StringUtils.equalsIgnoreCase(value, item.getText(index))) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取某列数据
+     */
+    public static List<String> findValues(Table table, int index) {
+        List<String> values = new ArrayList<String>();
+
+        if (table == null || index < 0) {
+            return values;
+        }
+
+        for (TableItem item : table.getItems()) {
+            values.add(item.getText(index));
+        }
+
+        return values;
+    }
+
+    /**
+     * 删除表格数据行
+     */
+    public static int removeValue(Table table, int index, String value) {
+        int count = 0;
+
+        if (table == null) {
+            return count;
+        }
+
+        TableItem[] items = table.getItems();
+        if (items == null || items.length == 0) {
+            return count;
+        }
+
+        int itemCount = items.length;
+
+        boolean searching = true;
+        while (searching) {
+            searching = false;
+
+            for (int i = 0; i < itemCount; i++) {
+                TableItem item = items[i];
+                if (item.isDisposed()) {
+                    continue;
+                }
+
+                String text = item.getText(index);
+                if (StringUtils.equals(text, value)) {
+                    table.remove(i);
+                    searching = true;
+
+                    count += 1;
+                    break;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    /**
+     * 删除表格数据
+     */
+    public static int removeValues(Table table) {
+        if (table == null || table.isDisposed()) {
+            return 0;
+        }
+
+        int count = table.getItemCount();
+        for (int i = 0; i < count; i++) {
+            table.remove(0);
+        }
+
+        return count;
+    }
+
+    /**
+     * 删除表格数据行
+     */
+    public static int removeValues(Table table, int index, List<String> values) {
+        int count = 0;
+
+        if (table == null) {
+            return count;
+        }
+
+        for (String value : values) {
+            count += removeValue(table, index, value);
+        }
+
+        return count;
     }
 
     /**

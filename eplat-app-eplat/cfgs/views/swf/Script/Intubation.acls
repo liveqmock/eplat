@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulator-Script version="1.0"><simulator_Card patientType="0"/><scenario><frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false"><parameters><beginPosition X="600" Y="-250"/><frameRegion width="600" height="299"/></parameters><actions><Action_ECG><QRS>A</QRS><Rhythm>V.fibr</Rhythm><HR>0</HR><EMD>No Change</EMD></Action_ECG><Action_Resp breathType="Apnea" value="0"/></actions><links/></frame></scenario><Customer_Events/></simulator-Script>

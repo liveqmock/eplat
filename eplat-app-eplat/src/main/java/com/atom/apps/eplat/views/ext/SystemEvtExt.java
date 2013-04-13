@@ -7,11 +7,16 @@ package com.atom.apps.eplat.views.ext;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import mplat.mgt.CfgMgt;
+import mplat.mgt.MgtFactory;
+import mplat.mgt.dto.CfgInfoDTO;
 import mplat.mgt.dto.UserInfoDTO;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.swt.SWT;
 
 import com.atom.apps.eplat.SWTUtils;
+import com.atom.apps.eplat.views.SystemCfgDlg;
 import com.atom.apps.eplat.views.UserUpdateView;
 import com.atom.core.lang.utils.LogUtils;
 
@@ -21,7 +26,7 @@ import com.atom.core.lang.utils.LogUtils;
  * @author obullxl@gmail.com
  * @version $Id: SystemEvtExt.java, V1.0.1 2013-4-5 下午3:46:04 $
  */
-public class SystemEvtExt {
+public class SystemEvtExt extends AbstractExtEvent {
     /** 事件代码 */
     private final Map<String, String> evts = new ConcurrentHashMap<String, String>();
     {
@@ -50,12 +55,23 @@ public class SystemEvtExt {
 
         // 01.参数设置
         if (StringUtils.equalsIgnoreCase("01", this.evtNo)) {
-            
+            CfgMgt cmgt = MgtFactory.get().findCfgMgt();
+            CfgInfoDTO cfg = cmgt.getCfgInfo();
+
+            new SystemCfgDlg(this.findShell(), SWT.NONE, cfg).open();
+
+            if (SWTUtils.isNeedSave(cfg)) {
+                SWTUtils.removeSaveFlag(cfg);
+                
+                cmgt.persist();
+                
+                SWTUtils.alert(this.findShell(), "系统参数保存成功！");
+            }
         }
 
         // 02.修改密码
         else if (StringUtils.equalsIgnoreCase("02", this.evtNo)) {
-            new UserUpdateView(SWTUtils.findMainView().findShell(), this.user).open();
+            new UserUpdateView(this.findShell(), this.user).open();
         }
     }
 }

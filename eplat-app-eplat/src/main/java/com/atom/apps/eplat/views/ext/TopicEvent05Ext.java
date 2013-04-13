@@ -11,27 +11,26 @@ import org.eclipse.swt.browser.ProgressEvent;
 import com.atom.apps.eplat.SWTUtils;
 
 /**
- * 除颤仪使用训练页面
+ * 插管训练页面
  * 
  * @author obullxl@gmail.com
- * @version $Id: TopicTrain04Ext.java, V1.0.1 2013-4-8 下午10:30:53 $
+ * @version $Id: TopicEvent05Ext.java, V1.0.1 2013-4-9 下午8:38:10 $
  */
-public class TopicEvent04Ext extends AbstractWebEvent {
+public class TopicEvent05Ext extends AbstractWebEvent {
     /** 页面 */
-    private static final String HTML_URL = "02-TT04-除颤仪使用训练.html";
+    private static final String HTML_URL = "02-TT05-插管训练.html";
 
     /**
      * 默认构造器
      */
-    public TopicEvent04Ext() {
+    public TopicEvent05Ext() {
         // 初始化页面
         String tabData = SWTUtils.TD_COMM_PORT;
         this.removeTabItem(tabData);
-        super.initWebViewExt(tabData, SWT.CLOSE, "除颤仪使用训练", SWTUtils.findHtml(HTML_URL));
+        super.initWebViewExt(tabData, SWT.CLOSE, "插管训练", SWTUtils.findHtml(HTML_URL));
 
         super.findWebBrowser().addProgressListener(new ProgressAdapter() {
             public void completed(ProgressEvent event) {
-                evalScript("opRecoder", "CPRend");
             }
         });
     }
@@ -42,5 +41,5 @@ public class TopicEvent04Ext extends AbstractWebEvent {
     public Object onFireEvent(String arg) {
         return "1";
     }
-    
+
 }

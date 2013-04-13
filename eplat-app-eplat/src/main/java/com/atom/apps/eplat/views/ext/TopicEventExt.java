@@ -54,9 +54,29 @@ public final class TopicEventExt extends AbstractExtEvent {
     public final void onTopicEvent() {
         LogUtils.get().info("[专项训练]-{}.{}", this.evtNo, _evts.get(this.evtNo));
 
+        // 01.ACLS基础知识训练
+        if (StringUtils.equalsIgnoreCase(this.evtNo, "01")) {
+            new ExamMngtViewExt(false);
+        }
+
+        // 02.心律识别训练
+        if (StringUtils.equalsIgnoreCase(this.evtNo, "02")) {
+            new EcgtMngtViewExt(false);
+        }
+
+        // 03.心肺复苏急救训练
+        else if (StringUtils.equalsIgnoreCase(this.evtNo, "03")) {
+            new TopicEvent03Ext();
+        }
+
         // 04.除颤仪使用训练
-        if (StringUtils.equalsIgnoreCase(this.evtNo, "04")) {
+        else if (StringUtils.equalsIgnoreCase(this.evtNo, "04")) {
             new TopicEvent04Ext();
+        }
+
+        // 05.插管训练
+        else if (StringUtils.equalsIgnoreCase(this.evtNo, "05")) {
+            new TopicEvent05Ext();
         }
 
         // 07.AED使用训练
@@ -64,4 +84,5 @@ public final class TopicEventExt extends AbstractExtEvent {
             new TopicEvent07Ext();
         }
     }
+
 }

@@ -4,7 +4,6 @@
  */
 package mplat.mgt.dto;
 
-import com.atom.core.lang.MapExt;
 import com.atom.core.lang.ids.LongID;
 
 /**
@@ -18,8 +17,6 @@ public class UserInfoDTO  extends LongID {
 
     private String            userName;
     private String            userPasswd;
-    
-    private MapExt            ext;
 
     public UserInfoDTO() {
     }
@@ -45,18 +42,6 @@ public class UserInfoDTO  extends LongID {
 
     public void setUserPasswd(String userPasswd) {
         this.userPasswd = userPasswd;
-    }
-
-    public MapExt getExt() {
-        if (this.ext == null) {
-            this.ext = new MapExt();
-        }
-
-        return ext;
-    }
-
-    public void setExt(MapExt ext) {
-        this.ext = ext;
     }
 
 }
