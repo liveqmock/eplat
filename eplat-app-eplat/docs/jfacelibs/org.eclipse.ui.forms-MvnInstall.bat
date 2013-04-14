@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=org.eclipse.ui.forms_3.5.200.v20120705-114351.jar -Dsources=org.eclipse.ui.forms.source_3.5.200.v20120705-114351.jar -DgroupId=org.eclipse -DartifactId=eclipse-ui-forms -Dversion=3.5.200 -Dpackaging=jar -DgeneratePom=true

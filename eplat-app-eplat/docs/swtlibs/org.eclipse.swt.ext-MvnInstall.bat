@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=org.sf.feeling.swt.win32.extension_1.1.0.jar -Dsources=org.sf.feeling.swt.win32.extension_1.1.0.src.zip -Djavadoc=org.sf.feeling.swt.win32.extension_1.1.0.doc.zip -DgroupId=swt -DartifactId=swt-ext -Dversion=1.1.0 -Dpackaging=jar -DgeneratePom=true

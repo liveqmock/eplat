@@ -269,7 +269,9 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
 
         {
             actConfigSet = new Action("系统参数设置") {
-
+                public void run() {
+                    new SystemCfgDlg(getShell(), SWT.NONE).open();
+                }
             };
         }
         {

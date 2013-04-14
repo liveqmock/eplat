@@ -1,5 +1,7 @@
 package com.atom.apps.eplat.views;
 
+import mplat.mgt.CfgMgt;
+import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.CfgInfoDTO;
 
 import org.apache.commons.lang.StringUtils;
@@ -26,6 +28,7 @@ import com.atom.apps.eplat.SWTUtils;
 
 public class SystemCfgDlg extends Dialog {
 
+    private final CfgMgt     cmgt = MgtFactory.get().findCfgMgt();
     private final CfgInfoDTO cfg;
     private Shell            shell;
 
@@ -43,6 +46,8 @@ public class SystemCfgDlg extends Dialog {
     private Button           rbtnOperateClose;
     private Button           rbtnOperateOpen;
 
+    private Group            grpSaverAmat;
+    private Group            grpSaverProf;
     private Button           rbtnSaverProf;
     private Button           rbtnSaverAmat;
     private Spinner          spnPressCntAmat;
@@ -58,11 +63,10 @@ public class SystemCfgDlg extends Dialog {
     /**
      * Create the dialog.
      */
-    public SystemCfgDlg(Shell parent, int style, CfgInfoDTO cfg) {
+    public SystemCfgDlg(Shell parent, int style) {
         super(parent, style);
 
-        this.cfg = cfg;
-        SWTUtils.removeSaveFlag(this.cfg);
+        this.cfg = this.cmgt.getCfgInfo();
     }
 
     /**
@@ -73,6 +77,7 @@ public class SystemCfgDlg extends Dialog {
 
         shell.open();
         shell.layout();
+
         Display display = getParent().getDisplay();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) {
@@ -91,6 +96,7 @@ public class SystemCfgDlg extends Dialog {
         shell.setSize(460, 370);
         shell.setImages(SWTUtils.findImgIcons());
         shell.setText("系统参数设置");
+        SWTUtils.center(this.getParent(), shell);
         shell.setLayout(new BorderLayout(0, 0));
 
         CTabFolder tabFolder = new CTabFolder(shell, SWT.NONE);
@@ -218,7 +224,7 @@ public class SystemCfgDlg extends Dialog {
         rbtnSaverAmat.setBounds(278, 25, 97, 17);
         rbtnSaverAmat.setText("非专业施救者");
 
-        final Group grpSaverAmat = new Group(composite_3, SWT.NONE);
+        grpSaverAmat = new Group(composite_3, SWT.NONE);
         grpSaverAmat.setText("非专业施救者");
         grpSaverAmat.setBounds(10, 70, 430, 55);
 
@@ -234,7 +240,7 @@ public class SystemCfgDlg extends Dialog {
         label_5.setBounds(177, 26, 61, 17);
         label_5.setText("次");
 
-        final Group grpSaverProf = new Group(composite_3, SWT.NONE);
+        grpSaverProf = new Group(composite_3, SWT.NONE);
         grpSaverProf.setText("专业施救者");
         grpSaverProf.setBounds(10, 131, 430, 55);
 
@@ -319,8 +325,9 @@ public class SystemCfgDlg extends Dialog {
         btnSure.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 onUpdateSystemCfg();
-                SWTUtils.setSaveFlag(cfg);
-
+                cmgt.persist();
+                
+                SWTUtils.alert(shell, "系统参数保存成功！");
                 shell.dispose();
             }
         });
@@ -330,8 +337,6 @@ public class SystemCfgDlg extends Dialog {
         btnCancel.setText("取消");
         btnCancel.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-                SWTUtils.removeSaveFlag(cfg);
-
                 shell.dispose();
             }
         });
@@ -348,19 +353,13 @@ public class SystemCfgDlg extends Dialog {
         // 其他初始化
         rbtnSaverAmat.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-                cprSaverMode();
+                initCprSaverMode();
             }
         });
 
         rbtnSaverProf.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-                /*
-                boolean prof = rbtnSaverProf.getSelection();
-                spnPressCntAmat.setEnabled(!prof);
-                rbtnPressCntThree.setEnabled(prof);
-                rbtnPressCntFive.setEnabled(prof);
-                */
-                cprSaverMode();
+                initCprSaverMode();
             }
         });
 
@@ -373,17 +372,16 @@ public class SystemCfgDlg extends Dialog {
 
         // 初始化组件
         this.initComponents();
-        this.cprSaverMode();
+        this.initCprSaverMode();
     }
 
     /**
      * 施救者-CPR操作规则
      */
-    private void cprSaverMode() {
+    private void initCprSaverMode() {
         boolean amat = this.rbtnSaverAmat.getSelection();
-        this.spnPressCntAmat.setEnabled(amat);
-        this.rbtnPressCntThree.setEnabled(!amat);
-        this.rbtnPressCntFive.setEnabled(!amat);
+        SWTUtils.setEnabled(this.grpSaverAmat, amat);
+        SWTUtils.setEnabled(this.grpSaverProf, !amat);
     }
 
     /**
@@ -400,7 +398,7 @@ public class SystemCfgDlg extends Dialog {
         this.rbtnCprModeActual.setSelection(!cprStand);
 
         this.rbtnRhythmOpen.setSelection(this.cfg.isOperateRhythm());
-        this.rbtnRhythmOpen.setSelection(!this.cfg.isOperateRhythm());
+        this.rbtnRhythmClose.setSelection(!this.cfg.isOperateRhythm());
 
         this.rbtnOperateOpen.setSelection(this.cfg.isOperateAudio());
         this.rbtnOperateClose.setSelection(!this.cfg.isOperateAudio());

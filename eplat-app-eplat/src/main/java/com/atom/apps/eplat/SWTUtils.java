@@ -40,6 +40,7 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -193,19 +194,30 @@ public final class SWTUtils {
      * 窗口居中
      */
     public static void center(final Control control) {
-        int width = control.getMonitor().getClientArea().width;
-        int height = control.getMonitor().getClientArea().height;
-        int x = control.getSize().x;
-        int y = control.getSize().y;
+        center(control.getMonitor().getClientArea(), control);
+    }
 
-        if (x > width) {
-            control.getSize().x = width;
-        }
-        if (y > height) {
-            control.getSize().y = height;
-        }
+    /**
+     * 窗口居中
+     */
+    public static void center(final Control parent, final Control control) {
+        center(parent.getBounds(), control);
+    }
 
-        control.setLocation((width - x) / 2, (height - y) / 2);
+    /**
+     * 窗口居中
+     */
+    public static void center(final Rectangle parent, final Control control) {
+        int px = parent.x + parent.width / 2;
+        int py = parent.y + parent.height / 2;
+
+        int cx = px - control.getBounds().width / 2;
+        int cy = py - control.getBounds().height / 2;
+        cx -= 10;
+
+        cx = cx > 0 ? cx : 0;
+        cy = cy > 0 ? cy : 0;
+        control.setLocation(cx, cy);
     }
 
     /**
@@ -445,6 +457,24 @@ public final class SWTUtils {
                 item.dispose();
             }
         }
+    }
+
+    /**
+     * 设置组件是否有效
+     */
+    public static void setEnabled(Composite composite, boolean enabled) {
+        if (composite == null || composite.isDisposed()) {
+            return;
+        }
+
+        Control[] ctrls = composite.getChildren();
+        for (Control ctrl : ctrls) {
+            if (!ctrl.isDisposed()) {
+                ctrl.setEnabled(enabled);
+            }
+        }
+
+        composite.setEnabled(enabled);
     }
 
     /**

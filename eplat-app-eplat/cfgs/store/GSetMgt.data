@@ -232,13 +232,13 @@
   <minAirVolume>100</minAirVolume>
   <maxAirVolume>1200</maxAirVolume>
   <cprOperateMode>2</cprOperateMode>
-  <operateRhythm>false</operateRhythm>
-  <operateAudio>false</operateAudio>
-  <saverMode>1</saverMode>
-  <pressCountAmat>150</pressCountAmat>
+  <operateRhythm>true</operateRhythm>
+  <operateAudio>true</operateAudio>
+  <saverMode>2</saverMode>
+  <pressCountAmat>200</pressCountAmat>
   <pressCountProf>3</pressCountProf>
   <monitorName></monitorName>
   <joinHeartGraph>false</joinHeartGraph>
   <joinBloodGraph>false</joinBloodGraph>
-  <autoSaveSeconds>70</autoSaveSeconds>
+  <autoSaveSeconds>60</autoSaveSeconds>
 </GSet>
