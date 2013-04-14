@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import mplat.mgt.dto.PumpInfoDTO;
 
@@ -29,14 +28,16 @@ import com.atom.core.lang.xml.XMLUtils;
  */
 public final class PumpMgt {
     /** 类型 */
+    // 注射泵
     public static final int         EJECTOR  = 1;
+    // 输液泵
     public static final int         TRANSFER = 2;
 
     /** 类型 */
     private final int               catg;
 
     /** 对象ID */
-    private final AtomicLong        id       = new AtomicLong(0);
+    // private final AtomicLong        id       = new AtomicLong(0);
     /** 对象列表 */
     private final List<PumpInfoDTO> pumps    = new ArrayList<PumpInfoDTO>();
 
@@ -66,8 +67,8 @@ public final class PumpMgt {
             XMLNode root = XMLUtils.toXMLNode(input);
             for (XMLNode drug : root.getChildren()) {
                 PumpInfoDTO item = new PumpInfoDTO();
-                item.setId(this.id.incrementAndGet());
 
+                item.setId(Long.valueOf(drug.getExtMap().get("id")));
                 item.setKey(drug.getExtMap().get("key"));
                 item.setName(this.findByName(drug.getChildren(), "name").getText());
                 item.setAdvice(this.findByName(drug.getChildren(), "advice").getText());

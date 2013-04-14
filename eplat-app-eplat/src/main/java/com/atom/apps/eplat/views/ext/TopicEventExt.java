@@ -7,6 +7,8 @@ package com.atom.apps.eplat.views.ext;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import mplat.mgt.PumpMgt;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.atom.core.lang.utils.LogUtils;
@@ -81,7 +83,7 @@ public final class TopicEventExt extends AbstractExtEvent {
 
         // 06.注射泵使用训练
         else if (StringUtils.equalsIgnoreCase(this.evtNo, "06")) {
-            new TopicEvent06Ext();
+            new PumpMngtViewExt(PumpMgt.EJECTOR);
         }
 
         // 07.AED使用训练
@@ -91,7 +93,7 @@ public final class TopicEventExt extends AbstractExtEvent {
 
         // 08.输液泵使用训练
         else if (StringUtils.equalsIgnoreCase(this.evtNo, "08")) {
-            new TopicEvent08Ext();
+            new PumpMngtViewExt(PumpMgt.TRANSFER);
         }
     }
 

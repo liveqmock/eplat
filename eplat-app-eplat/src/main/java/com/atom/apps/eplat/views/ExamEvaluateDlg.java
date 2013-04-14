@@ -96,6 +96,7 @@ public class ExamEvaluateDlg extends Dialog {
         shell.setSize(600, 440);
         shell.setImages(SWTUtils.findImgIcons());
         shell.setText("ACLS理论知识试题考核");
+        SWTUtils.center(this.getParent(), shell);
         shell.setLayout(new FormLayout());
 
         Group group = new Group(shell, SWT.NONE);
