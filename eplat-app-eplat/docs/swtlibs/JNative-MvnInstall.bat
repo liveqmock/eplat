@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=JNative.jar -Dsources=JNative_1.4RC3_src.zip -DgroupId=jnative -DartifactId=jnative -Dversion=1.4.3 -Dpackaging=jar -DgeneratePom=true
