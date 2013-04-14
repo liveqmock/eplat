@@ -79,9 +79,19 @@ public final class TopicEventExt extends AbstractExtEvent {
             new TopicEvent05Ext();
         }
 
+        // 06.注射泵使用训练
+        else if (StringUtils.equalsIgnoreCase(this.evtNo, "06")) {
+            new TopicEvent06Ext();
+        }
+
         // 07.AED使用训练
         else if (StringUtils.equalsIgnoreCase(this.evtNo, "07")) {
             new TopicEvent07Ext();
+        }
+
+        // 08.输液泵使用训练
+        else if (StringUtils.equalsIgnoreCase(this.evtNo, "08")) {
+            new TopicEvent08Ext();
         }
     }
 

@@ -213,7 +213,6 @@ public final class SWTUtils {
 
         int cx = px - control.getBounds().width / 2;
         int cy = py - control.getBounds().height / 2;
-        cx -= 10;
 
         cx = cx > 0 ? cx : 0;
         cy = cy > 0 ? cy : 0;
