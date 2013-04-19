@@ -232,7 +232,7 @@ public class ExamMngtView extends SashForm {
                 List<String> ids = SWTUtils.findValues(tblDst, IDX_ID);
                 LogUtils.get().info("选择试题-{}", ids);
 
-                new ExamEvaluateDlg(getShell(), SWT.NONE, ids).open();
+                new ExamTrainDlg(getShell(), SWT.NONE, ids).open();
             }
         });
 

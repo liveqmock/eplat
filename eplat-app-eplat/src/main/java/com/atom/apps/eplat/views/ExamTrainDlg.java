@@ -28,12 +28,12 @@ import com.atom.apps.eplat.SWTUtils;
 import com.atom.apps.eplat.views.dtos.ExamEvaluateDTO;
 import com.atom.core.lang.utils.LogUtils;
 
-public class ExamEvaluateDlg extends Dialog {
+public class ExamTrainDlg extends Dialog {
 
     private int                   indexNo  = 0;
 
     private final List<String>    ids;
-    private final ExamEvaluateDTO evaluate = new ExamEvaluateDTO();
+    private final ExamEvaluateDTO train = new ExamEvaluateDTO();
 
     private final ExamMgt         emgt     = MgtFactory.get().findExamMgt();
 
@@ -58,11 +58,11 @@ public class ExamEvaluateDlg extends Dialog {
     /**
      * Create the dialog.
      */
-    public ExamEvaluateDlg(Shell parent, int style, List<String> ids) {
+    public ExamTrainDlg(Shell parent, int style, List<String> ids) {
         super(parent, style);
 
         this.ids = ids;
-        this.evaluate.setTotalCount(this.ids.size());
+        this.train.setTotalCount(this.ids.size());
     }
 
     /**
@@ -85,7 +85,7 @@ public class ExamEvaluateDlg extends Dialog {
             }
         }
 
-        return this.evaluate;
+        return this.train;
     }
 
     /**
@@ -260,8 +260,8 @@ public class ExamEvaluateDlg extends Dialog {
         SWTUtils.execute(new Runnable() {
             public void run() {
                 while (!shell.isDisposed()) {
-                    evaluate.setFinish(new Date());
-                    long millis = evaluate.findMillis();
+                    train.setFinish(new Date());
+                    long millis = train.findMillis();
                     int hours = (int) (millis / DateUtils.MILLIS_PER_HOUR);
                     int minutes = (int) ((millis % DateUtils.MILLIS_PER_HOUR) / DateUtils.MILLIS_PER_MINUTE);
                     int seconds = (int) ((millis % DateUtils.MILLIS_PER_MINUTE) / DateUtils.MILLIS_PER_SECOND);

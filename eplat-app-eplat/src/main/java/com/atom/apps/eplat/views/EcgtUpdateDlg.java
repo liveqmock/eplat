@@ -77,6 +77,7 @@ public class EcgtUpdateDlg extends Dialog {
         shell.setImages(SWTUtils.findImgIcons());
         shell.setText("增加/修改心律识别试题");
         shell.setLayout(new BorderLayout(0, 0));
+        SWTUtils.center(this.getParent(), shell);
 
         Composite cptCenter = new Composite(shell, SWT.NONE);
         cptCenter.setLayoutData(BorderLayout.CENTER);
@@ -152,6 +153,7 @@ public class EcgtUpdateDlg extends Dialog {
         btnSure.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 onUpdateEcgt();
+                ecgt.setSaveFlag();
                 shell.dispose();
             }
         });
@@ -161,6 +163,7 @@ public class EcgtUpdateDlg extends Dialog {
         btnCancel.setText("取消");
         btnCancel.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
+                ecgt.removeSaveFlag();
                 shell.dispose();
             }
         });

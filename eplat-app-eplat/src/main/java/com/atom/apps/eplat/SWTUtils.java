@@ -6,6 +6,7 @@ package com.atom.apps.eplat;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -51,7 +53,6 @@ import com.atom.apps.eplat.views.SystemInfoView;
 import com.atom.apps.eplat.views.ext.CourseSlideExt;
 import com.atom.apps.eplat.views.ext.HomePageExt;
 import com.atom.apps.eplat.views.ext.TopicEventExt;
-import com.atom.core.lang.ids.LongID;
 import com.atom.core.lang.utils.CfgUtils;
 import com.atom.core.lang.utils.LogUtils;
 
@@ -66,6 +67,7 @@ public final class SWTUtils {
     private static Map<String, Image>           _images         = new ConcurrentHashMap<String, Image>();
     private static Map<String, ImageDescriptor> _imgDesps       = new ConcurrentHashMap<String, ImageDescriptor>();
     private static Image[]                      _iconImgs;
+    private static ImageRegistry                _registry       = new ImageRegistry();
 
     /** 线程服务 */
     private static final ExecutorService        _executors      = Executors.newFixedThreadPool(2);
@@ -97,9 +99,6 @@ public final class SWTUtils {
     public static final String                  TD_SYSTEM_CFG   = "EPLAT-TAB-DATA-SystemCfg";
 
     public static final String                  TD_USER_MNGT    = "EPLAT-TAB-DATA-UserMngt";
-
-    /** 是否更新KEY */
-    public static final String                  SAVE_KEY        = "_save_data_key";
 
     /** PPT */
     private static final Map<String, String>    _slides         = new ConcurrentHashMap<String, String>();
@@ -323,6 +322,61 @@ public final class SWTUtils {
     }
 
     /**
+     * 获取ECG图片
+     */
+    public static Image findEcgImage(String name) {
+        String key = "ECT-" + name;
+        Image image = _registry.get(key);
+        if (image != null && !image.isDisposed()) {
+            return image;
+        }
+
+        String file = FilenameUtils.normalize(CfgUtils.findConfigPath() + "/views/ecgts/" + name);
+        InputStream input = null;
+        try {
+            input = new FileInputStream(file);
+            image = new Image(Display.getCurrent(), input);
+            _registry.put(key, image);
+        } catch (Exception e) {
+            LogUtils.get().error("获取ECG图片[{}]异常！", name, e);
+        } finally {
+            IOUtils.closeQuietly(input);
+        }
+
+        return image;
+    }
+
+    /**
+     * 获取图片
+     */
+    public static Image findEcgImage(String name, Rectangle size) {
+        Image tmpImg = findEcgImage(name);
+        if (tmpImg == null) {
+            return null;
+        }
+
+        if (size.width == size.height && size.width == 0) {
+            return tmpImg;
+        }
+
+        Rectangle tmpSize = tmpImg.getBounds();
+        int tmpWidth = tmpSize.width;
+        int tmpHeight = tmpSize.height;
+
+        if (size.width == 0 || size.height == 0) {
+            // 重新计算尺寸
+            if (size.height == 0) {
+                size.height = (tmpHeight * size.width) / tmpWidth;
+            } else if (size.width == 0) {
+                size.width = (tmpWidth * size.height) / tmpHeight;
+            }
+        }
+
+        // 缩放
+        return new Image(Display.getCurrent(), tmpImg.getImageData().scaledTo(size.width, size.height));
+    }
+
+    /**
      * 获取HTML视图
      */
     public static String findHtml(String name) {
@@ -343,39 +397,6 @@ public final class SWTUtils {
         }
 
         return rtns;
-    }
-
-    /**
-     * 是否需要保存
-     */
-    public static boolean isNeedSave(LongID item) {
-        if (item == null) {
-            return false;
-        }
-
-        return item.getExtMap().getBoolean(SAVE_KEY);
-    }
-
-    /**
-     * 设置保存标记
-     */
-    public static void setSaveFlag(LongID item) {
-        if (item == null) {
-            return;
-        }
-
-        item.getExtMap().put(SAVE_KEY, Boolean.toString(true));
-    }
-
-    /**
-     * 去除保存标记
-     */
-    public static void removeSaveFlag(LongID item) {
-        if (item == null) {
-            return;
-        }
-
-        item.getExtMap().remove(SAVE_KEY);
     }
 
     /**

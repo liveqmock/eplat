@@ -7,7 +7,6 @@ import mplat.mgt.EcgtMgt;
 import mplat.mgt.MgtFactory;
 import mplat.mgt.dto.EcgtInfoDTO;
 
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -97,9 +96,10 @@ public class EcgtMngtView extends SashForm {
         titmCreateSrc.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 EcgtInfoDTO ecgt = new EcgtInfoDTO();
+                
                 new EcgtUpdateDlg(getShell(), SWT.NONE, ecgt).open();
 
-                if (StringUtils.isNotBlank(ecgt.getEcgtQrs())) {
+                if (ecgt.hasSaveFlag()) {
                     emgt.create(ecgt);
 
                     crateTableItem(tblSrc, ecgt);
@@ -120,14 +120,18 @@ public class EcgtMngtView extends SashForm {
 
                 String id = item.getText(IDX_ID);
                 EcgtInfoDTO ecgt = emgt.find(Long.valueOf(id));
+                ecgt.removeSaveFlag();
 
                 new EcgtUpdateDlg(getShell(), SWT.NONE, ecgt).open();
-                emgt.update(ecgt);
 
-                SWTUtils.removeValue(tblSrc, IDX_ID, id);
-                crateTableItem(tblSrc, ecgt);
+                if (ecgt.hasSaveFlag()) {
+                    emgt.update(ecgt);
 
-                LogUtils.get().info("更新试题成功-{}", ecgt);
+                    SWTUtils.removeValue(tblSrc, IDX_ID, id);
+                    crateTableItem(tblSrc, ecgt);
+
+                    LogUtils.get().info("更新试题成功-{}", ecgt);
+                }
             }
         });
 
@@ -251,8 +255,8 @@ public class EcgtMngtView extends SashForm {
                 List<String> ids = SWTUtils.findValues(tblDst, IDX_ID);
                 LogUtils.get().info("选择试题-{}", ids);
 
-                // TODO:
-                // new ExamEvaluateDlg(getShell(), SWT.NONE, ids).open();
+                // 训练
+                new EcgtTrainDlg(getShell(), ids).open();
             }
         });
 
