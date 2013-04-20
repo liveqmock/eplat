@@ -54,7 +54,7 @@ body {
   <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase=
   "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="400" height="70" align="middle" id= 
   "myFlash" name="myFlash">
-      <param name="movie" value="swf/8000cs.swf" />
+      <param name="movie" value="swf/TopMenu.swf" />
       <param name="quality" value="high" />
 	  <param name="wmode" value="transparent" />
 	  <param name="allowScriptAccess" value="sameDomain"/>
@@ -72,19 +72,19 @@ body {
 	// writeTitle(str);
 	var title = str;
 	if (str == "01-CourseWare") {
-		callExternal("A");
+		onFlagShow("A");
 		title = "系 统 课 件 列 表";
 	} else if (str == "02-TopicTrain") {
-		callExternal("B");
+		onFlagShow("B");
 		title = "专 项 训 练";
 	} else if (str == "03-EmergeTrain") {
-		callExternal("C");
+		onFlagShow("C");
 		title = "急 救 案 例 训 练";
 	} else if (str == "04-EmergeExam") {
-		callExternal("D");
+		onFlagShow("D");
 		title = "急 救 案 例 考 核";
 	} else if (str == "05-SystemCfg") {
-		callExternal("E");
+		onFlagShow("E");
 		title = "系 统 设 置";
 	}
 	

@@ -144,17 +144,6 @@ function thisMovie(movieName) {
 	}
 }
 
-function callExternal(str) {
-	var me = thisMovie("myFlash");
-	thisMovie("myFlash").FlagShow(str);
-}
-
-function gotoHomePage() {
-	var rtn = fireEvent("A00");
-	// alert(rtn);
-	// parent.location.href = "CourseWare.html";
-}
-
 var menus = {
 	"A" : "A01",
 	"B" : "A02",
@@ -162,34 +151,18 @@ var menus = {
 	"D" : "A04",
 	"E" : "A05",
 };
+
 function gotoMenu(menu) {
 	var rtn = fireEvent(menus[menu]);
 }
 
-function aFunction() {
-	var rtn = fireEvent("A01");
-	// alert(rtn);
-	// parent.location.href = "CourseWare.html";
+function onFlagShow(menu) {
+	var me = thisMovie("myFlash");
+	thisMovie("myFlash").FlagShow(menu);
 }
 
-function bFunction() {
-	var rtn = fireEvent("A02");
-	// parent.window.location.href = "SpecTrain.html";
-}
-
-function cFunction() {
-	var rtn = fireEvent("A03");
-	// parent.location.href = "NurseScene.htm";
-}
-
-function dFunction() {
-	var rtn = fireEvent("A04");
-	// parent.window.location.href = "nurse_test.htm";
-}
-
-function eFunction() {
-	var rtn = fireEvent("A05");
-	// parent.window.location.href = "systom_set.html";
+function gotoHomePage() {
+	var rtn = fireEvent("A00");
 }
 
 function onExitSystem() {
