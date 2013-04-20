@@ -155,6 +155,17 @@ function gotoHomePage() {
 	// parent.location.href = "CourseWare.html";
 }
 
+var menus = {
+	"A" : "A01",
+	"B" : "A02",
+	"C" : "A03",
+	"D" : "A04",
+	"E" : "A05",
+};
+function gotoMenu(menu) {
+	var rtn = fireEvent(menus[menu]);
+}
+
 function aFunction() {
 	var rtn = fireEvent("A01");
 	// alert(rtn);
@@ -181,7 +192,6 @@ function eFunction() {
 	// parent.window.location.href = "systom_set.html";
 }
 
-function CloseFun() {
-	// external.JSCommand(0, 0);
+function onExitSystem() {
 	var rtn = fireEvent("Z01");
 }
