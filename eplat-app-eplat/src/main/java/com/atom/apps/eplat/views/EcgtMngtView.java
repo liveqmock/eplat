@@ -96,7 +96,7 @@ public class EcgtMngtView extends SashForm {
         titmCreateSrc.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 EcgtInfoDTO ecgt = new EcgtInfoDTO();
-                
+
                 new EcgtUpdateDlg(getShell(), SWT.NONE, ecgt).open();
 
                 if (ecgt.hasSaveFlag()) {
@@ -229,16 +229,9 @@ public class EcgtMngtView extends SashForm {
                 if (item == null) {
                     return;
                 }
-
-                long id = Long.valueOf(item.getText(IDX_ID));
-                EcgtInfoDTO ecgt = emgt.find(id);
-                if (ecgt != null) {
-                    crateTableItem(tblSrc, ecgt);
-                }
-
-                LogUtils.get().info("准备去除数据-{}", item);
+                
                 SWTUtils.removeValue(tblDst, IDX_ID, item.getText(IDX_ID));
-                LogUtils.get().info("去除数据成功-{}", item);
+                refresh(tblSrc, TAB_SRC);
             }
         });
 
@@ -311,7 +304,7 @@ public class EcgtMngtView extends SashForm {
         this.initComposites();
 
         // 初始化数据
-        this.initTableValues();
+        this.refresh(this.tblSrc, TAB_SRC);
     }
 
     /**
@@ -330,24 +323,20 @@ public class EcgtMngtView extends SashForm {
     }
 
     /**
-     * 初始化数据
-     */
-    private void initTableValues() {
-        List<EcgtInfoDTO> ecgts = this.emgt.findAll();
-        Collections.sort(ecgts);
-
-        for (EcgtInfoDTO ecgt : ecgts) {
-            this.crateTableItem(tblSrc, ecgt);
-        }
-    }
-
-    /**
      * 刷新表格
      */
     private void refresh(Table table, int tabType) {
         Table tabDst = this.tblDst;
         if (tabType == TAB_DST) {
             tabDst = this.tblSrc;
+        }
+
+        SWTUtils.removeValues(table);
+        
+        List<EcgtInfoDTO> ecgts = this.emgt.findAll();
+        Collections.sort(ecgts);
+        for (EcgtInfoDTO ecgt : ecgts) {
+            this.crateTableItem(table, ecgt);
         }
 
         List<String> dstIds = SWTUtils.findValues(tabDst, IDX_ID);

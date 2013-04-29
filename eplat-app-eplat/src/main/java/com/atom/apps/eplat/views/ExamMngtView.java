@@ -209,13 +209,8 @@ public class ExamMngtView extends SashForm {
                     return;
                 }
 
-                TableItem nitem = new TableItem(tblSrc, SWT.NONE);
-                nitem.setText(IDX_ID, item.getText(IDX_ID));
-                nitem.setText(IDX_TITLE, item.getText(IDX_TITLE));
-
-                LogUtils.get().info("准备去除数据-{}", item);
                 SWTUtils.removeValue(tblDst, IDX_ID, item.getText(IDX_ID));
-                LogUtils.get().info("去除数据成功-{}", item);
+                refresh(tblSrc, TAB_SRC);
             }
         });
 
@@ -276,7 +271,7 @@ public class ExamMngtView extends SashForm {
         this.initComposites();
 
         // 初始化数据
-        this.initTableValues();
+        this.refresh(this.tblSrc, TAB_SRC);
     }
 
     /**
@@ -295,20 +290,6 @@ public class ExamMngtView extends SashForm {
     }
 
     /**
-     * 初始化数据
-     */
-    private void initTableValues() {
-        List<ExamInfoDTO> exams = this.emgt.findAll();
-        Collections.sort(exams);
-
-        for (ExamInfoDTO exam : exams) {
-            TableItem item = new TableItem(this.tblSrc, SWT.NONE);
-            item.setText(IDX_ID, String.valueOf(exam.getId()));
-            item.setText(IDX_TITLE, exam.getTitle());
-        }
-    }
-
-    /**
      * 刷新表格
      */
     private void refresh(Table table, int tabType) {
@@ -317,8 +298,25 @@ public class ExamMngtView extends SashForm {
             tabDst = this.tblSrc;
         }
 
+        SWTUtils.removeValues(table);
+
+        List<ExamInfoDTO> exams = this.emgt.findAll();
+        Collections.sort(exams);
+        for (ExamInfoDTO exam : exams) {
+            this.crateTableItem(table, exam);
+        }
+
         List<String> dstIds = SWTUtils.findValues(tabDst, IDX_ID);
         SWTUtils.removeValues(table, IDX_ID, dstIds);
+    }
+    
+    /**
+     * 增加数据行
+     */
+    private void crateTableItem(Table table, ExamInfoDTO exam) {
+        TableItem titm = new TableItem(table, SWT.NONE);
+        titm.setText(IDX_ID, String.valueOf(exam.getId()));
+        titm.setText(IDX_TITLE, exam.getTitle());
     }
 
     /**

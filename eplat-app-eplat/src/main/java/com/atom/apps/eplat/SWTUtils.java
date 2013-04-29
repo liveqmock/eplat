@@ -67,7 +67,7 @@ public final class SWTUtils {
     private static Map<String, Image>           _images         = new ConcurrentHashMap<String, Image>();
     private static Map<String, ImageDescriptor> _imgDesps       = new ConcurrentHashMap<String, ImageDescriptor>();
     private static Image[]                      _iconImgs;
-    private static ImageRegistry                _registry       = new ImageRegistry();
+    private static ImageRegistry                _registry;
 
     /** 线程服务 */
     private static final ExecutorService        _executors      = Executors.newFixedThreadPool(2);
@@ -117,6 +117,17 @@ public final class SWTUtils {
 
     /** 试题最大个数 */
     public static final int                     MAX_EXAM_COUNT  = 10;
+
+    /**
+     * 初始化
+     */
+    public static void init() {
+        findImgIcons();
+
+        if (_registry == null) {
+            _registry = new ImageRegistry();
+        }
+    }
 
     /**
      * 执行销毁

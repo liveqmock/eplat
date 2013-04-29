@@ -400,7 +400,7 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
      */
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
-        newShell.setText("GD/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
+        newShell.setText("KAR/ACLS 8000 高级生命支持急救技能训练软件2013版 - [欢迎使用]");
         newShell.setSize(1000, 750);
         newShell.setImages(SWTUtils.findImgIcons());
 

@@ -8,6 +8,11 @@
 	<name>eplat-app-eplat</name>
 	<description>eplat-app-eplat</description>
 
+	<properties>
+		<deploy.path.name>deploy-eplat</deploy.path.name>
+		<deploy.final.name>eplat-app-eplat</deploy.final.name>
+	</properties>
+
 	<dependencies>
 		<!-- ======================================== -->
 		<!-- JavaFX相关依赖 -->
@@ -16,9 +21,9 @@
 			<groupId>javafx</groupId>
 			<artifactId>javafx</artifactId>
 			<version>2.2.4</version>
-            <scope>provided</scope>
+			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- ======================================== -->
 		<!-- JFace相关依赖 -->
 		<!-- ======================================== -->
@@ -44,7 +49,7 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/cfgs/swing2swt.jar</systemPath>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>eclipse-core-commands</artifactId>
@@ -75,8 +80,8 @@
 			<artifactId>eclipse-ui-workbench</artifactId>
 			<version>3.104.0</version>
 		</dependency>
-		
-        <!-- ======================================== -->
+
+		<!-- ======================================== -->
 		<!-- ATOM相关依赖 -->
 		<!-- ======================================== -->
 		<dependency>
@@ -119,7 +124,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.1</version>
 		</dependency>
-		
+
 		<!-- ======================================== -->
 		<!-- FreeMarker依赖 -->
 		<!-- ======================================== -->
@@ -128,7 +133,7 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.19</version>
 		</dependency>
-		
+
 		<!-- ======================================== -->
 		<!-- Logger相关依赖 -->
 		<!-- ======================================== -->
@@ -154,14 +159,8 @@
 		<!-- ======================================== -->
 		<!-- Mina相关依赖 -->
 		<!-- ======================================== -->
-		<!--
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-core</artifactId>
-			<version>2.0.7</version>
-		</dependency>
-		-->
-		
+		<!-- <dependency> <groupId>org.apache.mina</groupId> <artifactId>mina-core</artifactId> <version>2.0.7</version> </dependency> -->
+
 		<!-- ======================================== -->
 		<!-- 测试相关依赖 -->
 		<!-- ======================================== -->
@@ -171,20 +170,13 @@
 			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- 系统监控 -->
-		<!--
-		<dependency>
-			<groupId>ch.ethz.ganymed</groupId>
-			<artifactId>ganymed-ssh2</artifactId>
-			<version>build210</version>
-			<scope>test</scope>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>ch.ethz.ganymed</groupId> <artifactId>ganymed-ssh2</artifactId> <version>build210</version> <scope>test</scope> </dependency> -->
 	</dependencies>
 
 	<build>
-		<finalName>eplat-app-eplat-${project.version}</finalName>
+		<finalName>${deploy.final.name}-${project.version}</finalName>
 
 		<resources>
 			<resource>
@@ -210,14 +202,69 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.6</version>
 				<executions>
 					<execution>
-						<id>attach-sources</id>
+						<id>copy-dependency</id>
+						<phase>package</phase>
 						<goals>
-							<goal>jar</goal>
+							<goal>copy-dependencies</goal>
 						</goals>
+						<configuration>
+							<outputDirectory>${deploy.path.name}/libs</outputDirectory>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.goldin</groupId>
+				<artifactId>copy-maven-plugin</artifactId>
+				<version>0.2.5</version>
+				<executions>
+					<execution>
+						<id>copy-maven</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/target</directory>
+									<targetPath>${deploy.path.name}/libs</targetPath>
+									<includes>
+										<include>${deploy.final.name}-${project.version}.jar</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resource</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/${deploy.path.name}/cfgs</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/cfgs</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

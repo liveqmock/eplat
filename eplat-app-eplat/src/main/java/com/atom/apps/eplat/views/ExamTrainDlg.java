@@ -30,12 +30,12 @@ import com.atom.core.lang.utils.LogUtils;
 
 public class ExamTrainDlg extends Dialog {
 
-    private int                   indexNo  = 0;
+    private int                   indexNo = 0;
 
     private final List<String>    ids;
-    private final ExamEvaluateDTO train = new ExamEvaluateDTO();
+    private final ExamEvaluateDTO train   = new ExamEvaluateDTO();
 
-    private final ExamMgt         emgt     = MgtFactory.get().findExamMgt();
+    private final ExamMgt         emgt    = MgtFactory.get().findExamMgt();
 
     private Shell                 shell;
     private Display               display;
@@ -63,6 +63,8 @@ public class ExamTrainDlg extends Dialog {
 
         this.ids = ids;
         this.train.setTotalCount(this.ids.size());
+
+        LogUtils.get().info("ACLS试题考核-{}", this.ids);
     }
 
     /**
@@ -175,7 +177,7 @@ public class ExamTrainDlg extends Dialog {
         group_1.setLayoutData(fd_group_1);
 
         cmbRgtNo = new Combo(group_1, SWT.READ_ONLY);
-        cmbRgtNo.setItems(new String[] {"", "A", "B", "C", "D"});
+        cmbRgtNo.setItems(new String[] { "", "A", "B", "C", "D" });
         cmbRgtNo.setBounds(10, 24, 182, 25);
 
         btnPrev = new Button(shell, SWT.NONE);
@@ -246,7 +248,7 @@ public class ExamTrainDlg extends Dialog {
         group_2.setLayoutData(fd_group_2);
 
         cmbAdvNo = new Combo(group_2, SWT.READ_ONLY);
-        cmbAdvNo.setItems(new String[] {"", "A", "B", "C", "D"});
+        cmbAdvNo.setItems(new String[] { "", "A", "B", "C", "D" });
         cmbAdvNo.setBounds(10, 23, 198, 31);
 
         // 初始化
@@ -273,7 +275,9 @@ public class ExamTrainDlg extends Dialog {
 
                     display.syncExec(new Runnable() {
                         public void run() {
-                            lblTimer.setText(txt.toString());
+                            if (!lblTimer.isDisposed()) {
+                                lblTimer.setText(txt.toString());
+                            }
                         }
                     });
 
@@ -302,10 +306,10 @@ public class ExamTrainDlg extends Dialog {
             this.lblItemB.setText("B." + exam.getItemB());
             this.lblItemC.setText("C." + exam.getItemC());
             this.lblItemD.setText("D." + exam.getItemD());
-            
+
             this.cmbRgtNo.clearSelection();
             this.cmbAdvNo.clearSelection();
-            
+
             this.cmbRgtNo.setText("");
             this.cmbAdvNo.setText("");
         }

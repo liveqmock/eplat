@@ -42,7 +42,7 @@ public class SystemInfoView extends Dialog {
         Label lblTitle = new Label(container, SWT.NONE);
         lblTitle.setFont(SWTResourceManager.getFont("微软雅黑", 12, SWT.NORMAL));
         lblTitle.setBounds(112, 22, 310, 28);
-        lblTitle.setText("高级结合急救技能训练软件");
+        lblTitle.setText("高级生命支持急救技能训练软件");
         
         Label lblVersion = new Label(container, SWT.NONE);
         lblVersion.setFont(SWTResourceManager.getFont("微软雅黑", 11, SWT.NORMAL));

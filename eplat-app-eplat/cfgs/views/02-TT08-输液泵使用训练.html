@@ -5,44 +5,27 @@
 <title>02-08-输液泵使用训练</title>
 <link rel="stylesheet" type="text/css" href="spt/default.css"/>
 <link rel="stylesheet" type="text/css" href="spt/MainView.css"/>
+<style type="text/css">
+html, body {
+	overflow-x: hidden;
+	overflow-y: hidden;
+	text-align: center;
+	vertical-align: middle;
+}
+</style>
 <script type="text/javascript" src="spt/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="swf/swfobject.js"></script>
 <script type="text/javascript" src="spt/jump.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	swfobject.registerObject("FlashID");
-	
-	$("#AED").click(function(e) {
-		var flash = thisMovie("FlashID");
-		flash.AED();
-	});
-	
-	$("#NoAED").click(function(e) {
-		var flash = thisMovie("FlashID");
-		flash.noAED();
-	});
-	
-	$("#SendData").click(function(e) {
-		// CPRStart();
-		var flash = flashObject("FlashID");
-		flash.CPRStart();
-	});
-	
-	$("#StopData").click(function(e) {
-		var flash = thisMovie("FlashID");
-		flash.CPRStop();
-	});
+	thisMovie("FlashID").setLesson("01234");
 });
-
-function CPRStart() {
-	var flash = flashObject("FlashID");
-	flash.CPRStart();
-}
 </script>
 </head>
 
 <body>
-<object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="858" height="587">
+<object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="858" height="100%">
   <param name="movie" value="swf/0208-输液泵使用训练.swf" />
   <param name="quality" value="high" />
   <param name="wmode" value="opaque" />

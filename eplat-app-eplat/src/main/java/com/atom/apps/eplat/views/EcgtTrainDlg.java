@@ -68,6 +68,8 @@ public class EcgtTrainDlg extends Dialog {
 
         this.ids = ids;
         this.train.setTotalCount(this.ids.size());
+        
+        LogUtils.get().info("Ecgt试题考核-{}", this.ids);
     }
 
     /**
@@ -251,7 +253,7 @@ public class EcgtTrainDlg extends Dialog {
             public void widgetSelected(SelectionEvent e) {
                 final EcgtInfoDTO ecgt = findCurrentEcgt();
                 if (ecgt != null) {
-                    txtQrs.setText(StringUtils.trimToEmpty(ecgt.getTipQrs()));
+                    txtQrs.setText(StringUtils.trimToEmpty(ecgt.getEcgtQrs()));
                     txtRhythm.setText(StringUtils.trimToEmpty(ecgt.getEcgtRhythm()));
                     txtRate.setText(StringUtils.trimToEmpty(ecgt.getEcgtRate()));
                     txtExtraSyst.setText(StringUtils.trimToEmpty(ecgt.getEcgtSyst()));
