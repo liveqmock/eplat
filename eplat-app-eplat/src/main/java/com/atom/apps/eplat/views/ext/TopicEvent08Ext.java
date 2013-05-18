@@ -4,6 +4,8 @@
  */
 package com.atom.apps.eplat.views.ext;
 
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.ProgressAdapter;
 import org.eclipse.swt.browser.ProgressEvent;
@@ -23,7 +25,7 @@ public class TopicEvent08Ext extends AbstractWebEvent {
     /**
      * 默认构造器
      */
-    public TopicEvent08Ext() {
+    public TopicEvent08Ext(final List<String> ids) {
         // 初始化页面
         String tabData = SWTUtils.TD_COMM_PORT;
         this.removeTabItem(tabData);
@@ -31,8 +33,7 @@ public class TopicEvent08Ext extends AbstractWebEvent {
 
         super.findWebBrowser().addProgressListener(new ProgressAdapter() {
             public void completed(ProgressEvent event) {
-                // evalScript("alert", "你好啊，老牛先生~~");
-                // execScript("CPRStart();");
+                evalScript("setExams", SWTUtils.findPumpIndexs(ids));
             }
         });
     }

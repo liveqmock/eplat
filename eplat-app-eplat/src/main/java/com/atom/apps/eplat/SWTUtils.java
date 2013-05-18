@@ -657,6 +657,18 @@ public final class SWTUtils {
     }
 
     /**
+     * 根据注射泵/输液泵ID列表获取其索引
+     */
+    public static String findPumpIndexs(List<String> ids) {
+        StringBuilder txt = new StringBuilder(64);
+        for (String id : ids) {
+            txt.append(Integer.parseInt(id) - 1);
+        }
+
+        return txt.toString();
+    }
+
+    /**
      * 通过线程服务执行
      */
     public static void execute(Runnable runnable) {

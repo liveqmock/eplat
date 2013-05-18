@@ -1,56 +1,56 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- 输液泵 -->
 <root>
-	<drug key="A">
+	<drug id="1" key="A">
 		<Dname>多巴胺针  200mg (20ml)</Dname>
 		<Drong>5%GS  200ml</Drong>
 		<Drate>20μg/kg•min</Drate>
 		<Dose>66</Dose>
 		<Dsum>220</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="2" key="A">
 		<Dname>硝普钠针  100mg</Dname>
 		<Drong>5%GS  500ml</Drong>
 		<Drate>3μg/kg•min</Drate>
 		<Dose>45</Dose>
 		<Dsum>500</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="3" key="A">
 		<Dname>可达龙针  300mg</Dname>
 		<Drong>0.9%NS  250ml</Drong>
 		<Drate>75μg/kg•min</Drate>
 		<Dose>125</Dose>
 		<Dsum>250</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="4" key="A">
 		<Dname>氨力农针  100mg</Dname>
 		<Drong>0.9%NS  100ml</Drong>
 		<Drate>10μg/kg•min</Drate>
 		<Dose>30</Dose>
 		<Dsum>100</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="5" key="A">
 		<Dname>正规胰岛素针  16u</Dname>
 		<Drong>0.9%NS  100ml</Drong>
 		<Drate>4u/h</Drate>
 		<Dose>25</Dose>
 		<Dsum>100</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="6" key="A">
 		<Dname>尼莫通注射液  10mg (50ml)</Dname>
 		<Drong>a</Drong>
 		<Drate>1mg/h</Drate>
 		<Dose>5</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="7" key="A">
 		<Dname>垂体后叶素  60U</Dname>
 		<Drong>0.9%NS  100ml</Drong>
 		<Drate>0.4 U/min</Drate>
 		<Dose>40</Dose>
 		<Dsum>100</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="8" key="A">
 		<Dname>纳洛酮针  0.4mg</Dname>
 		<Drong>0.9%NS  100ml</Drong>
 		<Drate>0.1μg/kg•min</Drate>

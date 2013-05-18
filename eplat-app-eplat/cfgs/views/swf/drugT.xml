@@ -1,70 +1,70 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- 注射泵 -->
 <root>
-	<drug key="A">
+	<drug id="1" key="A">
 		<Dname>多巴胺针  150mg (15ml)</Dname>
 		<Drong>0.9%NS 35ml</Drong>
 		<Drate>10μg/kg•min</Drate>
 		<Dose>10</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="2" key="A">
 		<Dname>多巴酚丁胺针 150mg(15ml)</Dname>
 		<Drong>5%GS  35ml</Drong>
 		<Drate>5μg/kg•min</Drate>
 		<Dose>5</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="3" key="A">
 		<Dname>阿拉明针 50mg (5ml)</Dname>
 		<Drong>0.9%NS  45ml</Drong>
 		<Drate>2μg/kg•min</Drate>
 		<Dose>6</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="4" key="A">
 		<Dname>硝普钠针 50mg</Dname>
 		<Drong>5%GS 50ml</Drong>
 		<Drate>2μg/kg•min</Drate>
 		<Dose>6</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="5" key="A">
 		<Dname>硝酸甘油针 30mg (6ml)</Dname>
 		<Drong>0.9%NS  44ml</Drong>
 		<Drate>2μg/kg•min</Drate>
 		<Dose>10</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="6" key="A">
 		<Dname>去甲肾上腺素针  2mg (2ml)</Dname>
 		<Drong>0.9%NS 48ml</Drong>
 		<Drate>0.1μg/kg•min</Drate>
 		<Dose>7.5</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="7" key="A">
 		<Dname>咪唑安定针  50mg (10ml)</Dname>
 		<Drong>0.9%NS  40ml</Drong>
 		<Drate>0.2 mg/kg•h</Drate>
 		<Dose>10</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="8" key="A">
 		<Dname>氨茶碱针  0.5g (2ml)</Dname>
 		<Drong>0.9%NS  18ml</Drong>
 		<Drate>0.8 mg/kg•h</Drate>
 		<Dose>1.6</Dose>
 		<Dsum>20</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="9" key="A">
 		<Dname>米力农针  15mg (15ml)</Dname>
 		<Drong>0.9%NS  35ml</Drong>
 		<Drate>1.0μg/kg•min</Drate>
 		<Dose>10</Dose>
 		<Dsum>50</Dsum>
 	</drug>
-	<drug key="A">
+	<drug id="10" key="A">
 		<Dname>肝素针 2500u (4ml)</Dname>
 		<Drong>0.9%NS  21ml</Drong>
 		<Drate>18U/kg•h</Drate>

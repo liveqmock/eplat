@@ -19,11 +19,13 @@ html, body {
 <script type="text/javascript">
 $(document).ready(function() {
 	swfobject.registerObject("FlashID");
-	
-	setTimeout(function() {
-		thisMovie("FlashID").setLesson("01234");
-	}, 2000);
 });
+
+function setExams(ids) {
+	setTimeout(function() {
+		thisMovie("FlashID").setLesson(ids);
+	}, 3000);
+}
 </script>
 </head>
 

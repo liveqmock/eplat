@@ -61,7 +61,7 @@ public final class PumpMgt {
         InputStream input = null;
         try {
             String path = CfgUtils.findConfigPath();
-            String file = FilenameUtils.normalize(path + "/cfgs/" + this.findFileName());
+            String file = FilenameUtils.normalize(path + "/views/swf/" + this.findFileName());
             input = new FileInputStream(file);
 
             XMLNode root = XMLUtils.toXMLNode(input);
@@ -70,11 +70,11 @@ public final class PumpMgt {
 
                 item.setId(Long.valueOf(drug.getExtMap().get("id")));
                 item.setKey(drug.getExtMap().get("key"));
-                item.setName(this.findByName(drug.getChildren(), "name").getText());
-                item.setAdvice(this.findByName(drug.getChildren(), "advice").getText());
-                item.setRate(this.findByName(drug.getChildren(), "rate").getText());
-                item.setDose(this.findByName(drug.getChildren(), "dose").getText());
-                item.setWeight(this.findByName(drug.getChildren(), "weight").getText());
+                item.setName(this.findByName(drug.getChildren(), "Dname").getText());
+                item.setAdvice(this.findByName(drug.getChildren(), "Drong").getText());
+                item.setRate(this.findByName(drug.getChildren(), "Drate").getText());
+                item.setDose(this.findByName(drug.getChildren(), "Dose").getText());
+                item.setWeight(this.findByName(drug.getChildren(), "Dsum").getText());
 
                 // 处理完成
                 this.pumps.add(item);
@@ -91,9 +91,9 @@ public final class PumpMgt {
      */
     private String findFileName() {
         if (this.catg == EJECTOR) {
-            return "PumpEjectorCfg.xml";
+            return "drugT.xml";
         } else if (this.catg == TRANSFER) {
-            return "PumpTransferCfg.xml";
+            return "drug.xml";
         }
 
         return null;

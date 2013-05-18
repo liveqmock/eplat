@@ -219,10 +219,10 @@ public class PumpMngtView extends SashForm {
 
                 // TODO:
                 // new ExamEvaluateDlg(getShell(), SWT.NONE, ids).open();
-                if(catg == PumpMgt.EJECTOR) {
-                    new TopicEvent06Ext();
+                if (catg == PumpMgt.EJECTOR) {
+                    new TopicEvent06Ext(ids);
                 } else {
-                    new TopicEvent08Ext();
+                    new TopicEvent08Ext(ids);
                 }
             }
         });
