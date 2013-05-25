@@ -168,3 +168,7 @@ function gotoHomePage() {
 function onExitSystem() {
 	var rtn = fireEvent("Z01");
 }
+
+function onEmergeOperate(id) {
+	fireEvent(id);
+}

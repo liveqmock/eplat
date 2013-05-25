@@ -152,6 +152,10 @@ public abstract class AbstractWebEvent extends AbstractExtEvent implements SWTWe
             // 退出
             LogUtils.get().info("[Web事件]-退出系统-[{}].", arg);
             SWTUtils.exitSystem(this.findMainView().findShell());
+        } else {
+            // 其他事件
+            LogUtils.get().info("[Web事件]-其他事件-[{}].", arg);
+            this.onFireEvent(arg);
         }
 
         return "1";
