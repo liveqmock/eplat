@@ -43,18 +43,11 @@ public final class DataMSG implements SerialPortEventListener {
         return MSG;
     }
 
-    /** 消息头 */
-    private final int[]       msgHead    = new int[] { 0xFF, 0x00, 0xFF, 0x00, 0xFF };
-    /** 消息尾 */
-    private final int[]       msgTail    = new int[] { 0xFC, 0xFC, 0xFC };
-    /** 消息最小长度 */
-    private final int         msgMinSize = this.msgHead.length + 5 + this.msgTail.length;
-
     /** 读写锁 */
-    private final Lock        lock       = new ReentrantLock();
+    private final Lock        lock  = new ReentrantLock();
 
     /** 有效 */
-    private boolean           valid      = Boolean.FALSE;
+    private boolean           valid = Boolean.FALSE;
 
     /** 串口名称 */
     private String            portName;
@@ -67,7 +60,7 @@ public final class DataMSG implements SerialPortEventListener {
     private OutputStream      output;
 
     /** 数据缓存 */
-    private final List<int[]> data       = new ArrayList<int[]>();
+    private final List<int[]> data  = new ArrayList<int[]>();
 
     /** 数据监听器 */
     private DataListener      listener;
@@ -214,11 +207,11 @@ public final class DataMSG implements SerialPortEventListener {
 
                 if (buffer.position() >= 3) {
                     int one = buffer.get(buffer.position() - 3);
-                    if (one == this.msgTail[0]) {
+                    if (one == DataUtils.TAIL[0]) {
                         int two = buffer.get(buffer.position() - 2);
-                        if (two == this.msgTail[1]) {
+                        if (two == DataUtils.TAIL[1]) {
                             int three = buffer.get(buffer.position() - 1);
-                            if (three == this.msgTail[2]) {
+                            if (three == DataUtils.TAIL[2]) {
                                 // 消息尾
                                 break;
                             }
@@ -235,19 +228,19 @@ public final class DataMSG implements SerialPortEventListener {
 
             // 最小长度
             boolean save = false;
-            if (buffer.limit() >= this.msgMinSize) {
+            if (buffer.limit() >= DataUtils.MIN_SIZE) {
                 int[] value = new int[buffer.limit()];
                 for (int i = 0; i < value.length; i++) {
                     value[i] = buffer.get();
                 }
 
                 // 数据合法(数据头和数据尾)
-                int[] head = new int[this.msgHead.length];
+                int[] head = new int[DataUtils.HEAD.length];
                 System.arraycopy(value, 0, head, 0, head.length);
-                if (Arrays.equals(this.msgHead, head)) {
-                    int[] tail = new int[this.msgTail.length];
+                if (Arrays.equals(DataUtils.HEAD, head)) {
+                    int[] tail = new int[DataUtils.TAIL.length];
                     System.arraycopy(value, (value.length - tail.length), tail, 0, tail.length);
-                    if (Arrays.equals(this.msgTail, tail)) {
+                    if (Arrays.equals(DataUtils.TAIL, tail)) {
                         // 保存数据
                         save = true;
                         this.data.add(value);
@@ -298,10 +291,10 @@ public final class DataMSG implements SerialPortEventListener {
         if (data == null) {
             return this;
         }
-        
+
         // 数据转换
         int[] value = new int[data.length];
-        for(int i = 0; i < data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
             value[i] = data[i];
         }
 
