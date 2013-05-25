@@ -21,7 +21,7 @@ $(document).ready(function() {
 	swfobject.registerObject("FlashID");
 	
 	// EnterFrame
-	thisMovie("FlashID").EnterFrame();
+	// thisMovie("FlashID").EnterFrame();
 	
 	// CPRStart
 	// CPRStop
@@ -35,6 +35,43 @@ $(document).ready(function() {
 	// endFun
 	// backFun
 });
+
+/**
+ * 按钮事件
+ */
+function onCommand(cmd, args) {
+	// 自操作
+	if (cmd == "zcz") {
+		if(args == "zcz") {
+			thisMovie("FlashID").EnterFrame();
+		} else if(args == "Mzcz") {
+			thisMovie("FlashID").EnterFrame();
+		}
+	}
+	
+	// 标准操作
+	else if (cmd == "bzcz") {
+		if(args == "bzcz") {
+			thisMovie("FlashID").EnterFrame();
+		} else if(args == "Mbzcz") {
+			thisMovie("FlashID").EnterFrame();
+		}
+	}
+	
+	// 实战操作
+	else if (cmd == "szcz") {
+		if(args == "szcz") {
+			thisMovie("FlashID").EnterFrame();
+		} else if(args == "Mszcz") {
+			thisMovie("FlashID").EnterFrame();
+		}
+	}
+}
+</script>
+<script language="VBScript">
+Sub FlashID_FSCommand(ByVal cmd, ByVal args)
+	Call onCommand(cmd, args)
+end Sub
 </script>
 </head>
 

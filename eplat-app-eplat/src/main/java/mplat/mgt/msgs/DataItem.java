@@ -4,6 +4,8 @@
  */
 package mplat.mgt.msgs;
 
+import com.atom.core.lang.utils.DigitUtils;
+
 /**
  * 消息内容
  * 
@@ -27,6 +29,15 @@ public class DataItem {
         this.msgCatg = msgCatg;
         this.msgSize = msgSize;
         this.msgBody = msgBody;
+    }
+
+    /** 
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        String catg = DigitUtils.toHex(this.msgCatg);
+        String body = DigitUtils.toHex(this.msgBody);
+        return String.format("类型[%1$s], 长度[%2$d], 内容[%3$s].", catg, this.msgSize, body);
     }
 
     // ~~~~~~~~~ getters and setters ~~~~~~~~~~~ //

@@ -11,10 +11,10 @@ package mplat.mgt.msgs;
  * @version $Id: DataListener.java, V1.0.1 2013-3-23 下午2:29:02 $
  */
 public interface DataListener {
-
+    
     /**
      * 数据可用
      */
-    public void onData(int[] data);
+    public void onData(DataItem data);
     
 }

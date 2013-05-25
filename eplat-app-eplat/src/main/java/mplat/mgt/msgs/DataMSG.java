@@ -44,10 +44,10 @@ public final class DataMSG implements SerialPortEventListener {
     }
 
     /** 读写锁 */
-    private final Lock        lock  = new ReentrantLock();
+    private final Lock        lock     = new ReentrantLock();
 
     /** 有效 */
-    private boolean           valid = Boolean.FALSE;
+    private boolean           valid    = Boolean.FALSE;
 
     /** 串口名称 */
     private String            portName;
@@ -60,10 +60,10 @@ public final class DataMSG implements SerialPortEventListener {
     private OutputStream      output;
 
     /** 数据缓存 */
-    private final List<int[]> data  = new ArrayList<int[]>();
+    private final List<int[]> data     = new ArrayList<int[]>();
 
     /** 数据监听器 */
-    private DataListener      listener;
+    private DataListener      listener = NopDataListener.INSTANCE;
 
     /**
      * 构造器，初始化
@@ -92,14 +92,6 @@ public final class DataMSG implements SerialPortEventListener {
         }
 
         this.listener = listener;
-        return this;
-    }
-
-    /**
-     * 清楚数据监听器
-     */
-    public final DataMSG removeDataListener() {
-        this.listener = null;
         return this;
     }
 
@@ -269,14 +261,15 @@ public final class DataMSG implements SerialPortEventListener {
      */
     private final DataMSG onDataChange() {
         if (this.listener == null) {
-            return this;
+            this.listener = NopDataListener.INSTANCE;
         }
 
         // 输出全部可用数据
         int[] data = this.findDataMSG();
         while (data != null) {
             // 输出数据
-            this.listener.onData(data);
+            DataItem item = DataUtils.parse(data);
+            this.listener.onData(item);
             // 下一条数据
             data = this.findDataMSG();
         }
