@@ -61,7 +61,7 @@ public final class PumpMgt {
         InputStream input = null;
         try {
             String path = CfgUtils.findConfigPath();
-            String file = FilenameUtils.normalize(path + "/views/swf/" + this.findFileName());
+            String file = FilenameUtils.normalize(path + "/views/" + this.findFileName());
             input = new FileInputStream(file);
 
             XMLNode root = XMLUtils.toXMLNode(input);

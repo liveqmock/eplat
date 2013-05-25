@@ -20,7 +20,7 @@ import com.atom.apps.eplat.SWTUtils;
  */
 public class TopicEvent08Ext extends AbstractWebEvent {
     /** 页面 */
-    private static final String HTML_URL = "swf/02-TT08-输液泵使用训练.html";
+    private static final String HTML_URL = "02-TT08-输液泵使用训练.html";
 
     /**
      * 默认构造器
