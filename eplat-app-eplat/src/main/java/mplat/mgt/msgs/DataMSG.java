@@ -149,13 +149,6 @@ public final class DataMSG implements SerialPortEventListener {
             // 处理数据
             this.readData(event);
             LogUtils.info("[事件]-数据上传事件响应完成.");
-
-            // TODO: 输出数据
-            LogUtils.info("[事件]-准备输出数据......");
-            int[] data = this.findDataMSG();
-            if (data != null && data.length > 0) {
-                this.writeData(data);
-            }
         }
 
         // 输出可用

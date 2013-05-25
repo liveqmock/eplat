@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.eclipse.swt.SWT;
 
 import com.atom.apps.eplat.SWTUtils;
+import com.atom.core.lang.utils.LogUtils;
 
 /**
  * 急救训练/考核
@@ -71,7 +72,7 @@ public class EmergeWebExt extends AbstractWebEvent {
         // 初始化页面
         String tabData = SWTUtils.TD_EMERGE_WEB;
         this.removeTabItem(tabData);
-        
+
         String name = this.webs.get(this.webNo);
         super.initWebViewExt(tabData, SWT.CLOSE, name, SWTUtils.findHtml(name + ".html"));
     }
@@ -80,6 +81,10 @@ public class EmergeWebExt extends AbstractWebEvent {
      * @see com.atom.apps.eplat.views.ext.AbstractWebEvent#onFireEvent(java.lang.String)
      */
     public Object onFireEvent(String arg) {
+        LogUtils.get().info("进入急救案例训练操作-[{}].", arg);
+        
+        // TODO: 最复杂的页面
+        
         return "1";
     }
 
