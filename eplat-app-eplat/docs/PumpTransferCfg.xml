@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 输液泵 -->
+<root>
+	<drug id="1" key="A">
+		<name>多巴胺针 200mg (20ml)</name>
+		<advice>5%GS 200ml</advice>
+		<rate>20μg/kg•min</rate>
+		<dose>66</dose>
+		<weight>220</weight>
+	</drug>
+	<drug id="2" key="A">
+		<name>硝普钠针 100mg</name>
+		<advice>5%GS 500ml</advice>
+		<rate>3μg/kg•min</rate>
+		<dose>45</dose>
+		<weight>500</weight>
+	</drug>
+	<drug id="3" key="A">
+		<name>可达龙针 300mg</name>
+		<advice>0.9%NS 250ml</advice>
+		<rate>75μg/kg•min</rate>
+		<dose>125</dose>
+		<weight>250</weight>
+	</drug>
+	<drug id="4" key="A">
+		<name>氨力农针 100mg</name>
+		<advice>0.9%NS 100ml</advice>
+		<rate>10μg/kg•min</rate>
+		<dose>30</dose>
+		<weight>100</weight>
+	</drug>
+	<drug id="5" key="A">
+		<name>正规胰岛素针 16u</name>
+		<advice>0.9%NS 100ml</advice>
+		<rate>4u/h</rate>
+		<dose>25</dose>
+		<weight>100</weight>
+	</drug>
+	<drug id="6" key="A">
+		<name>尼莫通注射液 10mg (50ml)</name>
+		<advice>a</advice>
+		<rate>1mg/h</rate>
+		<dose>5</dose>
+		<weight>50</weight>
+	</drug>
+	<drug id="7" key="A">
+		<name>垂体后叶素 60U</name>
+		<advice>0.9%NS 100ml</advice>
+		<rate>0.4 U/min</rate>
+		<dose>40</dose>
+		<weight>100</weight>
+	</drug>
+	<drug id="8" key="A">
+		<name>纳洛酮针 0.4mg</name>
+		<advice>0.9%NS 100ml</advice>
+		<rate>0.1μg/kg•min</rate>
+		<dose>75</dose>
+		<weight>100</weight>
+	</drug>
+</root>
