@@ -53,8 +53,6 @@ public class EcgtTrainDlg extends Dialog {
 
     private Combo                 cmbRhythm;
     private Combo                 cmbExtraSyst;
-    private final List<String>    rhythms;
-    private final List<String>    extraSysts;
 
     private Text                  txtHint;
     private Text                  txtQrs;
@@ -70,10 +68,7 @@ public class EcgtTrainDlg extends Dialog {
 
         this.ids = ids;
         this.train.setTotalCount(this.ids.size());
-
-        this.rhythms = EcgtMgt.findEcgtRhythm();
-        this.extraSysts = EcgtMgt.findEcgtExtSyst();
-
+        
         LogUtils.get().info("Ecgt试题考核-{}", this.ids);
     }
 
@@ -105,20 +100,56 @@ public class EcgtTrainDlg extends Dialog {
      */
     private void createContents() {
         shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-        shell.setSize(600, 407);
+        shell.setSize(600, 440);
         shell.setImages(SWTUtils.findImgIcons());
         shell.setText("ECG心律识别训练");
         SWTUtils.center(this.getParent(), shell);
 
+        Group group = new Group(shell, SWT.NONE);
+        group.setText("尺寸");
+        group.setBounds(10, 10, 120, 72);
+
+        Button rbtnSizeOne = new Button(group, SWT.RADIO);
+        rbtnSizeOne.setBounds(10, 22, 97, 17);
+        rbtnSizeOne.setText("Size 1X");
+
+        Button rbtnSizeTwo = new Button(group, SWT.RADIO);
+        rbtnSizeTwo.setBounds(10, 45, 97, 17);
+        rbtnSizeTwo.setText("Size 2X");
+
+        Group group_1 = new Group(shell, SWT.NONE);
+        group_1.setText("速度");
+        group_1.setBounds(236, 10, 120, 72);
+
+        Button rbtnSpeedNormal = new Button(group_1, SWT.RADIO);
+        rbtnSpeedNormal.setBounds(10, 22, 97, 17);
+        rbtnSpeedNormal.setText("正常");
+
+        Button rbtnSpeedFast = new Button(group_1, SWT.RADIO);
+        rbtnSpeedFast.setBounds(10, 45, 97, 17);
+        rbtnSpeedFast.setText("加速");
+
+        Group group_2 = new Group(shell, SWT.NONE);
+        group_2.setText("显示");
+        group_2.setBounds(464, 10, 120, 72);
+
+        Button rbtnShowLine = new Button(group_2, SWT.RADIO);
+        rbtnShowLine.setBounds(10, 22, 97, 17);
+        rbtnShowLine.setText("拖动显示");
+
+        Button rbtnShowBlock = new Button(group_2, SWT.RADIO);
+        rbtnShowBlock.setBounds(10, 45, 97, 17);
+        rbtnShowBlock.setText("快刷新显示");
+
         Group group_3 = new Group(shell, SWT.NONE);
-        group_3.setBounds(10, 3, 574, 156);
+        group_3.setBounds(10, 78, 574, 156);
 
         lblEcgtPhoto = new Label(group_3, SWT.NONE);
         lblEcgtPhoto.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND));
         lblEcgtPhoto.setBounds(5, 12, ECG_WIDTH, ECG_HEIGHT);
 
         CTabFolder tabFolder = new CTabFolder(shell, SWT.BORDER);
-        tabFolder.setBounds(10, 172, 574, 200);
+        tabFolder.setBounds(10, 240, 574, 162);
         tabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 
         CTabItem titmTrain = new CTabItem(tabFolder, SWT.NONE);
@@ -130,7 +161,7 @@ public class EcgtTrainDlg extends Dialog {
 
         Group group_4 = new Group(composite, SWT.NONE);
         group_4.setText("结果");
-        group_4.setBounds(10, 10, 120, 155);
+        group_4.setBounds(10, 10, 120, 115);
 
         Label label = new Label(group_4, SWT.NONE);
         label.setBounds(10, 22, 40, 17);
@@ -159,28 +190,17 @@ public class EcgtTrainDlg extends Dialog {
         lblTimer.setBounds(52, 88, 60, 17);
         lblTimer.setText("00:00:00");
 
-        Button btnReset = new Button(group_4, SWT.NONE);
-        btnReset.setBounds(10, 120, 100, 27);
-        btnReset.setText("重置");
-        btnReset.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent e) {
-                indexNo = 0;
-                train.setRightCount(0);
-                initComponents();
-            }
-        });
-
         Group group_5 = new Group(composite, SWT.NONE);
         group_5.setText("答题");
-        group_5.setBounds(136, 10, 422, 155);
+        group_5.setBounds(136, 10, 422, 115);
 
         cmbRhythm = new Combo(group_5, SWT.READ_ONLY);
         cmbRhythm.setBounds(10, 20, 130, 25);
-        cmbRhythm.setItems(SWTUtils.toArray(this.rhythms));
+        cmbRhythm.setItems(SWTUtils.toArray(EcgtMgt.findEcgtRhythm()));
 
         cmbExtraSyst = new Combo(group_5, SWT.READ_ONLY);
         cmbExtraSyst.setBounds(148, 20, 130, 25);
-        cmbExtraSyst.setItems(SWTUtils.toArray(this.extraSysts));
+        cmbExtraSyst.setItems(SWTUtils.toArray(EcgtMgt.findEcgtExtSyst()));
 
         Label lblQrs = new Label(group_5, SWT.NONE);
         lblQrs.setBounds(10, 53, 28, 17);
@@ -215,64 +235,73 @@ public class EcgtTrainDlg extends Dialog {
         txtExtraSyst.setEditable(false);
         txtExtraSyst.setBounds(160, 85, 118, 23);
 
-        btnNext = new Button(group_5, SWT.NONE);
-        btnNext.setBounds(220, 118, 80, 27);
-        btnNext.setText("下一题");
-        btnNext.addSelectionListener(new SelectionAdapter() {
+        Button btnReset = new Button(group_5, SWT.NONE);
+        btnReset.setBounds(332, 18, 80, 27);
+        btnReset.setText("重置");
+        btnReset.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-                EcgtInfoDTO ecgt = findCurrentEcgt();
-
-                if (ecgt != null) {
-                    String rhythm = StringUtils.trimToEmpty(cmbRhythm.getText());
-                    String extraSyst = StringUtils.trimToEmpty(cmbExtraSyst.getText());
-                    if (StringUtils.equals(StringUtils.trimToEmpty(ecgt.getEcgtRhythm()), rhythm)) {
-                        if (StringUtils.equals(StringUtils.trimToEmpty(ecgt.getEcgtSyst()), extraSyst)) {
-                            // 正确+1
-                            train.setRightCount(train.getRightCount() + 1);
-                        }
-                    }
-
-                    // 下一题
-                    indexNo += 1;
-                    initComponents();
-                }
+                indexNo = 0;
+                train.setTotalCount(0);
+                initComponents();
             }
         });
 
-        Button btnComplete = new Button(group_5, SWT.NONE);
-        btnComplete.setBounds(332, 118, 80, 27);
-        btnComplete.setText("结束");
-
-        Button btnAdvice = new Button(group_5, SWT.NONE);
-        btnAdvice.addSelectionListener(new SelectionAdapter() {
+        btnNext = new Button(group_5, SWT.NONE);
+        btnNext.setBounds(332, 48, 80, 27);
+        btnNext.setText("下一题");
+        btnNext.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-                EcgtInfoDTO ecgt = findCurrentEcgt();
+                final EcgtInfoDTO ecgt = findCurrentEcgt();
                 if (ecgt != null) {
-                    int idx = rhythms.indexOf(ecgt.getEcgtRhythm());
-                    if (idx >= 0) {
-                        cmbRhythm.select(idx);
-                    }
-
-                    idx = extraSysts.indexOf(ecgt.getEcgtSyst());
-                    if (idx >= 0) {
-                        cmbExtraSyst.select(idx);
-                    }
-
                     txtQrs.setText(StringUtils.trimToEmpty(ecgt.getEcgtQrs()));
                     txtRhythm.setText(StringUtils.trimToEmpty(ecgt.getEcgtRhythm()));
                     txtRate.setText(StringUtils.trimToEmpty(ecgt.getEcgtRate()));
                     txtExtraSyst.setText(StringUtils.trimToEmpty(ecgt.getEcgtSyst()));
                 }
+
+                // 停止3秒
+                if (indexNo <= (ids.size() - 1)) {
+                    SWTUtils.execute(new Runnable() {
+                        public void run() {
+                            // 按钮不可用
+                            display.syncExec(new Runnable() {
+                                public void run() {
+                                    btnNext.setEnabled(false);
+                                }
+                            });
+
+                            // 暂停3秒
+                            long start = System.currentTimeMillis();
+                            while (System.currentTimeMillis() - start < 3 * DateUtils.MILLIS_PER_SECOND) {
+                                // do nothing
+                            }
+
+                            // 计算是否正确
+                            display.syncExec(new Runnable() {
+                                public void run() {
+                                    String rhythm = StringUtils.trimToEmpty(cmbRhythm.getText());
+                                    String extraSyst = StringUtils.trimToEmpty(cmbExtraSyst.getText());
+                                    if (StringUtils.equals(StringUtils.trimToEmpty(ecgt.getEcgtRhythm()), rhythm)) {
+                                        if (StringUtils.equals(StringUtils.trimToEmpty(ecgt.getEcgtSyst()), extraSyst)) {
+                                            // 正确+1
+                                            train.setRightCount(train.getRightCount() + 1);
+                                        }
+                                    }
+
+                                    // 下一题
+                                    indexNo += 1;
+                                    initComponents();
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
-        btnAdvice.setBounds(10, 118, 80, 27);
-        btnAdvice.setText("参考答案");
 
-        Button btnLast = new Button(group_5, SWT.NONE);
-        btnLast.setBounds(120, 118, 80, 27);
-        btnLast.setText("上一题");
-        btnLast.setVisible(false);
-
+        Button btnComplete = new Button(group_5, SWT.NONE);
+        btnComplete.setBounds(332, 78, 80, 27);
+        btnComplete.setText("结束");
         btnComplete.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
                 shell.dispose();
@@ -288,7 +317,7 @@ public class EcgtTrainDlg extends Dialog {
 
         txtHint = new Text(composite_1, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
         txtHint.setEditable(false);
-        txtHint.setBounds(10, 10, 548, 155);
+        txtHint.setBounds(10, 10, 548, 115);
 
         // 初始化
         tabFolder.setSelection(titmTrain);
@@ -319,7 +348,7 @@ public class EcgtTrainDlg extends Dialog {
                             if (lblTimer != null && !lblTimer.isDisposed()) {
                                 lblTimer.setText(txt.toString());
                             }
-
+                            
                             if (lblRightCount != null && !lblRightCount.isDisposed()) {
                                 lblRightCount.setText(String.valueOf(train.getRightCount()));
                             }
@@ -381,14 +410,20 @@ public class EcgtTrainDlg extends Dialog {
             this.shell.dispose();
         }
 
-        if (this.indexNo <= 0) {
-            this.indexNo = 0;
-        }
-
-        if (this.indexNo <= count) {
-            this.btnNext.setEnabled(true);
+        if (count == 1) {
+            this.btnNext.setEnabled(false);
         } else {
-            this.btnNext.setEnabled(true);
+            if (this.indexNo <= 0) {
+                this.indexNo = 0;
+            }
+
+            if (this.indexNo >= (count - 1)) {
+                this.indexNo = (count - 1);
+
+                this.btnNext.setEnabled(false);
+            } else {
+                this.btnNext.setEnabled(true);
+            }
         }
     }
 
@@ -396,10 +431,6 @@ public class EcgtTrainDlg extends Dialog {
      * 获取当前试题
      */
     private EcgtInfoDTO findCurrentEcgt() {
-        if (this.indexNo > (this.ids.size() - 1)) {
-            return null;
-        }
-
         String id = this.ids.get(this.indexNo);
         return this.emgt.find(Long.valueOf(id));
     }
