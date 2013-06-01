@@ -4,7 +4,6 @@
  */
 package com.atom.apps.eplat.views;
 
-import mplat.mgt.MgtFactory;
 import mplat.mgt.UserMgt;
 
 import org.eclipse.jface.action.Action;
@@ -74,18 +73,18 @@ public final class MainSetView extends ApplicationWindow implements SWTMainView 
     private Action     actHelp;
     private Action     actAbout;
 
-    public static void main(String[] args) {
-        try {
-            SWTUtils.setLoginUser(MgtFactory.get().findUserMgt().find("admin"));
-
-            MainSetView window = new MainSetView();
-            window.setBlockOnOpen(true);
-            window.open();
-            Display.getCurrent().dispose();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            SWTUtils.setLoginUser(MgtFactory.get().findUserMgt().find("admin"));
+//
+//            MainSetView window = new MainSetView();
+//            window.setBlockOnOpen(true);
+//            window.open();
+//            Display.getCurrent().dispose();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * Create the application window.

@@ -17,7 +17,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -33,16 +32,16 @@ public class UserLoginView extends ApplicationWindow {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        try {
-            UserLoginView window = new UserLoginView();
-            window.setBlockOnOpen(true);
-            window.open();
-            Display.getCurrent().dispose();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            UserLoginView window = new UserLoginView();
+//            window.setBlockOnOpen(true);
+//            window.open();
+//            Display.getCurrent().dispose();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * Create the application window.
