@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<reference_data>
+	<category tag="静脉液体" visible="false">
+		<property visible="true" system="true" code="0200001">0.9%生理盐水</property>
+		<property visible="true" system="true" code="0200002">5%葡萄糖溶液</property>
+		<property visible="true" system="true" code="0200003">10%葡萄糖溶液</property>
+		<property visible="true" system="true" code="0200004">5%葡萄糖氯化钠溶液</property>
+		<property visible="true" system="true" code="0200005">5%碳酸氢钠溶液</property>
+		<property visible="true" system="true" code="0200006">低分子右旋糖酐</property>
+		<property visible="true" system="true" code="0200007">乳酸林格氏液</property>
+		<property visible="true" system="true" code="0200008">10%氯化钾溶液液</property>
+		<property visible="true" system="true" code="0200009">10% 葡萄糖酸钙</property>
+		<property visible="true" system="true" code="0200010">维生素C</property>
+		<property visible="true" system="true" code="0200011">白蛋白</property>
+		<property visible="true" system="true" code="0200012">浓缩RBC</property>
+		<property visible="true" system="true" code="0200013">血浆</property>
+	</category>
+	<category tag="肾上腺素受体激动药" visible="false">
+		<property visible="true" system="true" code="0200014">去甲肾上腺素</property>
+		<property visible="true" system="true" code="0200015">间羟胺（阿拉明）</property>
+		<property visible="true" system="true" code="0200016">去氧肾上腺素</property>
+		<property visible="true" system="true" code="0200017">肾上腺素</property>
+		<property visible="true" system="true" code="0200018">多巴胺</property>
+		<property visible="true" system="true" code="0200019">麻黄碱</property>
+		<property visible="true" system="true" code="0200020">异丙肾上腺素</property>
+		<property visible="true" system="true" code="0200021">多巴酚丁胺</property>
+	</category>
+	<category tag="肾上腺素受体阻断药" visible="false">
+		<property visible="true" system="true" code="0200022">酚妥拉明</property>
+		<property visible="true" system="true" code="0200023">普萘洛尔</property>
+		<property visible="true" system="true" code="0200024">阿替洛尔</property>
+		<property visible="true" system="true" code="0200025">美托洛尔</property>
+	</category>
+	<category tag="胆碱受体阻断药" visible="false">
+		<property visible="true" system="true" code="0200026">阿托品</property>
+		<property visible="true" system="true" code="0200027">山莨菪碱（654-2）</property>
+		<property visible="true" system="true" code="0200028">贝那替秦（胃复康）</property>
+		<property visible="true" system="true" code="0200029">琥珀酰胆碱</property>
+	</category>
+	<category tag="麻醉相关药物" visible="false">
+		<category tag="吸入麻醉药" visible="false">
+			<property visible="true" system="true" code="0200030">氧化亚氮</property>
+			<property visible="true" system="true" code="0200031">安氟烷</property>
+			<property visible="true" system="true" code="0200032">异氟醚</property>
+			<property visible="true" system="true" code="0200033">地氟醚</property>
+			<property visible="true" system="true" code="0200034">氟烷</property>
+		</category>
+		<category tag="静脉麻醉药" visible="false">
+			<property visible="true" system="true" code="0200035">硫喷妥钠</property>
+			<property visible="true" system="true" code="0200036">氯胺酮</property>
+			<property visible="true" system="true" code="0200037">丙泊酚</property>
+			<property visible="true" system="true" code="0200038">依托咪酯</property>
+		</category>
+		<category tag="局部麻醉药" visible="false">
+			<property visible="true" system="true" code="0200039">普鲁卡因</property>
+			<property visible="true" system="true" code="0200040">利多卡因</property>
+		</category>
+		<category tag="肌松药" visible="false">
+			<property visible="true" system="true" code="0200029">琥珀酰胆碱</property>
+			<property visible="true" system="true" code="0200042">泮库溴胺</property>
+			<property visible="true" system="true" code="0200043">维库溴胺</property>
+			<property visible="true" system="true" code="0200044">阿曲库胺</property>
+		</category>
+		<category tag="逆转麻醉药" visible="false">
+			<property visible="true" system="true" code="0200045">氟马西尼</property>
+			<property visible="true" system="true" code="0200046">纳洛酮</property>
+		</category>
+	</category>
+	<category tag="镇静催眠药" visible="false">
+		<category tag="苯二氮卓类" visible="false">
+			<property visible="true" system="true" code="0200047">地西泮</property>
+			<property visible="true" system="true" code="0200048">咪达唑仑</property>
+			<property visible="true" system="true" code="0200049">硝西泮</property>
+		</category>
+		<category tag="巴比妥类" visible="false">
+			<property visible="true" system="true" code="0200050">司可巴比妥（速可眠）</property>
+			<property visible="true" system="true" code="0200051">异戊巴比妥（阿米妥）</property>
+			<property visible="true" system="true" code="0200052">苯巴比妥（鲁米那）</property>
+			<property visible="true" system="true" code="0200035">硫喷妥钠</property>
+		</category>
+		<category tag="其他" visible="false">
+			<property visible="true" system="true" code="0200054">水合氯醛</property>
+		</category>
+	</category>
+	<category tag="镇痛药" visible="false">
+		<property visible="true" system="true" code="0200055">吗啡</property>
+		<property visible="true" system="true" code="0200056">哌替啶（度冷丁）</property>
+		<property visible="true" system="true" code="0200057">芬太尼</property>
+		<property visible="true" system="true" code="0200058">可待因</property>
+	</category>
+	<category tag="甾体抗炎药" visible="false">
+		<property visible="true" system="true" code="0200059">氢化可的松</property>
+		<property visible="true" system="true" code="0200060">泼尼松</property>
+		<property visible="true" system="true" code="0200061">地塞米松</property>
+	</category>
+	<category tag="改善呼吸药物" visible="false">
+		<category tag="支气管扩张药" visible="false">
+			<property visible="true" system="true" code="0200062">沙丁胺醇（舒喘灵）</property>
+			<property visible="true" system="true" code="0200063">特布他林</property>
+			<property visible="true" system="true" code="0200064">氨茶碱</property>
+			<property visible="true" system="true" code="0200065">双羟茶碱（喘定）</property>
+		</category>
+		<category tag="抗炎平喘药" visible="false">
+			<property visible="true" system="true" code="0200066">倍氯米松</property>
+			<property visible="true" system="true" code="0200067">强的松</property>
+			<property visible="true" system="true" code="0200068">甲基强的松龙</property>
+		</category>
+		<category tag="呼吸兴奋药" visible="false">	
+			<property visible="true" system="true" code="0200069">尼可刹米（可拉明）</property>
+			<property visible="true" system="true" code="0200070">洛贝林</property>
+		</category>
+	</category>
+		<category tag="解热镇痛药" visible="false">
+		<property visible="true" system="true" code="0200071">阿司匹林</property>
+		<property visible="true" system="true" code="0200072">对乙酰氨基酚（扑热息痛）</property>
+		<property visible="true" system="true" code="0200073">吲哚美辛</property>
+	</category>
+	<category tag="抗心律失常药" visible="false">	
+		<property visible="true" system="true" code="0200026">阿托品</property>
+		<property visible="true" system="true" code="0200075">奎尼丁</property>
+		<property visible="true" system="true" code="0200039">普鲁卡因</property>
+		<property visible="true" system="true" code="0200040">利多卡因</property>
+		<property visible="true" system="true" code="0200078">普罗帕酮</property>
+		<property visible="true" system="true" code="0200023">普萘洛尔</property>
+		<property visible="true" system="true" code="0200080">胺碘酮</property>
+		<property visible="true" system="true" code="0200081">索他洛尔</property>
+		<property visible="true" system="true" code="0200082">腺苷</property>
+	</category>
+	<category tag="抗心绞痛药" visible="false">		
+		<category tag="硝酸酯类" visible="false">
+			<property visible="true" system="true" code="0200083">硝酸甘油</property>
+			<property visible="true" system="true" code="0200084">单硝酸异山梨酯</property>
+		</category>
+		<category tag="钙通道阻滞药" visible="false">
+			<property visible="true" system="true" code="0200085">维拉帕米</property>
+			<property visible="true" system="true" code="0200086">硝苯地平（心痛定）</property>
+			<property visible="true" system="true" code="0200087">地尔硫卓</property>
+		</category>
+		<category tag="β受体阻滞药" visible="false">
+			<property visible="true" system="true" code="0200023">普萘洛尔（心得安）</property>
+			<property visible="true" system="true" code="0200025">美托洛尔</property>
+		</category>
+	</category>
+	<category tag="抗心力衰竭药" visible="false">
+		<category tag="利尿药" visible="false">
+			<property visible="true" system="true" code="0200090">氢氯噻嗪</property>
+			<property visible="true" system="true" code="0200091">呋塞米（速尿）</property>
+			<property visible="true" system="true" code="0200092">螺内酯（安体舒通）</property>
+		</category>
+		<category tag="强心药" visible="false">
+			<property visible="true" system="true" code="0200093">地高辛</property>
+			<property visible="true" system="true" code="0200094">洋地黄毒苷</property>
+			<property visible="true" system="true" code="0200095">氨力农</property>
+			<property visible="true" system="true" code="0200096">米力农</property>
+		</category>
+		<category tag="ACEI/ARB" visible="false">
+			<property visible="true" system="true" code="0200097">卡托普利</property>
+			<property visible="true" system="true" code="0200098">氯沙坦</property>
+		</category>
+		<category tag="硝基血管扩张药" visible="false">
+			<property visible="true" system="true" code="0200083">硝酸甘油</property>
+			<property visible="true" system="true" code="0200100">硝酸异山梨酯</property>
+			<property visible="true" system="true" code="0200101">硝普钠</property>
+		</category>
+		<category tag="β受体阻滞药" visible="false">
+			<property visible="true" system="true" code="0200025">美托洛尔</property>
+		</category>
+	</category>
+	<category tag="抗休克药" visible="false">
+		<category tag="心血管活性药物" visible="false">
+			<property visible="true" system="true" code="0200101">硝普钠</property>
+			<property visible="true" system="true" code="0200083">硝酸甘油</property>
+			<property visible="true" system="true" code="0200018">多巴胺</property>
+			<property visible="true" system="true" code="0200020">异丙肾上腺素</property>
+			<property visible="true" system="true" code="0200014">去甲肾上腺素</property>
+			<property visible="true" system="true" code="0200015">间羟胺（阿拉明）</property>
+			<property visible="true" system="true" code="0200017">肾上腺素</property>
+			<property visible="true" system="true" code="0200022">酚妥拉明（立其丁）</property>
+			<property visible="true" system="true" code="0200095">氨力农</property>
+			<property visible="true" system="true" code="0200021">多巴酚丁胺</property>
+		</category>
+		<category tag="激素" visible="false">
+			<property visible="true" system="true" code="0200059">氢化可的松</property>
+			<property visible="true" system="true" code="0200061">地塞米松</property>
+			<property visible="true" system="true" code="0200115">泼尼松龙</property>
+		</category>
+		<category tag="其他" visible="false">
+			<property visible="true" system="true" code="0200046">纳洛酮</property>
+			<property visible="true" system="true" code="0200117">冬眠合剂（氯丙嗪+异丙嗪+哌替啶）</property>
+		</category>
+	</category>
+	<category tag="抗血小板药" visible="false">
+		<property visible="true" system="true" code="0200071">阿司匹林</property>
+		<property visible="true" system="true" code="0200119">氯吡格雷</property>
+		<property visible="true" system="true" code="0200120">阿昔单抗</property>
+	</category>
+	<category tag="抗高血压药" visible="false">
+		<category tag="利尿药" visible="false">
+			<property visible="true" system="true" code="0200090">氢氯噻嗪</property>
+			<property visible="true" system="true" code="0200091">呋塞米（速尿）</property>
+			<property visible="true" system="true" code="0200092">螺内酯（安体舒通）</property>
+		</category>
+		<category tag="β受体阻滞药" visible="false">
+			<property visible="true" system="true" code="0200023">普萘洛尔</property>
+			<property visible="true" system="true" code="0200025">美托洛尔</property>
+		</category>
+		<category tag="ACEI" visible="false">
+			<property visible="true" system="true" code="0200097">卡托普利</property>
+		</category>
+		<category tag="ARB" visible="false">
+			<property visible="true" system="true" code="0200098">氯沙坦</property>
+		</category>
+		<category tag="钙通道阻滞剂" visible="false">
+			<property visible="true" system="true" code="0200086">硝苯地平</property>
+		</category>
+		<category tag="α1受体阻断药" visible="false">
+			<property visible="true" system="true" code="0200129">特拉唑嗪</property>
+		</category>
+	</category>
+	<category tag="促凝血药" visible="false">
+		<property visible="true" system="true" code="0200130">维生素K1</property>
+		<property visible="true" system="true" code="0200131">止血敏</property>
+		<property visible="true" system="true" code="0200132">止血芳酸</property>
+		<property visible="true" system="true" code="0200133">氨基己酸</property>
+		<property visible="true" system="true" code="0200134">抑肽酶</property>
+	</category>
+	<category tag="抗凝血药" visible="false">
+		<property visible="true" system="true" code="0200135">普通肝素</property>
+		<property visible="true" system="true" code="0200136">低分子量肝素</property>
+		<property visible="true" system="true" code="0200137">华法林</property>
+		<property visible="true" system="true" code="0200138">尿激酶</property>
+		<property visible="true" system="true" code="0200139">rt-PA</property>
+	</category>
+	<category tag="抗癫痫药" visible="false">		
+		<property visible="true" system="true" code="0200140">苯妥英钠</property>
+		<property visible="true" system="true" code="0200052">苯巴比妥（鲁米那）</property>
+		<property visible="true" system="true" code="0200142">卡马西平</property>
+		<property visible="true" system="true" code="0200143">丙戊酸钠</property>
+		<property visible="true" system="true" code="0200047">地西泮（安定）</property>
+	</category>
+	<category tag="利尿剂" visible="false">
+		<property visible="true" system="true" code="0200091">呋塞米（速尿）</property>
+		<property visible="true" system="true" code="0200092">螺内酯（安体舒通）</property>
+		<property visible="true" system="true" code="0200147">甘露醇</property>
+		<property visible="true" system="true" code="0200148">甘油果糖</property>
+	</category>
+	<category tag="降糖药" visible="false">
+		<property visible="true" system="true" code="0200149">胰岛素</property>
+		<property visible="true" system="true" code="0200150">格列齐特</property>
+		<property visible="true" system="true" code="0200151">二甲双胍</property>
+	</category>
+	<category tag="抗菌药" visible="false">
+		<property visible="true" system="true" code="0200152">青霉素</property>
+		<property visible="true" system="true" code="0200153">氨苄西林</property>
+		<property visible="true" system="true" code="0200154">阿莫西林</property>
+		<property visible="true" system="true" code="0200155">头孢哌酮</property>
+		<property visible="true" system="true" code="0200156">甲硝唑</property>
+	</category>
+	<category tag="中毒急救用药" visible="false">
+		<property visible="true" system="true" code="0200026">阿托品</property>
+		<property visible="true" system="true" code="0200027">山莨菪碱（654-2）</property>
+		<property visible="true" system="true" code="0200159">间羟胺</property>
+		<property visible="true" system="true" code="0200160">碘解磷定</property>
+		<property visible="true" system="true" code="0200161">氯磷定</property>
+		<property visible="true" system="true" code="0200046">纳洛酮</property>
+		<property visible="true" system="true" code="0200045">氟马西尼（安易醒）</property>
+		<property visible="true" system="true" code="0200164">新斯的明</property>
+		<property visible="true" system="true" code="0200165">胰高血糖素</property>
+		<property visible="true" system="true" code="0200093">地高辛抗体</property>
+	</category>
+	<property visible="true" system="true" code="0200167">药物剂量错误</property>
+</reference_data>

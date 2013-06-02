@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<reference_data>
+  <category tag="评估" visible="false">
+		<property visible="true" system="true" code="0100001">检查意识</property>
+		<property visible="true" system="true" code="0100002">检查呼吸道通畅</property>
+		<property visible="true" system="true" code="0100003">检查自主呼吸</property>
+		<property visible="true" system="true" code="0100004">检查脉搏</property>
+		<property visible="true" system="true" code="0100005">检查瞳孔</property>
+		<property visible="true" system="true" code="0100006">检查循环体征</property>
+		<property visible="true" system="true" code="0100007">检查外伤体征</property>
+	</category>
+    <category tag="呼救" visible="false">
+		<property visible="true" system="true" code="0100040">呼叫EMS</property>
+		<property visible="true" system="true" code="0100041">呼叫除颤器</property>
+	</category>
+    <category tag="体位" visible="false">
+		<property visible="true" system="true" code="0100042">置于仰卧位</property>
+		<property visible="true" system="true" code="0100043">置于俯卧位</property>
+		<property visible="true" system="true" code="0100044">置于侧卧位</property>
+		<property visible="true" system="true" code="0100045">整体翻转</property>
+		<property visible="true" system="true" code="0100046">置于恢复体位</property>
+	</category>
+    <category tag="气道（A）" visible="false">
+		<property visible="true" system="true" code="0100029">口咽部气道</property>
+		<property visible="true" system="true" code="0100028">鼻咽部气道</property>
+		<property visible="true" system="true" code="0100047">食管-气管联合气道</property>
+		<property visible="true" system="true" code="0100026">喉面罩气道</property>
+		<property visible="true" system="true" code="0100025">气管插管</property>
+		<property visible="true" system="true" code="0100022">拔管</property>
+		<property visible="true" system="true" code="0100021">环甲膜切开术</property>
+		<property visible="true" system="true" code="0100020">环状软骨加压</property>
+		<property visible="true" system="true" code="0100015">BURP技术（即后、上、右向压）</property>
+		<property visible="true" system="true" code="0100018">Heimlich手法</property>
+		<property visible="true" system="true" code="0100050">胸部冲击</property>
+		<property visible="true" system="true" code="0100051">手指抠挖</property>
+		<property visible="true" system="true" code="0100052">舌-下颌抬举</property>
+		<property visible="true" system="true" code="0100031">吸痰</property>
+	</category>
+	<category tag="呼吸（B）" visible="false">
+		<property visible="true" system="true" code="0100052">人工呼吸</property>
+		<property visible="true" system="true" code="0100053">单人气囊面罩通气</property>
+		<property visible="true" system="true" code="0100054">双人气囊面罩通气</property>
+		<property visible="true" system="true" code="0100012">吸氧</property>
+		<property visible="true" system="true" code="0100013">移除氧气</property>
+		<property visible="true" system="true" code="0100008">过度换气</property>
+		<property visible="true" system="true" code="0100009">通气不足</property>
+		<property visible="true" system="true" code="0100010">喷射通气</property>
+	</category>
+	<category tag="循环（C）" visible="false">
+		<property visible="true" system="true" code="0100060">胸前捶击</property>
+		<property visible="true" system="true" code="0100061">胸外按压</property>
+		<property visible="true" system="true" code="0100036">建立静脉通路</property>
+		<property visible="true" system="true" code="0100037">移除静脉通路</property>
+		<property visible="true" system="true" code="0100038">容量灌注</property>
+	</category>
+	<category tag="除颤（D）" visible="false">
+		<property visible="true" system="true" code="0100032">使用AED</property>
+		<property visible="true" system="true" code="0100062">使用除颤仪</property>
+	</category>
+    <category tag="其他" visible="false">
+		<property visible="true" system="true" code="0100014">运送</property>
+		<property visible="true" system="true" code="0100015">脊柱固定</property>
+		<property visible="true" system="true" code="0100016">颈椎固定</property>
+	</category>
+</reference_data>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<reference_data>
+	<property visible="true" system="true" code="0300001">中断尝试</property>
+	<category tag="听诊 &amp; 叩诊" visible="false">
+		<property visible="true" system="true" code="0300002">腹部听诊</property>
+		<property visible="true" system="true" code="0300003">心脏听诊</property>
+		<property visible="true" system="true" code="0300004">肺脏听诊</property>
+	</category>
+	<category tag="实验室诊断" visible="false">
+		<property visible="true" system="true" code="0300012">动脉血样</property>
+		<property visible="true" system="true" code="0300013">检查血红蛋白</property>
+		<property visible="true" system="true" code="0300014">测量血糖</property>
+		<property visible="true" system="true" code="0300017">便携式超声仪</property>
+		<property visible="true" system="true" code="0300018">静脉血样</property>
+	</category>
+	<property visible="true" system="true" code="0300019">胃胀气</property>
+	<property visible="true" system="true" code="0300021">拔除鼻胃管</property>
+
+	<property visible="true" system="true" code="0300022">心包穿刺术</property>
+	<property visible="true" system="true" code="0300023">核对溶栓表</property>
+	<property visible="true" system="true" code="0300024">胸膜腔穿刺术</property>
+	<property visible="true" system="true" code="0300025">辅助检查</property>
+	<property visible="true" system="true" code="0300026">纤支镜取异物</property>
+	<property visible="true" system="true" code="0300027">开颅血肿清除术</property>
+	<property visible="true" system="true" code="0300028">清创术</property>
+	<property visible="true" system="true" code="0300029">Allis法手法复位</property>
+	<property visible="true" system="true" code="0300030">休克体位</property>
+	<property visible="true" system="true" code="0300031">输卵管切除术</property>
+	<property visible="true" system="true" code="0300032">洗胃</property>
+	<property visible="true" system="true" code="0300033">剖腹探查</property>
+	<property visible="true" system="true" code="0300034">肝破裂修补术</property>
+	<property visible="true" system="true" code="0300035">安装体外临时起搏器</property>
+</reference_data>
