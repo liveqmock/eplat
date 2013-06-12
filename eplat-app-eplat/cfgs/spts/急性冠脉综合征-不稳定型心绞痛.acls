@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[     现病史：患者，男，56岁，反复胸痛2年，再发半小时。患者2年前在劳累后出现胸骨后钝痛，休息后可自行好转。每次持续时间较短，伴心悸，2年来上述症状反复发作。近来远程平路行走后亦出现胸痛症状，持续约数十分钟，爬楼梯后明显加重。半小时前散步中再次出现胸骨后钝痛，持续约数分钟，休息后略有好转，但仍有隐痛，无胸闷气急，无头晕头痛，无恶心呕吐。
+既往史：患者发现“高血压病”5余年，服用“珍菊降压片”，血压控制在130/90mmHg左右。否认糖尿病、肾病病史，否认肝炎、结核病史，否认重大外伤及手术史，否认药物过敏史。
+      查体：T 36.8℃，P 70次/分，R 18次/分，BP 120/88mmHg；两肺呼吸音清，未闻及干湿罗音；心界不大，心率70次/分，律齐，未闻及明显心脏杂音；腹平软，全腹无压痛反跳痛，肝脾肋下未及；双肾区无叩痛，双下肢无浮肿，神经系统检查未见阳性体征。
+]]></caseHistory>
+		<assistantChecks><![CDATA[1. 心肌酶谱 2. 心电图]]></assistantChecks>
+		<diagnosis><![CDATA[急性冠脉综合征 不稳定型心绞痛 ]]></diagnosis>
+		<event><![CDATA[急性冠脉综合征 不稳定型心绞痛 ]]></event>
+	</simulator_Card>
+	<scenario>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="856" height="567" />
+			</parameters>
+			<actions>
+				<ActionCheck_Bloods>
+					<AssistantCheckItem type="ACT_Enzymes" isSystem="true">
+						<Context><![CDATA[A105B0.2C75D10E15F0.03G0.1H2.5]]></Context>
+						<FlashName>BloodCheck4.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Bloods>
+				<ActionCheck_ECG>
+					<AssistantCheckItem type="ACT_ECG12" isSystem="true">
+						<Context><![CDATA[ECGzg]]></Context>
+						<FlashName>12EcgCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_ECG>
+				<Action_VSound controlMode="Start">
+					<SimulateSound code="SpeakSound_016" interval="1" accumulateNum="3" />
+				</Action_VSound>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>70</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_Resp breathType="Normal" value="18" />
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="87" />
+				</Action_ABP>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="2" />
+			</links>
+		</frame>
+		<frame id="2" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="296" Y="-1710" />
+				<frameRegion width="666" height="440" />
+			</parameters>
+			<actions>
+				<ActionCheck_ECG>
+					<AssistantCheckItem type="ACT_ECG12" isSystem="true">
+						<Context><![CDATA[ECGaa]]></Context>
+						<FlashName>12EcgCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_ECG>
+				<ActionCheck_Bloods>
+					<AssistantCheckItem type="ACT_Enzymes" isSystem="true">
+						<Context><![CDATA[A114B0.2C76D8E16F0.03G0.1H2.4]]></Context>
+						<FlashName>BloodCheck4.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Bloods>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>80</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_Resp breathType="Normal" value="14" />
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="80" />
+				</Action_ABP>
+				<Action_VSound controlMode="Start">
+					<SimulateSound code="SpeakSound_030" interval="0" accumulateNum="1" />
+				</Action_VSound>
+			</actions>
+			<links />
+		</frame>
+		<event-Frame id="2" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1131" Y="-1000" />
+				<frameRegion width="631" height="299" />
+			</parameters>
+			<events>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200083" dosageType="Range" dosageRangeFrom="10.000000" dosageRangeTo="40.000000" DrugsUnit="9" />
+					<InjectMethod value="11">
+						<Density dosageRangeFrom="5.000000" dosageRangeTo="15.000000" unit="7" />
+					</InjectMethod>
+					<Solvent name="0200002" dosageNum="250" />
+				</Event_Medication>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200136" dosageType="Fixed" dosageNum="5000.000000" DrugsUnit="13" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+					<Solvent name="0200001" dosageNum="20" />
+				</Event_Medication>
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="5" />
+			</links>
+		</event-Frame>
+		<event-Frame id="5" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1226" Y="-1422" />
+				<frameRegion width="428" height="218" />
+			</parameters>
+			<events>
+				<Event_Miscella name="0300025" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="2" />
+			</links>
+		</event-Frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>

@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[        现病史：患者女性，20岁，咽干、咽痛、发热3天。患者3天前出现咽痛、咽痛、发热，病程中最高体温39.8℃，无鼻塞流涕，无腹痛腹泻。
+既往史：既往体健。无肝炎、结核等传染病史。无药物、食物过敏史。
+        查体：T 39.5℃，P 104次/分，R 24次/分，BP 100/70mmHg，颈软，咽红，扁桃体I度肿大，双肺呼吸音粗，未及明显干湿啰音，心率104次/分，律齐，未及明显杂音。腹软，无压痛及反跳痛。生理反射存在，病理反射未引出。
+]]></caseHistory>
+		<assistantChecks><![CDATA[1. 血常规 2. 胸片]]></assistantChecks>
+		<diagnosis><![CDATA[上呼吸道感染 ]]></diagnosis>
+		<event><![CDATA[上呼吸道感染 ]]></event>
+	</simulator_Card>
+	<scenario>
+		<event-Frame id="54" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="229" Y="-765" />
+				<frameRegion width="393" height="212" />
+			</parameters>
+			<events>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="1" />
+			</links>
+		</event-Frame>
+		<frame id="1" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="834" Y="-1045" />
+				<frameRegion width="718" height="237" />
+			</parameters>
+			<actions>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>120</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="75" />
+					<Stretch value="52" />
+				</Action_ABP>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="55" />
+			</links>
+		</frame>
+		<event-Frame id="55" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="304" Y="-1417" />
+				<frameRegion width="482" height="222" />
+			</parameters>
+			<events>
+				<Event_ABC name="0100012" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="56" />
+			</links>
+		</event-Frame>
+		<event-Frame id="56" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1196" Y="-1729" />
+				<frameRegion width="437" height="192" />
+			</parameters>
+			<events>
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="57" />
+			</links>
+		</event-Frame>
+		<event-Frame id="57" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="376" Y="-2076" />
+				<frameRegion width="450" height="205" />
+			</parameters>
+			<events>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="2" />
+			</links>
+		</event-Frame>
+		<frame id="2" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1096" Y="-2267" />
+				<frameRegion width="583" height="245" />
+			</parameters>
+			<actions>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>80</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="80" />
+				</Action_ABP>
+				<Action_Airway>
+					<PharyngealObstruct value="1" />
+				</Action_Airway>
+			</actions>
+			<links />
+		</frame>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="715" height="301" />
+			</parameters>
+			<actions>
+				<ActionCheck_Bloods>
+					<AssistantCheckItem type="ACT_CustomBlood" isSystem="true">
+						<Context><![CDATA[A11.7B4.22C112D88E32F353G0.5H83I2J0.5K12L2M0.06N9.71O0.23P0.06Q1.40R0.23S0.23]]></Context>
+						<FlashName>BloodCheck1.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Bloods>
+				<ActionCheck_X>
+					<AssistantCheckItem type="ACT_X" isSystem="true">
+						<Context><![CDATA[Xrays]]></Context>
+						<FlashName>XCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_X>
+				<Action_Airway>
+					<PharyngealObstruct value="2" />
+				</Action_Airway>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="54" />
+			</links>
+		</frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>

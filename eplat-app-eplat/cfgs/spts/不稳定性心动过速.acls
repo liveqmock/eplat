@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[现病史：患者，女性，48岁，阵发性心悸、气促伴胸闷6个月，加重伴晕厥1次。患者6个月前出现劳累后阵发性心悸、胸闷，每次持续约数分钟，休息后好转，未就诊。半小时前劳累后又出现心悸、胸闷、头晕、出冷汗，并晕厥一次。
+   既往史：既往无慢性病史，否认风湿病史。无烟酒嗜好。
+   查体：T 37.7℃ BP 109/75mmHg  P 178次/分，R 16次/分，意识模糊，口唇紫绀，两肺呼吸音稍粗，心界不大，心率178次/分，律齐，第一心音强弱不等，未及杂音。腹软无压痛。]]></caseHistory>
+		<assistantChecks><![CDATA[1.心电图 2. 胸片 3. 超声心动图]]></assistantChecks>
+		<diagnosis><![CDATA[扩张性心肌病 心律失常 室性心动过速]]></diagnosis>
+		<event><![CDATA[扩张性心肌病 心律失常 室性心动过速]]></event>
+		<animeScenario type="AST_Case_10">
+			<AnimeFlash isSystem="true">AnimeCase10.swf</AnimeFlash>
+		</animeScenario>
+	</simulator_Card>
+	<scenario>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="649" height="370" />
+			</parameters>
+			<actions>
+				<ActionCheck_ECG>
+					<AssistantCheckItem type="ACT_ECG12" isSystem="true">
+						<Context><![CDATA[ECGp]]></Context>
+						<FlashName>12EcgCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_ECG>
+				<ActionCheck_X>
+					<AssistantCheckItem type="ACT_X" isSystem="true">
+						<Context><![CDATA[Xraym]]></Context>
+						<FlashName>XCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_X>
+				<ActionCheck_Ultrasound>
+					<AssistantCheckItem type="ACT_Ultrasound" isSystem="true">
+						<Context><![CDATA[UltraSoundb]]></Context>
+						<FlashName>UltrasoundCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Ultrasound>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>V.tach</Rhythm>
+					<HR>178</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="108" />
+					<Stretch value="74" />
+				</Action_ABP>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="27" />
+			</links>
+		</frame>
+		<event-Frame id="27" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1236" Y="-727" />
+				<frameRegion width="320" height="160" />
+			</parameters>
+			<events>
+				<Event_Defibrillate />
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="28" />
+			</links>
+		</event-Frame>
+		<frame id="1" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="448" Y="-1573" />
+				<frameRegion width="570" height="218" />
+			</parameters>
+			<actions>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>100</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="80" />
+				</Action_ABP>
+			</actions>
+			<links />
+		</frame>
+		<event-Frame id="28" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="985" Y="-1012" />
+				<frameRegion width="563" height="182" />
+			</parameters>
+			<events>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200040" dosageType="Range" dosageRangeFrom="50.000000" dosageRangeTo="90.000000" DrugsUnit="9" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="29" />
+			</links>
+		</event-Frame>
+		<event-Frame id="29" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1235" Y="-1299" />
+				<frameRegion width="320" height="160" />
+			</parameters>
+			<events>
+				<Event_Defibrillate />
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="1" />
+			</links>
+		</event-Frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[    现病史：女性，29岁，下腹剧痛，伴头晕、恶心2小时。患者平素月经规律，4-5/35天，量多，无痛经，末次月经2008.9.17，于10月20日开始阴道出血，量较少，色暗且淋漓不净，四天来常感头晕、乏力及下腹痛，二天前曾到某中医门诊诊治，服中药调经后阴道出血量增多，但仍少于平时月经量。今晨上班和下午2时有2次突感到下腹剧痛，下坠，头晕，并昏倒。
+既往史：月经14岁初潮，量中等，无痛经。25岁结婚，孕2产1，末次生产4年前，带环3年。既往体健，否认心、肝、肾等疾患。
+       查体：T 36℃，P 102次/分，BP 80/50mmHg，急性病容，面色苍白，出冷汗，可平卧。心肺无异常。腹部移动性浊音（+）。外阴有血迹，阴道畅，宫颈光滑，有举痛，子宫前位，正常大小，稍软，可活动,轻压痛，子宫左后方可及8cm×6cm×6cm不规则包块，压痛明显，右侧(-)，后陷凹不饱满。
+]]></caseHistory>
+		<assistantChecks><![CDATA[1.血常规  2.血β-HCG  3.凝血功能  4.超声]]></assistantChecks>
+		<diagnosis><![CDATA[1.异位妊娠破裂出血　　2.急性失血性休克]]></diagnosis>
+		<event><![CDATA[1.异位妊娠破裂出血　　2.急性失血性休克]]></event>
+	</simulator_Card>
+	<scenario>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="780" height="410" />
+			</parameters>
+			<actions>
+				<ActionCheck_Bloods>
+					<AssistantCheckItem type="ACT_CustomBlood" isSystem="true">
+						<Context><![CDATA[A10.8B3.0C90D65E21F264G3H75I5J1K12L4M0.045N7.3O0.5P0.1Q0.58R0.16S0.16]]></Context>
+						<FlashName>BloodCheck1.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_Thromboplastin" isSystem="true">
+						<Context><![CDATA[A12B35C1.0D2.5]]></Context>
+						<FlashName>BloodCheck3.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_HCG" isSystem="true">
+						<Context><![CDATA[63]]></Context>
+						<FlashName>BloodCheck13.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Bloods>
+				<ActionCheck_Ultrasound>
+					<AssistantCheckItem type="ACT_Ultrasound" isSystem="true">
+						<Context><![CDATA[UltraSoundo]]></Context>
+						<FlashName>UltrasoundCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Ultrasound>
+				<Action_ABP>
+					<Shrink value="79" />
+					<Stretch value="49" />
+				</Action_ABP>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>102</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="3" />
+			</links>
+		</frame>
+		<event-Frame id="3" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="169" Y="-862" />
+				<frameRegion width="504" height="257" />
+			</parameters>
+			<events>
+				<Event_ABC name="0100012" accumulateNum="1" />
+				<Event_Miscella name="0300030" accumulateNum="1" />
+				<Event_ABC name="0100036" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="4" />
+			</links>
+		</event-Frame>
+		<event-Frame id="4" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="679" Y="-1255" />
+				<frameRegion width="597" height="250" />
+			</parameters>
+			<events>
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="29" />
+			</links>
+		</event-Frame>
+		<event-Frame id="29" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1129" Y="-1657" />
+				<frameRegion width="365" height="190" />
+			</parameters>
+			<events>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="1" />
+			</links>
+		</event-Frame>
+		<frame id="1" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="379" Y="-2050" />
+				<frameRegion width="593" height="262" />
+			</parameters>
+			<actions>
+				<Action_ABP>
+					<Shrink value="106" />
+					<Stretch value="49" />
+				</Action_ABP>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>95</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="30" />
+			</links>
+		</frame>
+		<event-Frame id="30" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1317" Y="-2227" />
+				<frameRegion width="385" height="208" />
+			</parameters>
+			<events>
+				<Event_Miscella name="0300031" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="2" />
+			</links>
+		</event-Frame>
+		<frame id="2" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="246" Y="-2562" />
+				<frameRegion width="577" height="240" />
+			</parameters>
+			<actions>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>80</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="80" />
+				</Action_ABP>
+				<Action_Resp breathType="Normal" value="14" />
+			</actions>
+			<links />
+		</frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>

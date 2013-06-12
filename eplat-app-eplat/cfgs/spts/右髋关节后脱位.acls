@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[       现病史：男性，40岁，右髋外伤后疼痛，不能活动四小时。四小时前患者乘公共汽车，左下肢搭于右下肢上，突然急刹车，右膝顶撞于前座椅背上，即感右髋部剧痛，不能活动。遂来院诊治。
+既往史：患者身体素健。无特殊疾病，无特殊嗜好。
+       查体：全身情况良好，心肺腹未见异常。骨科情况：仰卧位，右下肢短缩，右髋呈屈曲内收内旋畸形。各项活动均受限。右大粗隆上移。右膝踝及足部关节主动被动活动均可，右下肢感觉正常。
+]]></caseHistory>
+		<assistantChecks><![CDATA[X线]]></assistantChecks>
+		<diagnosis><![CDATA[右髋关节后脱位]]></diagnosis>
+		<event><![CDATA[右髋关节后脱位]]></event>
+	</simulator_Card>
+	<scenario>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="652" height="250" />
+			</parameters>
+			<actions>
+				<ActionCheck_X>
+					<AssistantCheckItem type="ACT_X" isSystem="true">
+						<Context><![CDATA[Xrayq]]></Context>
+						<FlashName>XCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_X>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="1" />
+			</links>
+		</frame>
+		<event-Frame id="1" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="266" Y="-725" />
+				<frameRegion width="505" height="208" />
+			</parameters>
+			<events>
+				<Event_Miscella name="0300028" accumulateNum="1" />
+				<Event_Miscella name="0300029" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="2" />
+			</links>
+		</event-Frame>
+		<event-Frame id="2" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="714" Y="-1125" />
+				<frameRegion width="363" height="173" />
+			</parameters>
+			<events>
+				<Event_Miscella name="0300025" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="1" />
+			</links>
+		</event-Frame>
+		<frame id="1" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1239" Y="-1410" />
+				<frameRegion width="537" height="215" />
+			</parameters>
+			<actions>
+				<ActionCheck_X>
+					<AssistantCheckItem type="ACT_X" isSystem="true">
+						<Context><![CDATA[Xrayc]]></Context>
+						<FlashName>XCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_X>
+			</actions>
+			<links />
+		</frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>

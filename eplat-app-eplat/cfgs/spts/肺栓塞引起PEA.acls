@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[    现病史：患者，男，73岁 ，左胸部疼痛伴气促2天，咯血一次，约10ml。患者自觉活动后气急明显，无发热。
+既往史：患有＂前列腺癌＂史4年，已行手术治疗，但近半年来PSA有进行性升高，在３个月前开始服用＂孕酮＂。
+     查体：T 36.8℃，P 68次/分，R 20次/分，Bp 110/70mmHg，两下肺呼吸音低，可闻及少量湿罗音，心界左侧扩大，心率68次／分，律齐。右下肢肿胀，右小腿周径39cm，左小腿周径36.5cm。]]></caseHistory>
+		<assistantChecks><![CDATA[1. D-二聚体 2. 凝血功能 3. 心电图 4. CTPA]]></assistantChecks>
+		<diagnosis><![CDATA[肺动脉栓塞 深静脉血栓形成]]></diagnosis>
+		<event><![CDATA[肺动脉栓塞 深静脉血栓形成]]></event>
+	</simulator_Card>
+	<scenario>
+		<frame id="1" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="147" Y="-1399" />
+				<frameRegion width="685" height="355" />
+			</parameters>
+			<actions>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Torsade.de Pointes</Rhythm>
+					<HR>0</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_Resp breathType="Apnea" value="0" />
+				<Action_ABP>
+					<Shrink value="60" />
+					<Stretch value="30" />
+				</Action_ABP>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="9" />
+			</links>
+		</frame>
+		<event-Frame id="11" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1101" Y="-2026" />
+				<frameRegion width="368" height="144" />
+			</parameters>
+			<events>
+				<Event_Defibrillate defibrCount="3" />
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="2" />
+			</links>
+		</event-Frame>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="908" height="770" />
+			</parameters>
+			<actions>
+				<ActionCheck_Bloods>
+					<AssistantCheckItem type="ACT_Thromboplastin" isSystem="true">
+						<Context><![CDATA[A10.4B29.6C1.0D5.57]]></Context>
+						<FlashName>BloodCheck3.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_D2" isSystem="true">
+						<Context><![CDATA[2415]]></Context>
+						<FlashName>BloodCheck10.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Bloods>
+				<ActionCheck_ECG>
+					<AssistantCheckItem type="ACT_ECG12" isSystem="true">
+						<Context><![CDATA[ECGc]]></Context>
+						<FlashName>12EcgCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_ECG>
+				<ActionCheck_CT>
+					<AssistantCheckItem type="ACT_CT" isSystem="true">
+						<Context><![CDATA[CTi]]></Context>
+						<FlashName>CTCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_CT>
+				<Action_VSound controlMode="Start">
+					<SimulateSound code="SpeakSound_016" interval="1" accumulateNum="2" />
+				</Action_VSound>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>68</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_Resp breathType="Normal" value="20" />
+				<Action_ABP>
+					<Shrink value="110" />
+					<Stretch value="70" />
+				</Action_ABP>
+				<Action_Other>
+					<Action_BloodOxygen value="88" />
+				</Action_Other>
+				<Action_PhysiologySound>
+					<LeftLung sound="LungSound_015" volume="6" />
+					<RightLung sound="LungSound_015" volume="6" />
+				</Action_PhysiologySound>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="6" />
+			</links>
+		</frame>
+		<event-Frame id="6" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1053" Y="-1155" />
+				<frameRegion width="713" height="355" />
+			</parameters>
+			<events>
+				<Event_ABC name="0100012" accumulateNum="1" />
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200055" dosageType="Range" dosageRangeFrom="3.000000" dosageRangeTo="5.000000" DrugsUnit="9" />
+					<InjectMethod value="4">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200026" dosageType="Fixed" dosageNum="1.000000" DrugsUnit="9" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200135" dosageType="Fixed" dosageNum="5000.000000" DrugsUnit="13" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200064" dosageType="Range" dosageRangeFrom="0.250000" dosageRangeTo="0.500000" DrugsUnit="10" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+					<Solvent name="0200002" dosageNum="20" />
+				</Event_Medication>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="1" />
+			</links>
+		</event-Frame>
+		<event-Frame id="9" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1068" Y="-1698" />
+				<frameRegion width="446" height="167" />
+			</parameters>
+			<events>
+				<Event_ABC name="0100025" accumulateNum="1" />
+				<Event_CPR opMode="standardCPR" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="11" />
+			</links>
+		</event-Frame>
+		<frame id="2" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="242" Y="-2204" />
+				<frameRegion width="564" height="442" />
+			</parameters>
+			<actions>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>80</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="80" />
+				</Action_ABP>
+				<Action_Resp breathType="Normal" value="14" />
+				<Action_Other>
+					<Action_BloodOxygen value="98" />
+				</Action_Other>
+				<Action_PhysiologySound>
+					<LeftLung sound="LungSound_001" volume="6" />
+					<RightLung sound="LungSound_001" volume="6" />
+				</Action_PhysiologySound>
+			</actions>
+			<links />
+		</frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>

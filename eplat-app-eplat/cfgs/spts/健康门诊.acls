@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulator-Script version="1.0"><simulator_Card patientType="0"/><scenario><frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false"><parameters><beginPosition X="600" Y="-250"/><frameRegion width="500" height="200"/></parameters><actions><Action_ECG><QRS>A</QRS><Rhythm>Sinus</Rhythm><HR>80</HR><EMD>No Change</EMD></Action_ECG></actions><links/></frame></scenario><Customer_Events><abc_event/><medic_event/><misc_event/></Customer_Events></simulator-Script>

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[     现病史：24岁，男性，右上腹部挫伤1小时。患者骑摩托车撞车，右上腹部疼痛1小时。患者上腹部持续剧痛，并向右肩放射。诉口渴，心悸和轻度烦燥不安。
+既往史：既往体健，无肝炎或结核病史，无高血压史。
+    查体：BP100/60mmHg，心率80次/分，R 20次/分，神清，轻度烦躁，颜面结膜稍苍白，心肺无明显异常，腹部平，腹肌紧张，右上腹局部压痛明显，反跳痛（＋）。]]></caseHistory>
+		<assistantChecks><![CDATA[1. 血常规 2.凝血三项 3.腹部CT]]></assistantChecks>
+		<diagnosis><![CDATA[闭合性腹部损伤 肝破裂出血 出血性休克]]></diagnosis>
+		<event><![CDATA[闭合性腹部损伤 肝破裂出血 出血性休克]]></event>
+	</simulator_Card>
+	<scenario>
+		<event-Frame id="36" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="361" Y="-904" />
+				<frameRegion width="535" height="260" />
+			</parameters>
+			<events>
+				<Event_Miscella name="0300030" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="37" />
+			</links>
+		</event-Frame>
+		<event-Frame id="37" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1189" Y="-1277" />
+				<frameRegion width="478" height="295" />
+			</parameters>
+			<events>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="1" />
+			</links>
+		</event-Frame>
+		<frame id="1" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="196" Y="-1682" />
+				<frameRegion width="592" height="209" />
+			</parameters>
+			<actions>
+				<Action_ABP>
+					<Shrink value="79" />
+					<Stretch value="40" />
+				</Action_ABP>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="38" />
+			</links>
+		</frame>
+		<event-Frame id="38" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1120" Y="-1926" />
+				<frameRegion width="488" height="270" />
+			</parameters>
+			<events>
+				<Event_Miscella name="0300033" accumulateNum="1" />
+				<Event_Miscella name="0300034" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="39" />
+			</links>
+		</event-Frame>
+		<event-Frame id="39" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1456" Y="-2332" />
+				<frameRegion width="418" height="233" />
+			</parameters>
+			<events>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="2" />
+			</links>
+		</event-Frame>
+		<frame id="2" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="181" Y="-2524" />
+				<frameRegion width="608" height="220" />
+			</parameters>
+			<actions>
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="80" />
+				</Action_ABP>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>80</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+			</actions>
+			<links />
+		</frame>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="753" height="455" />
+			</parameters>
+			<actions>
+				<ActionCheck_Bloods>
+					<AssistantCheckItem type="ACT_CustomBlood" isSystem="true">
+						<Context><![CDATA[A9.6B3.5C96D90E30F340G0.3H72I4.2J0.5K21L2M0.02N6.9O0.04P0.05Q2.0R0.19S0.19]]></Context>
+						<FlashName>BloodCheck1.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_Thromboplastin" isSystem="true">
+						<Context><![CDATA[A12B35C1.0D2.5]]></Context>
+						<FlashName>BloodCheck3.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Bloods>
+				<ActionCheck_CT>
+					<AssistantCheckItem type="ACT_CT" isSystem="true">
+						<Context><![CDATA[CTm]]></Context>
+						<FlashName>CTCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_CT>
+				<Action_ABP>
+					<Shrink value="40" />
+					<Stretch value="19" />
+				</Action_ABP>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>145</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_VSound controlMode="Start">
+					<SimulateSound code="SpeakSound_045" interval="2" accumulateNum="3" />
+				</Action_VSound>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="36" />
+			</links>
+		</frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>

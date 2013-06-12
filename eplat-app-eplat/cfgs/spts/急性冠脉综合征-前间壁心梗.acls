@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulator-Script version="1.0">
+	<simulator_Card patientType="0">
+		<caseHistory><![CDATA[现病史：男性，55岁，胸骨后压榨性疼痛，伴恶心、呕吐2小时。患者于2小时前搬重物时突然感到胸骨后疼痛，压榨性，有濒死感，休息与口含硝酸甘油均不能缓解，伴大汗、恶心，呕吐过两次，为胃内容物，二便正常。
+ 
+既往史：既往无高血压和心绞痛病史，无药物过敏史，吸烟20余年，每天1包。
+
+查体：T36.8℃, P 100次/分，R 20次/分，BP 100/60mmHg，急性痛苦病容，平卧位，无皮疹和紫绀，浅表淋巴结未触及，巩膜不黄，颈软，颈静脉无怒张，心界不大，心率100次/分，有期前收缩5-6次/分，心尖部有S4，肺清，无罗音，腹平软，肝脾未触及，下肢不肿。]]></caseHistory>
+		<assistantChecks><![CDATA[1.心肌酶及心肌蛋白；2. 电解质；3. 凝血功能；4. 血糖；5.血常规；6.CRP
+7.心电图；8.胸片；  ]]></assistantChecks>
+		<diagnosis><![CDATA[冠心病  下壁心肌梗死（超急性或急性期）右心室梗死（超急性或急性期）心功能Ⅰ级 ]]></diagnosis>
+		<event><![CDATA[冠心病  下壁心肌梗死（超急性或急性期）右心室梗死（超急性或急性期）心功能Ⅰ级 ]]></event>
+		<animeScenario type="AST_Case_8">
+			<AnimeFlash isSystem="true">AnimeCase8.swf</AnimeFlash>
+		</animeScenario>
+	</simulator_Card>
+	<scenario>
+		<frame id="3" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1291" Y="-3025" />
+				<frameRegion width="557" height="222" />
+			</parameters>
+			<actions>
+				<ActionCheck_Strepto>
+					<AssistantCheckItem type="ACT_Strepto_AMI" isSystem="true">
+						<Context><![CDATA[TTTTTTTTTTTTTTT]]></Context>
+						<FlashName>Strepto1.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Strepto>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="8" />
+			</links>
+		</frame>
+		<frame id="4" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1329" Y="-3662" />
+				<frameRegion width="577" height="450" />
+			</parameters>
+			<actions>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>90</HR>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="120" />
+					<Stretch value="74" />
+				</Action_ABP>
+				<Action_Resp breathType="Normal" value="14" />
+				<Action_PhysiologySound>
+					<Heart sound="HeardSound_001" volume="6" />
+				</Action_PhysiologySound>
+				<Action_VSound controlMode="Start">
+					<SimulateSound code="SpeakSound_030" interval="0" accumulateNum="1" />
+				</Action_VSound>
+			</actions>
+			<links />
+		</frame>
+		<frame id="0" type="InitialScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="600" Y="-250" />
+				<frameRegion width="885" height="863" />
+			</parameters>
+			<actions>
+				<ActionCheck_Bloods>
+					<AssistantCheckItem type="ACT_CustomBlood" isSystem="true">
+						<Context><![CDATA[A12.7B4.0C120D90E30F340G2H83I0J0K12L3M1.0N11.7O0P0Q0.6R0.12S0.12]]></Context>
+						<FlashName>BloodCheck1.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_Electrolyte" isSystem="true">
+						<Context><![CDATA[A4.0B140C100D2.35E1.0F1.25]]></Context>
+						<FlashName>BloodCheck2.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_Thromboplastin" isSystem="true">
+						<Context><![CDATA[A12B35C1.0D2.5]]></Context>
+						<FlashName>BloodCheck3.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_Enzymes" isSystem="true">
+						<Context><![CDATA[A231BC182D125E231F10.2G7.9H12]]></Context>
+						<FlashName>BloodCheck4.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_SugarBlood" isSystem="true">
+						<Context><![CDATA[12]]></Context>
+						<FlashName>BloodCheck7.swf</FlashName>
+					</AssistantCheckItem>
+					<AssistantCheckItem type="ACT_CRP" isSystem="true">
+						<Context><![CDATA[105]]></Context>
+						<FlashName>BloodCheck9.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_Bloods>
+				<ActionCheck_ECG>
+					<AssistantCheckItem type="ACT_ECG12" isSystem="true">
+						<Context><![CDATA[ECGi]]></Context>
+						<FlashName>12EcgCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_ECG>
+				<ActionCheck_X>
+					<AssistantCheckItem type="ACT_X" isSystem="true">
+						<Context><![CDATA[Xraya]]></Context>
+						<FlashName>XCheck.swf</FlashName>
+					</AssistantCheckItem>
+				</ActionCheck_X>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>100</HR>
+					<Extrasyst>Unifocal PVC</Extrasyst>
+					<ExtrasystRate>5</ExtrasystRate>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+				<Action_ABP>
+					<Shrink value="100" />
+					<Stretch value="60" />
+				</Action_ABP>
+				<Action_Resp breathType="Normal" value="20" />
+				<Action_PhysiologySound>
+					<Heart sound="HeardSound_022" volume="6" />
+				</Action_PhysiologySound>
+				<Action_VSound controlMode="Start">
+					<SimulateSound code="SpeakSound_016" interval="2" accumulateNum="5" />
+				</Action_VSound>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="5" />
+			</links>
+		</frame>
+		<frame id="1" type="ScenarioFrame" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="1344" Y="-1700" />
+				<frameRegion width="625" height="305" />
+			</parameters>
+			<actions>
+				<Action_VSound controlMode="Start">
+					<SimulateSound code="SpeakSound_016" interval="0" accumulateNum="1" />
+				</Action_VSound>
+				<Action_ECG>
+					<QRS>A</QRS>
+					<Rhythm>Sinus</Rhythm>
+					<HR>100</HR>
+					<Extrasyst>Coupled PVC</Extrasyst>
+					<ExtrasystRate>20</ExtrasystRate>
+					<EMD>No Change</EMD>
+				</Action_ECG>
+			</actions>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="6" />
+			</links>
+		</frame>
+		<event-Frame id="5" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="429" Y="-1315" />
+				<frameRegion width="623" height="276" />
+			</parameters>
+			<events>
+				<Event_ABC name="0100012" accumulateNum="1" />
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200055" dosageType="Range" dosageRangeFrom="2.000000" dosageRangeTo="4.000000" DrugsUnit="9" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200083" dosageType="Range" dosageRangeFrom="0.300000" dosageRangeTo="0.600000" DrugsUnit="9" />
+					<InjectMethod value="6">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200071" dosageType="Range" dosageRangeFrom="160.000000" dosageRangeTo="325.000000" DrugsUnit="9" />
+					<InjectMethod value="5">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="1" />
+			</links>
+		</event-Frame>
+		<event-Frame id="6" type="Combine" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="441" Y="-2082" />
+				<frameRegion width="587" height="190" />
+			</parameters>
+			<events>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200040" dosageType="Range" dosageRangeFrom="50.000000" dosageRangeTo="90.000000" DrugsUnit="9" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200055" dosageType="Range" dosageRangeFrom="2.000000" dosageRangeTo="4.000000" DrugsUnit="9" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="7" />
+			</links>
+		</event-Frame>
+		<event-Frame id="7" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="386" Y="-2625" />
+				<frameRegion width="363" height="173" />
+			</parameters>
+			<events>
+				<Event_Miscella name="0300023" accumulateNum="1" />
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="3" />
+			</links>
+		</event-Frame>
+		<event-Frame id="8" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="371" Y="-3295" />
+				<frameRegion width="468" height="141" />
+			</parameters>
+			<events>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200139" dosageType="Range" dosageRangeFrom="8.000000" dosageRangeTo="15.000000" DrugsUnit="9" />
+					<InjectMethod value="1">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+			</events>
+			<links>
+				<link aim-Type="event-Frame" link-ObjId="9" />
+			</links>
+		</event-Frame>
+		<event-Frame id="9" type="Single" reside-doctor-advice="false">
+			<parameters>
+				<beginPosition X="402" Y="-3614" />
+				<frameRegion width="497" height="203" />
+			</parameters>
+			<events>
+				<Event_Medication accumulateNum="1">
+					<Drug name="0200139" dosageType="Range" dosageRangeFrom="42.000000" dosageRangeTo="45.000000" DrugsUnit="9" />
+					<InjectMethod value="2">
+						<Density dosageRangeFrom="0.000000" dosageRangeTo="0.000000" unit="0" />
+					</InjectMethod>
+				</Event_Medication>
+			</events>
+			<links>
+				<link aim-Type="frame" link-ObjId="4" />
+			</links>
+		</event-Frame>
+	</scenario>
+	<Customer_Events>
+		<abc_event />
+		<medic_event />
+		<misc_event />
+	</Customer_Events>
+</simulator-Script>
