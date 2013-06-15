@@ -31,7 +31,7 @@ import com.atom.apps.eplat.SWTUtils;
 import com.atom.apps.eplat.views.dtos.ExamEvaluateDTO;
 import com.atom.core.lang.utils.LogUtils;
 
-public class EcgtTrainDlg extends Dialog {
+public class EcgtTrainDlgBackup extends Dialog {
     private static int            ECG_WIDTH  = 563;
     private static int            ECG_HEIGHT = 139;
 

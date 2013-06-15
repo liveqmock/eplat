@@ -7,6 +7,7 @@ package mplat.mgt.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.atom.core.lang.MapExt;
 import com.atom.core.lang.ToString;
 
 /**
@@ -16,6 +17,9 @@ import com.atom.core.lang.ToString;
  * @version $Id: EmergeTreeNode.java, V1.0.1 2013-6-1 下午9:19:27 $
  */
 public class TreeDTO {
+    /** 扩展参数名 */
+    private static final String EXT_COUNT = "__ext_count_";
+
     /** 展示文本 */
     private String              text;
 
@@ -26,7 +30,10 @@ public class TreeDTO {
     private TreeDTO             parent;
 
     /** 子节点 */
-    private final List<TreeDTO> children = new ArrayList<TreeDTO>();
+    private final List<TreeDTO> children  = new ArrayList<TreeDTO>();
+
+    /** 扩展参数 */
+    private final MapExt        ext       = new MapExt();
 
     /**
      * CTOR
@@ -39,6 +46,27 @@ public class TreeDTO {
      */
     public String toString() {
         return ToString.toString(this);
+    }
+
+    /* ~~~~~~~~~~~ 扩展参数 ~~~~~~~~~~ */
+
+    public int findExtCount() {
+        return this.ext.getInt(EXT_COUNT, 0);
+    }
+
+    public TreeDTO increaseExtCount() {
+        int src = this.findExtCount();
+        this.ext.put(EXT_COUNT, Integer.toString(src + 1));
+        return this;
+    }
+
+    public String findTreeText() {
+        int count = this.findExtCount();
+        if (count > 0) {
+            return "(" + count + ")" + this.text;
+        } else {
+            return this.text;
+        }
     }
 
     public String getText() {
@@ -71,6 +99,10 @@ public class TreeDTO {
 
     public void setParent(TreeDTO parent) {
         this.parent = parent;
+    }
+
+    public MapExt getExt() {
+        return ext;
     }
 
 }

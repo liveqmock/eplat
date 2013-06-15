@@ -16,6 +16,7 @@ public final class MgtFactory {
     private final CfgMgt            cfgMgt;
     private final PumpMgt           ejectorMgt;
     private final PumpMgt           transferMgt;
+    private final SpeakMgt          speakMgt;
     private final TreeMgt           treeMgt;
     private final UserMgt           userMgt;
 
@@ -30,6 +31,7 @@ public final class MgtFactory {
         this.cfgMgt = new CfgMgt();
         this.ejectorMgt = new PumpMgt(PumpMgt.EJECTOR);
         this.transferMgt = new PumpMgt(PumpMgt.TRANSFER);
+        this.speakMgt = new SpeakMgt();
         this.treeMgt = new TreeMgt();
         this.userMgt = new UserMgt();
     }
@@ -61,14 +63,18 @@ public final class MgtFactory {
     }
 
     public PumpMgt findTransferMgt() {
-        return transferMgt;
+        return this.transferMgt;
+    }
+
+    public SpeakMgt findSpeakMgt() {
+        return this.speakMgt;
     }
 
     public TreeMgt findTreeMgt() {
-        return treeMgt;
+        return this.treeMgt;
     }
 
     public UserMgt findUserMgt() {
-        return userMgt;
+        return this.userMgt;
     }
 }

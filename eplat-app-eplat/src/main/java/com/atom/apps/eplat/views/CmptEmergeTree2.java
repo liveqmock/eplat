@@ -2,8 +2,6 @@ package com.atom.apps.eplat.views;
 
 import java.util.List;
 
-import mplat.mgt.MgtFactory;
-import mplat.mgt.TreeMgt;
 import mplat.mgt.dto.TreeDTO;
 
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -23,17 +21,19 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class EmergeTreeView extends Composite {
+public class CmptEmergeTree2 extends Composite {
     /** 标签高度 */
     private static final int LBL_HEIGHT = 20;
 
     /** 组件宽度 */
-    private final int        compWidth;
-    private final int        compHeight;
-
-    private final TreeMgt    treeMgt;
+    private int              compWidth;
+    private int              compHeight;
 
     /** 组件 */
+    private Label            lblAbc;
+    private Label            lblMisc;
+    private Label            lblMedic;
+
     private Tree             treeAbc;
     private Tree             treeMisc;
     private Tree             treeMedic;
@@ -42,53 +42,45 @@ public class EmergeTreeView extends Composite {
     private TreeViewer       treeViewerMisc;
     private TreeViewer       treeViewerMedic;
 
-    /**
-     * Create the composite.
-     */
-    public EmergeTreeView(Composite parent, int compWidth, int compHeight) {
-        super(parent, SWT.NONE);
+    /** 数据 */
+    private List<TreeDTO>    treeAbcNodes;
+    private List<TreeDTO>    treeMiscNodes;
+    private List<TreeDTO>    treeMedicNodes;
 
+    /**
+     * 设置树节点数据
+     */
+    public void updateTreeNodes(List<TreeDTO> abcNodes, List<TreeDTO> miscNodes, List<TreeDTO> medicNodes) {
+        this.treeAbcNodes = abcNodes;
+        this.treeMiscNodes = miscNodes;
+        this.treeMedicNodes = medicNodes;
+    }
+
+    /**
+     * 初始化视图
+     */
+    public void initComposites(int compWidth, int compHeight) {
         this.compWidth = compWidth;
         this.compHeight = compHeight;
-        this.treeMgt = MgtFactory.get().findTreeMgt();
 
         int width = this.compWidth / 3;
         int width2 = this.compWidth - (width * 2);
         int height = this.compHeight - LBL_HEIGHT;
 
-        Label lblAbc = new Label(this, SWT.NONE);
-        lblAbc.setAlignment(SWT.CENTER);
-        lblAbc.setFont(SWTResourceManager.getFont("微软雅黑", 10, SWT.BOLD));
-        lblAbc.setBounds(0, 0, width, LBL_HEIGHT);
-        lblAbc.setText("ABC");
+        this.lblAbc.setBounds(0, 0, width, LBL_HEIGHT);
+        this.lblMisc.setBounds(width, 0, width2, LBL_HEIGHT);
+        this.lblMedic.setBounds((width + width2), 0, width, LBL_HEIGHT);
 
-        Label lblMisc = new Label(this, SWT.NONE);
-        lblMisc.setFont(SWTResourceManager.getFont("微软雅黑", 10, SWT.BOLD));
-        lblMisc.setAlignment(SWT.CENTER);
-        lblMisc.setBounds(width, 0, width2, LBL_HEIGHT);
-        lblMisc.setText("杂项");
-
-        Label lblMedic = new Label(this, SWT.NONE);
-        lblMedic.setAlignment(SWT.CENTER);
-        lblMedic.setFont(SWTResourceManager.getFont("微软雅黑", 10, SWT.BOLD));
-        lblMedic.setBounds((width + width2), 0, width, LBL_HEIGHT);
-        lblMedic.setText("施药");
-
-        this.treeViewerAbc = new TreeViewer(this, SWT.BORDER);
         this.treeAbc = this.treeViewerAbc.getTree();
         this.treeAbc.setBounds(0, LBL_HEIGHT, width, height);
 
-        this.treeViewerMisc = new TreeViewer(this, SWT.BORDER);
         this.treeMisc = this.treeViewerMisc.getTree();
         this.treeMisc.setBounds(width, LBL_HEIGHT, width2, height);
 
-        this.treeViewerMedic = new TreeViewer(this, SWT.BORDER);
         this.treeMedic = this.treeViewerMedic.getTree();
         this.treeMedic.setBounds((width + width2), LBL_HEIGHT, width, height);
 
-        this.treeViewerAbc.setLabelProvider(new TreeLabelProvider());
-        this.treeViewerAbc.setContentProvider(new TreeContentProvider());
-        this.treeViewerAbc.setInput(this.treeMgt.findEmergeAbcNodes());
+        this.treeViewerAbc.setInput(this.treeAbcNodes);
         this.treeAbc.addListener(SWT.MouseDown, new Listener() {
             public void handleEvent(Event event) {
                 Point point = new Point(event.x, event.y);
@@ -110,13 +102,55 @@ public class EmergeTreeView extends Composite {
             }
         });
 
+        this.treeViewerMisc.setInput(this.treeMiscNodes);
+
+        this.treeViewerMedic.setInput(this.treeMedicNodes);
+    }
+
+    /**
+     * Create the composite.
+     */
+    public CmptEmergeTree2(Composite parent) {
+        super(parent, SWT.NONE);
+
+        this.lblAbc = new Label(this, SWT.NONE);
+        this.lblAbc.setAlignment(SWT.CENTER);
+        this.lblAbc.setFont(SWTResourceManager.getFont("微软雅黑", 10, SWT.BOLD));
+        this.lblAbc.setBounds(0, 0, 140, LBL_HEIGHT);
+        this.lblAbc.setText("ABC");
+
+        this.lblMisc = new Label(this, SWT.NONE);
+        this.lblMisc.setFont(SWTResourceManager.getFont("微软雅黑", 10, SWT.BOLD));
+        this.lblMisc.setAlignment(SWT.CENTER);
+        this.lblMisc.setBounds(140, 0, 140, LBL_HEIGHT);
+        this.lblMisc.setText("杂项");
+
+        this.lblMedic = new Label(this, SWT.NONE);
+        this.lblMedic.setAlignment(SWT.CENTER);
+        this.lblMedic.setFont(SWTResourceManager.getFont("微软雅黑", 10, SWT.BOLD));
+        this.lblMedic.setBounds(280, 0, 140, LBL_HEIGHT);
+        this.lblMedic.setText("施药");
+
+        this.treeViewerAbc = new TreeViewer(this, SWT.BORDER);
+        this.treeAbc = this.treeViewerAbc.getTree();
+        this.treeAbc.setBounds(0, LBL_HEIGHT, 140, 230);
+
+        this.treeViewerMisc = new TreeViewer(this, SWT.BORDER);
+        this.treeMisc = this.treeViewerMisc.getTree();
+        this.treeMisc.setBounds(140, LBL_HEIGHT, 140, 230);
+
+        this.treeViewerMedic = new TreeViewer(this, SWT.BORDER);
+        this.treeMedic = this.treeViewerMedic.getTree();
+        this.treeMedic.setBounds(280, LBL_HEIGHT, 140, 230);
+
+        this.treeViewerAbc.setLabelProvider(new TreeLabelProvider());
+        this.treeViewerAbc.setContentProvider(new TreeContentProvider());
+
         this.treeViewerMisc.setLabelProvider(new TreeLabelProvider());
         this.treeViewerMisc.setContentProvider(new TreeContentProvider());
-        this.treeViewerMisc.setInput(this.treeMgt.findEmergeMiscNodes());
 
         this.treeViewerMedic.setLabelProvider(new TreeLabelProvider());
         this.treeViewerMedic.setContentProvider(new TreeContentProvider());
-        this.treeViewerMedic.setInput(this.treeMgt.findEmergeMedicNodes());
     }
 
     /** 

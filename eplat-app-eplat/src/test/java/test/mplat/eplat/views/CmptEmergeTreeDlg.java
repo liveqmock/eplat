@@ -1,21 +1,23 @@
 package test.mplat.eplat.views;
 
+import mplat.mgt.MgtFactory;
+import mplat.mgt.TreeMgt;
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.atom.apps.eplat.SWTUtils;
-import com.atom.apps.eplat.views.EmergeTreeView;
+import com.atom.apps.eplat.views.CmptEmergeTree;
 
-public class EmergeTreeViewDlg extends Dialog {
+public class CmptEmergeTreeDlg extends Dialog {
 
     protected Object result;
     protected Shell  shell;
 
     public static void main(String[] args) {
-        new EmergeTreeViewDlg(new Shell(), SWT.NONE).open();
+        new CmptEmergeTreeDlg(new Shell(), SWT.NONE).open();
     }
 
     /**
@@ -23,7 +25,7 @@ public class EmergeTreeViewDlg extends Dialog {
      * @param parent
      * @param style
      */
-    public EmergeTreeViewDlg(Shell parent, int style) {
+    public CmptEmergeTreeDlg(Shell parent, int style) {
         super(parent, style);
         setText("SWT Dialog");
         SWTUtils.center(parent);
@@ -51,10 +53,15 @@ public class EmergeTreeViewDlg extends Dialog {
      */
     private void createContents() {
         shell = new Shell(getParent(), getStyle());
-        shell.setSize(424, 252);
-        shell.setText(getText());
+        shell.setSize(420, 250);
+        shell.setText("测试");
 
-        Composite composite = new EmergeTreeView(shell, 424, 252); //new Composite(shell, SWT.NONE);
-        composite.setBounds(0, 0, 424, 252);
+        CmptEmergeTree composite = new CmptEmergeTree(shell); //new Composite(shell, SWT.NONE);
+        
+        TreeMgt mgt = MgtFactory.get().findTreeMgt();
+        composite.updateTreeNodes(mgt.findEmergeAbcNodes(), mgt.findEmergeMiscNodes(), mgt.findEmergeMedicNodes());
+        
+        composite.setBounds(0, 0, 420, 250);
     }
+
 }
