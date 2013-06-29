@@ -83,7 +83,8 @@ public class EmergeWebExt extends AbstractWebEvent {
     public Object onFireEvent(String arg) {
         LogUtils.get().info("进入急救案例训练操作-[{}].", arg);
         
-        // TODO: 最复杂的页面
+        // 进入最复杂的页面
+        new EmergeTrainEvtExt(arg);
         
         return "1";
     }

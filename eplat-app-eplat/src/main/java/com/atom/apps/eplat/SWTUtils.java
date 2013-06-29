@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -54,6 +55,7 @@ import com.atom.apps.eplat.views.ext.CourseSlideExt;
 import com.atom.apps.eplat.views.ext.HomePageExt;
 import com.atom.apps.eplat.views.ext.TopicEventExt;
 import com.atom.core.lang.utils.CfgUtils;
+import com.atom.core.lang.utils.DateUtils;
 import com.atom.core.lang.utils.LogUtils;
 
 /**
@@ -63,18 +65,24 @@ import com.atom.core.lang.utils.LogUtils;
  * @version $Id: SWTUtils.java, V1.0.1 2013-4-1 下午1:53:26 $
  */
 public final class SWTUtils {
+    /** Flash参数 */
+    public final static int                     DISPID_LOADMOVIE   = 0x0000008e;
+    public final static int                     DISPID_STATECHANGE = 0xfffffd9f;
+    public final static int                     DISPID_ONPROGRESS  = 0x000007a6;
+    public final static int                     DISPID_FSCOMMAND   = 0x00000096;
+
     /** 图片缓存 */
-    private static Map<String, Image>           _images         = new ConcurrentHashMap<String, Image>();
-    private static Map<String, ImageDescriptor> _imgDesps       = new ConcurrentHashMap<String, ImageDescriptor>();
+    private static Map<String, Image>           _images            = new ConcurrentHashMap<String, Image>();
+    private static Map<String, ImageDescriptor> _imgDesps          = new ConcurrentHashMap<String, ImageDescriptor>();
     private static Image[]                      _iconImgs;
     private static ImageRegistry                _registry;
 
     /** 线程服务 */
-    private static final ExecutorService        _executors      = Executors.newFixedThreadPool(2);
+    private static final ExecutorService        _executors         = Executors.newFixedThreadPool(2);
 
     /** 音频播放标记 */
-    private static final Lock                   _audioLock      = new ReentrantLock();
-    private static final ExecutorService        _audioExecutor  = Executors.newFixedThreadPool(1);
+    private static final Lock                   _audioLock         = new ReentrantLock();
+    private static final ExecutorService        _audioExecutor     = Executors.newFixedThreadPool(1);
 
     /** 登录用户 */
     private static UserInfoDTO                  _UserInfo;
@@ -83,25 +91,25 @@ public final class SWTUtils {
     private static SWTMainView                  _MainView;
 
     /** JS回调函数名 */
-    public static final String                  FUNC_FIRE_EVENT = "fireEvent";
+    public static final String                  FUNC_FIRE_EVENT    = "fireEvent";
 
     /** 标签值 */
-    public static final String                  TAB_DATA_KEY    = "EPLAT-TAB-DATA-KEY";
+    public static final String                  TAB_DATA_KEY       = "EPLAT-TAB-DATA-KEY";
 
-    public static final String                  TD_COMM_PORT    = "EPLAT-TAB-DATA-CommPort";
-    public static final String                  TD_HOME_MAIN    = "EPLAT-TAB-DATA-HomeMain";
-    public static final String                  TD_COURSE_WARE  = "EPLAT-TAB-DATA-CourseWare";
-    public static final String                  TD_TOPIC_TRAIN  = "EPLAT-TAB-DATA-TopicTrain";
-    public static final String                  TD_TOPIC_EXAM   = "EPLAT-TAB-DATA-TopicExam";
-    public static final String                  TD_EMERGE_TRAIN = "EPLAT-TAB-DATA-EmergeTrain";
-    public static final String                  TD_EMERGE_EXAM  = "EPLAT-TAB-DATA-EmergeExam";
-    public static final String                  TD_EMERGE_WEB   = "EPLAT-TAB-DATA-EmergeWeb";
-    public static final String                  TD_SYSTEM_CFG   = "EPLAT-TAB-DATA-SystemCfg";
+    public static final String                  TD_COMM_PORT       = "EPLAT-TAB-DATA-CommPort";
+    public static final String                  TD_HOME_MAIN       = "EPLAT-TAB-DATA-HomeMain";
+    public static final String                  TD_COURSE_WARE     = "EPLAT-TAB-DATA-CourseWare";
+    public static final String                  TD_TOPIC_TRAIN     = "EPLAT-TAB-DATA-TopicTrain";
+    public static final String                  TD_TOPIC_EXAM      = "EPLAT-TAB-DATA-TopicExam";
+    public static final String                  TD_EMERGE_TRAIN    = "EPLAT-TAB-DATA-EmergeTrain";
+    public static final String                  TD_EMERGE_EXAM     = "EPLAT-TAB-DATA-EmergeExam";
+    public static final String                  TD_EMERGE_WEB      = "EPLAT-TAB-DATA-EmergeWeb";
+    public static final String                  TD_SYSTEM_CFG      = "EPLAT-TAB-DATA-SystemCfg";
 
-    public static final String                  TD_USER_MNGT    = "EPLAT-TAB-DATA-UserMngt";
+    public static final String                  TD_USER_MNGT       = "EPLAT-TAB-DATA-UserMngt";
 
     /** PPT */
-    private static final Map<String, String>    _slides         = new ConcurrentHashMap<String, String>();
+    private static final Map<String, String>    _slides            = new ConcurrentHashMap<String, String>();
     {
         _slides.put("01", "呼吸系统急症");
         _slides.put("02", "急性中风");
@@ -116,7 +124,7 @@ public final class SWTUtils {
     }
 
     /** 试题最大个数 */
-    public static final int                     MAX_EXAM_COUNT  = 10;
+    public static final int                     MAX_EXAM_COUNT     = 10;
 
     /**
      * 初始化
@@ -744,6 +752,44 @@ public final class SWTUtils {
                 wait();
             }
         }
+    }
+
+    /**
+     * 获取事件时间
+     */
+    public static String findEvtTime() {
+        return findEvtTime(new Date());
+    }
+
+    /**
+     * 获取事件时间
+     */
+    public static String findEvtTime(Date date) {
+        return DateUtils.toString(date, "HH:mm:ss");
+    }
+
+    /**
+     * 获取急救场景动画文件
+     */
+    public static String findEmgeCaseFlash(String caseName) {
+        if (!StringUtils.endsWith(caseName, ".swf")) {
+            caseName += ".swf";
+        }
+
+        String path = CfgUtils.findConfigPath() + "/spts/cases/" + caseName;
+        return FilenameUtils.normalize(path);
+    }
+
+    /**
+     * 获取急救场景HTML文件
+     */
+    public static String findEmgeCaseHtml(String caseName) {
+        if (!StringUtils.endsWith(caseName, ".html")) {
+            caseName += ".html";
+        }
+
+        String path = CfgUtils.findConfigPath() + "/spts/cases/" + caseName;
+        return "file:///" + FilenameUtils.normalize(path);
     }
 
 }

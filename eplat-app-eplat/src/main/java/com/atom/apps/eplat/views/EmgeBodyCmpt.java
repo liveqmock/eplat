@@ -21,7 +21,7 @@ import com.atom.apps.eplat.SWTUtils;
 import com.atom.core.lang.ToString;
 import com.atom.core.lang.utils.LogUtils;
 
-public class CmptEmergeBody extends Composite implements PaintListener, SelectionListener {
+public class EmgeBodyCmpt extends Composite implements PaintListener, SelectionListener {
     /** 菜单数据 */
     private static final String MENU_BUTTON = "__menu_button_data_";
     private static final String MNTM_DATA   = "__mntm_speak_data_";
@@ -50,7 +50,7 @@ public class CmptEmergeBody extends Composite implements PaintListener, Selectio
     /**
      * Create the composite.
      */
-    public CmptEmergeBody(Composite parent) {
+    public EmgeBodyCmpt(Composite parent) {
         super(parent, SWT.NONE);
 
         this.imgBack = SWTUtils.findImage(super.getDisplay(), "emerge_body.bmp");
@@ -216,7 +216,7 @@ public class CmptEmergeBody extends Composite implements PaintListener, Selectio
         // 模拟人发声
         if (button == this.btnSpeak) {
             // TODO:
-            EmergeSpeakCfgDlg dialog = new EmergeSpeakCfgDlg(this.getShell());
+            EmgeSpeakDlg dialog = new EmgeSpeakDlg(this.getShell());
             dialog.open();
         }
 

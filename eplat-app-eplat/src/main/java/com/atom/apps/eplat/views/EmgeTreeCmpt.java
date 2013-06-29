@@ -24,37 +24,40 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import swing2swt.layout.BorderLayout;
 
-public class CmptEmergeTree extends Composite implements Listener {
+public class EmgeTreeCmpt extends Composite implements Listener {
+    /** 主视图 */
+    private final Composite mainView;
 
     /** 组件 */
-    private TabFolder     tabFolder;
+    private TabFolder       tabFolder;
 
-    private TabItem       tbtmAbc;
-    private TabItem       tbtmMisc;
-    private TabItem       tbtmMedic;
+    private TabItem         tbtmAbc;
+    private TabItem         tbtmMisc;
+    private TabItem         tbtmMedic;
 
-    private Tree          treeAbc;
-    private Tree          treeMisc;
-    private Tree          treeMedic;
+    private Tree            treeAbc;
+    private Tree            treeMisc;
+    private Tree            treeMedic;
 
-    private TreeViewer    treeViewAbc;
-    private TreeViewer    treeViewMisc;
-    private TreeViewer    treeViewMedic;
+    private TreeViewer      treeViewAbc;
+    private TreeViewer      treeViewMisc;
+    private TreeViewer      treeViewMedic;
 
     /** 数据 */
-    private List<TreeDTO> treeAbcNodes;
-    private List<TreeDTO> treeMiscNodes;
-    private List<TreeDTO> treeMedicNodes;
+    private List<TreeDTO>   treeAbcNodes;
+    private List<TreeDTO>   treeMiscNodes;
+    private List<TreeDTO>   treeMedicNodes;
 
     /**
      * Create the composite.
      */
-    public CmptEmergeTree(Composite parent) {
+    public EmgeTreeCmpt(Composite parent) {
         super(parent, SWT.NONE);
         super.setLayout(new BorderLayout(0, 0));
 
-        this.tabFolder = new TabFolder(this, SWT.NONE);
+        this.mainView = parent;
 
+        this.tabFolder = new TabFolder(this, SWT.NONE);
         this.tbtmAbc = new TabItem(this.tabFolder, SWT.NONE);
         this.tbtmAbc.setText("ABC");
 
@@ -136,12 +139,22 @@ public class CmptEmergeTree extends Composite implements Listener {
             return;
         }
 
-        if (!node.hasChildren()) {
-            TreeItem item = tuple.getTreeItem();
-            item.setText(node.increaseExtCount().findTreeText());
-            System.out.println("ABC数：" + this.treeAbc + "~子节点: " + item);
-            // TODO:
+        // 父节点
+        if (node.hasChildren()) {
+            if (this.treeViewAbc.getExpandedState(node)) {
+                this.treeViewAbc.collapseToLevel(node, 1);
+            } else {
+                this.treeViewAbc.expandToLevel(node, 1);
+            }
+
+            return;
         }
+
+        TreeItem item = tuple.getTreeItem();
+        item.setText(node.increaseExtCount().findTreeText());
+
+        // TODO:
+        // this.mainView.onCreateEventLog(SWTUtils.findEvtTime(), node.getText());
     }
 
     /**
@@ -154,12 +167,21 @@ public class CmptEmergeTree extends Composite implements Listener {
             return;
         }
 
-        if (!node.hasChildren()) {
-            TreeItem item = tuple.getTreeItem();
-            item.setText(node.increaseExtCount().findTreeText());
-            System.out.println("Misc数：" + this.treeMisc + "~子节点: " + item);
-            // TODO:
+        // 父节点
+        if (node.hasChildren()) {
+            if (this.treeViewMisc.getExpandedState(node)) {
+                this.treeViewMisc.collapseToLevel(node, 1);
+            } else {
+                this.treeViewMisc.expandToLevel(node, 1);
+            }
+
+            return;
         }
+
+        TreeItem item = tuple.getTreeItem();
+        item.setText(node.increaseExtCount().findTreeText());
+        // TODO:
+        //         this.mainView.onCreateEventLog(SWTUtils.findEvtTime(), node.getText());
     }
 
     /**
@@ -172,12 +194,21 @@ public class CmptEmergeTree extends Composite implements Listener {
             return;
         }
 
-        if (!node.hasChildren()) {
-            TreeItem item = tuple.getTreeItem();
-            item.setText(node.increaseExtCount().findTreeText());
-            System.out.println("Medic数：" + this.treeMedic + "~子节点: " + item);
-            // TODO:
+        // 父节点
+        if (node.hasChildren()) {
+            if (this.treeViewMedic.getExpandedState(node)) {
+                this.treeViewMedic.collapseToLevel(node, 1);
+            } else {
+                this.treeViewMedic.expandToLevel(node, 1);
+            }
+
+            return;
         }
+
+        TreeItem item = tuple.getTreeItem();
+        item.setText(node.increaseExtCount().findTreeText());
+        // TODO:
+        // this.mainView.onCreateEventLog(SWTUtils.findEvtTime(), node.getText());
     }
 
     /**

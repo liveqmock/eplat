@@ -1,0 +1,15 @@
+this.caseFrame = new OleFrame(this, SWT.NONE);
+            this.caseFrame.setLayoutData(gd_cmptCase);
+
+            this.caseControlSite = new OleControlSite(this.caseFrame, SWT.NONE, "ShockwaveFlash.ShockwaveFlash");
+            this.caseAutomation = new OleAutomation(this.caseControlSite);
+
+            this.caseControlSite.addEventListener(SWTUtils.DISPID_STATECHANGE, this);
+            this.caseControlSite.addEventListener(SWTUtils.DISPID_ONPROGRESS, this);
+            this.caseControlSite.addEventListener(SWTUtils.DISPID_FSCOMMAND, this);
+
+            this.caseControlSite.doVerb(OLE.OLEIVERB_SHOW);
+            String file = SWTUtils.findEmgeCaseFlash(this.caseName);
+            Variant[] args = { new Variant(0), new Variant(file) };
+            this.caseAutomation.invokeNoReply(SWTUtils.DISPID_LOADMOVIE, args);
+            

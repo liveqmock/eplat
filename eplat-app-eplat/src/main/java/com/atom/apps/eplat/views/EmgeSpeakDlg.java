@@ -20,7 +20,7 @@ import swing2swt.layout.BorderLayout;
 
 import com.atom.apps.eplat.SWTUtils;
 
-public class EmergeSpeakCfgDlg extends Dialog implements SelectionListener {
+public class EmgeSpeakDlg extends Dialog implements SelectionListener {
     /** 视图 */
     private Button   rbtnSpeakOpen;
     private Button   rbtnSpeakClose;
@@ -37,14 +37,14 @@ public class EmergeSpeakCfgDlg extends Dialog implements SelectionListener {
      * 入口-测试
      */
     public static void main(String[] args) {
-        EmergeSpeakCfgDlg dialog = new EmergeSpeakCfgDlg(new Shell());
+        EmgeSpeakDlg dialog = new EmgeSpeakDlg(new Shell());
         dialog.open();
     }
 
     /**
      * Create the dialog.
      */
-    public EmergeSpeakCfgDlg(Shell parent) {
+    public EmgeSpeakDlg(Shell parent) {
         super(parent, SWT.NONE);
     }
 
@@ -71,6 +71,7 @@ public class EmergeSpeakCfgDlg extends Dialog implements SelectionListener {
     private void initComponents() {
         this.shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
         this.shell.setSize(350, 252);
+        SWTUtils.center(this.getParent(), this.shell);
         this.shell.setImages(SWTUtils.findImgIcons());
         this.shell.setText("模拟人发音设置");
         this.shell.setLayout(new BorderLayout(0, 0));
@@ -159,6 +160,7 @@ public class EmergeSpeakCfgDlg extends Dialog implements SelectionListener {
         // 确定按钮
         else if (evtObj == this.btnSure) {
             // TODO:
+            this.shell.dispose();
         }
 
         // 取消按钮
