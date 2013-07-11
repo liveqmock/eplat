@@ -17,8 +17,9 @@ import com.atom.apps.eplat.SWTUtils;
 import com.atom.core.lang.utils.LogUtils;
 
 public class EmgeCaseCmpt extends Composite implements ControlListener, DisposeListener {
-
+    /** 主视图 */
     private final Composite mainView;
+
     private final String    caseName;
     private final Browser   browser;
     private BrowserFunction function;

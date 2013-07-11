@@ -26,6 +26,9 @@ public class EmgeBodyCmpt extends Composite implements PaintListener, SelectionL
     private static final String MENU_BUTTON = "__menu_button_data_";
     private static final String MNTM_DATA   = "__mntm_speak_data_";
 
+    /** 主窗体 */
+    private final Composite     mainView;
+
     /** 背景图片 */
     private Image               imgBack;
 
@@ -52,6 +55,8 @@ public class EmgeBodyCmpt extends Composite implements PaintListener, SelectionL
      */
     public EmgeBodyCmpt(Composite parent) {
         super(parent, SWT.NONE);
+
+        this.mainView = parent;
 
         this.imgBack = SWTUtils.findImage(super.getDisplay(), "emerge_body.bmp");
         this.setBackgroundImage(this.imgBack);
