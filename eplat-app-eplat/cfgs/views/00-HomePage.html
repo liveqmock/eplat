@@ -11,23 +11,61 @@
 <div class="bg01">
 <div class="bg">
 <div class="main-bg">
-	<div id="flash" style="position: absolute; left: 120px; top: 280px;">
-		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="820" height="250" id="myFlash">
-			<param name="allowScriptAccess" value="sameDomain" />
-			<param name="movie" value="swf/HomeMenu.swf" />
-			<param name="quality" value="high" />
-			<param name="wmode" value="transparent" />
-			<param name="BGCOLOR" value="#55A0FF" />
-			<embed src="swf/HomeMenu.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="760" height="200" id="myFlash"></embed>
+	<div id="flash" style="position:absolute;left:80px;top:220px;">
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="820" height="250">
+		  <param name="movie" value="swf/HomeMenu.swf" />
+		  <param name="quality" value="high" />
+		  <param name="wmode" value="transparent" />
+		  <param name="swfversion" value="9.0.45.0" />
+		  <!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
+		  <param name="expressinstall" value="swf/expressInstall.swf" />
+		  <!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
+		  <!--[if !IE]>-->
+		  <object type="application/x-shockwave-flash" data="swf/HomeMenu.swf" width="820" height="250">
+		    <!--<![endif]-->
+		    <param name="quality" value="high" />
+		    <param name="wmode" value="transparent" />
+		    <param name="swfversion" value="9.0.45.0" />
+		    <param name="expressinstall" value="swf/expressInstall.swf" />
+		    <!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
+		    <div>
+		      <h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
+		      <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获取 Adobe Flash Player" width="112" height="33" /></a></p>
+		    </div>
+		    <!--[if !IE]>-->
+		  </object>
+		  <!--<![endif]-->
 		</object>
 	</div>
+    
+    <div id="logo-footer" style="position:absolute;left:100px;top:500px;">
+   	  <img src="img/logo-footer.png" alt="" width="700" height="68" />
+    </div>
 
-	<div id="quittag" style="position: absolute; left: 840px; top: 520px;">
-		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="90" height="80" id="CloseFlash">
-			<param name="movie" value="swf/ExitSystem.swf" />
-			<param name="quality" value="high" />
-			<param name="wmode" value="transparent" />
-			<param name="allowScriptAccess" value="sameDomain" />
+	<div id="quittag" style="position:absolute;left:810px;top:490px;">
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="90" height="80">
+		  <param name="movie" value="swf/ExitSystem.swf" />
+		  <param name="quality" value="high" />
+		  <param name="wmode" value="transparent" />
+		  <param name="swfversion" value="9.0.45.0" />
+		  <!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
+		  <param name="expressinstall" value="swf/expressInstall.swf" />
+		  <!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
+		  <!--[if !IE]>-->
+		  <object type="application/x-shockwave-flash" data="swf/ExitSystem.swf" width="90" height="80">
+		    <!--<![endif]-->
+		    <param name="quality" value="high" />
+		    <param name="wmode" value="transparent" />
+		    <param name="swfversion" value="9.0.45.0" />
+		    <param name="expressinstall" value="swf/expressInstall.swf" />
+		    <!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
+		    <div>
+		      <h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
+		      <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获取 Adobe Flash Player" width="112" height="33" /></a></p>
+		    </div>
+		    <!--[if !IE]>-->
+		  </object>
+		  <!--<![endif]-->
 		</object>
 	</div>
 </div>

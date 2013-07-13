@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.sf.feeling.swt.win32.extension.ole.flash.Flash;
 
+import com.atom.apps.eplat.SWTUtils;
 import com.atom.core.lang.Tuple;
 
 public class EmgeMainView extends Composite {
@@ -30,6 +31,8 @@ public class EmgeMainView extends Composite {
         super(parent, SWT.NONE);
 
         this.caseName = caseName;
+        
+        SWTUtils.setEmgeMainView(this);
 
         initComponents();
     }

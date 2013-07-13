@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.atom.apps.eplat.views.EmgeMainView;
 import com.atom.apps.eplat.views.SystemInfoView;
 import com.atom.apps.eplat.views.ext.CourseSlideExt;
 import com.atom.apps.eplat.views.ext.HomePageExt;
@@ -89,6 +90,9 @@ public final class SWTUtils {
 
     /** 应用主窗口 */
     private static SWTMainView                  _MainView;
+
+    /** 急救训练主窗口 */
+    private static EmgeMainView                 _EmgeMainView;
 
     /** JS回调函数名 */
     public static final String                  FUNC_FIRE_EVENT    = "fireEvent";
@@ -192,6 +196,20 @@ public final class SWTUtils {
      */
     public static SWTMainView findMainView() {
         return _MainView;
+    }
+
+    /**
+     * 设置急救训练主窗口
+     */
+    public static void setEmgeMainView(EmgeMainView _view) {
+        _EmgeMainView = _view;
+    }
+
+    /**
+     * 获取急救训练主窗口
+     */
+    public static EmgeMainView findEmgeMainView() {
+        return _EmgeMainView;
     }
 
     /**
